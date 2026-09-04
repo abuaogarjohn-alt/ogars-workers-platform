@@ -3,25 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Find a Worker - OGARS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px 16px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .worker-card {
+      background: white;
+      margin-bottom: 18px;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .worker-card h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .worker-card p {
+      margin: 7px 0;
+      color: #555;
+    }
+
+    .rating {
+      font-weight: bold;
+    }
+
+    .available {
+      color: green;
+      font-weight: bold;
+    }
+
+    .button {
+      display: block;
+      text-align: center;
+      background: #0b5ed7;
+      color: white;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>Find a Worker</h1>
+  <header>
+    <h1>Find a Worker</h1>
+    <p>Find trusted skilled workers near you.</p>
+  </header>
 
-  <p>Find trusted skilled workers near you.</p>
+  <div class="container">
 
-  <h2>Popular Services</h2>
+    <div class="search-box">
+      <input type="text" placeholder="Search for a service, e.g. plumber">
+    </div>
 
-  <p>🔧 Plumbers</p>
-  <p>⚡ Electricians</p>
-  <p>🪚 Carpenters</p>
-  <p>🎨 Painters</p>
-  <p>🧱 Masons</p>
-  <p>🚿 Tilers</p>
-  <p>🔩 Welders</p>
-  <p>❄️ AC Technicians</p>
+    <div class="worker-card">
+      <h2>🔧 Kwame — Plumber</h2>
+      <p class="rating">⭐ 4.8 Rating</p>
+      <p>📍 Accra</p>
+      <p class="available">✅ Available for work</p>
+      <p>Experienced plumber for home and business plumbing work.</p>
+      <a href="#" class="button">View Profile</a>
+    </div>
+
+    <div class="worker-card">
+      <h2>⚡ Daniel — Electrician</h2>
+      <p class="rating">⭐ 4.7 Rating</p>
+      <p>📍 Accra</p>
+      <p class="available">✅ Available for work</p>
+      <p>Electrical installation, repairs and maintenance.</p>
+      <a href="#" class="button">View Profile</a>
+    </div>
+
+    <div class="worker-card">
+      <h2>🎨 Michael — Painter</h2>
+      <p class="rating">⭐ 4.9 Rating</p>
+      <p>📍 Accra</p>
+      <p class="available">✅ Available for work</p>
+      <p>Professional interior and exterior painting services.</p>
+      <a href="#" class="button">View Profile</a>
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
 
 </body>
 </html>
