@@ -366,7 +366,7 @@
   const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
   const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-  const supabase = window.supabase.createClient(
+  const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
@@ -387,7 +387,7 @@
       about_work: document.getElementById("about_work").value
     };
 
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from("workers")
       .insert([worker]);
 
