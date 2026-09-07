@@ -262,13 +262,40 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  const SUPABASE_URL = "PASTE-YOUR-API-URL-HERE";
-  const SUPABASE_KEY = "PASTE-YOUR-PUBLIC-API-KEY-HERE";
+  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co/rest/v1/";
+  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
   const supabase = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
+
+  async function submitWorker() {
+    const worker = {
+      full_name: document.getElementById("full_name").value,
+      phone: document.getElementById("phone").value,
+      location: document.getElementById("location").value,
+      main_skill: document.getElementById("main_skill").value,
+      skill_2: document.getElementById("skill_2").value,
+      skill_3: document.getElementById("skill_3").value,
+      skill_4: document.getElementById("skill_4").value,
+      skill_5: document.getElementById("skill_5").value,
+      years_experience: parseInt(document.getElementById("years_experience").value),
+      about_work: document.getElementById("about_work").value
+    };
+
+    const { error } = await supabase
+      .from("workers")
+      .insert([worker]);
+
+    if (error) {
+      alert("There was a problem saving your profile. Please try again.");
+      console.error(error);
+      return;
+    }
+
+    alert("Your worker profile has been created successfully!");
+  }
 </script>
 
 </body>
