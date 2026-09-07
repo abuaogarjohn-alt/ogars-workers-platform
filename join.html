@@ -110,16 +110,16 @@
     <div class="form-card">
 
       <label>Full Name</label>
-      <input type="text" placeholder="Enter your full name" required>
+      <input type="text" id="full_name" placeholder="Enter your full name" required>
 
       <label>Phone Number</label>
-      <input type="tel" placeholder="Enter your phone number" required>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required>
 
       <label>Location</label>
-      <input type="text" placeholder="e.g. Accra, Madina, Kasoa" required>
+      <input type="text" id="location" placeholder="e.g. Accra, Madina, Kasoa" required>
 
       <label>Main Skill</label>
-      <select required>
+      <select id="main_skill" required>
         <option>Select your main skill</option>
         <option>Plumbing</option>
         <option>Electrical</option>
@@ -164,7 +164,7 @@
       </select>
 
       <label>Other Skills</label>
-      <select>
+      <select id="skill_2">
   <option>Select another skill</option>
   <option>Plumbing</option>
   <option>Electrical</option>
@@ -349,8 +349,7 @@
         ratings, completed jobs, availability and customer reviews.
       </div>
 
-      <button class="button" type="button" onclick="alert('Your worker profile form has been submitted successfully!')">Create Worker Profile</button>
-
+      <button class="button" type="button" onclick="submitWorker()">Create Worker Profile</button>
     </div>
 
   </div>
