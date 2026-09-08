@@ -163,10 +163,11 @@
 <script>
   async function loadWorkers() {
     const { data, error } = await supabaseClient
-      .from("workers")
-      .select("*")
-      .order("created_at", { ascending: false });
+  .from("workers")
+  .select("*")
+  .order("created_at", { ascending: false });
 
+alert("Workers found: " + (data ? data.length : 0));
     if (error) {
   alert("Supabase error: " + error.message);
   console.error(error);
