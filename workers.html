@@ -182,11 +182,12 @@
       card.className = "worker-card";
 
       card.innerHTML = `
-        <h2>🔧 ${worker.full_name} — ${worker.main_skill}</h2>
-        <p>📍 ${worker.location}</p>
-        <p>💼 ${worker.years_experience} years experience</p>
-        <p>${worker.about_work || ""}</p>
-      `;
+  <h2>🔧 ${worker.full_name} — ${worker.main_skill}</h2>
+  <p>📍 ${worker.location}</p>
+  <p>💼 ${worker.years_experience} years experience</p>
+  <p class="available">✅ Available for work</p>
+  <p>${worker.about_work || ""}</p>
+`;
 
       workerList.appendChild(card);
     });
