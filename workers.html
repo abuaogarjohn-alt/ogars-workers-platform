@@ -168,9 +168,10 @@
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error(error);
-      return;
-    }
+  alert("Supabase error: " + error.message);
+  console.error(error);
+  return;
+}
 
     const workerList = document.getElementById("worker-list");
 
