@@ -167,7 +167,7 @@
   .select("*")
   .order("created_at", { ascending: false });
 
-alert("Workers found: " + (data ? data.length : 0));
+
     if (error) {
   alert("Supabase error: " + error.message);
   console.error(error);
@@ -176,7 +176,7 @@ alert("Workers found: " + (data ? data.length : 0));
 
     const workerList = document.getElementById("worker-list");
 
-    // workerList.innerHTML = "";
+    
     data.forEach(worker => {
       const card = document.createElement("div");
       card.className = "worker-card";
