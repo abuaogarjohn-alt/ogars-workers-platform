@@ -160,5 +160,38 @@
     SUPABASE_KEY
   );
 </script>
+<script>
+  async function loadWorkers() {
+    const { data, error } = await supabaseClient
+      .from("workers")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    const workerList = document.getElementById("worker-list");
+
+    workerList.innerHTML = "";
+
+    data.forEach(worker => {
+      const card = document.createElement("div");
+      card.className = "worker-card";
+
+      card.innerHTML = `
+        <h2>🔧 ${worker.full_name} — ${worker.main_skill}</h2>
+        <p>📍 ${worker.location}</p>
+        <p>💼 ${worker.years_experience} years experience</p>
+        <p>${worker.about_work || ""}</p>
+      `;
+
+      workerList.appendChild(card);
+    });
+  }
+
+  loadWorkers();
+</script>
 </body>
 </html>
