@@ -172,6 +172,33 @@
   <footer>
     © 2026 OGARS Workers Platform
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+async function loadWorkerProfile() {
+  const params = new URLSearchParams(window.location.search);
+  const workerId = params.get("id");
+
+  if (!workerId) return;
+
+  const { data: worker, error } = await supabaseClient
+    .from("workers")
+    .select("*")
+    .eq("id", workerId)
+    .single();
+
+  if (error || !worker) {
+    console.error(error);
+    return;
+  }
+
+  document.querySelector("h1").textContent = worker.full_name;
+}
+
+loadWorkerProfile();
+</script>
 </body>
 </html>
