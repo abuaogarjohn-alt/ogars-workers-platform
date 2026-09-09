@@ -187,7 +187,7 @@
   <p>💼 ${worker.years_experience} years experience</p>
   <p class="available">✅ Available for work</p>
   <p>${worker.about_work || ""}</p>
-<a href="worker-profile.html" class="button">View Profile</a>
+<a href="worker-profile.html?id=${worker.id}" class="button">View Profile</a>
 `;
 
       workerList.appendChild(card);
