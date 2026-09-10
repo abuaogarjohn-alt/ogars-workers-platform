@@ -197,9 +197,8 @@
   loadWorkers();
 
 document.getElementById("worker-search").addEventListener("input", function() {
-  const search = this.value.toLowerCase();
-  const cards = document.querySelectorAll(".worker-card");
-
+  const search = this.value.toLowerCase().trim();
+const cards = document.querySelectorAll(".worker-card");
   cards.forEach(card => {
     card.style.display = card.textContent.toLowerCase().includes(search)
       ? "block"
