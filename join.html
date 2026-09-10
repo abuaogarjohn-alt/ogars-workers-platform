@@ -375,17 +375,18 @@
   
 
   const worker = {
-      full_name: document.getElementById("full_name").value,
-      phone: document.getElementById("phone").value,
-      location: document.getElementById("location").value,
-      main_skill: document.getElementById("main_skill").value,
-      skill_2: document.getElementById("skill_2").value,
-      skill_3: document.getElementById("skill_3").value,
-      skill_4: document.getElementById("skill_4").value,
-      skill_5: document.getElementById("skill_5").value,
-      years_experience: parseInt(document.getElementById("years_experience").value),
-      about_work: document.getElementById("about_work").value
-    };
+  full_name: document.getElementById("full_name").value,
+  phone: document.getElementById("phone").value,
+  location: document.getElementById("location").value,
+  main_skill: document.getElementById("main_skill").value,
+  skill_2: document.getElementById("skill_2").value,
+  skill_3: document.getElementById("skill_3").value,
+  skill_4: document.getElementById("skill_4").value,
+  skill_5: document.getElementById("skill_5").value,
+  years_experience: parseInt(document.getElementById("years_experience").value),
+  about_work: document.getElementById("about_work").value,
+  available: true
+};
 
     const { error } = await supabaseClient
       .from("workers")
