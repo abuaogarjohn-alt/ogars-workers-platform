@@ -200,6 +200,7 @@ if (worker.available) {
   availability.textContent = "🔴 Not currently available";
 }
 
+document.getElementById("contact-worker").href = "tel:" + worker.phone;
 const skills = [
   worker.main_skill,
   worker.skill_2,
