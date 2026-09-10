@@ -184,14 +184,26 @@ async function loadWorkerProfile() {
     .single();
 
   if (error || !worker) {
-    console.error(error);
-    return;
-  }
+  console.error(error);
+  return;
+}
 
 document.querySelector("h1").textContent = worker.full_name;
 document.getElementById("worker-location").textContent = "📍 Location: " + worker.location;
 document.getElementById("worker-experience").textContent = "🛠️ Experience: " + worker.years_experience + " years";
+
+const skills = [
+  worker.main_skill,
+  worker.skill_2,
+  worker.skill_3,
+  worker.skill_4,
+  worker.skill_5
+].filter(skill => skill);
+
+document.getElementById("worker-skills").innerHTML =
+  skills.map(skill => `<div class="skill">🔧 ${skill}</div>`).join("");
 }
+
 window.addEventListener("DOMContentLoaded", loadWorkerProfile);
 </script>
 </body>
