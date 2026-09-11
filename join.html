@@ -379,7 +379,47 @@
   );
 
   async function submitWorker() {
-  
+  const region = document.getElementById("region");
+const area = document.getElementById("area");
+
+region.addEventListener("change", function() {
+  area.innerHTML = '<option value="">Select Area / Community</option>';
+
+  if (region.value === "Greater Accra Region") {
+    const areas = [
+      "Accra",
+      "Achimota",
+      "Adenta",
+      "Airport",
+      "Ashaiman",
+      "Dansoman",
+      "East Legon",
+      "Haatso",
+      "Kaneshie",
+      "Kasoa",
+      "Kokomlemle",
+      "Labadi",
+      "Labone",
+      "Lapaz",
+      "Madina",
+      "Nungua",
+      "Osu",
+      "Spintex",
+      "Teshie",
+      "Tesano",
+      "Tema",
+      "Weija",
+      "West Hills"
+    ];
+
+    areas.forEach(function(name) {
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      area.appendChild(option);
+    });
+  }
+});
 
   const worker = {
   full_name: document.getElementById("full_name").value,
