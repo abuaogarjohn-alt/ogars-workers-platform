@@ -139,7 +139,7 @@
   async function loadWorkers() {
     const { data, error } = await supabaseClient
   .from("workers")
-  .select("*")
+  .select("id, full_name, location, main_skill, years_experience, about_work")
   .order("created_at", { ascending: false });
 
 
