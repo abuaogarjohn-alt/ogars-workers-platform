@@ -495,6 +495,11 @@ if (!fullName || !phone || !area || !mainSkill || !yearsExperience) {
   return;
 }
 
+if (!/^0\d{9}$/.test(phone)) {
+  alert("Please enter a valid 10-digit Ghana phone number, e.g. 0241234567.");
+  return;
+}
+
 const worker = {
   full_name: document.getElementById("full_name").value,
   phone: document.getElementById("phone").value,
