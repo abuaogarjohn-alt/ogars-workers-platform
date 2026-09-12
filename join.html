@@ -378,7 +378,6 @@
     SUPABASE_KEY
   );
 
-  async function submitWorker() {
   const region = document.getElementById("region");
 const area = document.getElementById("area");
 
@@ -420,6 +419,8 @@ region.addEventListener("change", function() {
     });
   }
 });
+
+async function submitWorker() {
 
   const worker = {
   full_name: document.getElementById("full_name").value,
