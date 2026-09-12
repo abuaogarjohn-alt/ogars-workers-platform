@@ -500,6 +500,19 @@ if (!/^0\d{9}$/.test(phone)) {
   return;
 }
 
+const selectedSkills = [
+  mainSkill,
+  document.getElementById("skill_2").value,
+  document.getElementById("skill_3").value,
+  document.getElementById("skill_4").value,
+  document.getElementById("skill_5").value
+].filter(skill => skill);
+
+if (new Set(selectedSkills).size !== selectedSkills.length) {
+  alert("Please choose different skills. You cannot select the same skill more than once.");
+  return;
+}
+
 const worker = {
   full_name: fullName,
 phone: phone,
