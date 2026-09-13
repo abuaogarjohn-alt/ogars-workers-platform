@@ -530,7 +530,7 @@ const worker = {
   skill_5: document.getElementById("skill_5").value,
   years_experience: parseInt(document.getElementById("years_experience").value),
   about_work: document.getElementById("about_work").value,
-  available: true
+  available: document.getElementById("available").value === "true"
 };
 
     const { error } = await supabaseClient
