@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OGARS - Apply for Job</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #0b5ed7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      background: #0b5ed7;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>OGARS</h1>
+    <p>Apply for a Job</p>
+  </header>
+
+  <main>
+    <h2>📝 Job Application</h2>
+
+    <p>Please provide your details so the job poster can contact you.</p>
+
+    <label for="worker-name">Your Name</label>
+    <input type="text" id="worker-name" placeholder="Enter your full name">
+
+    <label for="worker-phone">Phone Number</label>
+    <input type="tel" id="worker-phone" placeholder="e.g. 0241234567">
+
+    <label for="message">Message</label>
+    <textarea id="message" placeholder="Tell the job poster about your experience and why you are suitable for this job."></textarea>
+
+    <button class="button" type="button">Submit Application</button>
+  </main>
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
+
+</body>
+</html>
