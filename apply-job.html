@@ -95,12 +95,58 @@
     <label for="message">Message</label>
     <textarea id="message" placeholder="Tell the job poster about your experience and why you are suitable for this job."></textarea>
 
-    <button class="button" type="button">Submit Application</button>
+<button class="button" type="button" onclick="submitApplication()">
+  Submit Application
+</button>
   </main>
 
   <footer>
     © 2026 OGARS Workers Platform
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+    const SUPABASE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+    const supabaseClient = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    async function submitApplication() {
+
+      const workerName = document.getElementById("worker-name").value.trim();
+      const workerPhone = document.getElementById("worker-phone").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!workerName || !workerPhone) {
+        alert("Please enter your name and phone number.");
+        return;
+      }
+
+      const application = {
+        job_title: "Plumber Needed",
+        worker_name: workerName,
+        worker_phone: workerPhone,
+        message: message
+      };
+
+      const { error } = await supabaseClient
+        .from("job_applications")
+        .insert([application]);
+
+      if (error) {
+        alert("There was a problem submitting your application.");
+        console.error(error);
+        return;
+      }
+
+      alert("Application submitted successfully!");
+    }
+  </script>
 
 </body>
 </html>
