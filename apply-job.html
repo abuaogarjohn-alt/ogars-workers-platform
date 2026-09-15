@@ -139,10 +139,10 @@
         .insert([application]);
 
       if (error) {
-        alert("There was a problem submitting your application.");
-        console.error(error);
-        return;
-      }
+  alert("Error: " + error.message);
+  console.error(error);
+  return;
+}
 
       alert("Application submitted successfully!");
     }
