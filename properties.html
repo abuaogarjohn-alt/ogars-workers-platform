@@ -336,6 +336,57 @@
 
   loadProperties();
 
+document.getElementById("property-search")
+  .addEventListener("input", filterProperties);
+
+document.getElementById("property-type-filter")
+  .addEventListener("change", filterProperties);
+
+document.getElementById("listing-type-filter")
+  .addEventListener("change", filterProperties);
+
+function filterProperties() {
+
+  const search = document
+    .getElementById("property-search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const propertyType = document
+    .getElementById("property-type-filter")
+    .value
+    .toLowerCase();
+
+  const listingType = document
+    .getElementById("listing-type-filter")
+    .value
+    .toLowerCase();
+
+  const cards = document.querySelectorAll(".property-card");
+
+  cards.forEach(card => {
+
+    const text = card.textContent.toLowerCase();
+
+    const matchesSearch =
+      !search || text.includes(search);
+
+    const matchesPropertyType =
+      !propertyType || text.includes(propertyType);
+
+    const matchesListingType =
+      !listingType || text.includes(listingType);
+
+    card.style.display =
+      matchesSearch &&
+      matchesPropertyType &&
+      matchesListingType
+        ? "block"
+        : "none";
+  });
+}
+
 </script>
 
 </body>
