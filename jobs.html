@@ -145,7 +145,7 @@
         <p>🏢 ${job.project || "Project not specified"}</p>
         <p>💼 ${job.job_type}</p>
         <p>${job.description || ""}</p>
-        <a href="apply-job.html?job=custom" class="button">Apply for this Job</a>
+        <a href="apply-job.html?job=${encodeURIComponent(job.job_title)}" class="button">Apply for this Job</a>
       `;
 
       container.appendChild(card);
