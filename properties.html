@@ -180,12 +180,43 @@
     </button>
   </div>
 
-  <div class="section">
-    <h2>🔎 Available Properties</h2>
-    <div id="property-list">
-      Loading properties...
-    </div>
+<div class="section">
+  <h2>🔎 Find a Property</h2>
+
+  <input
+    type="text"
+    id="property-search"
+    placeholder="Search by location or property name"
+  >
+
+  <select id="property-type-filter">
+    <option value="">All Property Types</option>
+    <option value="House">House</option>
+    <option value="Apartment">Apartment / Flat</option>
+    <option value="Room">Room</option>
+    <option value="Student Housing">Student Housing</option>
+    <option value="Hotel">Hotel</option>
+    <option value="Short Stay">Short Stay</option>
+    <option value="Shop">Shop</option>
+    <option value="Office">Office</option>
+    <option value="Warehouse">Warehouse</option>
+    <option value="Commercial Space">Commercial Space</option>
+    <option value="Land">Land</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <select id="listing-type-filter">
+    <option value="">All Listing Types</option>
+    <option value="Rent">For Rent</option>
+    <option value="Short Stay">Short Stay</option>
+    <option value="Hotel">Hotel</option>
+    <option value="Sale">For Sale</option>
+  </select>
+
+  <div id="property-list">
+    Loading properties...
   </div>
+</div>
 
 </main>
 
