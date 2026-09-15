@@ -167,7 +167,14 @@
     <textarea id="description" placeholder="Describe the property."></textarea>
 
     <label for="facilities">Facilities / Features</label>
-    <textarea id="facilities" placeholder="e.g. Parking, water, security, kitchen, Wi-Fi"></textarea>
+<textarea id="facilities" placeholder="e.g. Parking, water, security, kitchen, Wi-Fi"></textarea>
+
+<label for="photo-url">Property Photo URL</label>
+<input
+  type="url"
+  id="photo-url"
+  placeholder="Paste a photo link"
+>
 
     <label for="contact-name">Contact Name</label>
     <input type="text" id="contact-name" placeholder="Your name">
@@ -249,7 +256,8 @@
     const bathrooms = document.getElementById("bathrooms").value;
     const description = document.getElementById("description").value.trim();
     const facilities = document.getElementById("facilities").value.trim();
-    const contactName = document.getElementById("contact-name").value.trim();
+const photoUrl = document.getElementById("photo-url").value.trim();
+const contactName = document.getElementById("contact-name").value.trim();
     const contactPhone = document.getElementById("contact-phone").value.trim();
 
     if (!listingType || !propertyType || !title || !location || !contactName || !contactPhone) {
@@ -268,7 +276,8 @@
       bathrooms: bathrooms ? Number(bathrooms) : null,
       description: description,
       facilities: facilities,
-      contact_name: contactName,
+photo_url: photoUrl,
+contact_name: contactName,
       contact_phone: contactPhone
     };
 
