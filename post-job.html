@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OGARS - Post a Job</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #0b5ed7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .button {
+      width: 100%;
+      margin-top: 20px;
+      background: #0b5ed7;
+      color: white;
+      padding: 13px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>OGARS</h1>
+  <p>Post a Job</p>
+</header>
+
+<main>
+
+  <h2>📢 Create a Job</h2>
+  <p>Tell skilled workers what you need.</p>
+
+  <label for="job-title">Job Title</label>
+  <input type="text" id="job-title" placeholder="e.g. Plumber Needed">
+
+  <label for="location">Location / Community</label>
+  <input type="text" id="location" placeholder="e.g. East Legon">
+
+  <label for="project">Project</label>
+  <input type="text" id="project" placeholder="e.g. Home renovation">
+
+  <label for="job-type">Job Type</label>
+  <select id="job-type">
+    <option value="">Select job type</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Electrical">Electrical</option>
+    <option value="Carpentry">Carpentry</option>
+    <option value="Painting">Painting</option>
+    <option value="Masonry">Masonry</option>
+    <option value="Tiling">Tiling</option>
+    <option value="Welding">Welding</option>
+    <option value="AC Repair">AC Repair</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label for="description">Job Description</label>
+  <textarea id="description" placeholder="Describe the work that needs to be done."></textarea>
+
+  <label for="requirements">What We Need</label>
+  <textarea id="requirements" placeholder="Describe the experience or skills required."></textarea>
+
+  <button class="button" type="button" onclick="postJob()">
+    Post Job
+  </button>
+
+</main>
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function postJob() {
+
+    const jobTitle = document.getElementById("job-title").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const project = document.getElementById("project").value.trim();
+    const jobType = document.getElementById("job-type").value;
+    const description = document.getElementById("description").value.trim();
+    const requirements = document.getElementById("requirements").value.trim();
+
+    if (!jobTitle || !location || !jobType) {
+      alert("Please enter the job title, location and job type.");
+      return;
+    }
+
+    const job = {
+      job_title: jobTitle,
+      location: location,
+      project: project,
+      job_type: jobType,
+      description: description,
+      requirements: requirements
+    };
+
+    const { error } = await supabaseClient
+      .from("jobs")
+      .insert([job]);
+
+    if (error) {
+      alert("Error: " + error.message);
+      console.error(error);
+      return;
+    }
+
+    alert("Job posted successfully!");
+
+    document.getElementById("job-title").value = "";
+    document.getElementById("location").value = "";
+    document.getElementById("project").value = "";
+    document.getElementById("job-type").value = "";
+    document.getElementById("description").value = "";
+    document.getElementById("requirements").value = "";
+  }
+
+</script>
+
+</body>
+</html>
