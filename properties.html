@@ -333,19 +333,27 @@ contact_name: contactName,
       card.className = "property-card";
 
       card.innerHTML = `
-        <h3>🏠 ${property.title}</h3>
-        <p>📍 <strong>Location:</strong> ${property.location}</p>
-        <p>🏷️ <strong>Type:</strong> ${property.property_type}</p>
-        <p>📌 <strong>Listing:</strong> ${property.listing_type}</p>
-        <p>💰 <strong>Price:</strong> ${property.price ? property.price : "Contact owner"} ${property.price_period || ""}</p>
-        <p>🛏️ <strong>Bedrooms:</strong> ${property.bedrooms ?? "N/A"}</p>
-        <p>🚿 <strong>Bathrooms:</strong> ${property.bathrooms ?? "N/A"}</p>
-        <p>${property.description || ""}</p>
-        <p><strong>✨ Facilities:</strong> ${property.facilities || "Not specified"}</p>
-        <a class="contact" href="tel:${property.contact_phone}">
-          📞 Contact
-        </a>
-      `;
+  ${property.photo_url ? `
+    <img
+      src="${property.photo_url}"
+      alt="${property.title}"
+    >
+  ` : ""}
+
+  <h3>🏠 ${property.title}</h3>
+  <p>📍 <strong>Location:</strong> ${property.location}</p>
+  <p>🏷️ <strong>Type:</strong> ${property.property_type}</p>
+  <p>📌 <strong>Listing:</strong> ${property.listing_type}</p>
+  <p>💰 <strong>Price:</strong> ${property.price ? property.price : "Contact owner"} ${property.price_period || ""}</p>
+  <p>🛏️ <strong>Bedrooms:</strong> ${property.bedrooms ?? "N/A"}</p>
+  <p>🚿 <strong>Bathrooms:</strong> ${property.bathrooms ?? "N/A"}</p>
+  <p>${property.description || ""}</p>
+  <p><strong>✨ Facilities:</strong> ${property.facilities || "Not specified"}</p>
+
+  <a class="contact" href="tel:${property.contact_phone}">
+    📞 Contact
+  </a>
+`;
 
       list.appendChild(card);
     });
