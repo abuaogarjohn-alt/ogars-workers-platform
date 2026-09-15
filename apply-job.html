@@ -127,12 +127,23 @@
         return;
       }
 
-      const application = {
-        job_title: "Plumber Needed",
-        worker_name: workerName,
-        worker_phone: workerPhone,
-        message: message
-      };
+      const params = new URLSearchParams(window.location.search);
+const job = params.get("job");
+
+let jobTitle = "Plumber Needed";
+
+if (job === "electrician") {
+  jobTitle = "Electrician Needed";
+} else if (job === "painter") {
+  jobTitle = "Painter Needed";
+}
+
+const application = {
+  job_title: jobTitle,
+  worker_name: workerName,
+  worker_phone: workerPhone,
+  message: message
+};
 
       const { error } = await supabaseClient
         .from("job_applications")
