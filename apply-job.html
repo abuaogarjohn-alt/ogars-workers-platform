@@ -130,12 +130,14 @@
       const params = new URLSearchParams(window.location.search);
 const job = params.get("job");
 
-let jobTitle = "Plumber Needed";
+let jobTitle = job || "Job Application";
 
 if (job === "electrician") {
   jobTitle = "Electrician Needed";
 } else if (job === "painter") {
   jobTitle = "Painter Needed";
+} else if (job === "plumber") {
+  jobTitle = "Plumber Needed";
 }
 
 const application = {
