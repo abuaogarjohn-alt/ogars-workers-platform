@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OGARS - Job Applications</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b5ed7;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .application {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .application h3 {
+      color: #0b5ed7;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 10px;
+      background: #0b5ed7;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    #message {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>OGARS</h1>
+  <p>Job Applications</p>
+</header>
+
+<main>
+
+  <h2>📋 Applications Received</h2>
+
+  <div id="applications-list">
+    <div id="message">Loading applications...</div>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+  const SUPABASE_KEY = "YOUR_PUBLISHABLE_KEY_HERE";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function loadApplications() {
+
+    const { data, error } = await supabaseClient
+      .from("job_applications")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    const list = document.getElementById("applications-list");
+
+    if (error) {
+      list.innerHTML = "<div id='message'>Unable to load applications.</div>";
+      console.error(error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      list.innerHTML = "<div id='message'>No applications yet.</div>";
+      return;
+    }
+
+    list.innerHTML = "";
+
+    data.forEach(application => {
+
+      const card = document.createElement("div");
+      card.className = "application";
+
+      card.innerHTML = `
+        <h3>💼 ${application.job_title}</h3>
+        <p><strong>👤 Applicant:</strong> ${application.worker_name}</p>
+        <p><strong>📞 Phone:</strong> ${application.worker_phone}</p>
+        <p><strong>📝 Message:</strong> ${application.message || "No message provided"}</p>
+      `;
+
+      list.appendChild(card);
+    });
+  }
+
+  loadApplications();
+
+</script>
+
+</body>
+</html>
