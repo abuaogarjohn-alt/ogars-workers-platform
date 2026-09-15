@@ -3,17 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Find Work - OGARS</title>
+  <title>OGARS - Find Work</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
+      margin: 0;
       background: #f5f7fa;
       color: #222;
     }
@@ -21,121 +16,144 @@
     header {
       background: #0b5ed7;
       color: white;
-      padding: 25px 20px;
+      padding: 20px;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
-
-    header p {
-      margin: 8px 0 0;
-    }
-
-    .container {
+    main {
       max-width: 700px;
-      margin: auto;
-      padding: 20px 16px;
-    }
-
-    .search-box {
-      background: white;
-      padding: 18px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 16px;
+      margin: 30px auto;
+      padding: 20px;
     }
 
     .job-card {
       background: white;
+      padding: 20px;
       margin-bottom: 18px;
-      padding: 18px;
-      border-radius: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
     }
 
     .job-card h2 {
-      margin: 0 0 10px;
-      font-size: 21px;
-    }
-
-    .job-card p {
-      margin: 7px 0;
-      color: #555;
+      color: #0b5ed7;
+      margin-top: 0;
     }
 
     .button {
-      display: block;
-      text-align: center;
+      display: inline-block;
       background: #0b5ed7;
       color: white;
-      padding: 12px;
-      margin-top: 15px;
+      padding: 12px 18px;
       border-radius: 8px;
       text-decoration: none;
+      margin-top: 10px;
+    }
+
+    #new-jobs {
+      margin-top: 30px;
     }
 
     footer {
       text-align: center;
       padding: 25px;
       color: #777;
-      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Find Work</h1>
-    <p>Find real work opportunities near you.</p>
-  </header>
+<header>
+  <h1>OGARS</h1>
+  <p>Find Work</p>
+</header>
 
-  <div class="container">
+<main>
 
-    <div class="search-box">
-      <input type="text" placeholder="Search for a job, e.g. electrician">
-    </div>
+  <h2>💼 Available Jobs</h2>
 
-    <div class="job-card">
-      <h2>🔧 Plumber Needed</h2>
-      <p>📍 Accra</p>
-      <p>🏢 Home renovation project</p>
-      <p>Looking for an experienced plumber for a residential project.</p>
-      <a href="job-details.html" class="button">View Job</a>
-    </div>
-
-    <div class="job-card">
-      <h2>⚡ Electrician Needed</h2>
-      <p>📍 Accra</p>
-      <p>🏢 Building project</p>
-      <p>Experienced electrician needed for electrical installation work.</p>
-      <a href="electrician-job.html" class="button">View Job</a>
-    </div>
-
-    <div class="job-card">
-      <h2>🎨 Painter Needed</h2>
-      <p>📍 Accra</p>
-      <p>🏠 Residential project</p>
-      <p>Painter needed for interior and exterior painting.</p>
-      <a href="painter-job.html" class="button">View Job</a>
-    </div>
-
+  <div class="job-card">
+    <h2>🔧 Plumber Needed</h2>
+    <p>📍 Accra</p>
+    <p>🏢 Home renovation</p>
+    <p>💼 Plumbing</p>
+    <a href="job-details.html" class="button">View Job</a>
   </div>
 
-  <footer>
-    © 2026 OGARS Workers Platform
-  </footer>
+  <div class="job-card">
+    <h2>⚡ Electrician Needed</h2>
+    <p>📍 Accra</p>
+    <p>🏢 Building project</p>
+    <p>💼 Electrical</p>
+    <a href="electrician-job.html" class="button">View Job</a>
+  </div>
+
+  <div class="job-card">
+    <h2>🎨 Painter Needed</h2>
+    <p>📍 Accra</p>
+    <p>🏢 Residential project</p>
+    <p>💼 Painting</p>
+    <a href="painter-job.html" class="button">View Job</a>
+  </div>
+
+  <div id="new-jobs"></div>
+
+</main>
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function loadJobs() {
+
+    const { data, error } = await supabaseClient
+      .from("jobs")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    const container = document.getElementById("new-jobs");
+
+    if (!data || data.length === 0) {
+      return;
+    }
+
+    data.forEach(job => {
+
+      const card = document.createElement("div");
+      card.className = "job-card";
+
+      card.innerHTML = `
+        <h2>💼 ${job.job_title}</h2>
+        <p>📍 ${job.location}</p>
+        <p>🏢 ${job.project || "Project not specified"}</p>
+        <p>💼 ${job.job_type}</p>
+        <p>${job.description || ""}</p>
+        <a href="apply-job.html?job=custom" class="button">Apply for this Job</a>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  loadJobs();
+</script>
 
 </body>
 </html>
