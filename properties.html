@@ -177,12 +177,14 @@
     <label for="facilities">Facilities / Features</label>
 <textarea id="facilities" placeholder="e.g. Parking, water, security, kitchen, Wi-Fi"></textarea>
 
-<label for="photo-url">Property Photo URL</label>
+<label for="property-photo">Property Photos</label>
 <input
-  type="url"
-  id="photo-url"
-  placeholder="Paste a photo link"
+  type="file"
+  id="property-photo"
+  accept="image/*"
+  multiple
 >
+<small>Select one or more photos from your phone.</small>
 
     <label for="contact-name">Contact Name</label>
     <input type="text" id="contact-name" placeholder="Your name">
