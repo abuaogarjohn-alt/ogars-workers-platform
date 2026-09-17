@@ -275,14 +275,13 @@
     return;
   }
 
-  let photoUrl = null;
+  let photoUrls = [];
 
-  if (photoFiles.length > 0) {
-
-    const file = photoFiles[0];
+  for (const file of photoFiles) {
 
     const fileName =
       Date.now() + "-" +
+      Math.random().toString(36).substring(2, 8) + "-" +
       file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
 
     const { error: uploadError } = await supabaseClient
@@ -301,7 +300,7 @@
       .from("property-photos")
       .getPublicUrl(fileName);
 
-    photoUrl = urlData.publicUrl;
+    photoUrls.push(urlData.publicUrl);
   }
 
   const property = {
@@ -315,7 +314,7 @@
     bathrooms: bathrooms ? Number(bathrooms) : null,
     description: description,
     facilities: facilities,
-    photo_url: photoUrl,
+    photo_url: photoUrls.length > 0 ? photoUrls.join(",") : null,
     contact_name: contactName,
     contact_phone: contactPhone
   };
