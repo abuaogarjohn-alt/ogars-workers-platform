@@ -256,56 +256,86 @@
 
   async function postProperty() {
 
-    const listingType = document.getElementById("listing-type").value;
-    const propertyType = document.getElementById("property-type").value;
-    const title = document.getElementById("title").value.trim();
-    const location = document.getElementById("location").value.trim();
-    const price = document.getElementById("price").value;
-    const pricePeriod = document.getElementById("price-period").value;
-    const bedrooms = document.getElementById("bedrooms").value;
-    const bathrooms = document.getElementById("bathrooms").value;
-    const description = document.getElementById("description").value.trim();
-    const facilities = document.getElementById("facilities").value.trim();
-const photoUrl = document.getElementById("photo-url").value.trim();
-const contactName = document.getElementById("contact-name").value.trim();
-    const contactPhone = document.getElementById("contact-phone").value.trim();
+  const listingType = document.getElementById("listing-type").value;
+  const propertyType = document.getElementById("property-type").value;
+  const title = document.getElementById("title").value.trim();
+  const location = document.getElementById("location").value.trim();
+  const price = document.getElementById("price").value;
+  const pricePeriod = document.getElementById("price-period").value;
+  const bedrooms = document.getElementById("bedrooms").value;
+  const bathrooms = document.getElementById("bathrooms").value;
+  const description = document.getElementById("description").value.trim();
+  const facilities = document.getElementById("facilities").value.trim();
+  const contactName = document.getElementById("contact-name").value.trim();
+  const contactPhone = document.getElementById("contact-phone").value.trim();
+  const photoFiles = document.getElementById("property-photo").files;
 
-    if (!listingType || !propertyType || !title || !location || !contactName || !contactPhone) {
-      alert("Please complete the listing type, property type, title, location and contact details.");
-      return;
-    }
-
-    const property = {
-      listing_type: listingType,
-      property_type: propertyType,
-      title: title,
-      location: location,
-      price: price ? Number(price) : null,
-      price_period: pricePeriod,
-      bedrooms: bedrooms ? Number(bedrooms) : null,
-      bathrooms: bathrooms ? Number(bathrooms) : null,
-      description: description,
-      facilities: facilities,
-photo_url: photoUrl,
-contact_name: contactName,
-      contact_phone: contactPhone
-    };
-
-    const { error } = await supabaseClient
-      .from("properties")
-      .insert([property]);
-
-    if (error) {
-      alert("Error: " + error.message);
-      console.error(error);
-      return;
-    }
-
-    alert("Property posted successfully!");
-
-    loadProperties();
+  if (!listingType || !propertyType || !title || !location || !contactName || !contactPhone) {
+    alert("Please complete the listing type, property type, title, location and contact details.");
+    return;
   }
 
+  let photoUrl = null;
+
+  if (photoFiles.length > 0) {
+
+    const file = photoFiles[0];
+
+    const fileName =
+      Date.now() + "-" +
+      file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from("property-photos")
+      .upload(fileName, file);
+
+    if (uploadError) {
+      alert("Photo upload error: " + uploadError.message);
+      console.error(uploadError);
+      return;
+    }
+
+    const { data: urlData } = supabaseClient
+      .storage
+      .from("property-photos")
+      .getPublicUrl(fileName);
+
+    photoUrl = urlData.publicUrl;
+  }
+
+  const property = {
+    listing_type: listingType,
+    property_type: propertyType,
+    title: title,
+    location: location,
+    price: price ? Number(price) : null,
+    price_period: pricePeriod,
+    bedrooms: bedrooms ? Number(bedrooms) : null,
+    bathrooms: bathrooms ? Number(bathrooms) : null,
+    description: description,
+    facilities: facilities,
+    photo_url: photoUrl,
+    contact_name: contactName,
+    contact_phone: contactPhone
+  };
+
+  const { error } = await supabaseClient
+    .from("properties")
+    .insert([property]);
+
+  if (error) {
+    alert("Error: " + error.message);
+    console.error(error);
+    return;
+  }
+
+  alert("Property posted successfully!");
+
+  document.getElementById("property-photo").value = "";
+
+  loadProperties();
+}
   async function loadProperties() {
 
     const { data, error } = await supabaseClient
