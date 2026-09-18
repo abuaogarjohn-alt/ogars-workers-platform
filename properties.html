@@ -354,23 +354,6 @@ async function postProperty() {
   const bedrooms = document.getElementById("bedrooms").value;
   const bathrooms = document.getElementById("bathrooms").value;
   const description = document.getElementById("description").value.trim();
-  const facilities = document.getElementById("facilities").value.trim();
-
-  const furnished = document.getElementById("furnished").value;
-  const parking = document.getElementById("parking").value;
-  const water = document.getElementById("water").value;
-  const electricity = document.getElementById("electricity").value;
-  const security = document.getElementById("security").value;
-  const landSize = document.getElementById("land-size").value.trim();
-  const documentation = document.getElementById("documentation").value.trim();
-  const roadAccess = document.getElementById("road-access").value.trim();
-  const roomType = document.getElementById("room-type").value.trim();
-  const distanceToSchool = document.getElementById("distance-to-school").value.trim();
-  const wifi = document.getElementById("wifi").value;
-  const airConditioning = document.getElementById("air-conditioning").value;
-  const swimmingPool = document.getElementById("swimming-pool").value;
-  const floorSize = document.getElementById("floor-size").value.trim();
-  const businessUse = document.getElementById("business-use").value.trim();
 
   const contactName = document.getElementById("contact-name").value.trim();
   const contactPhone = document.getElementById("contact-phone").value.trim();
@@ -381,6 +364,52 @@ async function postProperty() {
     return;
   }
 
+  /* COLLECT CHECKED FACILITIES */
+  const selectedFacilities = [];
+
+  document.querySelectorAll("#facilities-list input[type='checkbox']:checked")
+    .forEach(function(checkbox) {
+      selectedFacilities.push(checkbox.value);
+    });
+
+  const facilities = selectedFacilities.join(", ");
+
+  /* PROPERTY-SPECIFIC DETAILS */
+  let furnished = null;
+  let landSize = null;
+  let documentation = null;
+  let roadAccess = null;
+  let roomType = null;
+  let distanceToSchool = null;
+  let floorSize = null;
+  let businessUse = null;
+
+  if (propertyType === "House" || propertyType === "Apartment") {
+    furnished = document.getElementById("furnished").value;
+  }
+
+  if (propertyType === "Room" || propertyType === "Student Housing") {
+    roomType = document.getElementById("room-type").value.trim();
+    distanceToSchool = document.getElementById("distance-to-school").value.trim();
+  }
+
+  if (
+    propertyType === "Shop" ||
+    propertyType === "Office" ||
+    propertyType === "Warehouse" ||
+    propertyType === "Commercial Space"
+  ) {
+    floorSize = document.getElementById("floor-size").value.trim();
+    businessUse = document.getElementById("business-use").value.trim();
+  }
+
+  if (propertyType === "Land") {
+    landSize = document.getElementById("land-size").value.trim();
+    documentation = document.getElementById("documentation").value.trim();
+    roadAccess = document.getElementById("road-access").value.trim();
+  }
+
+  /* UPLOAD PHOTOS */
   let photoUrls = [];
 
   for (const file of photoFiles) {
@@ -409,6 +438,7 @@ async function postProperty() {
     photoUrls.push(urlData.publicUrl);
   }
 
+  /* CREATE PROPERTY */
   const property = {
     listing_type: listingType,
     property_type: propertyType,
@@ -422,18 +452,11 @@ async function postProperty() {
     facilities: facilities,
 
     furnished: furnished,
-    parking: parking,
-    water: water,
-    electricity: electricity,
-    security: security,
     land_size: landSize,
     documentation: documentation,
     road_access: roadAccess,
     room_type: roomType,
     distance_to_school: distanceToSchool,
-    wifi: wifi,
-    air_conditioning: airConditioning,
-    swimming_pool: swimmingPool,
     floor_size: floorSize,
     business_use: businessUse,
 
