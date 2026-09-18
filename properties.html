@@ -656,7 +656,44 @@ function filterProperties() {
         : "none";
   });
 }
+const propertyTypeSelect = document.getElementById("property-type");
 
+propertyTypeSelect.addEventListener("change", function () {
+
+  const type = this.value;
+
+  document.getElementById("residential-details").style.display = "none";
+  document.getElementById("room-details").style.display = "none";
+  document.getElementById("hotel-details").style.display = "none";
+  document.getElementById("commercial-details").style.display = "none";
+  document.getElementById("land-details").style.display = "none";
+
+  if (type === "House" || type === "Apartment") {
+    document.getElementById("residential-details").style.display = "block";
+  }
+
+  else if (type === "Room" || type === "Student Housing") {
+    document.getElementById("room-details").style.display = "block";
+  }
+
+  else if (type === "Hotel" || type === "Short Stay") {
+    document.getElementById("hotel-details").style.display = "block";
+  }
+
+  else if (
+    type === "Shop" ||
+    type === "Office" ||
+    type === "Warehouse" ||
+    type === "Commercial Space"
+  ) {
+    document.getElementById("commercial-details").style.display = "block";
+  }
+
+  else if (type === "Land") {
+    document.getElementById("land-details").style.display = "block";
+  }
+
+});
 </script>
 
 </body>
