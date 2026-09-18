@@ -338,7 +338,7 @@
     SUPABASE_KEY
   );
 
-  async function postProperty() {
+async function postProperty() {
 
   const listingType = document.getElementById("listing-type").value;
   const propertyType = document.getElementById("property-type").value;
@@ -350,6 +350,23 @@
   const bathrooms = document.getElementById("bathrooms").value;
   const description = document.getElementById("description").value.trim();
   const facilities = document.getElementById("facilities").value.trim();
+
+  const furnished = document.getElementById("furnished").value;
+  const parking = document.getElementById("parking").value;
+  const water = document.getElementById("water").value;
+  const electricity = document.getElementById("electricity").value;
+  const security = document.getElementById("security").value;
+  const landSize = document.getElementById("land-size").value.trim();
+  const documentation = document.getElementById("documentation").value.trim();
+  const roadAccess = document.getElementById("road-access").value.trim();
+  const roomType = document.getElementById("room-type").value.trim();
+  const distanceToSchool = document.getElementById("distance-to-school").value.trim();
+  const wifi = document.getElementById("wifi").value;
+  const airConditioning = document.getElementById("air-conditioning").value;
+  const swimmingPool = document.getElementById("swimming-pool").value;
+  const floorSize = document.getElementById("floor-size").value.trim();
+  const businessUse = document.getElementById("business-use").value.trim();
+
   const contactName = document.getElementById("contact-name").value.trim();
   const contactPhone = document.getElementById("contact-phone").value.trim();
   const photoFiles = document.getElementById("property-photo").files;
@@ -398,7 +415,25 @@
     bathrooms: bathrooms ? Number(bathrooms) : null,
     description: description,
     facilities: facilities,
+
+    furnished: furnished,
+    parking: parking,
+    water: water,
+    electricity: electricity,
+    security: security,
+    land_size: landSize,
+    documentation: documentation,
+    road_access: roadAccess,
+    room_type: roomType,
+    distance_to_school: distanceToSchool,
+    wifi: wifi,
+    air_conditioning: airConditioning,
+    swimming_pool: swimmingPool,
+    floor_size: floorSize,
+    business_use: businessUse,
+
     photo_url: photoUrls.length > 0 ? photoUrls.join(",") : null,
+
     contact_name: contactName,
     contact_phone: contactPhone
   };
