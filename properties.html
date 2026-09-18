@@ -638,6 +638,7 @@ propertyTypeSelect.addEventListener("change", function () {
   document.getElementById("residential-details").style.display = "none";
   document.getElementById("room-details").style.display = "none";
   document.getElementById("hotel-details").style.display = "none";
+  document.getElementById("short-stay-details").style.display = "none";
   document.getElementById("commercial-details").style.display = "none";
   document.getElementById("land-details").style.display = "none";
 
@@ -649,8 +650,12 @@ propertyTypeSelect.addEventListener("change", function () {
     document.getElementById("room-details").style.display = "block";
   }
 
-  else if (type === "Hotel" || type === "Short Stay") {
+  else if (type === "Hotel") {
     document.getElementById("hotel-details").style.display = "block";
+  }
+
+  else if (type === "Short Stay") {
+    document.getElementById("short-stay-details").style.display = "block";
   }
 
   else if (
