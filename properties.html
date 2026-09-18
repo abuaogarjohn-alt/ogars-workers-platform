@@ -183,83 +183,138 @@
     <label for="facilities">Facilities / Features</label>
 <textarea id="facilities" placeholder="e.g. Parking, water, security, kitchen, Wi-Fi"></textarea>
 
-<label for="furnished">Furnished</label>
-<select id="furnished">
-  <option value="">Select</option>
-  <option value="Furnished">Furnished</option>
-  <option value="Unfurnished">Unfurnished</option>
-  <option value="Partly Furnished">Partly Furnished</option>
-</select>
+<div id="property-details">
 
-<label for="parking">Parking</label>
-<select id="parking">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+  <div id="residential-details" style="display:none;">
+    <label for="furnished">Furnished</label>
+    <select id="furnished">
+      <option value="">Select</option>
+      <option value="Furnished">Furnished</option>
+      <option value="Unfurnished">Unfurnished</option>
+      <option value="Partly Furnished">Partly Furnished</option>
+    </select>
 
-<label for="water">Water</label>
-<select id="water">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+    <label for="parking">Parking</label>
+    <select id="parking">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="electricity">Electricity</label>
-<select id="electricity">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+    <label for="water">Water</label>
+    <select id="water">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="security">Security</label>
-<select id="security">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+    <label for="electricity">Electricity</label>
+    <select id="electricity">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="land-size">Land Size</label>
-<input type="text" id="land-size" placeholder="e.g. 70 x 100 feet">
+    <label for="security">Security</label>
+    <select id="security">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
+  </div>
 
-<label for="documentation">Documentation</label>
-<input type="text" id="documentation" placeholder="e.g. Site plan, indenture">
+  <div id="room-details" style="display:none;">
+    <label for="room-type">Room Type</label>
+    <input type="text" id="room-type" placeholder="e.g. Single room, chamber and hall">
 
-<label for="road-access">Road Access</label>
-<input type="text" id="road-access" placeholder="e.g. Accessible by paved road">
+    <label for="distance-to-school">Distance to School</label>
+    <input type="text" id="distance-to-school" placeholder="e.g. 5 minutes from school">
 
-<label for="room-type">Room Type</label>
-<input type="text" id="room-type" placeholder="e.g. Single room, chamber and hall">
+    <label for="room-water">Water</label>
+    <select id="room-water">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="distance-to-school">Distance to School</label>
-<input type="text" id="distance-to-school" placeholder="e.g. 5 minutes from Legon">
+    <label for="room-electricity">Electricity</label>
+    <select id="room-electricity">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="wifi">Wi-Fi</label>
-<select id="wifi">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+    <label for="room-wifi">Wi-Fi</label>
+    <select id="room-wifi">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
+  </div>
 
-<label for="air-conditioning">Air Conditioning</label>
-<select id="air-conditioning">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+  <div id="hotel-details" style="display:none;">
+    <label for="hotel-wifi">Wi-Fi</label>
+    <select id="hotel-wifi">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="swimming-pool">Swimming Pool</label>
-<select id="swimming-pool">
-  <option value="">Select</option>
-  <option value="Available">Available</option>
-  <option value="Not Available">Not Available</option>
-</select>
+    <label for="hotel-air-conditioning">Air Conditioning</label>
+    <select id="hotel-air-conditioning">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="floor-size">Floor Size</label>
-<input type="text" id="floor-size" placeholder="e.g. 500 square feet">
+    <label for="swimming-pool">Swimming Pool</label>
+    <select id="swimming-pool">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
 
-<label for="business-use">Suitable Business Use</label>
-<input type="text" id="business-use" placeholder="e.g. Shop, office, restaurant">
+    <label for="hotel-parking">Parking</label>
+    <select id="hotel-parking">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
+  </div>
+
+  <div id="commercial-details" style="display:none;">
+    <label for="floor-size">Floor Size</label>
+    <input type="text" id="floor-size" placeholder="e.g. 500 square feet">
+
+    <label for="business-use">Suitable Business Use</label>
+    <input type="text" id="business-use" placeholder="e.g. Shop, office, restaurant">
+
+    <label for="commercial-parking">Parking</label>
+    <select id="commercial-parking">
+      <option value="">Select</option>
+      <option value="Available">Available</option>
+      <option value="Not Available">Not Available</option>
+    </select>
+
+    <label for="commercial-road-access">Road Access</label>
+    <input type="text" id="commercial-road-access" placeholder="e.g. Accessible by paved road">
+  </div>
+
+  <div id="land-details" style="display:none;">
+    <label for="land-size">Land Size</label>
+    <input type="text" id="land-size" placeholder="e.g. 70 x 100 feet">
+
+    <label for="documentation">Documentation</label>
+    <input type="text" id="documentation" placeholder="e.g. Site plan, indenture">
+
+    <label for="road-access">Road Access</label>
+    <input type="text" id="road-access" placeholder="e.g. Accessible by paved road">
+
+    <label for="land-use">Intended Use</label>
+    <input type="text" id="land-use" placeholder="e.g. Residential, commercial, farming">
+  </div>
+
+</div>
 
 <label for="property-photo">Property Photos</label>
 <input
