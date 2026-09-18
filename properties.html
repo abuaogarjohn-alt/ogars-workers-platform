@@ -363,12 +363,16 @@
       const card = document.createElement("div");
       card.className = "property-card";
 
-      card.innerHTML = `
+card.innerHTML = `
   ${property.photo_url ? `
-    <img
-      src="${property.photo_url}"
-      alt="${property.title}"
-    >
+    <div class="property-gallery">
+      ${property.photo_url.split(",").map(photo => `
+        <img
+          src="${photo}"
+          alt="${property.title}"
+        >
+      `).join("")}
+    </div>
   ` : ""}
 
   <h3>🏠 ${property.title}</h3>
