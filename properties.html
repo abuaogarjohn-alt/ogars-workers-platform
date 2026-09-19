@@ -359,15 +359,24 @@ async function postProperty() {
   const contactPhone = document.getElementById("contact-phone").value.trim();
   const photoFiles = document.getElementById("property-photo").files;
 
-  if (!listingType || !propertyType || !title || !location || !contactName || !contactPhone) {
+  if (
+    !listingType ||
+    !propertyType ||
+    !title ||
+    !location ||
+    !contactName ||
+    !contactPhone
+  ) {
     alert("Please complete the listing type, property type, title, location and contact details.");
     return;
   }
 
   /* COLLECT CHECKED FACILITIES */
+
   const selectedFacilities = [];
 
-  document.querySelectorAll("#facilities-list input[type='checkbox']:checked")
+  document
+    .querySelectorAll("#facilities-list input[type='checkbox']:checked")
     .forEach(function(checkbox) {
       selectedFacilities.push(checkbox.value);
     });
@@ -375,6 +384,7 @@ async function postProperty() {
   const facilities = selectedFacilities.join(", ");
 
   /* PROPERTY-SPECIFIC DETAILS */
+
   let furnished = null;
   let landSize = null;
   let documentation = null;
@@ -385,12 +395,26 @@ async function postProperty() {
   let businessUse = null;
 
   if (propertyType === "House" || propertyType === "Apartment") {
-    furnished = document.getElementById("furnished").value;
+
+    const furnishedField = document.getElementById("furnished");
+
+    if (furnishedField) {
+      furnished = furnishedField.value;
+    }
   }
 
   if (propertyType === "Room" || propertyType === "Student Housing") {
-    roomType = document.getElementById("room-type").value.trim();
-    distanceToSchool = document.getElementById("distance-to-school").value.trim();
+
+    const roomTypeField = document.getElementById("room-type");
+    const distanceField = document.getElementById("distance-to-school");
+
+    if (roomTypeField) {
+      roomType = roomTypeField.value.trim();
+    }
+
+    if (distanceField) {
+      distanceToSchool = distanceField.value.trim();
+    }
   }
 
   if (
@@ -399,24 +423,49 @@ async function postProperty() {
     propertyType === "Warehouse" ||
     propertyType === "Commercial Space"
   ) {
-    floorSize = document.getElementById("floor-size").value.trim();
-    businessUse = document.getElementById("business-use").value.trim();
+
+    const floorSizeField = document.getElementById("floor-size");
+    const businessUseField = document.getElementById("business-use");
+
+    if (floorSizeField) {
+      floorSize = floorSizeField.value.trim();
+    }
+
+    if (businessUseField) {
+      businessUse = businessUseField.value.trim();
+    }
   }
 
   if (propertyType === "Land") {
-    landSize = document.getElementById("land-size").value.trim();
-    documentation = document.getElementById("documentation").value.trim();
-    roadAccess = document.getElementById("road-access").value.trim();
+
+    const landSizeField = document.getElementById("land-size");
+    const documentationField = document.getElementById("documentation");
+    const roadAccessField = document.getElementById("road-access");
+
+    if (landSizeField) {
+      landSize = landSizeField.value.trim();
+    }
+
+    if (documentationField) {
+      documentation = documentationField.value.trim();
+    }
+
+    if (roadAccessField) {
+      roadAccess = roadAccessField.value.trim();
+    }
   }
 
   /* UPLOAD PHOTOS */
+
   let photoUrls = [];
 
   for (const file of photoFiles) {
 
     const fileName =
-      Date.now() + "-" +
-      Math.random().toString(36).substring(2, 8) + "-" +
+      Date.now() +
+      "-" +
+      Math.random().toString(36).substring(2, 8) +
+      "-" +
       file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
 
     const { error: uploadError } = await supabaseClient
@@ -439,15 +488,20 @@ async function postProperty() {
   }
 
   /* CREATE PROPERTY */
+
   const property = {
+
     listing_type: listingType,
     property_type: propertyType,
     title: title,
     location: location,
+
     price: price ? Number(price) : null,
     price_period: pricePeriod,
+
     bedrooms: bedrooms ? Number(bedrooms) : null,
     bathrooms: bathrooms ? Number(bathrooms) : null,
+
     description: description,
     facilities: facilities,
 
@@ -460,7 +514,9 @@ async function postProperty() {
     floor_size: floorSize,
     business_use: businessUse,
 
-    photo_url: photoUrls.length > 0 ? photoUrls.join(",") : null,
+    photo_url: photoUrls.length > 0
+      ? photoUrls.join(",")
+      : null,
 
     contact_name: contactName,
     contact_phone: contactPhone
