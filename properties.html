@@ -538,7 +538,8 @@ async function postProperty() {
 
   loadProperties();
 }
-  async function loadProperties() {
+
+async function loadProperties() {
 
     const { data, error } = await supabaseClient
       .from("properties")
