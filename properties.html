@@ -168,8 +168,7 @@
       <option value="Total Price">Total Price</option>
     </select>
 
-    <div id="bedroom-bathroom-details">
-
+    <div id="bedroom-bathroom-details" style="display:none;">
   <label for="bedrooms">Bedrooms</label>
   <input type="number" id="bedrooms" min="0" placeholder="e.g. 2">
 
@@ -691,69 +690,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const propertyTypeSelect = document.getElementById("property-type");
 
-  if (!propertyTypeSelect) {
-    return;
+function updatePropertyFields() {
+
+  const type = propertyTypeSelect.value;
+
+  const bedroomBathroom = document.getElementById("bedroom-bathroom-details");
+
+  if (type === "House" || type === "Apartment" || type === "Short Stay") {
+    bedroomBathroom.style.display = "block";
+  } else {
+    bedroomBathroom.style.display = "none";
   }
+}
 
-  propertyTypeSelect.addEventListener("change", function () {
+propertyTypeSelect.addEventListener("change", updatePropertyFields);
 
-    const type = this.value;
-
-    document.getElementById("residential-details").style.display = "none";
-    document.getElementById("room-details").style.display = "none";
-    document.getElementById("hotel-details").style.display = "none";
-    document.getElementById("short-stay-details").style.display = "none";
-    document.getElementById("commercial-details").style.display = "none";
-    document.getElementById("land-details").style.display = "none";
-    document.getElementById("bedroom-bathroom-details").style.display = "none";
-
-
-    if (type === "House" || type === "Apartment") {
-
-      document.getElementById("residential-details").style.display = "block";
-      document.getElementById("bedroom-bathroom-details").style.display = "block";
-
-    }
-
-    else if (type === "Room" || type === "Student Housing") {
-
-      document.getElementById("room-details").style.display = "block";
-
-    }
-
-    else if (type === "Hotel") {
-
-      document.getElementById("hotel-details").style.display = "block";
-
-    }
-
-    else if (type === "Short Stay") {
-
-      document.getElementById("short-stay-details").style.display = "block";
-      document.getElementById("bedroom-bathroom-details").style.display = "block";
-
-    }
-
-    else if (
-      type === "Shop" ||
-      type === "Office" ||
-      type === "Warehouse" ||
-      type === "Commercial Space"
-    ) {
-
-      document.getElementById("commercial-details").style.display = "block";
-
-    }
-
-    else if (type === "Land") {
-
-      document.getElementById("land-details").style.display = "block";
-
-    }
-
-  });
-
-});
+updatePropertyFields();
 </script>
 
 </body>
