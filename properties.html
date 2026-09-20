@@ -168,12 +168,15 @@
       <option value="Total Price">Total Price</option>
     </select>
 
-    <label for="bedrooms">Bedrooms</label>
-    <input type="number" id="bedrooms" min="0" placeholder="e.g. 2">
+    <div id="bedroom-bathroom-details" style="display:none;">
 
-    <label for="bathrooms">Bathrooms</label>
-    <input type="number" id="bathrooms" min="0" placeholder="e.g. 2">
+  <label for="bedrooms">Bedrooms</label>
+  <input type="number" id="bedrooms" min="0" placeholder="e.g. 2">
 
+  <label for="bathrooms">Bathrooms</label>
+  <input type="number" id="bathrooms" min="0" placeholder="e.g. 2">
+
+</div>
     <label for="description">Description</label>
     <textarea id="description" placeholder="Describe the property."></textarea>
 
@@ -697,20 +700,35 @@ propertyTypeSelect.addEventListener("change", function () {
   document.getElementById("commercial-details").style.display = "none";
   document.getElementById("land-details").style.display = "none";
 
+  document.getElementById("bedroom-bathroom-details").style.display = "none";
+
+
   if (type === "House" || type === "Apartment") {
+
     document.getElementById("residential-details").style.display = "block";
+
+    document.getElementById("bedroom-bathroom-details").style.display = "block";
+
   }
 
   else if (type === "Room" || type === "Student Housing") {
+
     document.getElementById("room-details").style.display = "block";
+
   }
 
   else if (type === "Hotel") {
+
     document.getElementById("hotel-details").style.display = "block";
+
   }
 
   else if (type === "Short Stay") {
+
     document.getElementById("short-stay-details").style.display = "block";
+
+    document.getElementById("bedroom-bathroom-details").style.display = "block";
+
   }
 
   else if (
@@ -719,11 +737,15 @@ propertyTypeSelect.addEventListener("change", function () {
     type === "Warehouse" ||
     type === "Commercial Space"
   ) {
+
     document.getElementById("commercial-details").style.display = "block";
+
   }
 
   else if (type === "Land") {
+
     document.getElementById("land-details").style.display = "block";
+
   }
 
 });
