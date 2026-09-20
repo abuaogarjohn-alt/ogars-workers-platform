@@ -687,66 +687,71 @@ function filterProperties() {
         : "none";
   });
 }
-const propertyTypeSelect = document.getElementById("property-type");
+document.addEventListener("DOMContentLoaded", function () {
 
-propertyTypeSelect.addEventListener("change", function () {
+  const propertyTypeSelect = document.getElementById("property-type");
 
-  const type = this.value;
-
-  document.getElementById("residential-details").style.display = "none";
-  document.getElementById("room-details").style.display = "none";
-  document.getElementById("hotel-details").style.display = "none";
-  document.getElementById("short-stay-details").style.display = "none";
-  document.getElementById("commercial-details").style.display = "none";
-  document.getElementById("land-details").style.display = "none";
-
-  document.getElementById("bedroom-bathroom-details").style.display = "none";
-
-
-  if (type === "House" || type === "Apartment") {
-
-    document.getElementById("residential-details").style.display = "block";
-
-    document.getElementById("bedroom-bathroom-details").style.display = "block";
-
+  if (!propertyTypeSelect) {
+    return;
   }
 
-  else if (type === "Room" || type === "Student Housing") {
+  propertyTypeSelect.addEventListener("change", function () {
 
-    document.getElementById("room-details").style.display = "block";
+    const type = this.value;
 
-  }
+    document.getElementById("residential-details").style.display = "none";
+    document.getElementById("room-details").style.display = "none";
+    document.getElementById("hotel-details").style.display = "none";
+    document.getElementById("short-stay-details").style.display = "none";
+    document.getElementById("commercial-details").style.display = "none";
+    document.getElementById("land-details").style.display = "none";
+    document.getElementById("bedroom-bathroom-details").style.display = "none";
 
-  else if (type === "Hotel") {
 
-    document.getElementById("hotel-details").style.display = "block";
+    if (type === "House" || type === "Apartment") {
 
-  }
+      document.getElementById("residential-details").style.display = "block";
+      document.getElementById("bedroom-bathroom-details").style.display = "block";
 
-  else if (type === "Short Stay") {
+    }
 
-    document.getElementById("short-stay-details").style.display = "block";
+    else if (type === "Room" || type === "Student Housing") {
 
-    document.getElementById("bedroom-bathroom-details").style.display = "block";
+      document.getElementById("room-details").style.display = "block";
 
-  }
+    }
 
-  else if (
-    type === "Shop" ||
-    type === "Office" ||
-    type === "Warehouse" ||
-    type === "Commercial Space"
-  ) {
+    else if (type === "Hotel") {
 
-    document.getElementById("commercial-details").style.display = "block";
+      document.getElementById("hotel-details").style.display = "block";
 
-  }
+    }
 
-  else if (type === "Land") {
+    else if (type === "Short Stay") {
 
-    document.getElementById("land-details").style.display = "block";
+      document.getElementById("short-stay-details").style.display = "block";
+      document.getElementById("bedroom-bathroom-details").style.display = "block";
 
-  }
+    }
+
+    else if (
+      type === "Shop" ||
+      type === "Office" ||
+      type === "Warehouse" ||
+      type === "Commercial Space"
+    ) {
+
+      document.getElementById("commercial-details").style.display = "block";
+
+    }
+
+    else if (type === "Land") {
+
+      document.getElementById("land-details").style.display = "block";
+
+    }
+
+  });
 
 });
 </script>
