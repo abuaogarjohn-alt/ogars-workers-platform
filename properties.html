@@ -582,43 +582,85 @@ card.innerHTML = `
   <h3>🏠 ${property.title}</h3>
 
   <p>📍 <strong>Location:</strong> ${property.location}</p>
+
   <p>🏷️ <strong>Type:</strong> ${property.property_type}</p>
+
   <p>📌 <strong>Listing:</strong> ${property.listing_type}</p>
 
   <p>💰 <strong>Price:</strong>
     ${property.price ? property.price : "Contact owner"}
-    ${property.price_period || ""}
+    ${property.price_period ? " " + property.price_period : ""}
   </p>
 
-  <p>🛏️ <strong>Bedrooms:</strong>
-    ${property.bedrooms ?? "N/A"}
+  ${
+    (
+      property.property_type === "House" ||
+      property.property_type === "Apartment" ||
+      property.property_type === "Short Stay"
+    )
+    ? `
+      ${property.bedrooms !== null && property.bedrooms !== undefined
+        ? `<p>🛏️ <strong>Bedrooms:</strong> ${property.bedrooms}</p>`
+        : ""}
+
+      ${property.bathrooms !== null && property.bathrooms !== undefined
+        ? `<p>🚿 <strong>Bathrooms:</strong> ${property.bathrooms}</p>`
+        : ""}
+    `
+    : ""
+  }
+
+  ${
+    property.furnished
+      ? `<p>🛋️ <strong>Furnished:</strong> ${property.furnished}</p>`
+      : ""
+  }
+
+  ${
+    property.room_type
+      ? `<p>🛏️ <strong>Room Type:</strong> ${property.room_type}</p>`
+      : ""
+  }
+
+  ${
+    property.distance_to_school
+      ? `<p>🎓 <strong>Distance to School:</strong> ${property.distance_to_school}</p>`
+      : ""
+  }
+
+  ${
+    property.land_size
+      ? `<p>🌍 <strong>Land Size:</strong> ${property.land_size}</p>`
+      : ""
+  }
+
+  ${
+    property.documentation
+      ? `<p>📄 <strong>Documentation:</strong> ${property.documentation}</p>`
+      : ""
+  }
+
+  ${
+    property.road_access
+      ? `<p>🛣️ <strong>Road Access:</strong> ${property.road_access}</p>`
+      : ""
+  }
+
+  ${
+    property.floor_size
+      ? `<p>📐 <strong>Floor Size:</strong> ${property.floor_size}</p>`
+      : ""
+  }
+
+  ${
+    property.business_use
+      ? `<p>🏪 <strong>Suitable Business Use:</strong> ${property.business_use}</p>`
+      : ""
+  }
+
+  <p>
+    ${property.description || ""}
   </p>
-
-  <p>🚿 <strong>Bathrooms:</strong>
-    ${property.bathrooms ?? "N/A"}
-  </p>
-
-  ${property.furnished ? `<p>🛋️ <strong>Furnished:</strong> ${property.furnished}</p>` : ""}
-  ${property.parking ? `<p>🚗 <strong>Parking:</strong> ${property.parking}</p>` : ""}
-  ${property.water ? `<p>💧 <strong>Water:</strong> ${property.water}</p>` : ""}
-  ${property.electricity ? `<p>⚡ <strong>Electricity:</strong> ${property.electricity}</p>` : ""}
-  ${property.security ? `<p>🔐 <strong>Security:</strong> ${property.security}</p>` : ""}
-
-  ${property.room_type ? `<p>🛏️ <strong>Room Type:</strong> ${property.room_type}</p>` : ""}
-  ${property.distance_to_school ? `<p>🎓 <strong>Distance to School:</strong> ${property.distance_to_school}</p>` : ""}
-
-  ${property.wifi ? `<p>📶 <strong>Wi-Fi:</strong> ${property.wifi}</p>` : ""}
-  ${property.air_conditioning ? `<p>❄️ <strong>Air Conditioning:</strong> ${property.air_conditioning}</p>` : ""}
-  ${property.swimming_pool ? `<p>🏊 <strong>Swimming Pool:</strong> ${property.swimming_pool}</p>` : ""}
-
-  ${property.land_size ? `<p>🌍 <strong>Land Size:</strong> ${property.land_size}</p>` : ""}
-  ${property.documentation ? `<p>📄 <strong>Documentation:</strong> ${property.documentation}</p>` : ""}
-  ${property.road_access ? `<p>🛣️ <strong>Road Access:</strong> ${property.road_access}</p>` : ""}
-
-  ${property.floor_size ? `<p>📐 <strong>Floor Size:</strong> ${property.floor_size}</p>` : ""}
-  ${property.business_use ? `<p>🏪 <strong>Suitable Business Use:</strong> ${property.business_use}</p>` : ""}
-
-  <p>${property.description || ""}</p>
 
   <p>
     <strong>✨ Facilities:</strong>
