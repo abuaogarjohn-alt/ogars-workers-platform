@@ -34,19 +34,23 @@
     }
 
     .property-gallery {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-bottom: 20px;
-    }
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 5px;
+}
 
-    .property-gallery img {
-      width: 280px;
-      height: 210px;
-      object-fit: cover;
-      border-radius: 10px;
-      flex-shrink: 0;
-    }
+.property-gallery img {
+  width: 100%;
+  max-width: 360px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+}
 
     .button {
       display: inline-block;
@@ -59,14 +63,17 @@
     }
 
     .contact {
-      display: inline-block;
-      padding: 14px 20px;
-      background: #008000;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      margin-top: 15px;
-    }
+  display: block;
+  padding: 15px 20px;
+  background: #008000;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+}
   </style>
 </head>
 
