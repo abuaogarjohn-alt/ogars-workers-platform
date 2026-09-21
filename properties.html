@@ -663,13 +663,17 @@ card.innerHTML = `
   </p>
 
   <p>
-    <strong>✨ Facilities:</strong>
-    ${property.facilities || "Not specified"}
-  </p>
+  <strong>✨ Facilities:</strong>
+  ${property.facilities || "Not specified"}
+</p>
 
-  <a class="contact" href="tel:${property.contact_phone}">
-    📞 Contact
-  </a>
+<a class="button" href="property-details.html?id=${property.id}">
+  👀 View Property
+</a>
+
+<a class="contact" href="tel:${property.contact_phone}">
+  📞 Contact
+</a>
 `;
 
       list.appendChild(card);
