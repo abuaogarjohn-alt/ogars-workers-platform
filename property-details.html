@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details - OGARS</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .property-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .property-gallery {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .property-gallery img {
+      width: 280px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #111;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .contact {
+      display: inline-block;
+      padding: 14px 20px;
+      background: #008000;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏠 Property Details</h1>
+</header>
+
+<div class="container">
+
+  <div class="property-card">
+
+    <div id="property-content">
+      Loading property...
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+const SUPABASE_KEY = "YOUR_EXISTING_PUBLISHABLE_KEY";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const params = new URLSearchParams(window.location.search);
+
+const propertyId = params.get("id");
+
+async function loadProperty() {
+
+  if (!propertyId) {
+    document.getElementById("property-content").innerHTML =
+      "<p>Property not found.</p>";
+    return;
+  }
+
+  const { data: property, error } = await supabaseClient
+    .from("properties")
+    .select("*")
+    .eq("id", propertyId)
+    .single();
+
+  if (error || !property) {
+    document.getElementById("property-content").innerHTML =
+      "<p>Unable to load this property.</p>";
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("property-content").innerHTML = `
+
+    ${property.photo_url ? `
+      <div class="property-gallery">
+        ${property.photo_url.split(",").map(photo => `
+          <img src="${photo}" alt="${property.title}">
+        `).join("")}
+      </div>
+    ` : ""}
+
+    <h2>${property.title}</h2>
+
+    <p>📍 <strong>Location:</strong> ${property.location}</p>
+
+    <p>🏷️ <strong>Property Type:</strong> ${property.property_type}</p>
+
+    <p>📌 <strong>Listing:</strong> ${property.listing_type}</p>
+
+    <p>💰 <strong>Price:</strong>
+      ${property.price ? property.price : "Contact owner"}
+      ${property.price_period || ""}
+    </p>
+
+    ${property.bedrooms !== null && property.bedrooms !== undefined
+      ? `<p>🛏️ <strong>Bedrooms:</strong> ${property.bedrooms}</p>`
+      : ""}
+
+    ${property.bathrooms !== null && property.bathrooms !== undefined
+      ? `<p>🚿 <strong>Bathrooms:</strong> ${property.bathrooms}</p>`
+      : ""}
+
+    ${property.furnished
+      ? `<p>🛋️ <strong>Furnished:</strong> ${property.furnished}</p>`
+      : ""}
+
+    ${property.room_type
+      ? `<p>🛏️ <strong>Room Type:</strong> ${property.room_type}</p>`
+      : ""}
+
+    ${property.distance_to_school
+      ? `<p>🎓 <strong>Distance to School:</strong> ${property.distance_to_school}</p>`
+      : ""}
+
+    ${property.land_size
+      ? `<p>🌍 <strong>Land Size:</strong> ${property.land_size}</p>`
+      : ""}
+
+    ${property.documentation
+      ? `<p>📄 <strong>Documentation:</strong> ${property.documentation}</p>`
+      : ""}
+
+    ${property.road_access
+      ? `<p>🛣️ <strong>Road Access:</strong> ${property.road_access}</p>`
+      : ""}
+
+    ${property.floor_size
+      ? `<p>📐 <strong>Floor Size:</strong> ${property.floor_size}</p>`
+      : ""}
+
+    ${property.business_use
+      ? `<p>🏪 <strong>Suitable Business Use:</strong> ${property.business_use}</p>`
+      : ""}
+
+    <p>
+      <strong>✨ Facilities:</strong><br>
+      ${property.facilities || "Not specified"}
+    </p>
+
+    <h3>📝 Description</h3>
+
+    <p>${property.description || "No description provided."}</p>
+
+    <a class="contact" href="tel:${property.contact_phone}">
+      📞 Contact Owner
+    </a>
+
+  `;
+}
+
+loadProperty();
+
+</script>
+
+</body>
+</html>
