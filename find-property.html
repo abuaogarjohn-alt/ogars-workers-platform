@@ -7,91 +7,185 @@
   <title>Find a Property - OGARS</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    header {
-  background: #008000;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7f8;
+    color: #222;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+
+  header {
+    background: #008000;
+    color: white;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+
+  header h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+
+  header p {
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  /* MAIN */
+
+  .container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px 16px;
+  }
+
+  .section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+  }
+
+  .section h2 {
+    font-size: 21px;
+    margin-bottom: 18px;
+  }
+
+  /* SEARCH */
+
+  input,
+  select {
+    width: 100%;
+    padding: 14px;
+    margin: 7px 0 13px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-size: 16px;
+    background: white;
+    outline: none;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: #008000;
+  }
+
+  /* PROPERTY CARD */
+
+  .property-card {
+    background: white;
+    border: 1px solid #eee;
+    padding: 18px;
+    margin-top: 20px;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+  .property-card h2 {
+    margin-bottom: 10px;
+    font-size: 21px;
+  }
+
+  .property-card p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 14px;
+  }
+
+  /* PROPERTY PHOTOS */
+
+  .property-gallery {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 5px;
+  }
+
+  .property-gallery img {
+    width: 250px;
+    height: 185px;
+    object-fit: cover;
+    border-radius: 11px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+
+  /* BUTTONS */
+
+  .button {
+    display: inline-block;
+    padding: 13px 18px;
+    background: #008000;
+    color: white;
+    text-decoration: none;
+    border-radius: 9px;
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .button:hover {
+    background: #006400;
+  }
+
+  .contact {
+    display: inline-block;
+    padding: 13px 18px;
+    background: #006400;
+    color: white;
+    text-decoration: none;
+    border-radius: 9px;
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* MOBILE */
+
+  @media (max-width: 600px) {
 
     .container {
-      max-width: 1000px;
-      margin: 20px auto;
-      padding: 20px;
+      padding: 18px 13px;
     }
 
     .section {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 17px;
     }
 
-    input,
-    select {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0 15px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
+    header h1 {
+      font-size: 25px;
     }
 
     .property-card {
-      background: #fff;
-      border: 1px solid #ddd;
-      padding: 18px;
-      margin-top: 20px;
-      border-radius: 12px;
-    }
-
-    .property-gallery {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-bottom: 15px;
-      scroll-snap-type: x mandatory;
+      padding: 16px;
     }
 
     .property-gallery img {
-      width: 240px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
-      flex-shrink: 0;
-      scroll-snap-align: center;
+      width: 230px;
+      height: 170px;
     }
 
-.button {
-  display: inline-block;
-  padding: 12px 18px;
-  background: #008000;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  font-weight: bold;
-}
+    .button,
+    .contact {
+      display: block;
+      width: 100%;
+    }
 
-.contact {
-  display: inline-block;
-  padding: 12px 18px;
-  background: #006400;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  font-weight: bold;
-}
-  </style>
+  }
+</style>
 </head>
 
 <body>
