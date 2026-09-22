@@ -1,189 +1,868 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ogars Workers Platform</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>OGARS - Find Workers, Jobs, Properties & Opportunities</title>
+
+  <meta
+    name="description"
+    content="OGARS connects people with skilled workers, jobs, properties, drivers, businesses and opportunities across Ghana."
+  >
 
   <style>
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
       color: #222;
+      line-height: 1.5;
     }
+
+    /* HEADER */
 
     header {
-      background: #0b5ed7;
+      background: #008000;
       color: white;
-      padding: 25px 20px;
+      padding: 18px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .tagline {
+      font-size: 12px;
+      opacity: 0.95;
+    }
+
+    .join-button {
+      background: white;
+      color: #008000;
+      padding: 9px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* HERO */
+
+    .hero {
+      background: linear-gradient(
+        135deg,
+        #008000,
+        #005f00
+      );
+
+      color: white;
+      padding: 45px 20px 50px;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 32px;
+    .hero-content {
+      max-width: 850px;
+      margin: auto;
     }
 
-    header p {
-      margin: 10px 0 0;
-      font-size: 16px;
+    .hero h1 {
+      font-size: 34px;
+      margin-bottom: 12px;
     }
+
+    .hero p {
+      font-size: 17px;
+      max-width: 650px;
+      margin: 0 auto 25px;
+    }
+
+    .search-box {
+      max-width: 650px;
+      margin: auto;
+      display: flex;
+      background: white;
+      border-radius: 12px;
+      padding: 6px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+
+    .search-button {
+      border: none;
+      background: #111;
+      color: white;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* MAIN */
 
     .container {
-      max-width: 700px;
+      max-width: 1100px;
       margin: auto;
-      padding: 25px 18px;
+      padding: 30px 18px;
     }
 
-    .welcome {
+    .section-title {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
-    .welcome h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
+    .section-title h2 {
+      font-size: 25px;
+      margin-bottom: 5px;
     }
 
-    .welcome p {
+    .section-title p {
       color: #666;
-      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    /* MAIN OPTIONS */
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
     }
 
     .option {
       background: white;
-      margin: 14px 0;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      cursor: pointer;
+      border-radius: 14px;
+      padding: 22px;
+      text-decoration: none;
+      color: #222;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+      transition: 0.2s;
+    }
+
+    .option:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+    }
+
+    .option-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
     }
 
     .option h3 {
-      margin: 0 0 8px;
-      font-size: 20px;
+      font-size: 19px;
+      margin-bottom: 6px;
     }
 
     .option p {
-      margin: 0;
       color: #666;
-      line-height: 1.4;
+      font-size: 14px;
     }
+
+    .arrow {
+      display: block;
+      margin-top: 12px;
+      color: #008000;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* FEATURED SECTION */
+
+    .featured {
+      margin-top: 40px;
+    }
+
+    .featured-box {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .featured-box h2 {
+      margin-bottom: 7px;
+    }
+
+    .featured-box p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .green-button {
+      display: inline-block;
+      background: #008000;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    /* SERVICES */
 
     .services {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .services h2 {
-      font-size: 22px;
+      margin-top: 40px;
     }
 
     .service-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
     }
 
     .service {
       background: white;
-      padding: 10px 14px;
-      border-radius: 20px;
+      border-radius: 10px;
+      padding: 15px 10px;
+      text-align: center;
+      font-weight: bold;
       font-size: 14px;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
     }
 
-    footer {
+    /* TRUST */
+
+    .trust {
+      margin-top: 40px;
+      background: #111;
+      color: white;
+      border-radius: 15px;
+      padding: 30px 20px;
       text-align: center;
-      padding: 25px 15px;
-      color: #777;
+    }
+
+    .trust h2 {
+      margin-bottom: 10px;
+    }
+
+    .trust p {
+      color: #ddd;
+      max-width: 700px;
+      margin: auto;
       font-size: 14px;
     }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 45px;
+      background: #111;
+      color: #bbb;
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 650px) {
+
+      .header-inner {
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .tagline {
+        display: none;
+      }
+
+      .join-button {
+        font-size: 13px;
+        padding: 8px 11px;
+      }
+
+      .hero {
+        padding: 35px 15px 40px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .search-box {
+        display: flex;
+      }
+
+      .search-box input {
+        min-width: 0;
+        font-size: 14px;
+      }
+
+      .search-button {
+        padding: 0 14px;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-box {
+        display: block;
+        text-align: center;
+      }
+
+      .featured-box .green-button {
+        margin-top: 18px;
+      }
+
+      .service-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
   </style>
+
 </head>
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
-    <h1>OGARS</h1>
-    <p>Find trusted workers. Find real opportunities.</p>
+
+    <div class="header-inner">
+
+      <div>
+        <div class="logo">OGARS</div>
+
+        <div class="tagline">
+          Trusted people. Real opportunities.
+        </div>
+      </div>
+
+      <a
+        href="join.html"
+        class="join-button"
+      >
+        👷 Join OGARS
+      </a>
+
+    </div>
+
   </header>
 
-  <div class="container">
 
-    <div class="welcome">
-      <h2>What do you need?</h2>
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <h1>
+        What do you need today?
+      </h1>
+
       <p>
-        Find skilled workers, find jobs, and connect with businesses
-        across Accra.
+        Find skilled workers, jobs, properties,
+        drivers, businesses and opportunities.
       </p>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          placeholder="Search workers, jobs, properties..."
+          id="home-search"
+        >
+
+        <button
+          class="search-button"
+          onclick="homeSearch()"
+        >
+          🔎 Search
+        </button>
+
+      </div>
+
     </div>
 
-<div class="option">
-  <h3><a href="workers.html">🔧 Find a Worker</a></h3>
-  <p>
-    Find plumbers, electricians, carpenters, painters, masons and more.
-  </p>
-</div>
+  </section>
 
-<div class="option">
-  <h3><a href="jobs.html">💼 Find Work</a></h3>
-  <p>
-    Find real jobs and work opportunities near you.
-  </p>
-</div>
 
-<div class="option">
-  <h3><a href="vehicles.html">🚗 Drivers & Vehicles</a></h3>
-  <p>
-    Drivers can find vehicles, and vehicle owners can find reliable drivers.
-  </p>
-</div>
+  <!-- MAIN -->
 
-<div class="option">
-  <h3><a href="find-property.html">🔎 Find a Property</a></h3>
-  <p>
-    Find houses, apartments, rooms, hotels, land and commercial properties.
-  </p>
-</div>
+  <main class="container">
 
-<div class="option">
-  <h3><a href="properties.html">🏠 Post a Property</a></h3>
-  <p>
-    List your house, apartment, land, hotel, shop or other property.
-  </p>
-</div>
 
-<div class="option">
-  <h3><a href="business.html">🏢 For Businesses</a></h3>
-  <p>
-    Find skilled workers and advertise your job opportunities.
-  </p>
-</div>
+    <!-- MAIN OPTIONS -->
 
-<div class="option">
-  <h3><a href="join.html">👷 Join OGARS</a></h3>
-  <p>
-    Create your worker profile and let customers discover your skills.
-  </p>
-</div>
+    <section>
 
-<div class="services">
-    </div>
+      <div class="section-title">
 
-  </div>
+        <h2>
+          Explore OGARS
+        </h2>
+
+        <p>
+          Choose what you are looking for.
+        </p>
+
+      </div>
+
+
+      <div class="options">
+
+
+        <a
+          href="workers.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            🔧
+          </div>
+
+          <h3>
+            Find a Worker
+          </h3>
+
+          <p>
+            Find plumbers, electricians,
+            carpenters, painters, masons and more.
+          </p>
+
+          <span class="arrow">
+            Find Workers →
+          </span>
+
+        </a>
+
+
+        <a
+          href="jobs.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            💼
+          </div>
+
+          <h3>
+            Find Work
+          </h3>
+
+          <p>
+            Discover jobs and real work
+            opportunities.
+          </p>
+
+          <span class="arrow">
+            Find Jobs →
+          </span>
+
+        </a>
+
+
+        <a
+          href="find-property.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            🏠
+          </div>
+
+          <h3>
+            Find a Property
+          </h3>
+
+          <p>
+            Find houses, apartments, rooms,
+            hotels, land and commercial spaces.
+          </p>
+
+          <span class="arrow">
+            Find Property →
+          </span>
+
+        </a>
+
+
+        <a
+          href="properties.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            🏘️
+          </div>
+
+          <h3>
+            Post a Property
+          </h3>
+
+          <p>
+            List your house, apartment, land,
+            hotel, shop or other property.
+          </p>
+
+          <span class="arrow">
+            Post Property →
+          </span>
+
+        </a>
+
+
+        <a
+          href="vehicles.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            🚗
+          </div>
+
+          <h3>
+            Drivers & Vehicles
+          </h3>
+
+          <p>
+            Find reliable drivers or connect
+            drivers with vehicle owners.
+          </p>
+
+          <span class="arrow">
+            Explore →
+          </span>
+
+        </a>
+
+
+        <a
+          href="business.html"
+          class="option"
+        >
+
+          <div class="option-icon">
+            🏢
+          </div>
+
+          <h3>
+            For Businesses
+          </h3>
+
+          <p>
+            Find workers, post jobs and
+            connect with opportunities.
+          </p>
+
+          <span class="arrow">
+            For Businesses →
+          </span>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- WORKER JOIN -->
+
+    <section class="featured">
+
+      <div class="featured-box">
+
+        <div>
+
+          <h2>
+            👷 Are you a skilled worker?
+          </h2>
+
+          <p>
+            Create your OGARS profile and let
+            customers discover your skills.
+          </p>
+
+        </div>
+
+        <a
+          href="join.html"
+          class="green-button"
+        >
+          Create Worker Profile
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- POPULAR SERVICES -->
+
+    <section class="services">
+
+      <div class="section-title">
+
+        <h2>
+          Popular Services
+        </h2>
+
+        <p>
+          Find professionals for everyday jobs.
+        </p>
+
+      </div>
+
+
+      <div class="service-list">
+
+        <div class="service">
+          🔧 Plumbing
+        </div>
+
+        <div class="service">
+          ⚡ Electrical
+        </div>
+
+        <div class="service">
+          🪚 Carpentry
+        </div>
+
+        <div class="service">
+          🎨 Painting
+        </div>
+
+        <div class="service">
+          🧱 Masonry
+        </div>
+
+        <div class="service">
+          🚿 Tiling
+        </div>
+
+        <div class="service">
+          🔩 Welding
+        </div>
+
+        <div class="service">
+          ❄️ AC Repair
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TRUST -->
+
+    <section class="trust">
+
+      <h2>
+        Why OGARS?
+      </h2>
+
+      <p>
+        OGARS is being built to make it easier for
+        people to find skilled workers, discover
+        opportunities, find properties and connect
+        with businesses — all in one place.
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- FOOTER -->
 
   <footer>
-    © 2026 Ogars Workers Platform
+
+    <div class="footer-links">
+
+      <a href="workers.html">
+        Workers
+      </a>
+
+      <a href="jobs.html">
+        Jobs
+      </a>
+
+      <a href="find-property.html">
+        Properties
+      </a>
+
+      <a href="vehicles.html">
+        Vehicles
+      </a>
+
+    </div>
+
+    © 2026 OGARS Workers Platform
+
   </footer>
 
+
+  <script>
+
+    function homeSearch() {
+
+      const search =
+        document
+          .getElementById("home-search")
+          .value
+          .trim()
+          .toLowerCase();
+
+      if (!search) {
+
+        alert("Please enter what you are looking for.");
+
+        return;
+
+      }
+
+
+      if (
+        search.includes("worker") ||
+        search.includes("plumber") ||
+        search.includes("electrician") ||
+        search.includes("carpenter") ||
+        search.includes("painter") ||
+        search.includes("mason") ||
+        search.includes("welder") ||
+        search.includes("tiler")
+      ) {
+
+        window.location.href =
+          "workers.html";
+
+        return;
+
+      }
+
+
+      if (
+        search.includes("job") ||
+        search.includes("work") ||
+        search.includes("employment")
+      ) {
+
+        window.location.href =
+          "jobs.html";
+
+        return;
+
+      }
+
+
+      if (
+        search.includes("house") ||
+        search.includes("apartment") ||
+        search.includes("room") ||
+        search.includes("land") ||
+        search.includes("hotel") ||
+        search.includes("property") ||
+        search.includes("rent")
+      ) {
+
+        window.location.href =
+          "find-property.html";
+
+        return;
+
+      }
+
+
+      if (
+        search.includes("driver") ||
+        search.includes("vehicle") ||
+        search.includes("car")
+      ) {
+
+        window.location.href =
+          "vehicles.html";
+
+        return;
+
+      }
+
+
+      alert(
+        "Try searching for a worker, job, property, driver or vehicle."
+      );
+
+    }
+
+
+    document
+      .getElementById("home-search")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+
+          homeSearch();
+
+        }
+
+      });
+
+  </script>
+
 </body>
+
 </html>
