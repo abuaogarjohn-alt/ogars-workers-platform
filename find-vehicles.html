@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Find Vehicles | OGARS</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #008000;
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 16px;
+    }
+
+    .search-card {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+
+    .search-card h2 {
+      font-size: 21px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-size: 16px;
+      background: white;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #008000;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: none;
+      background: #008000;
+      color: white;
+      padding: 14px;
+      margin-top: 22px;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #006400;
+    }
+
+    .info-card {
+      background: white;
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .info-card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 20px 14px;
+      }
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .search-card,
+      .info-card {
+        padding: 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>Find Vehicles</h1>
+
+    <p>Find vehicle owners and vehicles available for drivers.</p>
+
+  </header>
+
+
+  <main class="container">
+
+    <div class="search-card">
+
+      <h2>🚗 Search for a Vehicle</h2>
+
+      <label for="vehicle-type">
+        Vehicle Type
+      </label>
+
+      <select id="vehicle-type">
+
+        <option value="">
+          Any Vehicle
+        </option>
+
+        <option value="Taxi">
+          Taxi
+        </option>
+
+        <option value="Private Car">
+          Private Car
+        </option>
+
+        <option value="SUV">
+          SUV
+        </option>
+
+        <option value="Van">
+          Van
+        </option>
+
+        <option value="Bus">
+          Bus
+        </option>
+
+        <option value="Truck">
+          Truck
+        </option>
+
+        <option value="Pickup">
+          Pickup
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <label for="vehicle-location">
+        Location
+      </label>
+
+      <input
+        type="text"
+        id="vehicle-location"
+        placeholder="e.g. Accra, Madina, Osu"
+      >
+
+
+      <label for="vehicle-purpose">
+        What do you need the vehicle for?
+      </label>
+
+      <select id="vehicle-purpose">
+
+        <option value="">
+          Select purpose
+        </option>
+
+        <option value="Taxi Work">
+          Taxi Work
+        </option>
+
+        <option value="Ride-Hailing">
+          Ride-Hailing
+        </option>
+
+        <option value="Delivery">
+          Delivery
+        </option>
+
+        <option value="Company Work">
+          Company Work
+        </option>
+
+        <option value="Personal Use">
+          Personal Use
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <button class="button" type="button">
+        Search Vehicles
+      </button>
+
+    </div>
+
+
+    <div class="info-card">
+
+      <h2>🚘 Looking for a vehicle owner?</h2>
+
+      <p>
+        Vehicle owners will be able to list their vehicles
+        on OGARS so drivers can find available opportunities.
+      </p>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
+
+</body>
+
+</html>
