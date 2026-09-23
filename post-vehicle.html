@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Post a Vehicle | OGARS</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #008000;
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+    }
+
+    header h1 {
+      font-size: 28px;
+    }
+
+    header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 16px;
+    }
+
+    .form-card {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .form-card h2 {
+      font-size: 21px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-top: 17px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-size: 16px;
+      background: white;
+      outline: none;
+      font-family: inherit;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #008000;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .button {
+      width: 100%;
+      border: none;
+      background: #008000;
+      color: white;
+      padding: 14px;
+      margin-top: 22px;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #006400;
+    }
+
+    .note {
+      margin-top: 20px;
+      padding: 14px;
+      background: #f0f8f0;
+      border-left: 4px solid #008000;
+      border-radius: 9px;
+      color: #444;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 20px 14px;
+      }
+
+      header h1 {
+        font-size: 25px;
+      }
+
+      .form-card {
+        padding: 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>Post a Vehicle</h1>
+
+    <p>List your vehicle on OGARS and connect with drivers.</p>
+
+  </header>
+
+
+  <main class="container">
+
+    <div class="form-card">
+
+      <h2>🚗 Vehicle Information</h2>
+
+
+      <label for="vehicle-type">
+        Vehicle Type
+      </label>
+
+      <select id="vehicle-type">
+
+        <option value="">
+          Select vehicle type
+        </option>
+
+        <option value="Taxi">
+          Taxi
+        </option>
+
+        <option value="Private Car">
+          Private Car
+        </option>
+
+        <option value="SUV">
+          SUV
+        </option>
+
+        <option value="Van">
+          Van
+        </option>
+
+        <option value="Bus">
+          Bus
+        </option>
+
+        <option value="Truck">
+          Truck
+        </option>
+
+        <option value="Pickup">
+          Pickup
+        </option>
+
+        <option value="Motorbike">
+          Motorbike
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <label for="make">
+        Vehicle Make
+      </label>
+
+      <input
+        type="text"
+        id="make"
+        placeholder="e.g. Toyota, Honda, Nissan"
+      >
+
+
+      <label for="model">
+        Vehicle Model
+      </label>
+
+      <input
+        type="text"
+        id="model"
+        placeholder="e.g. Corolla, Civic, Hiace"
+      >
+
+
+      <label for="year">
+        Vehicle Year
+      </label>
+
+      <input
+        type="number"
+        id="year"
+        placeholder="e.g. 2020"
+        min="1950"
+        max="2030"
+      >
+
+
+      <label for="location">
+        Location
+      </label>
+
+      <input
+        type="text"
+        id="location"
+        placeholder="e.g. Accra, Madina, Osu"
+      >
+
+
+      <label for="work-type">
+        What can the vehicle be used for?
+      </label>
+
+      <select id="work-type">
+
+        <option value="">
+          Select work type
+        </option>
+
+        <option value="Taxi Work">
+          Taxi Work
+        </option>
+
+        <option value="Ride-Hailing">
+          Ride-Hailing
+        </option>
+
+        <option value="Delivery">
+          Delivery
+        </option>
+
+        <option value="Company Work">
+          Company Work
+        </option>
+
+        <option value="Personal Use">
+          Personal Use
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <label for="driver-needed">
+        Are you looking for a driver?
+      </label>
+
+      <select id="driver-needed">
+
+        <option value="false">
+          No
+        </option>
+
+        <option value="true">
+          Yes
+        </option>
+
+      </select>
+
+
+      <label for="description">
+        Vehicle Description
+      </label>
+
+      <textarea
+        id="description"
+        placeholder="Tell drivers about the vehicle and any important details."
+      ></textarea>
+
+
+      <h2 style="margin-top:25px;">
+        👤 Owner Contact
+      </h2>
+
+
+      <label for="owner-name">
+        Owner Name
+      </label>
+
+      <input
+        type="text"
+        id="owner-name"
+        placeholder="Your name"
+      >
+
+
+      <label for="owner-phone">
+        Phone Number
+      </label>
+
+      <input
+        type="tel"
+        id="owner-phone"
+        placeholder="e.g. 0241234567"
+      >
+
+
+      <button
+        class="button"
+        type="button"
+        onclick="postVehicle()"
+      >
+        Post Vehicle
+      </button>
+
+
+      <div class="note">
+
+        <strong>OGARS Vehicle Listings</strong><br>
+
+        Provide accurate information so drivers can
+        understand the vehicle and opportunity clearly.
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+
+
+    async function postVehicle() {
+
+      const vehicleType =
+        document.getElementById("vehicle-type").value;
+
+      const make =
+        document.getElementById("make").value.trim();
+
+      const model =
+        document.getElementById("model").value.trim();
+
+      const year =
+        document.getElementById("year").value;
+
+      const location =
+        document.getElementById("location").value.trim();
+
+      const workType =
+        document.getElementById("work-type").value;
+
+      const driverNeeded =
+        document.getElementById("driver-needed").value === "true";
+
+      const description =
+        document.getElementById("description").value.trim();
+
+      const ownerName =
+        document.getElementById("owner-name").value.trim();
+
+      const ownerPhone =
+        document.getElementById("owner-phone").value.trim();
+
+
+      if (
+        !vehicleType ||
+        !location ||
+        !ownerName ||
+        !ownerPhone
+      ) {
+
+        alert(
+          "Please complete the vehicle type, location and owner contact details."
+        );
+
+        return;
+
+      }
+
+
+      const vehicle = {
+
+        vehicle_type: vehicleType,
+
+        make: make || null,
+
+        model: model || null,
+
+        year: year ? Number(year) : null,
+
+        location: location,
+
+        work_type: workType || null,
+
+        description: description || null,
+
+        driver_needed: driverNeeded,
+
+        owner_name: ownerName,
+
+        owner_phone: ownerPhone
+
+      };
+
+
+      const { error } =
+        await supabaseClient
+          .from("vehicles")
+          .insert([vehicle]);
+
+
+      if (error) {
+
+        alert(
+          "Error: " + error.message
+        );
+
+        console.error(error);
+
+        return;
+
+      }
+
+
+      alert(
+        "Vehicle posted successfully!"
+      );
+
+
+      document
+        .getElementById("vehicle-type")
+        .value = "";
+
+      document
+        .getElementById("make")
+        .value = "";
+
+      document
+        .getElementById("model")
+        .value = "";
+
+      document
+        .getElementById("year")
+        .value = "";
+
+      document
+        .getElementById("location")
+        .value = "";
+
+      document
+        .getElementById("work-type")
+        .value = "";
+
+      document
+        .getElementById("driver-needed")
+        .value = "false";
+
+      document
+        .getElementById("description")
+        .value = "";
+
+      document
+        .getElementById("owner-name")
+        .value = "";
+
+      document
+        .getElementById("owner-phone")
+        .value = "";
+
+    }
+
+  </script>
+
+</body>
+
+</html>
