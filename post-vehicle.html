@@ -107,6 +107,58 @@
       margin-top: 6px;
     }
 
+    .photo-button {
+      width: 100%;
+      border: none;
+      background: white;
+      color: #008000;
+      border: 1px solid #008000;
+      padding: 13px;
+      margin-top: 12px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .photo-button:hover {
+      background: #f0f8f0;
+    }
+
+    .photo-preview {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .photo-item {
+      position: relative;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 9px;
+      display: block;
+    }
+
+    .remove-photo {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 50%;
+      background: #d00000;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .button {
       width: 100%;
       border: none;
@@ -122,6 +174,11 @@
 
     .button:hover {
       background: #006400;
+    }
+
+    .button:disabled {
+      background: #999;
+      cursor: not-allowed;
     }
 
     .note {
@@ -153,6 +210,10 @@
 
       .form-card {
         padding: 18px;
+      }
+
+      .photo-preview {
+        grid-template-columns: repeat(2, 1fr);
       }
 
     }
@@ -342,7 +403,7 @@
 
       <div class="photo-box">
 
-        <label for="vehicle-photo">
+        <label>
           📸 Vehicle Photos
         </label>
 
@@ -350,12 +411,26 @@
           type="file"
           id="vehicle-photo"
           accept="image/*"
-          multiple
+          style="display:none;"
+          onchange="addPhoto()"
         >
 
+        <button
+          type="button"
+          class="photo-button"
+          onclick="document.getElementById('vehicle-photo').click()"
+        >
+          ➕ Add Vehicle Photo
+        </button>
+
         <p>
-          Add clear photos of the vehicle. You can select multiple photos.
+          Add several clear photos of the vehicle.
         </p>
+
+        <div
+          id="photo-preview"
+          class="photo-preview"
+        ></div>
 
       </div>
 
@@ -388,6 +463,7 @@
 
 
       <button
+        id="post-button"
         class="button"
         type="button"
         onclick="postVehicle()"
@@ -432,7 +508,106 @@
       );
 
 
+    let selectedPhotos = [];
+
+
+    function addPhoto() {
+
+      const input =
+        document.getElementById("vehicle-photo");
+
+      if (!input.files.length) {
+        return;
+      }
+
+      const file =
+        input.files[0];
+
+      selectedPhotos.push(file);
+
+      displayPhotoPreviews();
+
+      input.value = "";
+
+    }
+
+
+    function displayPhotoPreviews() {
+
+      const preview =
+        document.getElementById("photo-preview");
+
+      preview.innerHTML = "";
+
+
+      selectedPhotos.forEach(
+        function(file, index) {
+
+          const item =
+            document.createElement("div");
+
+          item.className =
+            "photo-item";
+
+
+          const image =
+            document.createElement("img");
+
+          image.src =
+            URL.createObjectURL(file);
+
+          image.alt =
+            "Vehicle photo";
+
+
+          const removeButton =
+            document.createElement("button");
+
+          removeButton.type =
+            "button";
+
+          removeButton.className =
+            "remove-photo";
+
+          removeButton.innerHTML =
+            "×";
+
+
+          removeButton.onclick =
+            function() {
+
+              selectedPhotos.splice(
+                index,
+                1
+              );
+
+              displayPhotoPreviews();
+
+            };
+
+
+          item.appendChild(image);
+
+          item.appendChild(removeButton);
+
+          preview.appendChild(item);
+
+        }
+      );
+
+    }
+
+
     async function postVehicle() {
+
+      const postButton =
+        document.getElementById("post-button");
+
+
+      if (postButton.disabled) {
+        return;
+      }
+
 
       const vehicleType =
         document.getElementById("vehicle-type").value;
@@ -464,9 +639,6 @@
       const ownerPhone =
         document.getElementById("owner-phone").value.trim();
 
-      const photoFiles =
-        document.getElementById("vehicle-photo").files;
-
 
       if (
         !vehicleType ||
@@ -484,17 +656,26 @@
       }
 
 
-      /* Upload vehicle photos */
+      postButton.disabled =
+        true;
+
+      postButton.innerText =
+        "Posting Vehicle...";
+
 
       let photoUrls = [];
 
 
-      for (const file of photoFiles) {
+      for (
+        const file of selectedPhotos
+      ) {
 
         const fileName =
           Date.now() +
           "-" +
-          Math.random().toString(36).substring(2, 8) +
+          Math.random()
+            .toString(36)
+            .substring(2, 8) +
           "-" +
           file.name.replace(
             /[^a-zA-Z0-9.-]/g,
@@ -519,7 +700,15 @@
             uploadError.message
           );
 
-          console.error(uploadError);
+          console.error(
+            uploadError
+          );
+
+          postButton.disabled =
+            false;
+
+          postButton.innerText =
+            "Post Vehicle";
 
           return;
 
@@ -530,7 +719,9 @@
           supabaseClient
             .storage
             .from("vehicle-photos")
-            .getPublicUrl(fileName);
+            .getPublicUrl(
+              fileName
+            );
 
 
         photoUrls.push(
@@ -542,25 +733,37 @@
 
       const vehicle = {
 
-        vehicle_type: vehicleType,
+        vehicle_type:
+          vehicleType,
 
-        make: make || null,
+        make:
+          make || null,
 
-        model: model || null,
+        model:
+          model || null,
 
-        year: year ? Number(year) : null,
+        year:
+          year
+            ? Number(year)
+            : null,
 
-        location: location,
+        location:
+          location,
 
-        work_type: workType || null,
+        work_type:
+          workType || null,
 
-        description: description || null,
+        description:
+          description || null,
 
-        driver_needed: driverNeeded,
+        driver_needed:
+          driverNeeded,
 
-        owner_name: ownerName,
+        owner_name:
+          ownerName,
 
-        owner_phone: ownerPhone,
+        owner_phone:
+          ownerPhone,
 
         photo_url:
           photoUrls.length > 0
@@ -573,16 +776,27 @@
       const { error } =
         await supabaseClient
           .from("vehicles")
-          .insert([vehicle]);
+          .insert([
+            vehicle
+          ]);
 
 
       if (error) {
 
         alert(
-          "Error: " + error.message
+          "Error: " +
+          error.message
         );
 
-        console.error(error);
+        console.error(
+          error
+        );
+
+        postButton.disabled =
+          false;
+
+        postButton.innerText =
+          "Post Vehicle";
 
         return;
 
@@ -620,7 +834,8 @@
 
       document
         .getElementById("driver-needed")
-        .value = "false";
+        .value =
+          "false";
 
       document
         .getElementById("description")
@@ -634,9 +849,19 @@
         .getElementById("owner-phone")
         .value = "";
 
+
+      selectedPhotos = [];
+
       document
-        .getElementById("vehicle-photo")
-        .value = "";
+        .getElementById("photo-preview")
+        .innerHTML = "";
+
+
+      postButton.disabled =
+        false;
+
+      postButton.innerText =
+        "Post Vehicle";
 
     }
 
