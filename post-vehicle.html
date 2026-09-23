@@ -93,6 +93,20 @@
       resize: vertical;
     }
 
+    .photo-box {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f0f8f0;
+      border: 1px dashed #008000;
+      border-radius: 10px;
+    }
+
+    .photo-box p {
+      font-size: 13px;
+      color: #555;
+      margin-top: 6px;
+    }
+
     .button {
       width: 100%;
       border: none;
@@ -324,6 +338,28 @@
       ></textarea>
 
 
+      <!-- VEHICLE PHOTOS -->
+
+      <div class="photo-box">
+
+        <label for="vehicle-photo">
+          📸 Vehicle Photos
+        </label>
+
+        <input
+          type="file"
+          id="vehicle-photo"
+          accept="image/*"
+          multiple
+        >
+
+        <p>
+          Add clear photos of the vehicle. You can select multiple photos.
+        </p>
+
+      </div>
+
+
       <h2 style="margin-top:25px;">
         👤 Owner Contact
       </h2>
@@ -428,6 +464,9 @@
       const ownerPhone =
         document.getElementById("owner-phone").value.trim();
 
+      const photoFiles =
+        document.getElementById("vehicle-photo").files;
+
 
       if (
         !vehicleType ||
@@ -441,6 +480,62 @@
         );
 
         return;
+
+      }
+
+
+      /* Upload vehicle photos */
+
+      let photoUrls = [];
+
+
+      for (const file of photoFiles) {
+
+        const fileName =
+          Date.now() +
+          "-" +
+          Math.random().toString(36).substring(2, 8) +
+          "-" +
+          file.name.replace(
+            /[^a-zA-Z0-9.-]/g,
+            "-"
+          );
+
+
+        const { error: uploadError } =
+          await supabaseClient
+            .storage
+            .from("vehicle-photos")
+            .upload(
+              fileName,
+              file
+            );
+
+
+        if (uploadError) {
+
+          alert(
+            "Photo upload error: " +
+            uploadError.message
+          );
+
+          console.error(uploadError);
+
+          return;
+
+        }
+
+
+        const { data: urlData } =
+          supabaseClient
+            .storage
+            .from("vehicle-photos")
+            .getPublicUrl(fileName);
+
+
+        photoUrls.push(
+          urlData.publicUrl
+        );
 
       }
 
@@ -465,7 +560,12 @@
 
         owner_name: ownerName,
 
-        owner_phone: ownerPhone
+        owner_phone: ownerPhone,
+
+        photo_url:
+          photoUrls.length > 0
+            ? photoUrls.join(",")
+            : null
 
       };
 
@@ -532,6 +632,10 @@
 
       document
         .getElementById("owner-phone")
+        .value = "";
+
+      document
+        .getElementById("vehicle-photo")
         .value = "";
 
     }
