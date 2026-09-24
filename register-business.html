@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Register Your Business - OGARS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #008000;
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    header h1 {
+      font-size: 27px;
+    }
+
+    header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 22px 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+
+    .intro {
+      margin-bottom: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 9px;
+      font-size: 15px;
+      font-family: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .button {
+      width: 100%;
+      border: none;
+      background: #008000;
+      color: white;
+      padding: 14px;
+      margin-top: 22px;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #006400;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #008000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🏢 Register Your Business</h1>
+    <p>Connect your business with customers through OGARS.</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+
+      <p class="intro">
+        Create your business profile so customers can discover your
+        business, services and contact information on OGARS.
+      </p>
+
+      <form id="business-form">
+
+        <label for="business-name">Business Name</label>
+        <input
+          type="text"
+          id="business-name"
+          placeholder="e.g. Ogar's Electrical Services"
+          required
+        >
+
+        <label for="business-type">Business Type</label>
+        <select id="business-type" required>
+          <option value="">Select business type</option>
+          <option>Construction</option>
+          <option>Electrical</option>
+          <option>Plumbing</option>
+          <option>Carpentry</option>
+          <option>Auto Services</option>
+          <option>Cleaning Services</option>
+          <option>Restaurant / Food</option>
+          <option>Retail</option>
+          <option>Transportation</option>
+          <option>Real Estate</option>
+          <option>Technology</option>
+          <option>Fashion</option>
+          <option>Beauty</option>
+          <option>Other</option>
+        </select>
+
+        <label for="phone">Phone Number</label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="e.g. 0241234567"
+          required
+        >
+
+        <label for="location">Location / Community</label>
+        <input
+          type="text"
+          id="location"
+          placeholder="e.g. Achimota, Accra"
+          required
+        >
+
+        <label for="services">Services Offered</label>
+        <textarea
+          id="services"
+          placeholder="Tell customers what services your business provides..."
+        ></textarea>
+
+        <label for="description">About Your Business</label>
+        <textarea
+          id="description"
+          placeholder="Tell customers about your business..."
+        ></textarea>
+
+        <button type="submit" class="button">
+          Register Business
+        </button>
+
+      </form>
+
+      <a href="business.html" class="back">← Back to Business</a>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
+
+</body>
+</html>
