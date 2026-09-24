@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Add Product - OGARS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #008000;
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 27px;
+    }
+
+    header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 22px 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+
+    .intro {
+      margin-bottom: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 9px;
+      font-size: 15px;
+      font-family: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .photo-box {
+      margin-top: 10px;
+      padding: 18px;
+      border: 2px dashed #008000;
+      border-radius: 10px;
+      text-align: center;
+      background: #f8fff8;
+    }
+
+    .photo-button {
+      display: inline-block;
+      background: #008000;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #product-photo {
+      display: none;
+    }
+
+    .photo-note {
+      margin-top: 9px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    #preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .preview-item {
+      position: relative;
+    }
+
+    .preview-item img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .remove-photo {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      border: none;
+      background: #d00000;
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .button {
+      width: 100%;
+      border: none;
+      background: #008000;
+      color: white;
+      padding: 14px;
+      margin-top: 22px;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button:disabled {
+      background: #777;
+      cursor: not-allowed;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #008000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 500px) {
+      #preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>📦 Add Product</h1>
+    <p>Show customers what your business offers.</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+
+      <p class="intro">
+        Add a product or item to your business profile.
+        You can upload multiple photos.
+      </p>
+
+      <form id="product-form">
+
+        <label for="business-id">Business ID</label>
+        <input
+          type="number"
+          id="business-id"
+          placeholder="Enter your business ID"
+          required
+        >
+
+        <label for="product-name">Product / Item Name</label>
+        <input
+          type="text"
+          id="product-name"
+          placeholder="e.g. Chicken Wings"
+          required
+        >
+
+        <label for="category">Category</label>
+        <input
+          type="text"
+          id="category"
+          placeholder="e.g. Frozen Foods"
+        >
+
+        <label for="price">Price (GH₵)</label>
+        <input
+          type="number"
+          id="price"
+          placeholder="e.g. 250"
+          min="0"
+          step="0.01"
+        >
+
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          placeholder="Describe this product..."
+        ></textarea>
+
+        <label>Product Photos</label>
+
+        <div class="photo-box">
+
+          <label for="product-photo" class="photo-button">
+            ➕ Add Product Photos
+          </label>
+
+          <input
+            type="file"
+            id="product-photo"
+            accept="image/*"
+            multiple
+          >
+
+          <div class="photo-note">
+            You can select multiple photos.
+          </div>
+
+          <div id="preview-grid"></div>
+
+        </div>
+
+        <button type="submit" class="button" id="post-button">
+          Add Product
+        </button>
+
+      </form>
+
+      <a href="business.html" class="back">
+        ← Back to Business
+      </a>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 OGARS Workers Platform
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+/*
+Use the SAME Supabase publishable key
+already used in your other OGARS pages.
+*/
+const SUPABASE_KEY = "YOUR_EXISTING_PUBLISHABLE_KEY";
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let selectedPhotos = [];
+
+const photoInput = document.getElementById("product-photo");
+const previewGrid = document.getElementById("preview-grid");
+
+photoInput.addEventListener("change", function() {
+
+  const newFiles = Array.from(photoInput.files);
+
+  selectedPhotos = selectedPhotos.concat(newFiles);
+
+  photoInput.value = "";
+
+  showPreviews();
+});
+
+
+function showPreviews() {
+
+  previewGrid.innerHTML = "";
+
+  selectedPhotos.forEach(function(file, index) {
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      const div = document.createElement("div");
+
+      div.className = "preview-item";
+
+      div.innerHTML = `
+        <img src="${event.target.result}">
+        <button
+          type="button"
+          class="remove-photo"
+          onclick="removePhoto(${index})"
+        >
+          ×
+        </button>
+      `;
+
+      previewGrid.appendChild(div);
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+function removePhoto(index) {
+
+  selectedPhotos.splice(index, 1);
+
+  showPreviews();
+}
+
+
+document.getElementById("product-form").addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  const postButton = document.getElementById("post-button");
+
+  if (postButton.disabled) {
+    return;
+  }
+
+  const businessId = document.getElementById("business-id").value;
+  const productName = document.getElementById("product-name").value.trim();
+  const category = document.getElementById("category").value.trim();
+  const price = document.getElementById("price").value;
+  const description = document.getElementById("description").value.trim();
+
+  if (!businessId || !productName) {
+    alert("Please enter your Business ID and product name.");
+    return;
+  }
+
+  postButton.disabled = true;
+  postButton.innerText = "Adding Product...";
+
+  let photoUrls = [];
+
+  for (const file of selectedPhotos) {
+
+    const fileName =
+      Date.now() +
+      "-" +
+      Math.random().toString(36).substring(2, 8) +
+      "-" +
+      file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from("business-product-photos")
+      .upload(fileName, file);
+
+    if (uploadError) {
+
+      alert("Photo upload error: " + uploadError.message);
+
+      console.error(uploadError);
+
+      postButton.disabled = false;
+      postButton.innerText = "Add Product";
+
+      return;
+    }
+
+    const { data: urlData } = supabaseClient
+      .storage
+      .from("business-product-photos")
+      .getPublicUrl(fileName);
+
+    photoUrls.push(urlData.publicUrl);
+  }
+
+
+  const product = {
+
+    business_id: Number(businessId),
+
+    product_name: productName,
+
+    category: category,
+
+    price: price ? Number(price) : null,
+
+    description: description,
+
+    photo_urls:
+      photoUrls.length > 0
+        ? photoUrls.join(",")
+        : null
+  };
+
+
+  const { error } = await supabaseClient
+    .from("business_products")
+    .insert([product]);
+
+
+  if (error) {
+
+    alert("Error: " + error.message);
+
+    console.error(error);
+
+    postButton.disabled = false;
+    postButton.innerText = "Add Product";
+
+    return;
+  }
+
+
+  alert("Product added successfully!");
+
+  document.getElementById("product-form").reset();
+
+  selectedPhotos = [];
+
+  previewGrid.innerHTML = "";
+
+  postButton.disabled = false;
+
+  postButton.innerText = "Add Product";
+
+});
+
+</script>
+
+</body>
+</html>
