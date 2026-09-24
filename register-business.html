@@ -207,5 +207,55 @@
     © 2026 OGARS Workers Platform
   </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  document.getElementById("business-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const businessName = document.getElementById("business-name").value.trim();
+    const businessType = document.getElementById("business-type").value;
+    const phone = document.getElementById("phone").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const services = document.getElementById("services").value.trim();
+    const description = document.getElementById("description").value.trim();
+
+    if (!businessName || !businessType || !phone || !location) {
+      alert("Please complete all required fields.");
+      return;
+    }
+
+    const { error } = await supabaseClient
+      .from("businesses")
+      .insert([{
+        business_name: businessName,
+        business_type: businessType,
+        phone: phone,
+        location: location,
+        services: services,
+        description: description
+      }]);
+
+    if (error) {
+      alert("Error: " + error.message);
+      console.error(error);
+      return;
+    }
+
+    alert("Business registered successfully!");
+
+    document.getElementById("business-form").reset();
+  });
+</script>
+
 </body>
 </html>
