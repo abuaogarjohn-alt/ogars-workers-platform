@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Discover on OGARS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7f8;
+      color: #222;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #008000;
+      color: white;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+
+    header h1 {
+      font-size: 27px;
+    }
+
+    header p {
+      margin-top: 7px;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding: 20px 15px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 18px;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .search-box input,
+    .search-box select {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 9px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .listing {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+
+    .listing-photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+    }
+
+    .listing-content {
+      padding: 18px;
+    }
+
+    .listing-type {
+      display: inline-block;
+      background: #e8f5e9;
+      color: #008000;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .listing h2 {
+      font-size: 21px;
+      margin-bottom: 7px;
+    }
+
+    .location {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #444;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .event-info {
+      background: #f5f7f8;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      background: #008000;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .button.call {
+      background: #333;
+    }
+
+    .button.website {
+      background: #555;
+    }
+
+    .no-results {
+      background: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 15px;
+      color: #666;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin: 25px 0;
+      color: #008000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (min-width: 650px) {
+      #listing-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .listing {
+        margin-bottom: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🔎 Discover on OGARS</h1>
+  <p>Find schools, churches, events, organizations, courses and promotions.</p>
+</header>
+
+<div class="container">
+
+  <div class="search-box">
+
+    <input
+      type="search"
+      id="search"
+      placeholder="Search e.g. church, school, event..."
+    >
+
+    <input
+      type="text"
+      id="location"
+      placeholder="Search by location e.g. Accra, Achimota"
+    >
+
+    <select id="listing-type">
+
+      <option value="">All Categories</option>
+
+      <option value="School">Schools</option>
+
+      <option value="Church">Churches</option>
+
+      <option value="Organization">Organizations</option>
+
+      <option value="Event">Events</option>
+
+      <option value="Training & Course">Training & Courses</option>
+
+      <option value="Promotion">Promotions</option>
+
+      <option value="Restaurant">Restaurants</option>
+
+      <option value="Business Advertisement">Business Advertisements</option>
+
+      <option value="Other">Other</option>
+
+    </select>
+
+  </div>
+
+  <div id="listing-list">
+
+    <div class="loading">
+      Loading listings...
+    </div>
+
+  </div>
+
+  <a href="discover.html" class="back">
+    ← Back to Discover
+  </a>
+
+</div>
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+let allListings = [];
+
+
+async function loadListings() {
+
+  const listingList =
+    document.getElementById("listing-list");
+
+  listingList.innerHTML =
+    '<div class="loading">Loading listings...</div>';
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("discover_listings")
+      .select("*")
+      .eq("available", true)
+      .order("created_at", {
+        ascending: false
+      });
+
+
+  if (error) {
+
+    console.error(error);
+
+    listingList.innerHTML =
+      '<div class="no-results">Unable to load listings.</div>';
+
+    return;
+  }
+
+
+  allListings = data || [];
+
+  displayListings();
+
+}
+
+
+function displayListings() {
+
+  const listingList =
+    document.getElementById("listing-list");
+
+  const search =
+    document.getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const location =
+    document.getElementById("location")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const type =
+    document.getElementById("listing-type")
+      .value;
+
+
+  const filtered =
+    allListings.filter(function(listing) {
+
+      const title =
+        (listing.title || "").toLowerCase();
+
+      const description =
+        (listing.description || "").toLowerCase();
+
+      const listingLocation =
+        (listing.location || "").toLowerCase();
+
+      const listingType =
+        listing.listing_type || "";
+
+
+      const matchesSearch =
+        !search ||
+        title.includes(search) ||
+        description.includes(search);
+
+      const matchesLocation =
+        !location ||
+        listingLocation.includes(location);
+
+      const matchesType =
+        !type ||
+        listingType === type;
+
+
+      return (
+        matchesSearch &&
+        matchesLocation &&
+        matchesType
+      );
+
+    });
+
+
+  if (filtered.length === 0) {
+
+    listingList.innerHTML = `
+      <div class="no-results">
+        <h3>No listings found</h3>
+        <p>Try another search or category.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  listingList.innerHTML = "";
+
+
+  filtered.forEach(function(listing) {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "listing";
+
+
+    let photoHtml = "";
+
+
+    if (listing.photo_urls) {
+
+      const photos =
+        listing.photo_urls
+          .split(",")
+          .map(function(url) {
+            return url.trim();
+          })
+          .filter(Boolean);
+
+
+      if (photos.length > 0) {
+
+        photoHtml = `
+          <img
+            src="${photos[0]}"
+            class="listing-photo"
+            alt="${escapeHtml(listing.title || "OGARS listing")}"
+          >
+        `;
+
+      }
+
+    }
+
+
+    let eventHtml = "";
+
+
+    if (
+      listing.listing_type === "Event" &&
+      (listing.event_date || listing.event_time)
+    ) {
+
+      eventHtml = `
+        <div class="event-info">
+          📅 ${escapeHtml(listing.event_date || "")}
+          ${listing.event_time
+            ? " • " + escapeHtml(listing.event_time)
+            : ""}
+        </div>
+      `;
+
+    }
+
+
+    let buttons = "";
+
+
+    if (listing.whatsapp) {
+
+      let whatsappNumber =
+        listing.whatsapp.replace(
+          /[^0-9]/g,
+          ""
+        );
+
+
+      if (
+        whatsappNumber.startsWith("0") &&
+        whatsappNumber.length === 10
+      ) {
+
+        whatsappNumber =
+          "233" +
+          whatsappNumber.substring(1);
+
+      }
+
+
+      buttons += `
+        <a
+          class="button"
+          href="https://wa.me/${whatsappNumber}"
+          target="_blank"
+        >
+          WhatsApp
+        </a>
+      `;
+
+    }
+
+
+    if (listing.phone) {
+
+      buttons += `
+        <a
+          class="button call"
+          href="tel:${escapeHtml(listing.phone)}"
+        >
+          Call
+        </a>
+      `;
+
+    }
+
+
+    if (listing.website) {
+
+      buttons += `
+        <a
+          class="button website"
+          href="${escapeHtml(listing.website)}"
+          target="_blank"
+        >
+          Website
+        </a>
+      `;
+
+    }
+
+
+    card.innerHTML = `
+
+      ${photoHtml}
+
+      <div class="listing-content">
+
+        <span class="listing-type">
+          ${escapeHtml(listing.listing_type || "Other")}
+        </span>
+
+        <h2>
+          ${escapeHtml(listing.title || "")}
+        </h2>
+
+        ${
+          listing.location
+            ? `
+              <div class="location">
+                📍 ${escapeHtml(listing.location)}
+              </div>
+            `
+            : ""
+        }
+
+        ${
+          listing.description
+            ? `
+              <div class="description">
+                ${escapeHtml(listing.description)}
+              </div>
+            `
+            : ""
+        }
+
+        ${eventHtml}
+
+        ${
+          buttons
+            ? `<div class="buttons">${buttons}</div>`
+            : ""
+        }
+
+      </div>
+    `;
+
+
+    listingList.appendChild(card);
+
+  });
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+document
+  .getElementById("search")
+  .addEventListener(
+    "input",
+    displayListings
+  );
+
+
+document
+  .getElementById("location")
+  .addEventListener(
+    "input",
+    displayListings
+  );
+
+
+document
+  .getElementById("listing-type")
+  .addEventListener(
+    "change",
+    displayListings
+  );
+
+
+loadListings();
+
+</script>
+
+</body>
+</html>
