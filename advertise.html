@@ -1,3 +1,6 @@
+
+        "Publishing...";
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -416,73 +419,68 @@ const photoInput =
 const previewGrid =
   document.getElementById("preview-grid");
 
+const form =
+  document.getElementById("advertise-form");
 
-photoInput.addEventListener(
-  "change",
-  function() {
+const submitButton =
+  document.getElementById("submit-button");
 
-    const newFiles =
-      Array.from(photoInput.files);
 
-    selectedPhotos =
-      selectedPhotos.concat(newFiles);
+photoInput.addEventListener("change", function () {
 
-    photoInput.value = "";
+  const newFiles =
+    Array.from(photoInput.files);
 
-    showPreviews();
+  selectedPhotos =
+    selectedPhotos.concat(newFiles);
 
-  }
-);
+  photoInput.value = "";
+
+  showPreviews();
+
+});
 
 
 function showPreviews() {
 
   previewGrid.innerHTML = "";
 
+  selectedPhotos.forEach(function (file, index) {
 
-  selectedPhotos.forEach(
-    function(file, index) {
+    const reader =
+      new FileReader();
 
-      const reader =
-        new FileReader();
+    reader.onload =
+      function (event) {
 
+        const div =
+          document.createElement("div");
 
-      reader.onload =
-        function(event) {
+        div.className =
+          "preview-item";
 
-          const div =
-            document.createElement("div");
+        div.innerHTML = `
+          <img
+            src="${event.target.result}"
+            alt="Photo preview"
+          >
 
-          div.className =
-            "preview-item";
+          <button
+            type="button"
+            class="remove-photo"
+            onclick="removePhoto(${index})"
+          >
+            ×
+          </button>
+        `;
 
+        previewGrid.appendChild(div);
 
-          div.innerHTML = `
+      };
 
-            <img
-              src="${event.target.result}"
-            >
+    reader.readAsDataURL(file);
 
-            <button
-              type="button"
-              class="remove-photo"
-              onclick="removePhoto(${index})"
-            >
-              ×
-            </button>
-
-          `;
-
-
-          previewGrid.appendChild(div);
-
-        };
-
-
-      reader.readAsDataURL(file);
-
-    }
-  );
+  });
 
 }
 
@@ -499,150 +497,225 @@ function removePhoto(index) {
 }
 
 
-document
-  .getElementById("advertise-form")
-  .addEventListener(
-    "submit",
-    async function(event) {
+form.addEventListener("submit", async function (event) {
 
-      event.preventDefault();
+  event.preventDefault();
+
+  if (submitButton.disabled) {
+    return;
+  }
 
 
-      const submitButton =
-        document.getElementById(
-          "submit-button"
+  const listingType =
+    document.getElementById("listing-type")
+      .value
+      .trim();
+
+  const title =
+    document.getElementById("title")
+      .value
+      .trim();
+
+  const location =
+    document.getElementById("location")
+      .value
+      .trim();
+
+  const description =
+    document.getElementById("description")
+      .value
+      .trim();
+
+  const phone =
+    document.getElementById("phone")
+      .value
+      .trim();
+
+  const whatsapp =
+    document.getElementById("whatsapp")
+      .value
+      .trim();
+
+  const website =
+    document.getElementById("website")
+      .value
+      .trim();
+
+  const eventDate =
+    document.getElementById("event-date")
+      .value;
+
+  const eventTime =
+    document.getElementById("event-time")
+      .value
+      .trim();
+
+
+  if (!listingType || !title) {
+
+    alert(
+      "Please select a listing type and enter a name or title."
+    );
+
+    return;
+  }
+
+
+  submitButton.disabled = true;
+
+  submitButton.innerText =
+    "Publishing...";
+
+
+  try {
+
+    let photoUrls = [];
+
+
+    for (const file of selectedPhotos) {
+
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 8) +
+        "-" +
+        file.name.replace(
+          /[^a-zA-Z0-9.-]/g,
+          "-"
         );
 
 
-      if (submitButton.disabled) {
-        return;
-      }
+      const uploadResult =
+        await supabaseClient
+          .storage
+          .from("discover-photos")
+          .upload(
+            fileName,
+            file
+          );
 
 
-      const listingType =
-        document.getElementById(
-          "listing-type"
-        ).value;
+      if (uploadResult.error) {
 
-
-      const title =
-        document.getElementById(
-          "title"
-        ).value.trim();
-
-
-      const location =
-        document.getElementById(
-          "location"
-        ).value.trim();
-
-
-      const description =
-        document.getElementById(
-          "description"
-        ).value.trim();
-
-
-      const phone =
-        document.getElementById(
-          "phone"
-        ).value.trim();
-
-
-      const whatsapp =
-        document.getElementById(
-          "whatsapp"
-        ).value.trim();
-
-
-      const website =
-        document.getElementById(
-          "website"
-        ).value.trim();
-
-
-      const eventDate =
-        document.getElementById(
-          "event-date"
-        ).value;
-
-
-      const eventTime =
-        document.getElementById(
-          "event-time"
-        ).value.trim();
-
-
-      if (!listingType || !title) {
-
-        alert(
-          "Please select a listing type and enter a name or title."
+        throw new Error(
+          "Photo upload failed: " +
+          uploadResult.error.message
         );
 
-        return;
       }
 
 
-      submitButton.disabled = true;
-
-      submitButton.innerText =
-        "Publishing...";
-
-
-      let photoUrls = [];
-
-
-      for (
-        const file of selectedPhotos
-      ) {
-
-        const fileName =
-          Date.now() +
-          "-" +
-          Math.random()
-            .toString(36)
-            .substring(2, 8) +
-          "-" +
-          file.name.replace(
-            /[^a-zA-Z0-9.-]/g,
-            "-"
+      const publicUrlResult =
+        supabaseClient
+          .storage
+          .from("discover-photos")
+          .getPublicUrl(
+            fileName
           );
 
 
-        const {
-          error: uploadError
-        } =
-          await supabaseClient
-            .storage
-            .from(
-              "discover-photos"
-            )
-            .upload(
-              fileName,
-              file
-            );
+      photoUrls.push(
+        publicUrlResult.data.publicUrl
+      );
+
+    }
 
 
-        if (uploadError) {
+    const listing = {
 
-          alert(
-            "Photo upload error: " +
-            uploadError.message
-          );
+      title:
+        title,
 
-          console.error(
-            uploadError
-          );
+      listing_type:
+        listingType,
 
-          submitButton.disabled =
-            false;
+      location:
+        location || null,
 
-          submitButton.innerText =
-            "Publish Listing";
+      description:
+        description || null,
 
-          return;
-        }
+      phone:
+        phone || null,
+
+      whatsapp:
+        whatsapp || null,
+
+      website:
+        website || null,
+
+      event_date:
+        eventDate || null,
+
+      event_time:
+        eventTime || null,
+
+      photo_urls:
+        photoUrls.length > 0
+          ? photoUrls.join(",")
+          : null,
+
+      featured:
+        false,
+
+      available:
+        true
+
+    };
 
 
-        const {
-          data: urlData
+    const result =
+      await supabaseClient
+        .from("discover_listings")
+        .insert([listing]);
+
+
+    if (result.error) {
+
+      throw new Error(
+        "Listing could not be saved: " +
+        result.error.message
+      );
+
+    }
+
+
+    alert(
+      "Listing published successfully!"
+    );
+
+
+    form.reset();
+
+    selectedPhotos = [];
+
+    previewGrid.innerHTML = "";
+
+
+  } catch (error) {
+
+    console.error(
+      "OGARS listing error:",
+      error
+    );
+
+    alert(
+      "Unable to publish listing.\n\n" +
+      error.message
+    );
+
+
+  } finally {
+
+    submitButton.disabled = false;
+
+    submitButton.innerText =
+      "Publish Listing";
+
+  }
+
+});
+
+</script>
