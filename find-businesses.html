@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Find Businesses & Products - OGARS</title>
+  <title>Find Products - OGARS</title>
 
   <style>
     * {
@@ -29,7 +29,7 @@
     }
 
     header h1 {
-      font-size: 27px;
+      font-size: 28px;
     }
 
     header p {
@@ -39,7 +39,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
       padding: 20px 15px;
     }
@@ -89,96 +89,100 @@
       margin: 10px 0 14px;
     }
 
-    .business-card {
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .product-card {
       background: white;
       border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 18px;
+      overflow: hidden;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       border: 1px solid #eee;
     }
 
-    .business-name {
-      color: #008000;
-      font-size: 21px;
-      font-weight: bold;
-    }
-
-    .business-type {
-      display: inline-block;
-      margin-top: 7px;
-      padding: 5px 9px;
-      background: #eaf7ea;
-      color: #006400;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .business-info {
-      margin-top: 10px;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .product-title {
-      margin-top: 18px;
-      margin-bottom: 10px;
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .product-card {
-      border: 1px solid #e2e2e2;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #fff;
-    }
-
     .product-image {
       width: 100%;
-      height: 145px;
+      height: 190px;
       object-fit: cover;
       background: #eee;
+      display: block;
+    }
+
+    .no-image {
+      width: 100%;
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef2ef;
+      color: #777;
+      font-size: 45px;
     }
 
     .product-content {
-      padding: 10px;
+      padding: 14px;
     }
 
     .product-name {
+      font-size: 19px;
       font-weight: bold;
-      font-size: 15px;
+      color: #222;
+    }
+
+    .product-category {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 8px;
+      background: #eaf7ea;
+      color: #006400;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
     }
 
     .product-price {
       color: #008000;
+      font-size: 18px;
       font-weight: bold;
-      margin-top: 5px;
+      margin-top: 8px;
     }
 
     .product-description {
       color: #666;
-      font-size: 12px;
-      margin-top: 5px;
+      font-size: 13px;
+      margin-top: 7px;
+    }
+
+    .seller {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .seller strong {
+      color: #222;
+    }
+
+    .location {
+      margin-top: 3px;
+      color: #666;
     }
 
     .button-row {
       display: flex;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .contact-button {
       flex: 1;
       text-align: center;
-      padding: 9px 5px;
+      padding: 10px 5px;
       border-radius: 8px;
       text-decoration: none;
       font-size: 12px;
@@ -193,7 +197,7 @@
 
     .empty {
       background: white;
-      padding: 25px;
+      padding: 30px 20px;
       border-radius: 12px;
       text-align: center;
       color: #666;
@@ -221,9 +225,14 @@
       font-size: 14px;
     }
 
-    @media (max-width: 550px) {
+    @media (max-width: 600px) {
       .product-grid {
         grid-template-columns: 1fr;
+      }
+
+      .product-image,
+      .no-image {
+        height: 220px;
       }
     }
   </style>
@@ -232,8 +241,8 @@
 <body>
 
 <header>
-  <h1>🔎 Find Businesses</h1>
-  <p>Find businesses and products near you.</p>
+  <h1>🛍️ Find Products</h1>
+  <p>Search for what you need from businesses on OGARS.</p>
 </header>
 
 <div class="container">
@@ -245,7 +254,7 @@
     <input
       type="text"
       id="search"
-      placeholder="Search a business or product..."
+      placeholder="Search for a product e.g. Tilapia"
     >
 
     <input
@@ -254,40 +263,22 @@
       placeholder="Location e.g. Achimota"
     >
 
-    <select id="business-type">
-      <option value="">All Business Types</option>
-      <option>Construction</option>
-      <option>Electrical</option>
-      <option>Plumbing</option>
-      <option>Carpentry</option>
-      <option>Auto Services</option>
-      <option>Cleaning Services</option>
-      <option>Restaurant / Food</option>
-      <option>Retail</option>
-      <option>Transportation</option>
-      <option>Real Estate</option>
-      <option>Technology</option>
-      <option>Fashion</option>
-      <option>Beauty</option>
-      <option>Other</option>
-    </select>
-
     <input
       type="text"
       id="category"
-      placeholder="Product category e.g. Frozen Foods"
+      placeholder="Category e.g. Frozen Foods"
     >
 
-    <button class="search-button" onclick="searchBusinesses()">
-      Search
+    <button class="search-button" onclick="searchProducts()">
+      🔎 Search Products
     </button>
 
   </div>
 
-  <h2 class="results-title">Businesses & Products</h2>
+  <h2 class="results-title">Available Products</h2>
 
   <div id="results" class="loading">
-    Loading...
+    Loading products...
   </div>
 
   <a href="business.html" class="back">
@@ -304,9 +295,11 @@
 
 <script>
 
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
@@ -314,54 +307,17 @@ const supabaseClient = supabase.createClient(
 );
 
 
-async function searchBusinesses() {
-
-  const search = document
-    .getElementById("search")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const location = document
-    .getElementById("location")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const businessType = document
-    .getElementById("business-type")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const category = document
-    .getElementById("category")
-    .value
-    .trim()
-    .toLowerCase();
-
-  const results = document.getElementById("results");
-
-  results.innerHTML = '<div class="loading">Searching...</div>';
+let allProducts = [];
+let allBusinesses = [];
 
 
-  const { data: businesses, error: businessError } =
-    await supabaseClient
-      .from("businesses")
-      .select("*")
-      .eq("available", true)
-      .order("created_at", { ascending: false });
+async function loadProducts() {
 
+  const results =
+    document.getElementById("results");
 
-  if (businessError) {
-
-    results.innerHTML =
-      '<div class="empty">Error loading businesses.</div>';
-
-    console.error(businessError);
-
-    return;
-  }
+  results.innerHTML =
+    '<div class="loading">Loading products...</div>';
 
 
   const { data: products, error: productError } =
@@ -375,7 +331,7 @@ async function searchBusinesses() {
   if (productError) {
 
     results.innerHTML =
-      '<div class="empty">Error loading products.</div>';
+      '<div class="empty">Unable to load products.</div>';
 
     console.error(productError);
 
@@ -383,100 +339,126 @@ async function searchBusinesses() {
   }
 
 
-  const matchingBusinesses = businesses.filter(function(business) {
-
-    const businessName =
-      (business.business_name || "").toLowerCase();
-
-    const type =
-      (business.business_type || "").toLowerCase();
-
-    const businessLocation =
-      (business.location || "").toLowerCase();
+  const { data: businesses, error: businessError } =
+    await supabaseClient
+      .from("businesses")
+      .select("*")
+      .eq("available", true);
 
 
-    const businessMatchesSearch =
-      !search ||
-      businessName.includes(search) ||
-      type.includes(search);
+  if (businessError) {
+
+    results.innerHTML =
+      '<div class="empty">Unable to load sellers.</div>';
+
+    console.error(businessError);
+
+    return;
+  }
 
 
-    const locationMatches =
-      !location ||
-      businessLocation.includes(location);
+  allProducts = products || [];
+  allBusinesses = businesses || [];
 
-
-    const typeMatches =
-      !businessType ||
-      type === businessType;
-
-
-    const businessProducts =
-      products.filter(function(product) {
-
-        if (product.business_id !== business.id) {
-          return false;
-        }
-
-        const productName =
-          (product.product_name || "").toLowerCase();
-
-        const productCategory =
-          (product.category || "").toLowerCase();
-
-
-        const searchMatchesProduct =
-          !search ||
-          productName.includes(search) ||
-          productCategory.includes(search);
-
-
-        const categoryMatches =
-          !category ||
-          productCategory.includes(category);
-
-
-        return searchMatchesProduct && categoryMatches;
-      });
-
-
-    const hasMatchingProduct =
-      businessProducts.length > 0;
-
-
-    return (
-      (businessMatchesSearch || hasMatchingProduct) &&
-      locationMatches &&
-      typeMatches
-    );
-
-  });
-
-
-  displayBusinesses(
-    matchingBusinesses,
-    products,
-    search,
-    category
-  );
+  displayProducts(allProducts);
 }
 
 
-function displayBusinesses(
-  businesses,
-  products,
-  search,
-  category
-) {
+function searchProducts() {
 
-  const results = document.getElementById("results");
+  const search =
+    document
+      .getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
 
-  if (!businesses.length) {
+  const location =
+    document
+      .getElementById("location")
+      .value
+      .trim()
+      .toLowerCase();
+
+  const category =
+    document
+      .getElementById("category")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const filteredProducts =
+    allProducts.filter(function(product) {
+
+      const business =
+        allBusinesses.find(function(item) {
+          return item.id === product.business_id;
+        });
+
+
+      const productName =
+        (product.product_name || "").toLowerCase();
+
+      const productCategory =
+        (product.category || "").toLowerCase();
+
+      const businessName =
+        business
+          ? (business.business_name || "").toLowerCase()
+          : "";
+
+      const businessLocation =
+        business
+          ? (business.location || "").toLowerCase()
+          : "";
+
+
+      const searchMatches =
+        !search ||
+        productName.includes(search) ||
+        productCategory.includes(search);
+
+      const locationMatches =
+        !location ||
+        businessLocation.includes(location);
+
+      const categoryMatches =
+        !category ||
+        productCategory.includes(category);
+
+
+      return (
+        searchMatches &&
+        locationMatches &&
+        categoryMatches
+      );
+
+    });
+
+
+  displayProducts(filteredProducts);
+}
+
+
+function displayProducts(products) {
+
+  const results =
+    document.getElementById("results");
+
+
+  if (!products.length) {
 
     results.innerHTML = `
       <div class="empty">
-        <h3>No results found</h3>
-        <p>Try another business, product or location.</p>
+
+        <h3>No products found</h3>
+
+        <p>
+          Try another product name,
+          location or category.
+        </p>
+
       </div>
     `;
 
@@ -484,194 +466,191 @@ function displayBusinesses(
   }
 
 
-  results.innerHTML = "";
+  results.innerHTML =
+    '<div class="product-grid"></div>';
 
 
-  businesses.forEach(function(business) {
-
-    const businessProducts =
-      products.filter(function(product) {
-
-        if (product.business_id !== business.id) {
-          return false;
-        }
-
-        const productName =
-          (product.product_name || "").toLowerCase();
-
-        const productCategory =
-          (product.category || "").toLowerCase();
+  const grid =
+    results.querySelector(".product-grid");
 
 
-        const searchMatches =
-          !search ||
-          productName.includes(search) ||
-          productCategory.includes(search) ||
-          business.business_name.toLowerCase().includes(search) ||
-          business.business_type.toLowerCase().includes(search);
+  products.forEach(function(product) {
 
-
-        const categoryMatches =
-          !category ||
-          productCategory.includes(category);
-
-
-        return searchMatches && categoryMatches;
+    const business =
+      allBusinesses.find(function(item) {
+        return item.id === product.business_id;
       });
 
 
-    let productsHTML = "";
-
-
-    if (businessProducts.length) {
-
-      productsHTML = `
-        <div class="product-title">
-          Products
-        </div>
-
-        <div class="product-grid">
-      `;
-
-
-      businessProducts.forEach(function(product) {
-
-        let imageHTML =
-          '<div class="product-image"></div>';
-
-
-        if (product.photo_urls) {
-
-          const firstPhoto =
-            product.photo_urls
-              .split(",")[0]
-              .trim();
-
-          if (firstPhoto) {
-
-            imageHTML = `
-              <img
-                src="${firstPhoto}"
-                class="product-image"
-                alt="${product.product_name}"
-              >
-            `;
-          }
-        }
-
-
-        const priceHTML =
-          product.price !== null &&
-          product.price !== undefined
-            ? `GH₵ ${Number(product.price).toLocaleString()}`
-            : "Price on request";
-
-
-        const phone =
-          business.phone || "";
-
-
-        const whatsappNumber =
-          phone.replace(/\D/g, "");
-
-
-        const whatsappMessage =
-          `Hello, I found your business on OGARS. I am interested in ${product.product_name}. Please let me know if it is available.`;
-
-
-        const whatsappURL =
-          `https://wa.me/233${whatsappNumber.replace(/^0/, "")}?text=${encodeURIComponent(whatsappMessage)}`;
-
-
-        productsHTML += `
-
-          <div class="product-card">
-
-            ${imageHTML}
-
-            <div class="product-content">
-
-              <div class="product-name">
-                ${product.product_name}
-              </div>
-
-              <div class="product-price">
-                ${priceHTML}
-              </div>
-
-              <div class="product-description">
-                ${product.description || ""}
-              </div>
-
-              <div class="button-row">
-
-                <a
-                  href="${whatsappURL}"
-                  target="_blank"
-                  class="contact-button"
-                >
-                  💬 WhatsApp
-                </a>
-
-                <a
-                  href="tel:${phone}"
-                  class="contact-button call-button"
-                >
-                  📞 Call
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        `;
-      });
-
-
-      productsHTML += `
-        </div>
-      `;
+    if (!business) {
+      return;
     }
 
 
-    const card = document.createElement("div");
+    const phone =
+      business.phone || "";
 
-    card.className = "business-card";
+
+    const whatsappNumber =
+      phone.replace(/\D/g, "");
+
+
+    const cleanNumber =
+      whatsappNumber.startsWith("233")
+        ? whatsappNumber
+        : "233" + whatsappNumber.replace(/^0/, "");
+
+
+    const message =
+      `Hello, I found ${product.product_name} on OGARS. I am interested in this product. Is it available?`;
+
+
+    const whatsappURL =
+      `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
+
+
+    const priceHTML =
+      product.price !== null &&
+      product.price !== undefined
+        ? `GH₵ ${Number(product.price).toLocaleString()}`
+        : "Price on request";
+
+
+    let imageHTML =
+      '<div class="no-image">📦</div>';
+
+
+    if (product.photo_urls) {
+
+      const firstPhoto =
+        product.photo_urls
+          .split(",")[0]
+          .trim();
+
+
+      if (firstPhoto) {
+
+        imageHTML = `
+          <img
+            src="${firstPhoto}"
+            class="product-image"
+            alt="${product.product_name}"
+          >
+        `;
+
+      }
+    }
+
+
+    const card =
+      document.createElement("div");
+
+
+    card.className =
+      "product-card";
 
 
     card.innerHTML = `
 
-      <div class="business-name">
-        ${business.business_name}
-      </div>
+      ${imageHTML}
 
-      <div class="business-type">
-        ${business.business_type}
-      </div>
+      <div class="product-content">
 
-      <div class="business-info">
-        📍 ${business.location}
-      </div>
+        <div class="product-name">
+          ${product.product_name}
+        </div>
 
-      <div class="business-info">
-        🛠️ ${business.services || "Services information not provided."}
-      </div>
+        ${
+          product.category
+            ? `
+              <div class="product-category">
+                ${product.category}
+              </div>
+            `
+            : ""
+        }
 
-      ${productsHTML}
+        <div class="product-price">
+          ${priceHTML}
+        </div>
+
+        ${
+          product.description
+            ? `
+              <div class="product-description">
+                ${product.description}
+              </div>
+            `
+            : ""
+        }
+
+        <div class="seller">
+
+          Seller:
+          <strong>
+            ${business.business_name}
+          </strong>
+
+          <div class="location">
+            📍 ${business.location}
+          </div>
+
+        </div>
+
+        <div class="button-row">
+
+          <a
+            href="${whatsappURL}"
+            target="_blank"
+            class="contact-button"
+          >
+            💬 WhatsApp
+          </a>
+
+          <a
+            href="tel:${phone}"
+            class="contact-button call-button"
+          >
+            📞 Call
+          </a>
+
+        </div>
+
+      </div>
 
     `;
 
 
-    results.appendChild(card);
+    grid.appendChild(card);
 
   });
 
 }
 
 
-searchBusinesses();
+document
+  .getElementById("search")
+  .addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+      searchProducts();
+    }
+
+  });
+
+
+document
+  .getElementById("location")
+  .addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+      searchProducts();
+    }
+
+  });
+
+
+loadProducts();
 
 </script>
 
