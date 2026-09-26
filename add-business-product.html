@@ -57,6 +57,16 @@
       font-size: 14px;
     }
 
+    .business-info {
+      background: #e8f5e9;
+      color: #006400;
+      padding: 12px;
+      border-radius: 9px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     label {
       display: block;
       margin-top: 16px;
@@ -188,287 +198,576 @@
 
 <body>
 
-  <header>
-    <h1>📦 Add Product</h1>
-    <p>Show customers what your business offers.</p>
-  </header>
+<header>
+  <h1>📦 Add Product</h1>
+  <p>Show customers what your business offers.</p>
+</header>
 
-  <div class="container">
 
-    <div class="card">
+<div class="container">
 
-      <p class="intro">
-        Add a product or item to your business profile.
-        You can upload multiple photos.
-      </p>
+  <div class="card">
 
-      <form id="product-form">
+    <p class="intro">
+      Add a product or item to your business profile.
+      You can upload multiple photos.
+    </p>
 
-        <label for="business-id">Business ID</label>
+
+    <div
+      id="business-info"
+      class="business-info"
+    >
+      Loading your business...
+    </div>
+
+
+    <form id="product-form">
+
+      <label for="product-name">
+        Product / Item Name
+      </label>
+
+      <input
+        type="text"
+        id="product-name"
+        placeholder="e.g. Chicken Wings"
+        required
+      >
+
+
+      <label for="category">
+        Category
+      </label>
+
+      <input
+        type="text"
+        id="category"
+        placeholder="e.g. Frozen Foods"
+      >
+
+
+      <label for="price">
+        Price (GH₵)
+      </label>
+
+      <input
+        type="number"
+        id="price"
+        placeholder="e.g. 250"
+        min="0"
+        step="0.01"
+      >
+
+
+      <label for="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        placeholder="Describe this product..."
+      ></textarea>
+
+
+      <label>
+        Product Photos
+      </label>
+
+
+      <div class="photo-box">
+
+        <label
+          for="product-photo"
+          class="photo-button"
+        >
+          ➕ Add Product Photos
+        </label>
+
         <input
-          type="number"
-          id="business-id"
-          placeholder="Enter your business ID"
-          required
+          type="file"
+          id="product-photo"
+          accept="image/*"
+          multiple
         >
 
-        <label for="product-name">Product / Item Name</label>
-        <input
-          type="text"
-          id="product-name"
-          placeholder="e.g. Chicken Wings"
-          required
-        >
-
-        <label for="category">Category</label>
-        <input
-          type="text"
-          id="category"
-          placeholder="e.g. Frozen Foods"
-        >
-
-        <label for="price">Price (GH₵)</label>
-        <input
-          type="number"
-          id="price"
-          placeholder="e.g. 250"
-          min="0"
-          step="0.01"
-        >
-
-        <label for="description">Description</label>
-        <textarea
-          id="description"
-          placeholder="Describe this product..."
-        ></textarea>
-
-        <label>Product Photos</label>
-
-        <div class="photo-box">
-
-          <label for="product-photo" class="photo-button">
-            ➕ Add Product Photos
-          </label>
-
-          <input
-            type="file"
-            id="product-photo"
-            accept="image/*"
-            multiple
-          >
-
-          <div class="photo-note">
-            You can select multiple photos.
-          </div>
-
-          <div id="preview-grid"></div>
-
+        <div class="photo-note">
+          You can select multiple photos.
         </div>
 
-        <button type="submit" class="button" id="post-button">
-          Add Product
-        </button>
+        <div id="preview-grid"></div>
 
-      </form>
+      </div>
 
-      <a href="business.html" class="back">
-        ← Back to Business
-      </a>
 
-    </div>
+      <button
+        type="submit"
+        class="button"
+        id="post-button"
+      >
+        Add Product
+      </button>
+
+    </form>
+
+
+    <a
+      id="back-button"
+      href="business.html"
+      class="back"
+    >
+      ← Back to Business
+    </a>
 
   </div>
 
-  <footer>
-    © 2026 OGARS Workers Platform
-  </footer>
+</div>
+
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-/*
-Use the SAME Supabase publishable key
-already used in your other OGARS pages.
-*/
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
 
 let selectedPhotos = [];
 
-const photoInput = document.getElementById("product-photo");
-const previewGrid = document.getElementById("preview-grid");
 
-photoInput.addEventListener("change", function() {
+const photoInput =
+  document.getElementById("product-photo");
 
-  const newFiles = Array.from(photoInput.files);
+const previewGrid =
+  document.getElementById("preview-grid");
 
-  selectedPhotos = selectedPhotos.concat(newFiles);
+const form =
+  document.getElementById("product-form");
 
-  photoInput.value = "";
+const postButton =
+  document.getElementById("post-button");
 
-  showPreviews();
-});
+const businessInfo =
+  document.getElementById("business-info");
 
+const backButton =
+  document.getElementById("back-button");
+
+
+/* Get the Business ID automatically from the URL */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const businessId =
+  params.get("business_id");
+
+
+if (!businessId) {
+
+  businessInfo.innerHTML =
+    "⚠️ Business information was not found.";
+
+  form.style.display = "none";
+
+} else {
+
+  loadBusiness();
+
+  backButton.href =
+    "business-profile.html?id=" +
+    encodeURIComponent(businessId);
+
+}
+
+
+/* Load the business name */
+
+async function loadBusiness() {
+
+  const { data, error } =
+    await supabaseClient
+      .from("businesses")
+      .select("business_name")
+      .eq("id", businessId)
+      .single();
+
+
+  if (error) {
+
+    console.error(error);
+
+    businessInfo.innerHTML =
+      "⚠️ Unable to load business information.";
+
+    form.style.display = "none";
+
+    return;
+  }
+
+
+  businessInfo.innerHTML =
+    "🏢 Adding product for: " +
+    escapeHtml(data.business_name);
+
+}
+
+
+/* Select photos */
+
+photoInput.addEventListener(
+  "change",
+  function() {
+
+    const newFiles =
+      Array.from(photoInput.files);
+
+    selectedPhotos =
+      selectedPhotos.concat(newFiles);
+
+    photoInput.value = "";
+
+    showPreviews();
+
+  }
+);
+
+
+/* Show photo previews */
 
 function showPreviews() {
 
   previewGrid.innerHTML = "";
 
-  selectedPhotos.forEach(function(file, index) {
 
-    const reader = new FileReader();
+  selectedPhotos.forEach(
+    function(file, index) {
 
-    reader.onload = function(event) {
+      const reader =
+        new FileReader();
 
-      const div = document.createElement("div");
 
-      div.className = "preview-item";
+      reader.onload =
+        function(event) {
 
-      div.innerHTML = `
-        <img src="${event.target.result}">
-        <button
-          type="button"
-          class="remove-photo"
-          onclick="removePhoto(${index})"
-        >
-          ×
-        </button>
-      `;
+          const div =
+            document.createElement("div");
 
-      previewGrid.appendChild(div);
-    };
+          div.className =
+            "preview-item";
 
-    reader.readAsDataURL(file);
-  });
+
+          div.innerHTML = `
+
+            <img
+              src="${event.target.result}"
+              alt="Product photo"
+            >
+
+            <button
+              type="button"
+              class="remove-photo"
+              onclick="removePhoto(${index})"
+            >
+              ×
+            </button>
+
+          `;
+
+
+          previewGrid.appendChild(div);
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+
 }
 
+
+/* Remove a selected photo */
 
 function removePhoto(index) {
 
-  selectedPhotos.splice(index, 1);
+  selectedPhotos.splice(
+    index,
+    1
+  );
 
   showPreviews();
+
 }
 
 
-document.getElementById("product-form").addEventListener("submit", async function(event) {
+/* Submit product */
 
-  event.preventDefault();
+form.addEventListener(
+  "submit",
+  async function(event) {
 
-  const postButton = document.getElementById("post-button");
+    event.preventDefault();
 
-  if (postButton.disabled) {
-    return;
-  }
 
-  const businessId = document.getElementById("business-id").value;
-  const productName = document.getElementById("product-name").value.trim();
-  const category = document.getElementById("category").value.trim();
-  const price = document.getElementById("price").value;
-  const description = document.getElementById("description").value.trim();
+    if (postButton.disabled) {
+      return;
+    }
 
-  if (!businessId || !productName) {
-    alert("Please enter your Business ID and product name.");
-    return;
-  }
 
-  postButton.disabled = true;
-  postButton.innerText = "Adding Product...";
+    if (!businessId) {
 
-  let photoUrls = [];
-
-  for (const file of selectedPhotos) {
-
-    const fileName =
-      Date.now() +
-      "-" +
-      Math.random().toString(36).substring(2, 8) +
-      "-" +
-      file.name.replace(/[^a-zA-Z0-9.-]/g, "-");
-
-    const { error: uploadError } = await supabaseClient
-      .storage
-      .from("business-product-photos")
-      .upload(fileName, file);
-
-    if (uploadError) {
-
-      alert("Photo upload error: " + uploadError.message);
-
-      console.error(uploadError);
-
-      postButton.disabled = false;
-      postButton.innerText = "Add Product";
+      alert(
+        "Business information is missing."
+      );
 
       return;
     }
 
-    const { data: urlData } = supabaseClient
-      .storage
-      .from("business-product-photos")
-      .getPublicUrl(fileName);
 
-    photoUrls.push(urlData.publicUrl);
+    const productName =
+      document
+        .getElementById("product-name")
+        .value
+        .trim();
+
+
+    const category =
+      document
+        .getElementById("category")
+        .value
+        .trim();
+
+
+    const price =
+      document
+        .getElementById("price")
+        .value;
+
+
+    const description =
+      document
+        .getElementById("description")
+        .value
+        .trim();
+
+
+    if (!productName) {
+
+      alert(
+        "Please enter the product name."
+      );
+
+      return;
+    }
+
+
+    postButton.disabled = true;
+
+    postButton.innerText =
+      "Adding Product...";
+
+
+    try {
+
+      let photoUrls = [];
+
+
+      /* Upload product photos */
+
+      for (
+        const file of selectedPhotos
+      ) {
+
+        const fileName =
+          Date.now() +
+          "-" +
+          Math.random()
+            .toString(36)
+            .substring(2, 8) +
+          "-" +
+          file.name.replace(
+            /[^a-zA-Z0-9.-]/g,
+            "-"
+          );
+
+
+        const {
+          error: uploadError
+        } =
+          await supabaseClient
+            .storage
+            .from(
+              "business-product-photos"
+            )
+            .upload(
+              fileName,
+              file
+            );
+
+
+        if (uploadError) {
+
+          throw new Error(
+            "Photo upload error: " +
+            uploadError.message
+          );
+
+        }
+
+
+        const {
+          data: urlData
+        } =
+          supabaseClient
+            .storage
+            .from(
+              "business-product-photos"
+            )
+            .getPublicUrl(
+              fileName
+            );
+
+
+        photoUrls.push(
+          urlData.publicUrl
+        );
+
+      }
+
+
+      /* Create product */
+
+      const product = {
+
+        business_id:
+          Number(businessId),
+
+        product_name:
+          productName,
+
+        category:
+          category || null,
+
+        price:
+          price
+            ? Number(price)
+            : null,
+
+        description:
+          description || null,
+
+        photo_urls:
+          photoUrls.length > 0
+            ? photoUrls.join(",")
+            : null
+
+      };
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .from(
+            "business_products"
+          )
+          .insert([
+            product
+          ]);
+
+
+      if (error) {
+
+        throw new Error(
+          error.message
+        );
+
+      }
+
+
+      alert(
+        "Product added successfully!"
+      );
+
+
+      window.location.href =
+        "business-profile.html?id=" +
+        encodeURIComponent(
+          businessId
+        );
+
+    } catch (error) {
+
+      console.error(
+        "Product error:",
+        error
+      );
+
+
+      alert(
+        "Unable to add product.\n\n" +
+        error.message
+      );
+
+
+    } finally {
+
+      postButton.disabled = false;
+
+      postButton.innerText =
+        "Add Product";
+
+    }
+
   }
+);
 
 
-  const product = {
+/* Escape HTML */
 
-    business_id: Number(businessId),
+function escapeHtml(value) {
 
-    product_name: productName,
+  return String(value || "")
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
-    category: category,
-
-    price: price ? Number(price) : null,
-
-    description: description,
-
-    photo_urls:
-      photoUrls.length > 0
-        ? photoUrls.join(",")
-        : null
-  };
-
-
-  const { error } = await supabaseClient
-    .from("business_products")
-    .insert([product]);
-
-
-  if (error) {
-
-    alert("Error: " + error.message);
-
-    console.error(error);
-
-    postButton.disabled = false;
-    postButton.innerText = "Add Product";
-
-    return;
-  }
-
-
-  alert("Product added successfully!");
-
-  document.getElementById("product-form").reset();
-
-  selectedPhotos = [];
-
-  previewGrid.innerHTML = "";
-
-  postButton.disabled = false;
-
-  postButton.innerText = "Add Product";
-
-});
+}
 
 </script>
 
