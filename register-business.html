@@ -100,6 +100,11 @@
       background: #006400;
     }
 
+    .button:disabled {
+      background: #777;
+      cursor: not-allowed;
+    }
+
     .back {
       display: block;
       text-align: center;
@@ -120,141 +125,313 @@
 
 <body>
 
-  <header>
-    <h1>🏢 Register Your Business</h1>
-    <p>Connect your business with customers through OGARS.</p>
-  </header>
+<header>
+  <h1>🏢 Register Your Business</h1>
+  <p>Connect your business with customers through OGARS.</p>
+</header>
 
-  <div class="container">
 
-    <div class="card">
+<div class="container">
 
-      <p class="intro">
-        Create your business profile so customers can discover your
-        business, services and contact information on OGARS.
-      </p>
+  <div class="card">
 
-      <form id="business-form">
+    <p class="intro">
+      Create your business profile so customers can discover your
+      business, services and contact information on OGARS.
+    </p>
 
-        <label for="business-name">Business Name</label>
-        <input
-          type="text"
-          id="business-name"
-          placeholder="e.g. Ogar's Electrical Services"
-          required
-        >
 
-        <label for="business-type">Business Type</label>
-        <select id="business-type" required>
-          <option value="">Select business type</option>
-          <option>Construction</option>
-          <option>Electrical</option>
-          <option>Plumbing</option>
-          <option>Carpentry</option>
-          <option>Auto Services</option>
-          <option>Cleaning Services</option>
-          <option>Restaurant / Food</option>
-          <option>Retail</option>
-          <option>Transportation</option>
-          <option>Real Estate</option>
-          <option>Technology</option>
-          <option>Fashion</option>
-          <option>Beauty</option>
-          <option>Other</option>
-        </select>
+    <form id="business-form">
 
-        <label for="phone">Phone Number</label>
-        <input
-          type="tel"
-          id="phone"
-          placeholder="e.g. 0241234567"
-          required
-        >
+      <label for="business-name">
+        Business Name
+      </label>
 
-        <label for="location">Location / Community</label>
-        <input
-          type="text"
-          id="location"
-          placeholder="e.g. Achimota, Accra"
-          required
-        >
+      <input
+        type="text"
+        id="business-name"
+        placeholder="e.g. Ogar's Electrical Services"
+        required
+      >
 
-        <label for="services">Services Offered</label>
-        <textarea
-          id="services"
-          placeholder="Tell customers what services your business provides..."
-        ></textarea>
 
-        <label for="description">About Your Business</label>
-        <textarea
-          id="description"
-          placeholder="Tell customers about your business..."
-        ></textarea>
+      <label for="business-type">
+        Business Type
+      </label>
 
-        <button type="submit" class="button">
-          Register Business
-        </button>
+      <select
+        id="business-type"
+        required
+      >
 
-      </form>
+        <option value="">
+          Select business type
+        </option>
 
-      <a href="business.html" class="back">← Back to Business</a>
+        <option>Construction</option>
+        <option>Electrical</option>
+        <option>Plumbing</option>
+        <option>Carpentry</option>
+        <option>Auto Services</option>
+        <option>Cleaning Services</option>
+        <option>Restaurant / Food</option>
+        <option>Retail</option>
+        <option>Transportation</option>
+        <option>Real Estate</option>
+        <option>Technology</option>
+        <option>Fashion</option>
+        <option>Beauty</option>
+        <option>Other</option>
 
-    </div>
+      </select>
+
+
+      <label for="phone">
+        Phone Number
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="e.g. 0241234567"
+        required
+      >
+
+
+      <label for="location">
+        Location / Community
+      </label>
+
+      <input
+        type="text"
+        id="location"
+        placeholder="e.g. Achimota, Accra"
+        required
+      >
+
+
+      <label for="services">
+        Services Offered
+      </label>
+
+      <textarea
+        id="services"
+        placeholder="Tell customers what services your business provides..."
+      ></textarea>
+
+
+      <label for="description">
+        About Your Business
+      </label>
+
+      <textarea
+        id="description"
+        placeholder="Tell customers about your business..."
+      ></textarea>
+
+
+      <button
+        type="submit"
+        class="button"
+        id="register-button"
+      >
+        Register Business
+      </button>
+
+    </form>
+
+
+    <a
+      href="business.html"
+      class="back"
+    >
+      ← Back to Business
+    </a>
 
   </div>
 
-  <footer>
-    © 2026 OGARS Workers Platform
-  </footer>
+</div>
+
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-  const supabaseClient = supabase.createClient(
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+const supabaseClient =
+  supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
 
-  document.getElementById("business-form").addEventListener("submit", async function(event) {
+
+const form =
+  document.getElementById("business-form");
+
+const registerButton =
+  document.getElementById("register-button");
+
+
+form.addEventListener(
+  "submit",
+  async function(event) {
+
     event.preventDefault();
 
-    const businessName = document.getElementById("business-name").value.trim();
-    const businessType = document.getElementById("business-type").value;
-    const phone = document.getElementById("phone").value.trim();
-    const location = document.getElementById("location").value.trim();
-    const services = document.getElementById("services").value.trim();
-    const description = document.getElementById("description").value.trim();
 
-    if (!businessName || !businessType || !phone || !location) {
-      alert("Please complete all required fields.");
+    if (registerButton.disabled) {
       return;
     }
 
-    const { error } = await supabaseClient
-      .from("businesses")
-      .insert([{
-        business_name: businessName,
-        business_type: businessType,
-        phone: phone,
-        location: location,
-        services: services,
-        description: description
-      }]);
 
-    if (error) {
-      alert("Error: " + error.message);
-      console.error(error);
+    const businessName =
+      document
+        .getElementById("business-name")
+        .value
+        .trim();
+
+    const businessType =
+      document
+        .getElementById("business-type")
+        .value;
+
+    const phone =
+      document
+        .getElementById("phone")
+        .value
+        .trim();
+
+    const location =
+      document
+        .getElementById("location")
+        .value
+        .trim();
+
+    const services =
+      document
+        .getElementById("services")
+        .value
+        .trim();
+
+    const description =
+      document
+        .getElementById("description")
+        .value
+        .trim();
+
+
+    if (
+      !businessName ||
+      !businessType ||
+      !phone ||
+      !location
+    ) {
+
+      alert(
+        "Please complete all required fields."
+      );
+
       return;
     }
 
-    alert("Business registered successfully!");
 
-    document.getElementById("business-form").reset();
-  });
+    registerButton.disabled = true;
+
+    registerButton.innerText =
+      "Registering Business...";
+
+
+    try {
+
+      const { data, error } =
+        await supabaseClient
+          .from("businesses")
+          .insert([{
+            business_name:
+              businessName,
+
+            business_type:
+              businessType,
+
+            phone:
+              phone,
+
+            location:
+              location,
+
+            services:
+              services,
+
+            description:
+              description
+          }])
+          .select("id")
+          .single();
+
+
+      if (error) {
+
+        throw new Error(
+          error.message
+        );
+
+      }
+
+
+      if (!data || !data.id) {
+
+        throw new Error(
+          "Business was registered, but the Business ID could not be retrieved."
+        );
+
+      }
+
+
+      alert(
+        "Business registered successfully!"
+      );
+
+
+      window.location.href =
+        "business-profile.html?id=" +
+        encodeURIComponent(data.id);
+
+
+    } catch (error) {
+
+      console.error(
+        "Business registration error:",
+        error
+      );
+
+      alert(
+        "Unable to register business.\n\n" +
+        error.message
+      );
+
+
+    } finally {
+
+      registerButton.disabled = false;
+
+      registerButton.innerText =
+        "Register Business";
+
+    }
+
+  }
+);
+
 </script>
 
 </body>
