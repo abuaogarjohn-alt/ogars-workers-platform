@@ -439,9 +439,11 @@ function displayListings() {
       eventHtml = `
         <div class="event-info">
           📅 ${escapeHtml(listing.event_date || "")}
-          ${listing.event_time
-            ? " • " + escapeHtml(listing.event_time)
-            : ""}
+          ${
+            listing.event_time
+              ? " • " + escapeHtml(listing.event_time)
+              : ""
+          }
         </div>
       `;
 
@@ -575,6 +577,28 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+
+}
+
+
+/* Read the category from the Discover page link */
+
+const urlParams =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const selectedType =
+  urlParams.get("type");
+
+
+if (selectedType) {
+
+  const typeSelect =
+    document.getElementById("listing-type");
+
+  typeSelect.value =
+    selectedType;
 
 }
 
