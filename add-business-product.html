@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -151,9 +153,11 @@
       height: 25px;
       cursor: pointer;
       font-weight: bold;
+      margin: 0;
+      padding: 0;
     }
 
-    button {
+    .main-button {
       width: 100%;
       margin-top: 25px;
       padding: 15px;
@@ -166,7 +170,7 @@
       cursor: pointer;
     }
 
-    button:disabled {
+    .main-button:disabled {
       background: #7da58d;
       cursor: not-allowed;
     }
@@ -185,15 +189,21 @@
       color: #66756b;
       margin-top: 5px;
     }
+
   </style>
+
 </head>
 
 <body>
 
 <header>
+
   <h1>➕ Add Product</h1>
+
   <p>Sell your products on OGARS</p>
+
 </header>
+
 
 <div class="container">
 
@@ -203,58 +213,141 @@
       Loading business...
     </div>
 
-    <label for="product-name">Product Name</label>
+
+    <!-- PRODUCT NAME -->
+
+    <label for="product-name">
+      Product Name
+    </label>
+
     <input
       type="text"
       id="product-name"
       placeholder="e.g. Frozen Chicken"
     >
 
-    <label for="category">Category</label>
+
+    <!-- CATEGORY -->
+
+    <label for="category">
+      Category
+    </label>
 
     <select id="category">
 
-      <option value="">Select a category</option>
+      <option value="">
+        Select a category
+      </option>
 
-      <option>Food & Groceries</option>
-      <option>Frozen Foods</option>
-      <option>Fresh Food & Produce</option>
-      <option>Drinks & Beverages</option>
+      <option value="Food & Groceries">
+        Food & Groceries
+      </option>
 
-      <option>Clothing & Fashion</option>
-      <option>Shoes & Footwear</option>
-      <option>Bags & Accessories</option>
+      <option value="Frozen Foods">
+        Frozen Foods
+      </option>
 
-      <option>Beauty & Personal Care</option>
-      <option>Health & Wellness</option>
+      <option value="Fresh Food & Produce">
+        Fresh Food & Produce
+      </option>
 
-      <option>Phones & Tablets</option>
-      <option>Computers & Electronics</option>
+      <option value="Drinks & Beverages">
+        Drinks & Beverages
+      </option>
 
-      <option>Home & Kitchen</option>
-      <option>Furniture</option>
+      <option value="Clothing & Fashion">
+        Clothing & Fashion
+      </option>
 
-      <option>Building & Construction Materials</option>
-      <option>Electrical & Plumbing Materials</option>
+      <option value="Shoes & Footwear">
+        Shoes & Footwear
+      </option>
 
-      <option>Automotive & Spare Parts</option>
-      <option>Tools & Equipment</option>
+      <option value="Bags & Accessories">
+        Bags & Accessories
+      </option>
 
-      <option>Baby & Kids</option>
-      <option>Books & Stationery</option>
+      <option value="Beauty & Personal Care">
+        Beauty & Personal Care
+      </option>
 
-      <option>Sports & Fitness</option>
-      <option>Agriculture & Farming</option>
-      <option>Pets & Animals</option>
+      <option value="Health & Wellness">
+        Health & Wellness
+      </option>
 
-      <option>Office & Business Supplies</option>
+      <option value="Phones & Tablets">
+        Phones & Tablets
+      </option>
 
-      <option>Services</option>
-      <option>Other</option>
+      <option value="Computers & Electronics">
+        Computers & Electronics
+      </option>
+
+      <option value="Home & Kitchen">
+        Home & Kitchen
+      </option>
+
+      <option value="Furniture">
+        Furniture
+      </option>
+
+      <option value="Building & Construction Materials">
+        Building & Construction Materials
+      </option>
+
+      <option value="Electrical & Plumbing Materials">
+        Electrical & Plumbing Materials
+      </option>
+
+      <option value="Automotive & Spare Parts">
+        Automotive & Spare Parts
+      </option>
+
+      <option value="Tools & Equipment">
+        Tools & Equipment
+      </option>
+
+      <option value="Baby & Kids">
+        Baby & Kids
+      </option>
+
+      <option value="Books & Stationery">
+        Books & Stationery
+      </option>
+
+      <option value="Sports & Fitness">
+        Sports & Fitness
+      </option>
+
+      <option value="Agriculture & Farming">
+        Agriculture & Farming
+      </option>
+
+      <option value="Pets & Animals">
+        Pets & Animals
+      </option>
+
+      <option value="Office & Business Supplies">
+        Office & Business Supplies
+      </option>
+
+      <option value="Services">
+        Services
+      </option>
+
+      <option value="Other">
+        Other
+      </option>
 
     </select>
 
-    <label for="price">Price (GH₵)</label>
+
+    <!-- PRICE -->
+
+    <label for="price">
+      Price (GH₵)
+    </label>
+
     <input
       type="number"
       id="price"
@@ -262,7 +355,13 @@
       min="0"
     >
 
-    <label for="description">Product Description</label>
+
+    <!-- DESCRIPTION -->
+
+    <label for="description">
+      Product Description
+    </label>
+
     <textarea
       id="description"
       placeholder="Describe the product, size, quantity, condition, etc."
@@ -275,17 +374,28 @@
       🚚 Delivery Options
     </div>
 
+
     <div class="delivery-box">
 
-      <label for="delivery-available">Delivery Available?</label>
+      <label for="delivery-available">
+        Delivery Available?
+      </label>
 
       <select id="delivery-available">
-        <option value="no">No</option>
-        <option value="yes">Yes</option>
+
+        <option value="no">
+          No
+        </option>
+
+        <option value="yes">
+          Yes
+        </option>
+
       </select>
 
 
       <div id="delivery-details" class="hidden">
+
 
         <label for="delivery-fee-type">
           Delivery Fee
@@ -312,7 +422,10 @@
         </select>
 
 
-        <div id="fixed-fee-section" class="hidden">
+        <div
+          id="fixed-fee-section"
+          class="hidden"
+        >
 
           <label for="delivery-fee">
             Delivery Fee (GH₵)
@@ -353,7 +466,11 @@
       📷 Product Photos
     </div>
 
-    <label class="photo-button" for="photo-input">
+
+    <label
+      class="photo-button"
+      for="photo-input"
+    >
       ➕ Add Product Photos
     </label>
 
@@ -364,14 +481,26 @@
       multiple
     >
 
+
     <div id="photo-preview"></div>
 
 
-    <button id="post-button" onclick="addProduct()">
+    <!-- SUBMIT -->
+
+    <button
+      id="post-button"
+      class="main-button"
+      onclick="addProduct()"
+    >
       Add Product
     </button>
 
-    <a href="#" id="back-link" class="back-link">
+
+    <a
+      href="#"
+      id="back-link"
+      class="back-link"
+    >
       ← Back to Business Profile
     </a>
 
@@ -382,189 +511,291 @@
 
 <script>
 
-  const SUPABASE_URL =
-    "https://pawqsmcswoypuiihfbrr.supabase.co";
-
-  /*
-    Keep your existing Supabase publishable key
-    here exactly as it was in your previous file.
-  */
-
-  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-
-  const supabaseClient =
-    supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
 
 
-  // Get business ID from URL
+/*
+ IMPORTANT:
+ Use the SAME SUPABASE_KEY that is
+ already working in your business-profile.html.
+*/
 
-  const params =
-    new URLSearchParams(window.location.search);
-
-  const businessId =
-    params.get("business_id");
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
 
-  if (!businessId) {
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-    alert("Business ID is missing.");
+
+
+/* ================================
+   GET BUSINESS ID
+================================ */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const businessId =
+  params.get("business_id");
+
+
+
+/* ================================
+   CHECK BUSINESS ID
+================================ */
+
+if (!businessId) {
+
+  document.getElementById(
+    "business-name"
+  ).innerHTML = `
+    ⚠️ Business ID is missing.
+    <br><br>
+    Please open this page by tapping
+    <b>➕ Add Product</b> from your
+    Business Profile.
+  `;
+
+}
+
+
+
+/* ================================
+   BACK BUTTON
+================================ */
+
+document.getElementById(
+  "back-link"
+).href =
+  "business-profile.html?id=" +
+  encodeURIComponent(
+    businessId || ""
+  );
+
+
+
+/* ================================
+   LOAD BUSINESS
+================================ */
+
+async function loadBusiness() {
+
+  if (!businessId) return;
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("businesses")
+      .select("business_name")
+      .eq("id", businessId)
+      .single();
+
+
+  if (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "business-name"
+    ).innerHTML =
+      "⚠️ Business could not be found.";
+
+    return;
 
   }
 
 
-  // Back button
+  document.getElementById(
+    "business-name"
+  ).innerHTML =
+    "🏢 Adding product for: " +
+    data.business_name;
 
-  document.getElementById("back-link").href =
-    "business-profile.html?id=" + businessId;
-
-
-  // Load business name
-
-  async function loadBusiness() {
-
-    if (!businessId) return;
-
-    const { data, error } =
-      await supabaseClient
-        .from("businesses")
-        .select("business_name")
-        .eq("id", businessId)
-        .single();
+}
 
 
-    if (error) {
-
-      console.error(error);
-
-      document.getElementById("business-name").innerText =
-        "Business not found";
-
-      return;
-    }
+loadBusiness();
 
 
-    document.getElementById("business-name").innerText =
-      "🏢 Adding product for: " + data.business_name;
 
-  }
+/* ================================
+   DELIVERY OPTIONS
+================================ */
 
-
-  loadBusiness();
-
-
-  // Delivery display
-
-  document
-    .getElementById("delivery-available")
-    .addEventListener("change", function () {
+document
+  .getElementById(
+    "delivery-available"
+  )
+  .addEventListener(
+    "change",
+    function() {
 
       const details =
-        document.getElementById("delivery-details");
+        document.getElementById(
+          "delivery-details"
+        );
+
 
       if (this.value === "yes") {
 
-        details.classList.remove("hidden");
+        details.classList.remove(
+          "hidden"
+        );
 
       } else {
 
-        details.classList.add("hidden");
+        details.classList.add(
+          "hidden"
+        );
 
-        document
-          .getElementById("delivery-fee")
-          .value = "";
+        document.getElementById(
+          "delivery-fee-type"
+        ).value = "";
 
-        document
-          .getElementById("delivery-areas")
-          .value = "";
+        document.getElementById(
+          "delivery-fee"
+        ).value = "";
+
+        document.getElementById(
+          "delivery-areas"
+        ).value = "";
 
       }
 
-    });
+    }
+  );
 
 
-  // Fixed delivery fee display
 
-  document
-    .getElementById("delivery-fee-type")
-    .addEventListener("change", function () {
+/* ================================
+   FIXED DELIVERY FEE
+================================ */
+
+document
+  .getElementById(
+    "delivery-fee-type"
+  )
+  .addEventListener(
+    "change",
+    function() {
 
       const fixedSection =
-        document.getElementById("fixed-fee-section");
+        document.getElementById(
+          "fixed-fee-section"
+        );
+
 
       if (this.value === "fixed") {
 
-        fixedSection.classList.remove("hidden");
+        fixedSection.classList.remove(
+          "hidden"
+        );
 
       } else {
 
-        fixedSection.classList.add("hidden");
+        fixedSection.classList.add(
+          "hidden"
+        );
 
-        document
-          .getElementById("delivery-fee")
-          .value = "";
+        document.getElementById(
+          "delivery-fee"
+        ).value = "";
 
       }
 
-    });
+    }
+  );
 
 
-  // Photos
 
-  let selectedPhotos = [];
+/* ================================
+   PRODUCT PHOTOS
+================================ */
+
+let selectedPhotos = [];
 
 
-  document
-    .getElementById("photo-input")
-    .addEventListener("change", function () {
+document
+  .getElementById("photo-input")
+  .addEventListener(
+    "change",
+    function() {
 
       const files =
         Array.from(this.files);
 
+
       selectedPhotos =
         selectedPhotos.concat(files);
 
+
       renderPhotoPreview();
+
 
       this.value = "";
 
-    });
+    }
+  );
 
 
-  function renderPhotoPreview() {
 
-    const preview =
-      document.getElementById("photo-preview");
+function renderPhotoPreview() {
 
-    preview.innerHTML = "";
+  const preview =
+    document.getElementById(
+      "photo-preview"
+    );
 
 
-    selectedPhotos.forEach(function(file, index) {
+  preview.innerHTML = "";
+
+
+  selectedPhotos.forEach(
+    function(file, index) {
 
       const item =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
+
 
       item.className =
         "photo-item";
 
 
       const img =
-        document.createElement("img");
+        document.createElement(
+          "img"
+        );
+
 
       img.src =
-        URL.createObjectURL(file);
+        URL.createObjectURL(
+          file
+        );
 
 
       const removeButton =
-        document.createElement("button");
+        document.createElement(
+          "button"
+        );
+
 
       removeButton.type =
         "button";
 
+
       removeButton.className =
         "remove-photo";
+
 
       removeButton.innerText =
         "×";
@@ -573,7 +804,11 @@
       removeButton.onclick =
         function() {
 
-          selectedPhotos.splice(index, 1);
+          selectedPhotos.splice(
+            index,
+            1
+          );
+
 
           renderPhotoPreview();
 
@@ -582,288 +817,366 @@
 
       item.appendChild(img);
 
-      item.appendChild(removeButton);
+      item.appendChild(
+        removeButton
+      );
 
       preview.appendChild(item);
 
-    });
+    }
+  );
+
+}
+
+
+
+/* ================================
+   ADD PRODUCT
+================================ */
+
+async function addProduct() {
+
+
+  if (!businessId) {
+
+    alert(
+      "Business ID is missing. Please open Add Product from the Business Profile."
+    );
+
+    return;
 
   }
 
 
-  // Add product
-
-  async function addProduct() {
-
-    const postButton =
-      document.getElementById("post-button");
+  const postButton =
+    document.getElementById(
+      "post-button"
+    );
 
 
-    if (postButton.disabled) return;
+  if (postButton.disabled) return;
 
 
-    const productName =
-      document
-        .getElementById("product-name")
-        .value
-        .trim();
+  const productName =
+    document.getElementById(
+      "product-name"
+    ).value.trim();
 
 
-    const category =
-      document
-        .getElementById("category")
-        .value;
+  const category =
+    document.getElementById(
+      "category"
+    ).value;
 
 
-    const price =
-      document
-        .getElementById("price")
-        .value;
+  const price =
+    document.getElementById(
+      "price"
+    ).value;
 
 
-    const description =
-      document
-        .getElementById("description")
-        .value
-        .trim();
+  const description =
+    document.getElementById(
+      "description"
+    ).value.trim();
 
 
-    const deliveryAvailable =
-      document
-        .getElementById("delivery-available")
-        .value;
+  const deliveryAvailable =
+    document.getElementById(
+      "delivery-available"
+    ).value;
 
 
-    const deliveryFeeType =
-      document
-        .getElementById("delivery-fee-type")
-        .value;
+  const deliveryFeeType =
+    document.getElementById(
+      "delivery-fee-type"
+    ).value;
 
 
-    const deliveryFee =
-      document
-        .getElementById("delivery-fee")
-        .value;
+  const deliveryFee =
+    document.getElementById(
+      "delivery-fee"
+    ).value;
 
 
-    const deliveryAreas =
-      document
-        .getElementById("delivery-areas")
-        .value
-        .trim();
+  const deliveryAreas =
+    document.getElementById(
+      "delivery-areas"
+    ).value.trim();
 
 
-    if (!productName || !category) {
 
-      alert(
-        "Please enter the product name and select a category."
-      );
+  /* CHECK PRODUCT */
 
-      return;
+  if (!productName) {
 
-    }
+    alert(
+      "Please enter the product name."
+    );
+
+    return;
+
+  }
 
 
-    if (
-      deliveryAvailable === "yes" &&
-      !deliveryFeeType
+  if (!category) {
+
+    alert(
+      "Please select a category."
+    );
+
+    return;
+
+  }
+
+
+
+  /* CHECK DELIVERY */
+
+  if (
+    deliveryAvailable === "yes" &&
+    !deliveryFeeType
+  ) {
+
+    alert(
+      "Please select a delivery fee option."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    deliveryAvailable === "yes" &&
+    deliveryFeeType === "fixed" &&
+    !deliveryFee
+  ) {
+
+    alert(
+      "Please enter the delivery fee."
+    );
+
+    return;
+
+  }
+
+
+
+  postButton.disabled = true;
+
+  postButton.innerText =
+    "Adding Product...";
+
+
+  try {
+
+
+    /* ================================
+       UPLOAD PHOTOS
+    ================================= */
+
+    let photoUrls = [];
+
+
+    for (
+      const file of selectedPhotos
     ) {
 
-      alert(
-        "Please select a delivery fee option."
-      );
 
-      return;
-
-    }
-
-
-    if (
-      deliveryAvailable === "yes" &&
-      deliveryFeeType === "fixed" &&
-      !deliveryFee
-    ) {
-
-      alert(
-        "Please enter the delivery fee."
-      );
-
-      return;
-
-    }
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 8) +
+        "-" +
+        file.name.replace(
+          /[^a-zA-Z0-9.-]/g,
+          "-"
+        );
 
 
-    postButton.disabled = true;
-
-    postButton.innerText =
-      "Adding Product...";
-
-
-    try {
-
-      let photoUrls = [];
-
-
-      // Upload photos
-
-      for (const file of selectedPhotos) {
-
-        const fileName =
-          Date.now() +
-          "-" +
-          Math.random()
-            .toString(36)
-            .substring(2, 8) +
-          "-" +
-          file.name.replace(
-            /[^a-zA-Z0-9.-]/g,
-            "-"
+      const {
+        error: uploadError
+      } =
+        await supabaseClient
+          .storage
+          .from(
+            "business-product-photos"
+          )
+          .upload(
+            fileName,
+            file
           );
 
 
-        const { error: uploadError } =
-          await supabaseClient
-            .storage
-            .from("business-product-photos")
-            .upload(
-              fileName,
-              file
-            );
+      if (uploadError) {
 
-
-        if (uploadError) {
-
-          throw uploadError;
-
-        }
-
-
-        const { data: urlData } =
-          supabaseClient
-            .storage
-            .from("business-product-photos")
-            .getPublicUrl(fileName);
-
-
-        photoUrls.push(
-          urlData.publicUrl
-        );
+        throw uploadError;
 
       }
 
 
-      // Prepare delivery values
-
-      let deliveryAvailableValue =
-        deliveryAvailable === "yes";
-
-
-      let deliveryFeeTypeValue =
-        deliveryAvailableValue
-          ? deliveryFeeType
-          : null;
-
-
-      let deliveryFeeValue =
-        (
-          deliveryAvailableValue &&
-          deliveryFeeType === "fixed" &&
-          deliveryFee
-        )
-          ? Number(deliveryFee)
-          : null;
+      const {
+        data: urlData
+      } =
+        supabaseClient
+          .storage
+          .from(
+            "business-product-photos"
+          )
+          .getPublicUrl(
+            fileName
+          );
 
 
-      let deliveryAreasValue =
-        deliveryAvailableValue
-          ? deliveryAreas
-          : null;
-
-
-      // Product
-
-      const product = {
-
-        business_id:
-          Number(businessId),
-
-        product_name:
-          productName,
-
-        category:
-          category,
-
-        price:
-          price
-            ? Number(price)
-            : null,
-
-        description:
-          description,
-
-        available:
-          true,
-
-        photo_urls:
-          photoUrls.length > 0
-            ? photoUrls.join(",")
-            : null,
-
-        delivery_available:
-          deliveryAvailableValue,
-
-        delivery_fee_type:
-          deliveryFeeTypeValue,
-
-        delivery_fee:
-          deliveryFeeValue,
-
-        delivery_areas:
-          deliveryAreasValue
-
-      };
-
-
-      const { error } =
-        await supabaseClient
-          .from("business_products")
-          .insert([product]);
-
-
-      if (error) {
-
-        throw error;
-
-      }
-
-
-      alert(
-        "Product added successfully!"
+      photoUrls.push(
+        urlData.publicUrl
       );
-
-
-      window.location.href =
-        "business-profile.html?id=" +
-        businessId;
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "Error: " + error.message
-      );
-
-
-      postButton.disabled = false;
-
-      postButton.innerText =
-        "Add Product";
 
     }
 
+
+
+    /* ================================
+       DELIVERY VALUES
+    ================================= */
+
+    const deliveryAvailableValue =
+      deliveryAvailable === "yes";
+
+
+    const deliveryFeeTypeValue =
+      deliveryAvailableValue
+        ? deliveryFeeType
+        : null;
+
+
+    const deliveryFeeValue =
+      deliveryAvailableValue &&
+      deliveryFeeType === "fixed" &&
+      deliveryFee
+        ? Number(deliveryFee)
+        : null;
+
+
+    const deliveryAreasValue =
+      deliveryAvailableValue
+        ? deliveryAreas
+        : null;
+
+
+
+    /* ================================
+       PRODUCT DATA
+    ================================= */
+
+    const product = {
+
+      business_id:
+        Number(businessId),
+
+      product_name:
+        productName,
+
+      category:
+        category,
+
+      price:
+        price
+          ? Number(price)
+          : null,
+
+      description:
+        description,
+
+      available:
+        true,
+
+      photo_urls:
+        photoUrls.length > 0
+          ? photoUrls.join(",")
+          : null,
+
+      delivery_available:
+        deliveryAvailableValue,
+
+      delivery_fee_type:
+        deliveryFeeTypeValue,
+
+      delivery_fee:
+        deliveryFeeValue,
+
+      delivery_areas:
+        deliveryAreasValue
+
+    };
+
+
+
+    /* ================================
+       INSERT PRODUCT
+    ================================= */
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from(
+          "business_products"
+        )
+        .insert([
+          product
+        ]);
+
+
+    if (error) {
+
+      throw error;
+
+    }
+
+
+
+    /* ================================
+       SUCCESS
+    ================================= */
+
+    alert(
+      "Product added successfully!"
+    );
+
+
+    window.location.href =
+      "business-profile.html?id=" +
+      encodeURIComponent(
+        businessId
+      );
+
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    alert(
+      "Error adding product: " +
+      error.message
+    );
+
+
+    postButton.disabled =
+      false;
+
+
+    postButton.innerText =
+      "Add Product";
+
   }
+
+}
 
 </script>
 
