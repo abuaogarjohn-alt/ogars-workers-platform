@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Find Products - OGARS</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8f5;
+      color: #183b25;
+    }
+
+    header {
+      background: #087f3f;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    header p {
+      margin: 7px 0 0;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    .search-box {
+      background: white;
+      padding: 16px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+      margin-bottom: 20px;
+    }
+
+    .search-box input,
+    .search-box select {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 10px;
+      border: 1px solid #ccd8cf;
+      border-radius: 9px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #e8f1eb;
+      display: block;
+    }
+
+    .no-image {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e8f1eb;
+      color: #63806d;
+      font-size: 40px;
+    }
+
+    .product-content {
+      padding: 15px;
+    }
+
+    .product-name {
+      margin: 0;
+      font-size: 18px;
+      color: #087f3f;
+    }
+
+    .category {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 5px 8px;
+      border-radius: 20px;
+      background: #e8f7ee;
+      color: #087f3f;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .price {
+      margin-top: 10px;
+      font-size: 19px;
+      font-weight: bold;
+      color: #183b25;
+    }
+
+    .description {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #5c6d62;
+    }
+
+    .business {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #edf0ed;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .delivery {
+      margin-top: 9px;
+      padding: 8px;
+      border-radius: 8px;
+      background: #f3faf5;
+      font-size: 13px;
+      color: #31563d;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 11px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .whatsapp {
+      background: #087f3f;
+      color: white;
+    }
+
+    .call {
+      background: #e8f7ee;
+      color: #087f3f;
+    }
+
+    .loading,
+    .empty {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      color: #65746a;
+    }
+
+    .back {
+      display: block;
+      text-align: center;
+      margin: 25px 0;
+      color: #087f3f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image,
+      .no-image {
+        height: 210px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <h1>🛍️ Find Products</h1>
+
+  <p>
+    Find products from businesses on OGARS
+  </p>
+
+</header>
+
+
+
+<div class="container">
+
+
+  <!-- SEARCH -->
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="product-search"
+      placeholder="Search for a product, e.g. tilapia"
+    >
+
+
+    <select id="category-filter">
+
+      <option value="">
+        All Categories
+      </option>
+
+      <option>Food & Groceries</option>
+      <option>Frozen Foods</option>
+      <option>Fresh Food & Produce</option>
+      <option>Drinks & Beverages</option>
+      <option>Clothing & Fashion</option>
+      <option>Shoes & Footwear</option>
+      <option>Bags & Accessories</option>
+      <option>Beauty & Personal Care</option>
+      <option>Health & Wellness</option>
+      <option>Phones & Tablets</option>
+      <option>Computers & Electronics</option>
+      <option>Home & Kitchen</option>
+      <option>Furniture</option>
+      <option>Building & Construction Materials</option>
+      <option>Electrical & Plumbing Materials</option>
+      <option>Automotive & Spare Parts</option>
+      <option>Tools & Equipment</option>
+      <option>Baby & Kids</option>
+      <option>Books & Stationery</option>
+      <option>Sports & Fitness</option>
+      <option>Agriculture & Farming</option>
+      <option>Pets & Animals</option>
+      <option>Office & Business Supplies</option>
+      <option>Services</option>
+      <option>Other</option>
+
+    </select>
+
+
+    <select id="delivery-filter">
+
+      <option value="">
+        All Delivery Options
+      </option>
+
+      <option value="yes">
+        Delivery Available
+      </option>
+
+      <option value="no">
+        No Delivery
+      </option>
+
+    </select>
+
+  </div>
+
+
+
+  <!-- PRODUCTS -->
+
+  <div
+    id="products"
+    class="products"
+  >
+
+    <div class="loading">
+      Loading products...
+    </div>
+
+  </div>
+
+
+
+  <a
+    href="business.html"
+    class="back"
+  >
+    ← Back to Businesses
+  </a>
+
+
+</div>
+
+
+
+<script>
+
+
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+
+let allProducts = [];
+
+
+
+/* ================================
+   LOAD PRODUCTS
+================================ */
+
+async function loadProducts() {
+
+
+  const productsContainer =
+    document.getElementById(
+      "products"
+    );
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("business_products")
+      .select("*")
+      .eq("available", true)
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    productsContainer.innerHTML = `
+      <div class="empty">
+        Unable to load products.
+        <br><br>
+        ${error.message}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  allProducts =
+    data || [];
+
+
+  await attachBusinessInformation();
+
+
+  displayProducts(
+    allProducts
+  );
+
+}
+
+
+
+/* ================================
+   GET BUSINESS INFORMATION
+================================ */
+
+async function attachBusinessInformation() {
+
+
+  const businessIds =
+    [
+      ...new Set(
+        allProducts
+          .map(
+            product =>
+              product.business_id
+          )
+          .filter(Boolean)
+      )
+    ];
+
+
+  if (
+    businessIds.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("businesses")
+      .select(
+        "id,business_name,phone,location"
+      )
+      .in(
+        "id",
+        businessIds
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    return;
+
+  }
+
+
+  const businessMap = {};
+
+
+  (data || []).forEach(
+    function(business) {
+
+      businessMap[
+        business.id
+      ] = business;
+
+    }
+  );
+
+
+  allProducts =
+    allProducts.map(
+      function(product) {
+
+        return {
+
+          ...product,
+
+          business:
+            businessMap[
+              product.business_id
+            ] || null
+
+        };
+
+      }
+    );
+
+}
+
+
+
+/* ================================
+   DISPLAY PRODUCTS
+================================ */
+
+function displayProducts(
+  products
+) {
+
+
+  const container =
+    document.getElementById(
+      "products"
+    );
+
+
+  if (
+    products.length === 0
+  ) {
+
+    container.innerHTML = `
+      <div class="empty">
+        No products found.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  products.forEach(
+    function(product) {
+
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+
+      card.className =
+        "product-card";
+
+
+      let imageHtml =
+        `<div class="no-image">🛍️</div>`;
+
+
+      if (
+        product.photo_urls
+      ) {
+
+        const firstPhoto =
+          product.photo_urls
+            .split(",")[0]
+            .trim();
+
+
+        if (firstPhoto) {
+
+          imageHtml = `
+            <img
+              src="${firstPhoto}"
+              class="product-image"
+              alt="${escapeHtml(product.product_name)}"
+            >
+          `;
+
+        }
+
+      }
+
+
+      const businessName =
+        product.business
+          ? product.business.business_name
+          : "Business";
+
+
+      const businessPhone =
+        product.business
+          ? product.business.phone
+          : "";
+
+
+      let deliveryHtml = "";
+
+
+      if (
+        product.delivery_available
+      ) {
+
+        let deliveryText =
+          "🚚 Delivery Available";
+
+
+        if (
+          product.delivery_fee_type ===
+          "free"
+        ) {
+
+          deliveryText +=
+            " • Free Delivery";
+
+        }
+
+
+        if (
+          product.delivery_fee_type ===
+          "fixed"
+        ) {
+
+          deliveryText +=
+            " • GH₵" +
+            Number(
+              product.delivery_fee || 0
+            ).toFixed(2);
+
+        }
+
+
+        if (
+          product.delivery_fee_type ===
+          "negotiable"
+        ) {
+
+          deliveryText +=
+            " • Fee Negotiable";
+
+        }
+
+
+        if (
+          product.delivery_areas
+        ) {
+
+          deliveryText +=
+            "<br>📍 " +
+            escapeHtml(
+              product.delivery_areas
+            );
+
+        }
+
+
+        deliveryHtml = `
+          <div class="delivery">
+            ${deliveryText}
+          </div>
+        `;
+
+      } else {
+
+        deliveryHtml = `
+          <div class="delivery">
+            🚫 No Delivery
+          </div>
+        `;
+
+      }
+
+
+
+      let whatsappButton =
+        "";
+
+
+      if (businessPhone) {
+
+        let cleanPhone =
+          businessPhone
+            .replace(
+              /\s+/g,
+              ""
+            )
+            .replace(
+              /^0/,
+              "233"
+            );
+
+
+        const message =
+          encodeURIComponent(
+            "Hello, I found your product \"" +
+            product.product_name +
+            "\" on OGARS. Is it available?"
+          );
+
+
+        whatsappButton = `
+          <a
+            class="button whatsapp"
+            href="https://wa.me/${cleanPhone}?text=${message}"
+            target="_blank"
+          >
+            💬 WhatsApp Seller
+          </a>
+        `;
+
+      }
+
+
+
+      let callButton =
+        "";
+
+
+      if (businessPhone) {
+
+        callButton = `
+          <a
+            class="button call"
+            href="tel:${businessPhone}"
+          >
+            📞 Call Seller
+          </a>
+        `;
+
+      }
+
+
+
+      card.innerHTML = `
+
+        ${imageHtml}
+
+        <div class="product-content">
+
+          <h2 class="product-name">
+            ${escapeHtml(
+              product.product_name
+            )}
+          </h2>
+
+
+          <span class="category">
+            ${escapeHtml(
+              product.category ||
+              "Other"
+            )}
+          </span>
+
+
+          <div class="price">
+
+            ${
+              product.price !== null &&
+              product.price !== undefined
+                ? "GH₵" +
+                  Number(
+                    product.price
+                  ).toFixed(2)
+                : "Price on request"
+            }
+
+          </div>
+
+
+          ${
+            product.description
+              ? `
+                <div class="description">
+                  ${escapeHtml(
+                    product.description
+                  )}
+                </div>
+              `
+              : ""
+          }
+
+
+          <div class="business">
+
+            🏢 ${escapeHtml(
+              businessName
+            )}
+
+            ${
+              product.business &&
+              product.business.location
+                ? `
+                  <br>
+                  📍 ${escapeHtml(
+                    product.business.location
+                  )}
+                `
+                : ""
+            }
+
+          </div>
+
+
+          ${deliveryHtml}
+
+
+          ${whatsappButton}
+
+
+          ${callButton}
+
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+
+/* ================================
+   SEARCH
+================================ */
+
+function filterProducts() {
+
+
+  const search =
+    document
+      .getElementById(
+        "product-search"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const category =
+    document
+      .getElementById(
+        "category-filter"
+      )
+      .value;
+
+
+  const delivery =
+    document
+      .getElementById(
+        "delivery-filter"
+      )
+      .value;
+
+
+
+  const filtered =
+    allProducts.filter(
+      function(product) {
+
+
+        const searchableText =
+          (
+            (product.product_name || "") +
+            " " +
+            (product.category || "") +
+            " " +
+            (product.description || "") +
+            " " +
+            (
+              product.business
+                ? product.business.business_name
+                : ""
+            ) +
+            " " +
+            (
+              product.business
+                ? product.business.location
+                : ""
+            )
+          )
+          .toLowerCase();
+
+
+        const matchesSearch =
+          !search ||
+          searchableText.includes(
+            search
+          );
+
+
+        const matchesCategory =
+          !category ||
+          product.category ===
+            category;
+
+
+        const matchesDelivery =
+          !delivery ||
+          (
+            delivery === "yes" &&
+            product.delivery_available === true
+          ) ||
+          (
+            delivery === "no" &&
+            product.delivery_available !== true
+          );
+
+
+        return (
+          matchesSearch &&
+          matchesCategory &&
+          matchesDelivery
+        );
+
+      }
+    );
+
+
+  displayProducts(
+    filtered
+  );
+
+}
+
+
+
+/* ================================
+   ESCAPE HTML
+================================ */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value || ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+
+/* ================================
+   SEARCH EVENTS
+================================ */
+
+document
+  .getElementById(
+    "product-search"
+  )
+  .addEventListener(
+    "input",
+    filterProducts
+  );
+
+
+document
+  .getElementById(
+    "category-filter"
+  )
+  .addEventListener(
+    "change",
+    filterProducts
+  );
+
+
+document
+  .getElementById(
+    "delivery-filter"
+  )
+  .addEventListener(
+    "change",
+    filterProducts
+  );
+
+
+
+/* ================================
+   START
+================================ */
+
+loadProducts();
+
+</script>
+
+
+</body>
+</html>
