@@ -6,73 +6,64 @@
 
   <title>Add Product - OGARS</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7f8;
-      color: #222;
-      line-height: 1.5;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8f5;
+      color: #183b25;
     }
 
     header {
-      background: #008000;
+      background: #087f3f;
       color: white;
-      padding: 24px 18px;
+      padding: 18px;
       text-align: center;
     }
 
     header h1 {
-      font-size: 27px;
+      margin: 0;
+      font-size: 24px;
     }
 
     header p {
-      margin-top: 7px;
+      margin: 6px 0 0;
       font-size: 14px;
-      opacity: 0.95;
     }
 
     .container {
-      max-width: 700px;
+      max-width: 650px;
       margin: auto;
-      padding: 22px 15px;
+      padding: 20px;
     }
 
     .card {
       background: white;
-      padding: 22px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      border: 1px solid #eee;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
-    .intro {
+    .business-name {
+      background: #e8f7ee;
+      border-left: 5px solid #087f3f;
+      padding: 14px;
+      border-radius: 10px;
       margin-bottom: 20px;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .business-info {
-      background: #e8f5e9;
-      color: #006400;
-      padding: 12px;
-      border-radius: 9px;
-      margin-bottom: 18px;
-      font-size: 14px;
       font-weight: bold;
     }
 
     label {
       display: block;
       margin-top: 16px;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       font-weight: bold;
-      font-size: 14px;
     }
 
     input,
@@ -80,10 +71,9 @@
     textarea {
       width: 100%;
       padding: 13px;
-      border: 1px solid #ccc;
+      border: 1px solid #cbd8cf;
       border-radius: 9px;
       font-size: 15px;
-      font-family: inherit;
       background: white;
     }
 
@@ -92,51 +82,60 @@
       resize: vertical;
     }
 
-    .photo-box {
-      margin-top: 10px;
-      padding: 18px;
-      border: 2px dashed #008000;
-      border-radius: 10px;
-      text-align: center;
-      background: #f8fff8;
-    }
-
-    .photo-button {
-      display: inline-block;
-      background: #008000;
-      color: white;
-      padding: 12px 18px;
-      border-radius: 8px;
+    .section-title {
+      margin-top: 25px;
+      margin-bottom: 10px;
+      color: #087f3f;
+      font-size: 18px;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    #product-photo {
+    .delivery-box {
+      background: #f3faf5;
+      border: 1px solid #cde5d5;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    .hidden {
       display: none;
     }
 
-    .photo-note {
-      margin-top: 9px;
-      color: #666;
-      font-size: 13px;
+    .photo-button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      background: #e8f7ee;
+      color: #087f3f;
+      border: 1px solid #087f3f;
+      border-radius: 9px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
     }
 
-    #preview-grid {
+    #photo-input {
+      display: none;
+    }
+
+    #photo-preview {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 15px;
     }
 
-    .preview-item {
+    .photo-item {
       position: relative;
     }
 
-    .preview-item img {
+    .photo-item img {
       width: 100%;
       height: 100px;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 9px;
       border: 1px solid #ddd;
     }
 
@@ -144,54 +143,47 @@
       position: absolute;
       top: 4px;
       right: 4px;
-      border: none;
-      background: #d00000;
+      background: #d62828;
       color: white;
+      border: none;
+      border-radius: 50%;
       width: 25px;
       height: 25px;
-      border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
     }
 
-    .button {
+    button {
       width: 100%;
-      border: none;
-      background: #008000;
+      margin-top: 25px;
+      padding: 15px;
+      background: #087f3f;
       color: white;
-      padding: 14px;
-      margin-top: 22px;
-      border-radius: 9px;
+      border: none;
+      border-radius: 10px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .button:disabled {
-      background: #777;
+    button:disabled {
+      background: #7da58d;
       cursor: not-allowed;
     }
 
-    .back {
+    .back-link {
       display: block;
       text-align: center;
       margin-top: 18px;
-      color: #008000;
+      color: #087f3f;
       text-decoration: none;
       font-weight: bold;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      color: #777;
-      font-size: 14px;
-    }
-
-    @media (max-width: 500px) {
-      #preview-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .hint {
+      font-size: 13px;
+      color: #66756b;
+      margin-top: 5px;
     }
   </style>
 </head>
@@ -199,124 +191,188 @@
 <body>
 
 <header>
-  <h1>📦 Add Product</h1>
-  <p>Show customers what your business offers.</p>
+  <h1>➕ Add Product</h1>
+  <p>Sell your products on OGARS</p>
 </header>
-
 
 <div class="container">
 
   <div class="card">
 
-    <p class="intro">
-      Add a product or item to your business profile.
-      You can upload multiple photos.
-    </p>
-
-
-    <div
-      id="business-info"
-      class="business-info"
-    >
-      Loading your business...
+    <div id="business-name" class="business-name">
+      Loading business...
     </div>
 
+    <label for="product-name">Product Name</label>
+    <input
+      type="text"
+      id="product-name"
+      placeholder="e.g. Frozen Chicken"
+    >
 
-    <form id="product-form">
+    <label for="category">Category</label>
 
-      <label for="product-name">
-        Product / Item Name
-      </label>
+    <select id="category">
 
-      <input
-        type="text"
-        id="product-name"
-        placeholder="e.g. Chicken Wings"
-        required
-      >
+      <option value="">Select a category</option>
+
+      <option>Food & Groceries</option>
+      <option>Frozen Foods</option>
+      <option>Fresh Food & Produce</option>
+      <option>Drinks & Beverages</option>
+
+      <option>Clothing & Fashion</option>
+      <option>Shoes & Footwear</option>
+      <option>Bags & Accessories</option>
+
+      <option>Beauty & Personal Care</option>
+      <option>Health & Wellness</option>
+
+      <option>Phones & Tablets</option>
+      <option>Computers & Electronics</option>
+
+      <option>Home & Kitchen</option>
+      <option>Furniture</option>
+
+      <option>Building & Construction Materials</option>
+      <option>Electrical & Plumbing Materials</option>
+
+      <option>Automotive & Spare Parts</option>
+      <option>Tools & Equipment</option>
+
+      <option>Baby & Kids</option>
+      <option>Books & Stationery</option>
+
+      <option>Sports & Fitness</option>
+      <option>Agriculture & Farming</option>
+      <option>Pets & Animals</option>
+
+      <option>Office & Business Supplies</option>
+
+      <option>Services</option>
+      <option>Other</option>
+
+    </select>
+
+    <label for="price">Price (GH₵)</label>
+    <input
+      type="number"
+      id="price"
+      placeholder="e.g. 250"
+      min="0"
+    >
+
+    <label for="description">Product Description</label>
+    <textarea
+      id="description"
+      placeholder="Describe the product, size, quantity, condition, etc."
+    ></textarea>
 
 
-      <label for="category">
-        Category
-      </label>
+    <!-- DELIVERY -->
 
-      <input
-        type="text"
-        id="category"
-        placeholder="e.g. Frozen Foods"
-      >
+    <div class="section-title">
+      🚚 Delivery Options
+    </div>
 
+    <div class="delivery-box">
 
-      <label for="price">
-        Price (GH₵)
-      </label>
+      <label for="delivery-available">Delivery Available?</label>
 
-      <input
-        type="number"
-        id="price"
-        placeholder="e.g. 250"
-        min="0"
-        step="0.01"
-      >
+      <select id="delivery-available">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
 
 
-      <label for="description">
-        Description
-      </label>
+      <div id="delivery-details" class="hidden">
 
-      <textarea
-        id="description"
-        placeholder="Describe this product..."
-      ></textarea>
+        <label for="delivery-fee-type">
+          Delivery Fee
+        </label>
+
+        <select id="delivery-fee-type">
+
+          <option value="">
+            Select delivery fee option
+          </option>
+
+          <option value="free">
+            Free Delivery
+          </option>
+
+          <option value="fixed">
+            Fixed Delivery Fee
+          </option>
+
+          <option value="negotiable">
+            Negotiable
+          </option>
+
+        </select>
 
 
-      <label>
-        Product Photos
-      </label>
+        <div id="fixed-fee-section" class="hidden">
+
+          <label for="delivery-fee">
+            Delivery Fee (GH₵)
+          </label>
+
+          <input
+            type="number"
+            id="delivery-fee"
+            placeholder="e.g. 30"
+            min="0"
+          >
+
+        </div>
 
 
-      <div class="photo-box">
-
-        <label
-          for="product-photo"
-          class="photo-button"
-        >
-          ➕ Add Product Photos
+        <label for="delivery-areas">
+          Delivery Areas
         </label>
 
         <input
-          type="file"
-          id="product-photo"
-          accept="image/*"
-          multiple
+          type="text"
+          id="delivery-areas"
+          placeholder="e.g. Accra, Madina, East Legon"
         >
 
-        <div class="photo-note">
-          You can select multiple photos.
+        <div class="hint">
+          Enter the communities or areas where you deliver.
         </div>
-
-        <div id="preview-grid"></div>
 
       </div>
 
-
-      <button
-        type="submit"
-        class="button"
-        id="post-button"
-      >
-        Add Product
-      </button>
-
-    </form>
+    </div>
 
 
-    <a
-      id="back-button"
-      href="business.html"
-      class="back"
+    <!-- PHOTOS -->
+
+    <div class="section-title">
+      📷 Product Photos
+    </div>
+
+    <label class="photo-button" for="photo-input">
+      ➕ Add Product Photos
+    </label>
+
+    <input
+      type="file"
+      id="photo-input"
+      accept="image/*"
+      multiple
     >
-      ← Back to Business
+
+    <div id="photo-preview"></div>
+
+
+    <button id="post-button" onclick="addProduct()">
+      Add Product
+    </button>
+
+    <a href="#" id="back-link" class="back-link">
+      ← Back to Business Profile
     </a>
 
   </div>
@@ -324,222 +380,226 @@
 </div>
 
 
-<footer>
-  © 2026 OGARS Workers Platform
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 
-const SUPABASE_URL =
-  "https://pawqsmcswoypuiihfbrr.supabase.co";
+  const SUPABASE_URL =
+    "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-const SUPABASE_KEY =
-  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+  /*
+    Keep your existing Supabase publishable key
+    here exactly as it was in your previous file.
+  */
 
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
+  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-
-let selectedPhotos = [];
-
-
-const photoInput =
-  document.getElementById("product-photo");
-
-const previewGrid =
-  document.getElementById("preview-grid");
-
-const form =
-  document.getElementById("product-form");
-
-const postButton =
-  document.getElementById("post-button");
-
-const businessInfo =
-  document.getElementById("business-info");
-
-const backButton =
-  document.getElementById("back-button");
+  const supabaseClient =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
 
-/* Get the Business ID automatically from the URL */
+  // Get business ID from URL
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+  const params =
+    new URLSearchParams(window.location.search);
 
-const businessId =
-  params.get("business_id");
+  const businessId =
+    params.get("business_id");
 
 
-if (!businessId) {
+  if (!businessId) {
 
-  businessInfo.innerHTML =
-    "⚠️ Business information was not found.";
+    alert("Business ID is missing.");
 
-  form.style.display = "none";
+  }
 
-} else {
+
+  // Back button
+
+  document.getElementById("back-link").href =
+    "business-profile.html?id=" + businessId;
+
+
+  // Load business name
+
+  async function loadBusiness() {
+
+    if (!businessId) return;
+
+    const { data, error } =
+      await supabaseClient
+        .from("businesses")
+        .select("business_name")
+        .eq("id", businessId)
+        .single();
+
+
+    if (error) {
+
+      console.error(error);
+
+      document.getElementById("business-name").innerText =
+        "Business not found";
+
+      return;
+    }
+
+
+    document.getElementById("business-name").innerText =
+      "🏢 Adding product for: " + data.business_name;
+
+  }
+
 
   loadBusiness();
 
-  backButton.href =
-    "business-profile.html?id=" +
-    encodeURIComponent(businessId);
 
-}
+  // Delivery display
 
+  document
+    .getElementById("delivery-available")
+    .addEventListener("change", function () {
 
-/* Load the business name */
+      const details =
+        document.getElementById("delivery-details");
 
-async function loadBusiness() {
+      if (this.value === "yes") {
 
-  const { data, error } =
-    await supabaseClient
-      .from("businesses")
-      .select("business_name")
-      .eq("id", businessId)
-      .single();
+        details.classList.remove("hidden");
 
+      } else {
 
-  if (error) {
+        details.classList.add("hidden");
 
-    console.error(error);
+        document
+          .getElementById("delivery-fee")
+          .value = "";
 
-    businessInfo.innerHTML =
-      "⚠️ Unable to load business information.";
+        document
+          .getElementById("delivery-areas")
+          .value = "";
 
-    form.style.display = "none";
+      }
 
-    return;
-  }
-
-
-  businessInfo.innerHTML =
-    "🏢 Adding product for: " +
-    escapeHtml(data.business_name);
-
-}
+    });
 
 
-/* Select photos */
+  // Fixed delivery fee display
 
-photoInput.addEventListener(
-  "change",
-  function() {
+  document
+    .getElementById("delivery-fee-type")
+    .addEventListener("change", function () {
 
-    const newFiles =
-      Array.from(photoInput.files);
+      const fixedSection =
+        document.getElementById("fixed-fee-section");
 
-    selectedPhotos =
-      selectedPhotos.concat(newFiles);
+      if (this.value === "fixed") {
 
-    photoInput.value = "";
+        fixedSection.classList.remove("hidden");
 
-    showPreviews();
+      } else {
 
-  }
-);
+        fixedSection.classList.add("hidden");
 
+        document
+          .getElementById("delivery-fee")
+          .value = "";
 
-/* Show photo previews */
+      }
 
-function showPreviews() {
-
-  previewGrid.innerHTML = "";
-
-
-  selectedPhotos.forEach(
-    function(file, index) {
-
-      const reader =
-        new FileReader();
+    });
 
 
-      reader.onload =
-        function(event) {
+  // Photos
 
-          const div =
-            document.createElement("div");
-
-          div.className =
-            "preview-item";
+  let selectedPhotos = [];
 
 
-          div.innerHTML = `
+  document
+    .getElementById("photo-input")
+    .addEventListener("change", function () {
 
-            <img
-              src="${event.target.result}"
-              alt="Product photo"
-            >
+      const files =
+        Array.from(this.files);
 
-            <button
-              type="button"
-              class="remove-photo"
-              onclick="removePhoto(${index})"
-            >
-              ×
-            </button>
+      selectedPhotos =
+        selectedPhotos.concat(files);
 
-          `;
+      renderPhotoPreview();
+
+      this.value = "";
+
+    });
 
 
-          previewGrid.appendChild(div);
+  function renderPhotoPreview() {
+
+    const preview =
+      document.getElementById("photo-preview");
+
+    preview.innerHTML = "";
+
+
+    selectedPhotos.forEach(function(file, index) {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "photo-item";
+
+
+      const img =
+        document.createElement("img");
+
+      img.src =
+        URL.createObjectURL(file);
+
+
+      const removeButton =
+        document.createElement("button");
+
+      removeButton.type =
+        "button";
+
+      removeButton.className =
+        "remove-photo";
+
+      removeButton.innerText =
+        "×";
+
+
+      removeButton.onclick =
+        function() {
+
+          selectedPhotos.splice(index, 1);
+
+          renderPhotoPreview();
 
         };
 
 
-      reader.readAsDataURL(file);
+      item.appendChild(img);
 
-    }
-  );
+      item.appendChild(removeButton);
 
-}
+      preview.appendChild(item);
 
+    });
 
-/* Remove a selected photo */
-
-function removePhoto(index) {
-
-  selectedPhotos.splice(
-    index,
-    1
-  );
-
-  showPreviews();
-
-}
+  }
 
 
-/* Submit product */
+  // Add product
 
-form.addEventListener(
-  "submit",
-  async function(event) {
+  async function addProduct() {
 
-    event.preventDefault();
-
-
-    if (postButton.disabled) {
-      return;
-    }
+    const postButton =
+      document.getElementById("post-button");
 
 
-    if (!businessId) {
-
-      alert(
-        "Business information is missing."
-      );
-
-      return;
-    }
+    if (postButton.disabled) return;
 
 
     const productName =
@@ -552,8 +612,7 @@ form.addEventListener(
     const category =
       document
         .getElementById("category")
-        .value
-        .trim();
+        .value;
 
 
     const price =
@@ -569,13 +628,68 @@ form.addEventListener(
         .trim();
 
 
-    if (!productName) {
+    const deliveryAvailable =
+      document
+        .getElementById("delivery-available")
+        .value;
+
+
+    const deliveryFeeType =
+      document
+        .getElementById("delivery-fee-type")
+        .value;
+
+
+    const deliveryFee =
+      document
+        .getElementById("delivery-fee")
+        .value;
+
+
+    const deliveryAreas =
+      document
+        .getElementById("delivery-areas")
+        .value
+        .trim();
+
+
+    if (!productName || !category) {
 
       alert(
-        "Please enter the product name."
+        "Please enter the product name and select a category."
       );
 
       return;
+
+    }
+
+
+    if (
+      deliveryAvailable === "yes" &&
+      !deliveryFeeType
+    ) {
+
+      alert(
+        "Please select a delivery fee option."
+      );
+
+      return;
+
+    }
+
+
+    if (
+      deliveryAvailable === "yes" &&
+      deliveryFeeType === "fixed" &&
+      !deliveryFee
+    ) {
+
+      alert(
+        "Please enter the delivery fee."
+      );
+
+      return;
+
     }
 
 
@@ -590,11 +704,9 @@ form.addEventListener(
       let photoUrls = [];
 
 
-      /* Upload product photos */
+      // Upload photos
 
-      for (
-        const file of selectedPhotos
-      ) {
+      for (const file of selectedPhotos) {
 
         const fileName =
           Date.now() +
@@ -609,14 +721,10 @@ form.addEventListener(
           );
 
 
-        const {
-          error: uploadError
-        } =
+        const { error: uploadError } =
           await supabaseClient
             .storage
-            .from(
-              "business-product-photos"
-            )
+            .from("business-product-photos")
             .upload(
               fileName,
               file
@@ -625,25 +733,16 @@ form.addEventListener(
 
         if (uploadError) {
 
-          throw new Error(
-            "Photo upload error: " +
-            uploadError.message
-          );
+          throw uploadError;
 
         }
 
 
-        const {
-          data: urlData
-        } =
+        const { data: urlData } =
           supabaseClient
             .storage
-            .from(
-              "business-product-photos"
-            )
-            .getPublicUrl(
-              fileName
-            );
+            .from("business-product-photos")
+            .getPublicUrl(fileName);
 
 
         photoUrls.push(
@@ -653,7 +752,35 @@ form.addEventListener(
       }
 
 
-      /* Create product */
+      // Prepare delivery values
+
+      let deliveryAvailableValue =
+        deliveryAvailable === "yes";
+
+
+      let deliveryFeeTypeValue =
+        deliveryAvailableValue
+          ? deliveryFeeType
+          : null;
+
+
+      let deliveryFeeValue =
+        (
+          deliveryAvailableValue &&
+          deliveryFeeType === "fixed" &&
+          deliveryFee
+        )
+          ? Number(deliveryFee)
+          : null;
+
+
+      let deliveryAreasValue =
+        deliveryAvailableValue
+          ? deliveryAreas
+          : null;
+
+
+      // Product
 
       const product = {
 
@@ -664,7 +791,7 @@ form.addEventListener(
           productName,
 
         category:
-          category || null,
+          category,
 
         price:
           price
@@ -672,33 +799,40 @@ form.addEventListener(
             : null,
 
         description:
-          description || null,
+          description,
+
+        available:
+          true,
 
         photo_urls:
           photoUrls.length > 0
             ? photoUrls.join(",")
-            : null
+            : null,
+
+        delivery_available:
+          deliveryAvailableValue,
+
+        delivery_fee_type:
+          deliveryFeeTypeValue,
+
+        delivery_fee:
+          deliveryFeeValue,
+
+        delivery_areas:
+          deliveryAreasValue
 
       };
 
 
-      const {
-        error
-      } =
+      const { error } =
         await supabaseClient
-          .from(
-            "business_products"
-          )
-          .insert([
-            product
-          ]);
+          .from("business_products")
+          .insert([product]);
 
 
       if (error) {
 
-        throw new Error(
-          error.message
-        );
+        throw error;
 
       }
 
@@ -710,25 +844,17 @@ form.addEventListener(
 
       window.location.href =
         "business-profile.html?id=" +
-        encodeURIComponent(
-          businessId
-        );
+        businessId;
+
 
     } catch (error) {
 
-      console.error(
-        "Product error:",
-        error
-      );
-
+      console.error(error);
 
       alert(
-        "Unable to add product.\n\n" +
-        error.message
+        "Error: " + error.message
       );
 
-
-    } finally {
 
       postButton.disabled = false;
 
@@ -738,36 +864,6 @@ form.addEventListener(
     }
 
   }
-);
-
-
-/* Escape HTML */
-
-function escapeHtml(value) {
-
-  return String(value || "")
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
 
 </script>
 
