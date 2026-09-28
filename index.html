@@ -6,341 +6,701 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>OGARS - Find Workers, Jobs, Products, Properties & Opportunities</title>
-  <meta name="description" content="OGARS connects people with skilled workers, jobs, products, properties, drivers, businesses and opportunities across Ghana.">
+  <meta name="description" content="Find skilled workers, jobs, products, properties, drivers, businesses and opportunities across Ghana with OGARS.">
+  <meta name="theme-color" content="#008000">
+  <meta name="color-scheme" content="light">
 
   <style>
+    :root {
+      --green: #008000;
+      --dark-green: #006400;
+      --light-green: #eaf7ea;
+      --background: #f4f7f5;
+      --text: #202820;
+      --muted: #657065;
+      --border: #e4eae4;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow: 0 3px 14px rgba(0, 50, 0, 0.06);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7f8;
-      color: #222;
-      line-height: 1.5;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      overflow-wrap: break-word;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #ffcc00;
+      outline-offset: 3px;
     }
 
     /* HEADER */
+
     header {
-      background: #008000;
-      color: white;
-      padding: 18px 20px;
+      background: var(--green);
+      color: var(--white);
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
     }
 
     .header-inner {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: auto;
+      padding: 12px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      gap: 12px;
+    }
+
+    .brand {
+      min-width: 0;
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      line-height: 1.2;
     }
 
     .tagline {
       font-size: 12px;
       opacity: 0.95;
+      margin-top: 2px;
     }
 
     .join-button {
-      background: white;
-      color: #008000;
-      padding: 9px 14px;
-      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      background: var(--white);
+      color: var(--dark-green);
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 14px;
       white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.2s ease;
+    }
+
+    .join-button:hover {
+      background: #eef9ee;
     }
 
     /* HERO */
+
     .hero {
-      background: linear-gradient(135deg, #008000, #005f00);
-      color: white;
-      padding: 45px 20px 50px;
+      background: linear-gradient(140deg, #008000 0%, #006400 100%);
+      color: var(--white);
+      padding: 44px 20px 48px;
       text-align: center;
     }
 
     .hero-content {
-      max-width: 850px;
+      max-width: 780px;
       margin: auto;
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 5px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
     }
 
     .hero h1 {
-      font-size: 34px;
-      margin-bottom: 12px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.2;
+      margin-bottom: 13px;
+      letter-spacing: -0.6px;
     }
 
     .hero p {
-      font-size: 17px;
-      max-width: 650px;
+      max-width: 620px;
       margin: 0 auto 25px;
+      font-size: 16px;
+      color: #efffef;
     }
 
     .search-box {
-      max-width: 650px;
+      width: 100%;
+      max-width: 680px;
       margin: auto;
       display: flex;
-      background: white;
-      border-radius: 12px;
+      align-items: stretch;
+      gap: 7px;
+      background: var(--white);
       padding: 6px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+      border-radius: 13px;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.18);
     }
 
     .search-box input {
       flex: 1;
+      width: 100%;
       min-width: 0;
-      border: none;
-      outline: none;
-      padding: 14px;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 2px solid transparent;
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--text);
+      font-family: inherit;
       font-size: 16px;
-      border-radius: 8px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--green);
     }
 
     .search-button {
-      border: none;
-      background: #111;
-      color: white;
+      min-height: 48px;
       padding: 0 20px;
-      border-radius: 8px;
-      font-weight: bold;
+      border: none;
+      border-radius: 9px;
+      background: #172117;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s ease;
     }
 
-    /* MAIN */
+    .search-button:hover {
+      background: #2d422d;
+    }
+
+    .search-hint {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #e1f4e1;
+    }
+
+    /* MAIN CONTENT */
+
     .container {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: auto;
-      padding: 30px 18px;
+      padding: 34px 22px;
+    }
+
+    section {
+      scroll-margin-top: 90px;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 23px;
     }
 
     .section-title h2 {
-      font-size: 25px;
-      margin-bottom: 5px;
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 6px;
     }
 
     .section-title p {
-      color: #666;
+      color: var(--muted);
       font-size: 14px;
     }
 
-    /* MAIN OPTIONS */
+    /* MARKETPLACE CARDS */
+
     .options {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
     }
 
     .option {
-      background: white;
-      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      min-height: 205px;
       padding: 22px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       text-decoration: none;
-      color: #222;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      border: 1px solid #eee;
-      transition: 0.2s;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease,
+        border-color 0.2s ease;
     }
 
     .option:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+      border-color: #a9d9a9;
+      box-shadow: 0 7px 20px rgba(0, 70, 0, 0.10);
     }
 
     .option-icon {
-      font-size: 32px;
-      margin-bottom: 10px;
+      width: 49px;
+      height: 49px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-bottom: 13px;
+      border-radius: 13px;
+      background: var(--light-green);
+      font-size: 27px;
     }
 
     .option h3 {
-      font-size: 19px;
-      margin-bottom: 6px;
+      font-size: 18px;
+      line-height: 1.35;
+      margin-bottom: 7px;
     }
 
     .option p {
-      color: #666;
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.55;
     }
 
     .arrow {
       display: block;
-      margin-top: 12px;
-      color: #008000;
-      font-weight: bold;
+      margin-top: auto;
+      padding-top: 15px;
+      color: var(--dark-green);
       font-size: 14px;
+      font-weight: 700;
     }
 
-    /* FEATURED SECTION */
+    /* FEATURED WORKER SECTION */
+
     .featured {
-      margin-top: 40px;
+      margin-top: 36px;
     }
 
     .featured-box {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      gap: 24px;
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
     }
 
     .featured-box h2 {
-      margin-bottom: 7px;
+      font-size: 22px;
+      line-height: 1.35;
+      margin-bottom: 8px;
     }
 
     .featured-box p {
-      color: #666;
+      color: var(--muted);
       font-size: 14px;
     }
 
     .green-button {
-      display: inline-block;
-      background: #008000;
-      color: white;
-      padding: 13px 20px;
-      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 19px;
+      border-radius: 10px;
+      background: var(--green);
+      color: var(--white);
       text-decoration: none;
-      font-weight: bold;
+      font-size: 14px;
+      font-weight: 700;
       white-space: nowrap;
+      transition: background 0.2s ease;
     }
 
-    /* SERVICES */
+    .green-button:hover {
+      background: var(--dark-green);
+    }
+
+    /* POPULAR SERVICES */
+
     .services {
-      margin-top: 40px;
+      margin-top: 42px;
     }
 
     .service-list {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 12px;
     }
 
     .service {
-      background: white;
-      border-radius: 10px;
-      padding: 15px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 55px;
+      padding: 12px 10px;
       text-align: center;
-      font-weight: bold;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
       font-size: 14px;
-      border: 1px solid #eee;
+      font-weight: 700;
     }
 
-    /* TRUST */
+    /* TRUST SECTION */
+
     .trust {
-      margin-top: 40px;
-      background: #111;
-      color: white;
-      border-radius: 15px;
-      padding: 30px 20px;
+      margin-top: 42px;
+      padding: 34px 25px;
+      background: #172117;
+      color: var(--white);
+      border-radius: var(--radius);
       text-align: center;
     }
 
     .trust h2 {
+      font-size: 24px;
       margin-bottom: 10px;
     }
 
     .trust p {
-      color: #ddd;
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
+      color: #dce8dc;
       font-size: 14px;
+      line-height: 1.8;
     }
 
     /* FOOTER */
+
     footer {
       margin-top: 45px;
-      background: #111;
-      color: #bbb;
+      background: #172117;
+      color: #c6d1c6;
       text-align: center;
-      padding: 25px 15px;
+      padding: 27px 18px;
       font-size: 13px;
     }
 
     .footer-links {
-      margin-bottom: 12px;
       display: flex;
+      align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px 19px;
+      margin-bottom: 18px;
     }
 
     .footer-links a {
-      color: white;
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      color: var(--white);
       text-decoration: none;
+      font-weight: 600;
     }
 
-    /* MOBILE */
-    @media (max-width: 650px) {
-      .header-inner {
-        align-items: center;
-      }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
 
-      .logo {
-        font-size: 24px;
-      }
+    .footer-note {
+      margin-top: 5px;
+      color: #aebbae;
+      font-size: 12px;
+    }
 
-      .tagline {
-        display: none;
-      }
+    /* TABLETS */
 
-      .join-button {
-        font-size: 13px;
-        padding: 8px 11px;
-      }
-
-      .hero {
-        padding: 35px 15px 40px;
-      }
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .search-box input {
-        font-size: 14px;
-      }
-
-      .search-button {
-        padding: 0 14px;
-      }
-
+    @media (max-width: 850px) {
       .options {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
       }
 
-      .featured-box {
-        display: block;
-        text-align: center;
-      }
-
-      .featured-box .green-button {
-        margin-top: 18px;
+      .option {
+        min-height: 195px;
       }
 
       .service-list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    /* MOBILE PHONES */
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding: 11px 15px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .tagline {
+        display: block;
+        font-size: 10px;
+      }
+
+      .join-button {
+        min-height: 44px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 31px 15px 34px;
+      }
+
+      .hero-label {
+        font-size: 11px;
+        margin-bottom: 12px;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
+
+      .hero p {
+        font-size: 14px;
+        margin-bottom: 21px;
+      }
+
+      .search-box {
+        flex-direction: column;
+        padding: 7px;
+        gap: 7px;
+      }
+
+      .search-box input {
+        min-height: 48px;
+        font-size: 16px;
+      }
+
+      .search-button {
+        width: 100%;
+        min-height: 48px;
+        font-size: 15px;
+      }
+
+      .search-hint {
+        font-size: 11px;
+      }
+
+      .container {
+        padding: 27px 13px;
+      }
+
+      .section-title {
+        margin-bottom: 18px;
+      }
+
+      .section-title p {
+        font-size: 13px;
+      }
+
+      .options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+      }
+
+      .option {
+        min-height: 210px;
+        padding: 14px 12px;
+        border-radius: 13px;
+      }
+
+      .option-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 24px;
+        margin-bottom: 11px;
+        border-radius: 11px;
+      }
+
+      .option h3 {
+        font-size: 15px;
+        line-height: 1.35;
+      }
+
+      .option p {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .arrow {
+        padding-top: 12px;
+        font-size: 12px;
+      }
+
+      .featured {
+        margin-top: 28px;
+      }
+
+      .featured-box {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+        padding: 22px 17px;
+        text-align: center;
+      }
+
+      .featured-box h2 {
+        font-size: 20px;
+      }
+
+      .featured-box p {
+        font-size: 13px;
+      }
+
+      .green-button {
+        width: 100%;
+        min-height: 48px;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .services {
+        margin-top: 32px;
+      }
+
+      .service-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .service {
+        min-height: 52px;
+        padding: 10px 7px;
+        font-size: 13px;
+        gap: 5px;
+      }
+
+      .trust {
+        margin-top: 32px;
+        padding: 27px 17px;
+      }
+
+      .trust h2 {
+        font-size: 22px;
+      }
+
+      .trust p {
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      footer {
+        margin-top: 30px;
+        padding: 24px 14px;
+      }
+
+      .footer-links {
+        gap: 5px 13px;
+        margin-bottom: 14px;
+      }
+
+      .footer-links a {
+        min-height: 40px;
+        font-size: 12px;
+      }
+    }
+
+    /* VERY SMALL PHONES */
+
+    @media (max-width: 360px) {
+      .header-inner {
+        padding: 10px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .tagline {
+        font-size: 9px;
+      }
+
+      .join-button {
+        padding: 8px 9px;
+        font-size: 12px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .container {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .options {
+        gap: 8px;
+      }
+
+      .option {
+        padding: 12px 9px;
+        min-height: 215px;
+      }
+
+      .option h3 {
+        font-size: 14px;
+      }
+
+      .option p {
+        font-size: 11px;
+      }
+
+      .arrow {
+        font-size: 11px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
       }
     }
   </style>
@@ -351,10 +711,12 @@
   <!-- HEADER -->
   <header>
     <div class="header-inner">
-      <div>
+      <a href="index.html" class="brand"
+         style="color: inherit; text-decoration: none;"
+         aria-label="OGARS home">
         <div class="logo">OGARS</div>
         <div class="tagline">Trusted people. Real opportunities.</div>
-      </div>
+      </a>
 
       <a href="join.html" class="join-button">
         👷 Join OGARS
@@ -365,27 +727,33 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
+      <div class="hero-label">YOUR EVERYDAY MARKETPLACE</div>
+
       <h1>What do you need today?</h1>
 
       <p>
         Find skilled workers, jobs, products, properties,
-        drivers, businesses and opportunities.
+        drivers, businesses and opportunities — all in one place.
       </p>
 
-      <div class="search-box">
+      <form class="search-box" id="home-search-form">
         <input
-          type="text"
-          placeholder="Search workers, jobs, products, properties..."
+          type="search"
+          placeholder="What are you looking for?"
           id="home-search"
-          aria-label="Search OGARS"
+          aria-label="Search workers, jobs, products, properties and opportunities"
+          autocomplete="off"
+          enterkeyhint="search"
+          required
         >
 
-        <button
-          class="search-button"
-          onclick="homeSearch()"
-        >
-          🔎 Search
+        <button type="submit" class="search-button">
+          🔎 Search OGARS
         </button>
+      </form>
+
+      <div class="search-hint">
+        Try: plumber, jobs, tilapia, rooms for rent or drivers
       </div>
     </div>
   </section>
@@ -393,17 +761,17 @@
   <!-- MAIN -->
   <main class="container">
 
-    <!-- MAIN OPTIONS -->
-    <section>
+    <!-- MARKETPLACE OPTIONS -->
+    <section id="explore">
       <div class="section-title">
         <h2>Explore OGARS</h2>
-        <p>Choose what you are looking for.</p>
+        <p>Choose a service to get started.</p>
       </div>
 
       <div class="options">
 
         <a href="workers.html" class="option">
-          <div class="option-icon">🔧</div>
+          <div class="option-icon" aria-hidden="true">🔧</div>
           <h3>Find a Worker</h3>
           <p>
             Find plumbers, electricians, carpenters,
@@ -413,80 +781,78 @@
         </a>
 
         <a href="post-job.html" class="option">
-          <div class="option-icon">📢</div>
+          <div class="option-icon" aria-hidden="true">📢</div>
           <h3>Post a Job</h3>
           <p>
-            Have a job available? Post it and connect
-            with skilled workers.
+            Have a job available? Connect with skilled workers.
           </p>
           <span class="arrow">Post a Job →</span>
         </a>
 
         <a href="jobs.html" class="option">
-          <div class="option-icon">💼</div>
+          <div class="option-icon" aria-hidden="true">💼</div>
           <h3>Find Work</h3>
-          <p>Discover jobs and real work opportunities.</p>
+          <p>
+            Discover job openings and work opportunities.
+          </p>
           <span class="arrow">Find Jobs →</span>
         </a>
 
         <a href="find-property.html" class="option">
-          <div class="option-icon">🏠</div>
+          <div class="option-icon" aria-hidden="true">🏠</div>
           <h3>Find a Property</h3>
           <p>
-            Find houses, apartments, rooms, hotels,
-            land and commercial spaces.
+            Explore houses, apartments, rooms, land
+            and commercial spaces.
           </p>
           <span class="arrow">Find Property →</span>
         </a>
 
         <a href="properties.html" class="option">
-          <div class="option-icon">🏘️</div>
+          <div class="option-icon" aria-hidden="true">🏘️</div>
           <h3>Post a Property</h3>
           <p>
-            List your house, apartment, land, hotel,
+            Advertise your house, apartment, land,
             shop or other property.
           </p>
           <span class="arrow">Post Property →</span>
         </a>
 
         <a href="vehicles.html" class="option">
-          <div class="option-icon">🚗</div>
+          <div class="option-icon" aria-hidden="true">🚗</div>
           <h3>Drivers & Vehicles</h3>
           <p>
-            Find reliable drivers or connect drivers
-            with vehicle owners.
+            Find drivers, vehicles and driving opportunities.
           </p>
           <span class="arrow">Explore →</span>
         </a>
 
-        <!-- NEW FIND PRODUCTS CARD -->
         <a href="find-products.html" class="option">
-          <div class="option-icon">🛍️</div>
+          <div class="option-icon" aria-hidden="true">🛍️</div>
           <h3>Find Products</h3>
           <p>
-            Discover products from businesses around you.
-            Search for items and contact sellers directly.
+            Discover products from businesses and contact
+            sellers directly.
           </p>
           <span class="arrow">Explore Products →</span>
         </a>
 
         <a href="business.html" class="option">
-          <div class="option-icon">🏢</div>
+          <div class="option-icon" aria-hidden="true">🏢</div>
           <h3>For Businesses</h3>
           <p>
-            Find workers, post jobs and connect
-            with opportunities.
+            Find workers, post jobs and connect with
+            business opportunities.
           </p>
           <span class="arrow">For Businesses →</span>
         </a>
 
-        <!-- DISCOVER AND ADVERTISE -->
         <a href="discover.html" class="option">
-          <div class="option-icon">📣</div>
+          <div class="option-icon" aria-hidden="true">📣</div>
           <h3>Discover & Advertise</h3>
           <p>
-            Discover schools, churches, events,
-            training, promotions and other opportunities.
+            Discover schools, churches, events, training,
+            promotions and other opportunities.
           </p>
           <span class="arrow">Discover More →</span>
         </a>
@@ -494,7 +860,7 @@
       </div>
     </section>
 
-    <!-- WORKER JOIN -->
+    <!-- WORKER REGISTRATION -->
     <section class="featured">
       <div class="featured-box">
         <div>
@@ -534,10 +900,10 @@
     <section class="trust">
       <h2>Why OGARS?</h2>
       <p>
-        OGARS is being built to make it easier for people
-        to find skilled workers, discover products and
-        opportunities, find properties and connect with
-        businesses — all in one place.
+        OGARS brings together skilled workers, job seekers,
+        product sellers, property owners, drivers and businesses.
+        Our goal is to make it easier for people to discover
+        services and opportunities in one convenient place.
       </p>
     </section>
 
@@ -545,7 +911,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-links">
+    <nav class="footer-links" aria-label="Main marketplace links">
       <a href="workers.html">Workers</a>
       <a href="jobs.html">Jobs</a>
       <a href="find-products.html">Products</a>
@@ -553,25 +919,24 @@
       <a href="vehicles.html">Vehicles</a>
       <a href="discover.html">Discover</a>
       <a href="business.html">Businesses</a>
-    </div>
+    </nav>
 
-    © 2026 OGARS Workers Platform
+    <div>© 2026 OGARS Workers Platform</div>
+    <div class="footer-note">Trusted people. Real opportunities.</div>
   </footer>
 
   <script>
     function homeSearch() {
-      const search = document
-        .getElementById("home-search")
-        .value
-        .trim()
-        .toLowerCase();
+      const searchInput = document.getElementById("home-search");
+      const search = searchInput.value.trim().toLowerCase();
 
       if (!search) {
         alert("Please enter what you are looking for.");
+        searchInput.focus();
         return;
       }
 
-      /* PRODUCTS */
+      // PRODUCTS
       if (
         search.includes("product") ||
         search.includes("shop") ||
@@ -590,33 +955,43 @@
         return;
       }
 
-      /* WORKERS */
+      // WORKERS
       if (
         search.includes("worker") ||
         search.includes("plumber") ||
+        search.includes("plumbing") ||
         search.includes("electrician") ||
+        search.includes("electrical") ||
         search.includes("carpenter") ||
+        search.includes("carpentry") ||
         search.includes("painter") ||
+        search.includes("painting") ||
         search.includes("mason") ||
         search.includes("welder") ||
-        search.includes("tiler")
+        search.includes("tiler") ||
+        search.includes("welding") ||
+        search.includes("mechanic") ||
+        search.includes("hairdresser") ||
+        search.includes("barber")
       ) {
         window.location.href = "workers.html";
         return;
       }
 
-      /* JOBS */
+      // JOBS
       if (
         search.includes("job") ||
         search.includes("work") ||
         search.includes("employment") ||
-        search.includes("vacancy")
+        search.includes("vacancy") ||
+        search.includes("career") ||
+        search.includes("recruit")
       ) {
         window.location.href = "jobs.html";
         return;
       }
 
-      /* PROPERTIES */
+      // PROPERTIES
       if (
         search.includes("house") ||
         search.includes("apartment") ||
@@ -624,23 +999,29 @@
         search.includes("land") ||
         search.includes("hotel") ||
         search.includes("property") ||
-        search.includes("rent")
+        search.includes("rent") ||
+        search.includes("accommodation") ||
+        search.includes("hostel") ||
+        search.includes("shop for rent")
       ) {
         window.location.href = "find-property.html";
         return;
       }
 
-      /* DRIVERS AND VEHICLES */
+      // DRIVERS AND VEHICLES
       if (
         search.includes("driver") ||
         search.includes("vehicle") ||
-        search.includes("car")
+        search.includes("car") ||
+        search.includes("truck") ||
+        search.includes("pickup") ||
+        search.includes("bus")
       ) {
         window.location.href = "vehicles.html";
         return;
       }
 
-      /* BUSINESSES */
+      // BUSINESSES AND DISCOVER
       if (
         search.includes("business") ||
         search.includes("advertise") ||
@@ -648,23 +1029,26 @@
         search.includes("church") ||
         search.includes("school") ||
         search.includes("event") ||
-        search.includes("training")
+        search.includes("training") ||
+        search.includes("course") ||
+        search.includes("organization") ||
+        search.includes("seminar") ||
+        search.includes("conference")
       ) {
         window.location.href = "discover.html";
         return;
       }
 
       alert(
-        "Try searching for a worker, job, product, property, driver, vehicle or opportunity."
+        "We could not identify that category. Try searching for a worker, job, product, property, driver or opportunity."
       );
     }
 
     document
-      .getElementById("home-search")
-      .addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          homeSearch();
-        }
+      .getElementById("home-search-form")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+        homeSearch();
       });
   </script>
 
