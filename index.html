@@ -1,24 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>OGARS - Find Workers, Jobs, Properties & Opportunities</title>
-
-  <meta
-    name="description"
-    content="OGARS connects people with skilled workers, jobs, properties, drivers, businesses and opportunities across Ghana."
-  >
+  <title>OGARS - Find Workers, Jobs, Products, Properties & Opportunities</title>
+  <meta name="description" content="OGARS connects people with skilled workers, jobs, products, properties, drivers, businesses and opportunities across Ghana.">
 
   <style>
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -33,7 +23,6 @@
     }
 
     /* HEADER */
-
     header {
       background: #008000;
       color: white;
@@ -76,14 +65,8 @@
     }
 
     /* HERO */
-
     .hero {
-      background: linear-gradient(
-        135deg,
-        #008000,
-        #005f00
-      );
-
+      background: linear-gradient(135deg, #008000, #005f00);
       color: white;
       padding: 45px 20px 50px;
       text-align: center;
@@ -117,6 +100,7 @@
 
     .search-box input {
       flex: 1;
+      min-width: 0;
       border: none;
       outline: none;
       padding: 14px;
@@ -135,7 +119,6 @@
     }
 
     /* MAIN */
-
     .container {
       max-width: 1100px;
       margin: auto;
@@ -158,7 +141,6 @@
     }
 
     /* MAIN OPTIONS */
-
     .options {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -205,7 +187,6 @@
     }
 
     /* FEATURED SECTION */
-
     .featured {
       margin-top: 40px;
     }
@@ -242,7 +223,6 @@
     }
 
     /* SERVICES */
-
     .services {
       margin-top: 40px;
     }
@@ -264,7 +244,6 @@
     }
 
     /* TRUST */
-
     .trust {
       margin-top: 40px;
       background: #111;
@@ -286,7 +265,6 @@
     }
 
     /* FOOTER */
-
     footer {
       margin-top: 45px;
       background: #111;
@@ -298,18 +276,19 @@
 
     .footer-links {
       margin-bottom: 12px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .footer-links a {
       color: white;
       text-decoration: none;
-      margin: 0 8px;
     }
 
     /* MOBILE */
-
     @media (max-width: 650px) {
-
       .header-inner {
         align-items: center;
       }
@@ -339,12 +318,7 @@
         font-size: 15px;
       }
 
-      .search-box {
-        display: flex;
-      }
-
       .search-box input {
-        min-width: 0;
         font-size: 14px;
       }
 
@@ -368,62 +342,42 @@
       .service-list {
         grid-template-columns: repeat(2, 1fr);
       }
-
     }
-
   </style>
-
 </head>
 
 <body>
 
   <!-- HEADER -->
-
   <header>
-
     <div class="header-inner">
-
       <div>
         <div class="logo">OGARS</div>
-
-        <div class="tagline">
-          Trusted people. Real opportunities.
-        </div>
+        <div class="tagline">Trusted people. Real opportunities.</div>
       </div>
 
-      <a
-        href="join.html"
-        class="join-button"
-      >
+      <a href="join.html" class="join-button">
         👷 Join OGARS
       </a>
-
     </div>
-
   </header>
 
-
   <!-- HERO -->
-
   <section class="hero">
-
     <div class="hero-content">
-
-      <h1>
-        What do you need today?
-      </h1>
+      <h1>What do you need today?</h1>
 
       <p>
-        Find skilled workers, jobs, properties,
+        Find skilled workers, jobs, products, properties,
         drivers, businesses and opportunities.
       </p>
 
       <div class="search-box">
-
         <input
           type="text"
-          placeholder="Search workers, jobs, properties..."
+          placeholder="Search workers, jobs, products, properties..."
           id="home-search"
+          aria-label="Search OGARS"
         >
 
         <button
@@ -432,373 +386,211 @@
         >
           🔎 Search
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
   <!-- MAIN -->
-
   <main class="container">
 
-
     <!-- MAIN OPTIONS -->
-
     <section>
-
       <div class="section-title">
-
-        <h2>
-          Explore OGARS
-        </h2>
-
-        <p>
-          Choose what you are looking for.
-        </p>
-
+        <h2>Explore OGARS</h2>
+        <p>Choose what you are looking for.</p>
       </div>
-
 
       <div class="options">
 
-
-        <a
-          href="workers.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            🔧
-          </div>
-
-          <h3>
-            Find a Worker
-          </h3>
-
+        <a href="workers.html" class="option">
+          <div class="option-icon">🔧</div>
+          <h3>Find a Worker</h3>
           <p>
-            Find plumbers, electricians,
-            carpenters, painters, masons and more.
+            Find plumbers, electricians, carpenters,
+            painters, masons and more.
           </p>
-
-          <span class="arrow">
-            Find Workers →
-          </span>
-
-        </a>
-<a
-  href="post-job.html"
-  class="option"
->
-
-  <div class="option-icon">
-    📢
-  </div>
-
-  <h3>
-    Post a Job
-  </h3>
-
-  <p>
-    Have a job available?
-    Post it and connect with skilled workers.
-  </p>
-
-  <span class="arrow">
-    Post a Job →
-  </span>
-
-</a>
-
-        <a
-          href="jobs.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            💼
-          </div>
-
-          <h3>
-            Find Work
-          </h3>
-
-          <p>
-            Discover jobs and real work
-            opportunities.
-          </p>
-
-          <span class="arrow">
-            Find Jobs →
-          </span>
-
+          <span class="arrow">Find Workers →</span>
         </a>
 
-
-        <a
-          href="find-property.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            🏠
-          </div>
-
-          <h3>
-            Find a Property
-          </h3>
-
+        <a href="post-job.html" class="option">
+          <div class="option-icon">📢</div>
+          <h3>Post a Job</h3>
           <p>
-            Find houses, apartments, rooms,
-            hotels, land and commercial spaces.
+            Have a job available? Post it and connect
+            with skilled workers.
           </p>
-
-          <span class="arrow">
-            Find Property →
-          </span>
-
+          <span class="arrow">Post a Job →</span>
         </a>
 
-
-        <a
-          href="properties.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            🏘️
-          </div>
-
-          <h3>
-            Post a Property
-          </h3>
-
-          <p>
-            List your house, apartment, land,
-            hotel, shop or other property.
-          </p>
-
-          <span class="arrow">
-            Post Property →
-          </span>
-
+        <a href="jobs.html" class="option">
+          <div class="option-icon">💼</div>
+          <h3>Find Work</h3>
+          <p>Discover jobs and real work opportunities.</p>
+          <span class="arrow">Find Jobs →</span>
         </a>
 
-
-        <a
-          href="vehicles.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            🚗
-          </div>
-
-          <h3>
-            Drivers & Vehicles
-          </h3>
-
+        <a href="find-property.html" class="option">
+          <div class="option-icon">🏠</div>
+          <h3>Find a Property</h3>
           <p>
-            Find reliable drivers or connect
-            drivers with vehicle owners.
+            Find houses, apartments, rooms, hotels,
+            land and commercial spaces.
           </p>
-
-          <span class="arrow">
-            Explore →
-          </span>
-
+          <span class="arrow">Find Property →</span>
         </a>
 
-
-        <a
-          href="business.html"
-          class="option"
-        >
-
-          <div class="option-icon">
-            🏢
-          </div>
-
-          <h3>
-            For Businesses
-          </h3>
-
+        <a href="properties.html" class="option">
+          <div class="option-icon">🏘️</div>
+          <h3>Post a Property</h3>
           <p>
-            Find workers, post jobs and
-            connect with opportunities.
+            List your house, apartment, land, hotel,
+            shop or other property.
           </p>
-
-          <span class="arrow">
-            For Businesses →
-          </span>
-
+          <span class="arrow">Post Property →</span>
         </a>
 
+        <a href="vehicles.html" class="option">
+          <div class="option-icon">🚗</div>
+          <h3>Drivers & Vehicles</h3>
+          <p>
+            Find reliable drivers or connect drivers
+            with vehicle owners.
+          </p>
+          <span class="arrow">Explore →</span>
+        </a>
+
+        <!-- NEW FIND PRODUCTS CARD -->
+        <a href="find-products.html" class="option">
+          <div class="option-icon">🛍️</div>
+          <h3>Find Products</h3>
+          <p>
+            Discover products from businesses around you.
+            Search for items and contact sellers directly.
+          </p>
+          <span class="arrow">Explore Products →</span>
+        </a>
+
+        <a href="business.html" class="option">
+          <div class="option-icon">🏢</div>
+          <h3>For Businesses</h3>
+          <p>
+            Find workers, post jobs and connect
+            with opportunities.
+          </p>
+          <span class="arrow">For Businesses →</span>
+        </a>
+
+        <!-- DISCOVER AND ADVERTISE -->
+        <a href="discover.html" class="option">
+          <div class="option-icon">📣</div>
+          <h3>Discover & Advertise</h3>
+          <p>
+            Discover schools, churches, events,
+            training, promotions and other opportunities.
+          </p>
+          <span class="arrow">Discover More →</span>
+        </a>
 
       </div>
-
     </section>
-
 
     <!-- WORKER JOIN -->
-
     <section class="featured">
-
       <div class="featured-box">
-
         <div>
-
-          <h2>
-            👷 Are you a skilled worker?
-          </h2>
-
+          <h2>👷 Are you a skilled worker?</h2>
           <p>
-            Create your OGARS profile and let
-            customers discover your skills.
+            Create your OGARS profile and let customers
+            discover your skills.
           </p>
-
         </div>
 
-        <a
-          href="join.html"
-          class="green-button"
-        >
+        <a href="join.html" class="green-button">
           Create Worker Profile
         </a>
-
       </div>
-
     </section>
-
 
     <!-- POPULAR SERVICES -->
-
     <section class="services">
-
       <div class="section-title">
-
-        <h2>
-          Popular Services
-        </h2>
-
-        <p>
-          Find professionals for everyday jobs.
-        </p>
-
+        <h2>Popular Services</h2>
+        <p>Find professionals for everyday jobs.</p>
       </div>
-
 
       <div class="service-list">
-
-        <div class="service">
-          🔧 Plumbing
-        </div>
-
-        <div class="service">
-          ⚡ Electrical
-        </div>
-
-        <div class="service">
-          🪚 Carpentry
-        </div>
-
-        <div class="service">
-          🎨 Painting
-        </div>
-
-        <div class="service">
-          🧱 Masonry
-        </div>
-
-        <div class="service">
-          🚿 Tiling
-        </div>
-
-        <div class="service">
-          🔩 Welding
-        </div>
-
-        <div class="service">
-          ❄️ AC Repair
-        </div>
-
+        <div class="service">🔧 Plumbing</div>
+        <div class="service">⚡ Electrical</div>
+        <div class="service">🪚 Carpentry</div>
+        <div class="service">🎨 Painting</div>
+        <div class="service">🧱 Masonry</div>
+        <div class="service">🚿 Tiling</div>
+        <div class="service">🔩 Welding</div>
+        <div class="service">❄️ AC Repair</div>
       </div>
-
     </section>
-
 
     <!-- TRUST -->
-
     <section class="trust">
-
-      <h2>
-        Why OGARS?
-      </h2>
-
+      <h2>Why OGARS?</h2>
       <p>
-        OGARS is being built to make it easier for
-        people to find skilled workers, discover
-        opportunities, find properties and connect
-        with businesses — all in one place.
+        OGARS is being built to make it easier for people
+        to find skilled workers, discover products and
+        opportunities, find properties and connect with
+        businesses — all in one place.
       </p>
-
     </section>
-
 
   </main>
 
-
   <!-- FOOTER -->
-
   <footer>
-
     <div class="footer-links">
-
-      <a href="workers.html">
-        Workers
-      </a>
-
-      <a href="jobs.html">
-        Jobs
-      </a>
-
-      <a href="find-property.html">
-        Properties
-      </a>
-
-      <a href="vehicles.html">
-        Vehicles
-      </a>
-
+      <a href="workers.html">Workers</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="find-products.html">Products</a>
+      <a href="find-property.html">Properties</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="discover.html">Discover</a>
+      <a href="business.html">Businesses</a>
     </div>
 
     © 2026 OGARS Workers Platform
-
   </footer>
 
-
   <script>
-
     function homeSearch() {
-
-      const search =
-        document
-          .getElementById("home-search")
-          .value
-          .trim()
-          .toLowerCase();
+      const search = document
+        .getElementById("home-search")
+        .value
+        .trim()
+        .toLowerCase();
 
       if (!search) {
-
         alert("Please enter what you are looking for.");
-
         return;
-
       }
 
+      /* PRODUCTS */
+      if (
+        search.includes("product") ||
+        search.includes("shop") ||
+        search.includes("buy") ||
+        search.includes("seller") ||
+        search.includes("store") ||
+        search.includes("tilapia") ||
+        search.includes("fish") ||
+        search.includes("chicken") ||
+        search.includes("food") ||
+        search.includes("clothes") ||
+        search.includes("electronics") ||
+        search.includes("groceries")
+      ) {
+        window.location.href = "find-products.html";
+        return;
+      }
 
+      /* WORKERS */
       if (
         search.includes("worker") ||
         search.includes("plumber") ||
@@ -809,29 +601,22 @@
         search.includes("welder") ||
         search.includes("tiler")
       ) {
-
-        window.location.href =
-          "workers.html";
-
+        window.location.href = "workers.html";
         return;
-
       }
 
-
+      /* JOBS */
       if (
         search.includes("job") ||
         search.includes("work") ||
-        search.includes("employment")
+        search.includes("employment") ||
+        search.includes("vacancy")
       ) {
-
-        window.location.href =
-          "jobs.html";
-
+        window.location.href = "jobs.html";
         return;
-
       }
 
-
+      /* PROPERTIES */
       if (
         search.includes("house") ||
         search.includes("apartment") ||
@@ -841,50 +626,47 @@
         search.includes("property") ||
         search.includes("rent")
       ) {
-
-        window.location.href =
-          "find-property.html";
-
+        window.location.href = "find-property.html";
         return;
-
       }
 
-
+      /* DRIVERS AND VEHICLES */
       if (
         search.includes("driver") ||
         search.includes("vehicle") ||
         search.includes("car")
       ) {
-
-        window.location.href =
-          "vehicles.html";
-
+        window.location.href = "vehicles.html";
         return;
-
       }
 
+      /* BUSINESSES */
+      if (
+        search.includes("business") ||
+        search.includes("advertise") ||
+        search.includes("promotion") ||
+        search.includes("church") ||
+        search.includes("school") ||
+        search.includes("event") ||
+        search.includes("training")
+      ) {
+        window.location.href = "discover.html";
+        return;
+      }
 
       alert(
-        "Try searching for a worker, job, property, driver or vehicle."
+        "Try searching for a worker, job, product, property, driver, vehicle or opportunity."
       );
-
     }
-
 
     document
       .getElementById("home-search")
       .addEventListener("keydown", function(event) {
-
         if (event.key === "Enter") {
-
           homeSearch();
-
         }
-
       });
-
   </script>
 
 </body>
-
 </html>
