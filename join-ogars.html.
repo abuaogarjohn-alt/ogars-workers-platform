@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087f3e">
+  <title>Join OGARS | Choose Your Purpose</title>
+  <meta name="description" content="Join OGARS to find work, hire workers, advertise property, register your business, sell products and promote events.">
+
+  <style>
+    :root {
+      --green: #087f3e;
+      --dark-green: #05632f;
+      --light-green: #eaf7ee;
+      --text: #183126;
+      --muted: #63736a;
+      --border: #dce9df;
+      --white: #ffffff;
+      --background: #f5faf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo {
+      color: var(--green);
+      text-decoration: none;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .home-link {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #087f3e, #075d32);
+      color: white;
+      text-align: center;
+      padding: 48px 20px 54px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.2;
+      margin: 0 0 14px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: #e8f7ec;
+      font-size: 16px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 45px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      font-size: 25px;
+      margin: 0 0 7px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .option-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      box-shadow: 0 3px 12px rgba(20, 65, 35, 0.04);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .option-card:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+
+    .option-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: var(--light-green);
+      border-radius: 13px;
+      font-size: 26px;
+      margin-bottom: 13px;
+    }
+
+    .option-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    .option-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0 0 18px;
+      flex-grow: 1;
+    }
+
+    .option-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: var(--green);
+      color: white;
+      padding: 11px 10px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: auto;
+    }
+
+    .option-button:hover {
+      background: var(--dark-green);
+    }
+
+    .help-box {
+      background: var(--light-green);
+      border: 1px solid #cde8d4;
+      border-radius: 13px;
+      margin-top: 28px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .help-box h3 {
+      margin: 0 0 7px;
+      font-size: 18px;
+    }
+
+    .help-box p {
+      margin: 0;
+      color: #425d4b;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 22px 15px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #f2bd45;
+      outline-offset: 3px;
+    }
+
+    @media (min-width: 700px) {
+      .options-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .option-card {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .header-inner {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      main {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .option-card {
+        padding: 14px 11px;
+      }
+
+      .option-card h3 {
+        font-size: 15px;
+      }
+
+      .option-card p {
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="logo" href="index.html">OGARS</a>
+      <a class="home-link" href="index.html">← Back to Home</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to OGARS!</h1>
+    <p>
+      One platform, many opportunities. Tell us what you want to do
+      and we will take you to the right place.
+    </p>
+  </section>
+
+  <main>
+    <div class="section-heading">
+      <h2>What would you like to do?</h2>
+      <p>Choose an option below to get started.</p>
+    </div>
+
+    <div class="options-grid">
+
+      <article class="option-card">
+        <div class="option-icon">🛠️</div>
+        <h3>Find Work as a Skilled Worker</h3>
+        <p>Create a worker profile so customers and employers can discover your skills and contact you.</p>
+        <a class="option-button" href="join.html">Register as a Worker</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">💼</div>
+        <h3>Find Employment</h3>
+        <p>Explore available jobs and employment opportunities posted on OGARS.</p>
+        <a class="option-button" href="jobs.html">Find Jobs</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">📢</div>
+        <h3>Post a Job Vacancy</h3>
+        <p>Are you an employer or company looking for workers? Publish a job opportunity.</p>
+        <a class="option-button" href="post-job.html">Post a Job</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">🏠</div>
+        <h3>Find a Property</h3>
+        <p>Search for houses, rooms, apartments, shops, land and other properties.</p>
+        <a class="option-button" href="find-property.html">Find Property</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">🔑</div>
+        <h3>Advertise a Property</h3>
+        <p>List a property for rent or sale so interested people can contact you.</p>
+        <a class="option-button" href="properties.html">Post a Property</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">🏢</div>
+        <h3>Register a Business</h3>
+        <p>Create a business profile to introduce your services, location and contact details.</p>
+        <a class="option-button" href="register-business.html">Register Business</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">🛍️</div>
+        <h3>Sell Products</h3>
+        <p>Showcase products such as food, clothing, electronics and other goods to potential customers.</p>
+        <a class="option-button" href="register-business.html">Start Selling</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">🚗</div>
+        <h3>Drivers & Vehicles</h3>
+        <p>Register as a driver, list a vehicle, or find a driver or vehicle for your needs.</p>
+        <a class="option-button" href="vehicles.html">Explore Options</a>
+      </article>
+
+      <article class="option-card">
+        <div class="option-icon">📣</div>
+        <h3>Advertise or Promote</h3>
+        <p>Promote schools, churches, events, training, courses, organizations and special offers.</p>
+        <a class="option-button" href="advertise.html">Advertise With OGARS</a>
+      </article>
+
+    </div>
+
+    <div class="help-box">
+      <h3>Not sure where to start?</h3>
+      <p>
+        You can return to the homepage to explore all OGARS services.
+        Choose the option that matches your needs.
+      </p>
+      <p style="margin-top: 13px;">
+        <a class="option-button" style="max-width: 220px; margin: 0 auto;" href="index.html">
+          Explore OGARS Home
+        </a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 OGARS Workers Platform. Connecting people, services and opportunities.</p>
+    <a href="index.html">Back to Homepage</a>
+  </footer>
+</body>
+</html>
