@@ -505,6 +505,18 @@ form.addEventListener("submit", async function (event) {
     return;
   }
 
+  const userResult = await supabaseClient.auth.getUser();
+  const user = userResult.data.user;
+
+  if (!user) {
+    alert(
+      "Please create an OGARS account or log in before publishing an advert."
+    );
+
+    window.location.href = "account.html";
+    return;
+  }
+
 
   const listingType =
     document.getElementById("listing-type")
