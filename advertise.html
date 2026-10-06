@@ -637,11 +637,13 @@ form.addEventListener("submit", async function (event) {
 
     const listing = {
 
-      title:
-        title,
+  user_id: user.id,
 
-      listing_type:
-        listingType,
+  title:
+    title,
+
+  listing_type:
+    listingType,
 
       location:
         location || null,
