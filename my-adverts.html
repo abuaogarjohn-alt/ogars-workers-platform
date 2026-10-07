@@ -238,6 +238,12 @@
       color: #087408;
     }
 
+    .edit-button {
+      background: #f1f5f1;
+      color: #087408;
+      border: 1px solid #cfe3cf;
+    }
+
     .renew-button {
       background: #008000;
       color: white;
@@ -328,7 +334,7 @@
   <h1>My Adverts</h1>
 
   <p>
-    Manage and renew your Discover & Advertise listings
+    Manage, edit and renew your Discover & Advertise listings
   </p>
 
 </header>
@@ -794,11 +800,29 @@ async function loadMyAdverts() {
               👁 View Advert
             </a>
 
+            <a
+              class="card-button edit-button"
+              href="edit-discover.html?id=${encodeURIComponent(
+                listing.id
+              )}"
+            >
+              ✏️ Edit Advert
+            </a>
+
+          </div>
+
+          <div
+            style="
+              margin-top:9px;
+            "
+          >
+
             ${
               isExpired
                 ? `
                   <button
                     class="card-button renew-button"
+                    style="width:100%;"
                     onclick="renewAdvert('${escapeAttribute(
                       listing.id
                     )}', this)"
@@ -809,6 +833,7 @@ async function loadMyAdverts() {
                 : `
                   <button
                     class="card-button renew-button"
+                    style="width:100%;"
                     disabled
                   >
                     ✓ Active
@@ -982,6 +1007,10 @@ function escapeAttribute(
 ) {
 
   return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
     .replace(
       /"/g,
       "&quot;"
