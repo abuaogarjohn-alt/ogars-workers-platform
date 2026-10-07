@@ -248,8 +248,10 @@
     }
 
     .renew-button:disabled {
-      background: #777;
-      cursor: not-allowed;
+      background: #e9f7e9;
+      color: #087408;
+      border: 1px solid #b9dfb9;
+      cursor: default;
     }
 
     .message {
@@ -358,6 +360,7 @@
       </div>
 
     </div>
+
 
     <div class="top-actions">
 
@@ -784,9 +787,11 @@ async function loadMyAdverts() {
 
             <a
               class="card-button view-button"
-              href="find-discover.html"
+              href="discover-details.html?id=${encodeURIComponent(
+                listing.id
+              )}"
             >
-              👁 View
+              👁 View Advert
             </a>
 
             ${
@@ -794,7 +799,9 @@ async function loadMyAdverts() {
                 ? `
                   <button
                     class="card-button renew-button"
-                    onclick="renewAdvert('${listing.id}', this)"
+                    onclick="renewAdvert('${escapeAttribute(
+                      listing.id
+                    )}', this)"
                   >
                     🔄 Renew 30 Days
                   </button>
@@ -933,8 +940,6 @@ async function renewAdvert(
     "✅ Your advert has been renewed for another 30 days!"
   );
 
-
-  /* Refresh the adverts */
 
   await loadMyAdverts();
 
