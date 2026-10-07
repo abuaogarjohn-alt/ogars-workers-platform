@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My OGARS Adverts</title>
+  <title>My Adverts | OGARS</title>
 
   <style>
     * {
@@ -15,167 +15,337 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7f8;
-      color: #222;
+      background: #f4f7f5;
+      color: #1f2937;
       line-height: 1.5;
     }
 
+    /* HEADER */
+
     header {
-      background: #008000;
+      background: linear-gradient(135deg, #006b00, #008f00);
       color: white;
-      padding: 25px 18px;
+      padding: 22px 18px 28px;
       text-align: center;
     }
 
+    .logo {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
     header h1 {
-      font-size: 27px;
+      font-size: 28px;
+      margin-bottom: 6px;
     }
 
     header p {
-      margin-top: 6px;
       font-size: 14px;
+      opacity: 0.92;
     }
+
+    /* MAIN */
 
     .container {
-      max-width: 700px;
+      width: 100%;
+      max-width: 760px;
       margin: auto;
-      padding: 22px 15px;
+      padding: 18px 14px 35px;
     }
 
-    .account-card {
+    /* ACCOUNT PANEL */
+
+    .account-panel {
       background: white;
-      padding: 18px;
-      border-radius: 15px;
+      border-radius: 16px;
+      padding: 17px;
+      margin-top: -4px;
       margin-bottom: 18px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+      border: 1px solid #e5e7eb;
+    }
+
+    .account-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .account-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #e9f7e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      flex-shrink: 0;
+    }
+
+    .account-info {
+      min-width: 0;
+    }
+
+    .account-title {
+      font-weight: bold;
+      color: #111827;
+      font-size: 15px;
     }
 
     .account-email {
-      color: #555;
-      font-size: 14px;
+      color: #6b7280;
+      font-size: 13px;
+      word-break: break-word;
+      margin-top: 2px;
     }
+
+    /* ACTION BUTTONS */
+
+    .top-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .action-button {
+      border: none;
+      border-radius: 9px;
+      padding: 12px 8px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .create-button {
+      background: #008000;
+      color: white;
+    }
+
+    .logout-button {
+      background: #f1f3f2;
+      color: #555;
+      border: 1px solid #ddd;
+    }
+
+    /* SECTION TITLE */
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 22px 2px 12px;
+    }
+
+    .section-heading h2 {
+      font-size: 20px;
+      color: #111827;
+    }
+
+    .listing-count {
+      background: #e8f6e8;
+      color: #087408;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* LISTING CARD */
 
     .listing-card {
       background: white;
-      border-radius: 15px;
-      margin-bottom: 18px;
+      border-radius: 17px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      border: 1px solid #eee;
+      margin-bottom: 18px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background: #edf4ed;
     }
 
     .listing-photo {
       width: 100%;
-      height: 210px;
+      height: 100%;
       object-fit: cover;
       display: block;
     }
 
     .no-photo {
-      height: 140px;
-      background: #eef7ee;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #008000;
+      font-size: 15px;
       font-weight: bold;
     }
 
-    .listing-content {
-      padding: 18px;
-    }
-
-    .listing-content h2 {
-      color: #008000;
-      font-size: 21px;
-      margin-bottom: 6px;
-    }
-
-    .type {
-      color: #666;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      color: #444;
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 7px 11px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: bold;
-      margin-bottom: 12px;
+      backdrop-filter: blur(4px);
     }
 
     .active {
-      background: #e5f7e5;
+      background: rgba(229, 247, 229, 0.95);
       color: #087408;
     }
 
     .expired {
-      background: #ffe8e8;
+      background: rgba(255, 232, 232, 0.96);
       color: #a00000;
     }
 
-    .expiry {
-      font-size: 13px;
-      color: #666;
-      margin-bottom: 14px;
+    .listing-content {
+      padding: 17px;
     }
 
-    .button {
-      width: 100%;
-      border: none;
-      background: #008000;
-      color: white;
-      padding: 13px;
+    .listing-type {
+      color: #008000;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .listing-title {
+      font-size: 20px;
+      color: #111827;
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+
+    .listing-description {
+      color: #606770;
+      font-size: 14px;
+      margin-bottom: 13px;
+    }
+
+    .expiry-box {
+      background: #f7f9f7;
       border-radius: 9px;
-      font-size: 15px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 13px;
+    }
+
+    .expiry-box strong {
+      color: #222;
+    }
+
+    /* CARD BUTTONS */
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .card-button {
+      border: none;
+      border-radius: 9px;
+      padding: 12px 8px;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 8px;
+      text-align: center;
+      text-decoration: none;
     }
 
-    .button:disabled {
+    .view-button {
+      background: #eef5ee;
+      color: #087408;
+    }
+
+    .renew-button {
+      background: #008000;
+      color: white;
+    }
+
+    .renew-button:disabled {
       background: #777;
+      cursor: not-allowed;
     }
 
-    .secondary {
-      background: #555;
-    }
-
-    .logout {
-      background: #b00000;
-    }
+    /* EMPTY / MESSAGE */
 
     .message {
       background: white;
-      padding: 20px;
-      border-radius: 15px;
+      border-radius: 16px;
+      padding: 30px 20px;
       text-align: center;
       color: #666;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
     }
+
+    .message-icon {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .message h3 {
+      color: #222;
+      margin-bottom: 7px;
+    }
+
+    .message p {
+      font-size: 14px;
+    }
+
+    /* BACK */
 
     .back {
       display: block;
       text-align: center;
-      margin-top: 20px;
+      margin-top: 22px;
       color: #008000;
       text-decoration: none;
       font-weight: bold;
+      font-size: 14px;
     }
 
     footer {
       text-align: center;
       padding: 30px 20px;
       color: #777;
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      .photo-wrapper {
+        height: 195px;
+      }
+
+      .listing-title {
+        font-size: 18px;
+      }
+
+      .card-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+
     }
   </style>
 </head>
@@ -183,42 +353,107 @@
 <body>
 
 <header>
-  <h1>📢 My OGARS Adverts</h1>
-  <p>Manage your Discover & Advertise listings</p>
+
+  <div class="logo">
+    OGAR'S WORKERS PLATFORM
+  </div>
+
+  <h1>My Adverts</h1>
+
+  <p>
+    Manage and renew your Discover & Advertise listings
+  </p>
+
 </header>
+
 
 <div class="container">
 
-  <div class="account-card">
+  <!-- ACCOUNT -->
 
-    <div
-      class="account-email"
-      id="account-email"
-    >
-      Checking your account...
+  <div class="account-panel">
+
+    <div class="account-top">
+
+      <div class="account-icon">
+        👤
+      </div>
+
+      <div class="account-info">
+
+        <div class="account-title">
+          My OGARS Account
+        </div>
+
+        <div
+          class="account-email"
+          id="account-email"
+        >
+          Checking account...
+        </div>
+
+      </div>
+
     </div>
 
-    <button
-      class="button secondary"
-      id="advertise-button"
-    >
-      ➕ Create New Advert
-    </button>
 
-    <button
-      class="button logout"
-      id="logout-button"
-    >
-      Logout
-    </button>
+    <div class="top-actions">
+
+      <button
+        class="action-button create-button"
+        id="advertise-button"
+      >
+        ➕ New Advert
+      </button>
+
+      <button
+        class="action-button logout-button"
+        id="logout-button"
+      >
+        Logout
+      </button>
+
+    </div>
 
   </div>
 
 
+  <!-- SECTION HEADING -->
+
+  <div class="section-heading">
+
+    <h2>
+      Your Adverts
+    </h2>
+
+    <span
+      class="listing-count"
+      id="listing-count"
+    >
+      0 Listings
+    </span>
+
+  </div>
+
+
+  <!-- LISTINGS -->
+
   <div id="listings-container">
 
     <div class="message">
-      Loading your adverts...
+
+      <div class="message-icon">
+        ⏳
+      </div>
+
+      <h3>
+        Loading your adverts
+      </h3>
+
+      <p>
+        Please wait...
+      </p>
+
     </div>
 
   </div>
@@ -232,6 +467,7 @@
   </a>
 
 </div>
+
 
 <footer>
   © 2026 OGARS Workers Platform
@@ -256,17 +492,32 @@ const supabaseClient =
 
 
 const accountEmail =
-  document.getElementById("account-email");
+  document.getElementById(
+    "account-email"
+  );
 
 const listingsContainer =
-  document.getElementById("listings-container");
+  document.getElementById(
+    "listings-container"
+  );
+
+const listingCount =
+  document.getElementById(
+    "listing-count"
+  );
 
 const advertiseButton =
-  document.getElementById("advertise-button");
+  document.getElementById(
+    "advertise-button"
+  );
 
 const logoutButton =
-  document.getElementById("logout-button");
+  document.getElementById(
+    "logout-button"
+  );
 
+
+/* NEW ADVERT */
 
 advertiseButton.addEventListener(
   "click",
@@ -279,6 +530,8 @@ advertiseButton.addEventListener(
 );
 
 
+/* LOGOUT */
+
 logoutButton.addEventListener(
   "click",
   async function () {
@@ -289,7 +542,7 @@ logoutButton.addEventListener(
     if (result.error) {
 
       alert(
-        "Unable to log out: " +
+        "Unable to log out:\n\n" +
         result.error.message
       );
 
@@ -302,6 +555,8 @@ logoutButton.addEventListener(
   }
 );
 
+
+/* LOAD MY ADVERTS */
 
 async function loadMyAdverts() {
 
@@ -323,7 +578,6 @@ async function loadMyAdverts() {
 
 
   accountEmail.textContent =
-    "Logged in as: " +
     user.email;
 
 
@@ -343,10 +597,25 @@ async function loadMyAdverts() {
   if (result.error) {
 
     listingsContainer.innerHTML = `
+
       <div class="message">
-        Unable to load your adverts.<br><br>
-        ${result.error.message}
+
+        <div class="message-icon">
+          ⚠️
+        </div>
+
+        <h3>
+          Unable to load adverts
+        </h3>
+
+        <p>
+          ${escapeHtml(
+            result.error.message
+          )}
+        </p>
+
       </div>
+
     `;
 
     return;
@@ -358,14 +627,35 @@ async function loadMyAdverts() {
     result.data || [];
 
 
+  listingCount.textContent =
+    listings.length +
+    (
+      listings.length === 1
+        ? " Listing"
+        : " Listings"
+    );
+
+
   if (listings.length === 0) {
 
     listingsContainer.innerHTML = `
+
       <div class="message">
-        <strong>You don't have any adverts yet.</strong>
-        <br><br>
-        Create your first advert on OGARS.
+
+        <div class="message-icon">
+          📢
+        </div>
+
+        <h3>
+          No adverts yet
+        </h3>
+
+        <p>
+          You haven't published any Discover & Advertise listings yet.
+        </p>
+
       </div>
+
     `;
 
     return;
@@ -373,135 +663,290 @@ async function loadMyAdverts() {
   }
 
 
-  listingsContainer.innerHTML = "";
+  listingsContainer.innerHTML =
+    "";
 
 
-  listings.forEach(function (listing) {
+  listings.forEach(
+    function (listing) {
 
-    const card =
-      document.createElement("div");
+      const card =
+        document.createElement(
+          "div"
+        );
 
-    card.className =
-      "listing-card";
-
-
-    let photoHtml =
-      `<div class="no-photo">No Photo</div>`;
-
-
-    if (
-      listing.photo_urls &&
-      listing.photo_urls.trim() !== ""
-    ) {
-
-      const firstPhoto =
-        listing.photo_urls
-          .split(",")[0]
-          .trim();
+      card.className =
+        "listing-card";
 
 
-      if (firstPhoto) {
+      /* PHOTO */
 
-        photoHtml = `
-          <img
-            src="${firstPhoto}"
-            class="listing-photo"
-            alt="Advert photo"
-          >
+      let photoHtml =
+        `
+
+        <div class="photo-wrapper">
+
+          <div class="no-photo">
+            📷 No Photo
+          </div>
+
+        </div>
+
         `;
+
+
+      if (
+        listing.photo_urls &&
+        listing.photo_urls.trim() !== ""
+      ) {
+
+        const firstPhoto =
+          listing.photo_urls
+            .split(",")[0]
+            .trim();
+
+
+        if (firstPhoto) {
+
+          photoHtml = `
+
+            <div class="photo-wrapper">
+
+              <img
+                src="${escapeAttribute(
+                  firstPhoto
+                )}"
+                class="listing-photo"
+                alt="Advert photo"
+              >
+
+            </div>
+
+          `;
+
+        }
 
       }
 
+
+      /* EXPIRY */
+
+      const now =
+        new Date();
+
+
+      const expiryDate =
+        listing.expires_at
+          ? new Date(
+              listing.expires_at
+            )
+          : null;
+
+
+      const isExpired =
+        !expiryDate ||
+        expiryDate <= now;
+
+
+      const statusClass =
+        isExpired
+          ? "expired"
+          : "active";
+
+
+      const statusText =
+        isExpired
+          ? "Expired"
+          : "Active";
+
+
+      let expiryText;
+
+
+      if (expiryDate) {
+
+        expiryText =
+          isExpired
+            ? "Expired on: "
+            : "Expires on: ";
+
+        expiryText +=
+          expiryDate.toLocaleString();
+
+      } else {
+
+        expiryText =
+          "Expiry date unavailable";
+
+      }
+
+
+      /* CARD */
+
+      card.innerHTML = `
+
+        ${photoHtml}
+
+        <div class="listing-content">
+
+          <div class="listing-type">
+
+            ${escapeHtml(
+              listing.listing_type ||
+              "Advertisement"
+            )}
+
+          </div>
+
+          <h2 class="listing-title">
+
+            ${escapeHtml(
+              listing.title ||
+              "Untitled Advert"
+            )}
+
+          </h2>
+
+          <div class="listing-description">
+
+            ${escapeHtml(
+              listing.description ||
+              "No description provided."
+            )}
+
+          </div>
+
+          <div class="expiry-box">
+
+            <strong>
+              ${statusText}
+            </strong>
+
+            <br>
+
+            ${escapeHtml(
+              expiryText
+            )}
+
+          </div>
+
+          <div class="card-actions">
+
+            <a
+              class="card-button view-button"
+              href="find-discover.html"
+            >
+              👁 View
+            </a>
+
+            ${
+              isExpired
+                ? `
+                  <button
+                    class="card-button renew-button"
+                    onclick="renewAdvert('${listing.id}', this)"
+                  >
+                    🔄 Renew 30 Days
+                  </button>
+                `
+                : `
+                  <button
+                    class="card-button renew-button"
+                    disabled
+                  >
+                    ✓ Active
+                  </button>
+                `
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      listingsContainer.appendChild(
+        card
+      );
+
     }
-
-
-    const now =
-      new Date();
-
-
-    const expiryDate =
-      listing.expires_at
-        ? new Date(listing.expires_at)
-        : null;
-
-
-    const isExpired =
-      !expiryDate ||
-      expiryDate <= now;
-
-
-    const statusClass =
-      isExpired
-        ? "expired"
-        : "active";
-
-
-    const statusText =
-      isExpired
-        ? "Expired"
-        : "Active";
-
-
-    const expiryText =
-      expiryDate
-        ? (
-            isExpired
-              ? "Expired on: "
-              : "Expires on: "
-          ) +
-          expiryDate.toLocaleString()
-        : "No expiry date";
-
-
-    card.innerHTML = `
-
-      ${photoHtml}
-
-      <div class="listing-content">
-
-        <h2>
-          ${escapeHtml(listing.title || "Untitled Advert")}
-        </h2>
-
-        <div class="type">
-          ${escapeHtml(listing.listing_type || "")}
-        </div>
-
-        <span class="status ${statusClass}">
-          ${statusText}
-        </span>
-
-        <div class="expiry">
-          ${expiryText}
-        </div>
-
-        <div class="description">
-          ${escapeHtml(listing.description || "No description provided.")}
-        </div>
-
-      </div>
-
-    `;
-
-
-    listingsContainer.appendChild(card);
-
-  });
+  );
 
 }
 
 
-function escapeHtml(value) {
+/* RENEW FUNCTION
+   Temporary button.
+   We will connect the real renewal process
+   in the next step.
+*/
+
+async function renewAdvert(
+  listingId,
+  button
+) {
+
+  alert(
+    "Renewal is being prepared. We will activate the secure 30-day renewal process next."
+  );
+
+}
+
+
+/* SECURITY HELPERS */
+
+function escapeHtml(
+  value
+) {
 
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
+
+function escapeAttribute(
+  value
+) {
+
+  return String(value)
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    );
+
+}
+
+
+/* START */
 
 loadMyAdverts();
 
