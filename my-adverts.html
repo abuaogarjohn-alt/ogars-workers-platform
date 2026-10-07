@@ -20,8 +20,6 @@
       line-height: 1.5;
     }
 
-    /* HEADER */
-
     header {
       background: linear-gradient(135deg, #006b00, #008f00);
       color: white;
@@ -46,16 +44,12 @@
       opacity: 0.92;
     }
 
-    /* MAIN */
-
     .container {
       width: 100%;
       max-width: 760px;
       margin: auto;
       padding: 18px 14px 35px;
     }
-
-    /* ACCOUNT PANEL */
 
     .account-panel {
       background: white;
@@ -102,8 +96,6 @@
       margin-top: 2px;
     }
 
-    /* ACTION BUTTONS */
-
     .top-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -131,8 +123,6 @@
       border: 1px solid #ddd;
     }
 
-    /* SECTION TITLE */
-
     .section-heading {
       display: flex;
       align-items: center;
@@ -153,8 +143,6 @@
       font-size: 12px;
       font-weight: bold;
     }
-
-    /* LISTING CARD */
 
     .listing-card {
       background: white;
@@ -188,27 +176,6 @@
       color: #008000;
       font-size: 15px;
       font-weight: bold;
-    }
-
-    .status-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 7px 11px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      backdrop-filter: blur(4px);
-    }
-
-    .active {
-      background: rgba(229, 247, 229, 0.95);
-      color: #087408;
-    }
-
-    .expired {
-      background: rgba(255, 232, 232, 0.96);
-      color: #a00000;
     }
 
     .listing-content {
@@ -249,8 +216,6 @@
       color: #222;
     }
 
-    /* CARD BUTTONS */
-
     .card-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -278,12 +243,14 @@
       color: white;
     }
 
+    .renew-button:hover {
+      background: #006b00;
+    }
+
     .renew-button:disabled {
       background: #777;
       cursor: not-allowed;
     }
-
-    /* EMPTY / MESSAGE */
 
     .message {
       background: white;
@@ -308,8 +275,6 @@
     .message p {
       font-size: 14px;
     }
-
-    /* BACK */
 
     .back {
       display: block;
@@ -369,8 +334,6 @@
 
 <div class="container">
 
-  <!-- ACCOUNT -->
-
   <div class="account-panel">
 
     <div class="account-top">
@@ -396,7 +359,6 @@
 
     </div>
 
-
     <div class="top-actions">
 
       <button
@@ -418,8 +380,6 @@
   </div>
 
 
-  <!-- SECTION HEADING -->
-
   <div class="section-heading">
 
     <h2>
@@ -435,8 +395,6 @@
 
   </div>
 
-
-  <!-- LISTINGS -->
 
   <div id="listings-container">
 
@@ -734,7 +692,6 @@ async function loadMyAdverts() {
       const now =
         new Date();
 
-
       const expiryDate =
         listing.expires_at
           ? new Date(
@@ -742,16 +699,9 @@ async function loadMyAdverts() {
             )
           : null;
 
-
       const isExpired =
         !expiryDate ||
         expiryDate <= now;
-
-
-      const statusClass =
-        isExpired
-          ? "expired"
-          : "active";
 
 
       const statusText =
@@ -876,20 +826,117 @@ async function loadMyAdverts() {
 }
 
 
-/* RENEW FUNCTION
-   Temporary button.
-   We will connect the real renewal process
-   in the next step.
-*/
+/* REAL SECURE RENEWAL */
 
 async function renewAdvert(
   listingId,
   button
 ) {
 
+  if (!listingId || !button) {
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      "Renew this advert for another 30 days?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  const originalText =
+    button.innerHTML;
+
+
+  button.disabled = true;
+
+  button.innerHTML =
+    "⏳ Renewing...";
+
+
+  const userResult =
+    await supabaseClient.auth.getUser();
+
+  const user =
+    userResult.data.user;
+
+
+  if (!user) {
+
+    alert(
+      "Your session has expired. Please log in again."
+    );
+
+    window.location.href =
+      "account.html";
+
+    return;
+
+  }
+
+
+  const result =
+    await supabaseClient.rpc(
+      "renew_discover_listing",
+      {
+        p_listing_id: listingId
+      }
+    );
+
+
+  if (result.error) {
+
+    console.error(
+      "Renewal error:",
+      result.error
+    );
+
+    button.disabled = false;
+
+    button.innerHTML =
+      originalText;
+
+
+    alert(
+      "Unable to renew this advert.\n\n" +
+      result.error.message
+    );
+
+    return;
+
+  }
+
+
+  if (!result.data) {
+
+    button.disabled = false;
+
+    button.innerHTML =
+      originalText;
+
+
+    alert(
+      "The advert could not be renewed."
+    );
+
+    return;
+
+  }
+
+
   alert(
-    "Renewal is being prepared. We will activate the secure 30-day renewal process next."
+    "✅ Your advert has been renewed for another 30 days!"
   );
+
+
+  /* Refresh the adverts */
+
+  await loadMyAdverts();
 
 }
 
