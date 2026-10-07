@@ -126,7 +126,7 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 9px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .photo-item {
@@ -160,10 +160,65 @@
       cursor: pointer;
     }
 
+    .new-photo {
+      position: relative;
+    }
+
+    .new-photo-badge {
+      position: absolute;
+      left: 5px;
+      bottom: 5px;
+      background: rgba(0,128,0,0.9);
+      color: white;
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
     .photo-help {
       color: #777;
       font-size: 12px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .photo-upload-box {
+      border: 2px dashed #9bc99b;
+      background: #f7fbf7;
+      border-radius: 11px;
+      padding: 16px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .photo-upload-box strong {
+      display: block;
+      color: #176617;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .photo-upload-box span {
+      display: block;
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .photo-input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d5d9d6;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .upload-status {
+      color: #176617;
+      font-size: 12px;
+      margin-top: 8px;
+      display: none;
     }
 
     .save-button {
@@ -342,6 +397,10 @@ const listingId =
 
 let currentListing = null;
 
+let newPhotoFiles = [];
+
+let newPhotoPreviewUrls = [];
+
 
 /* LOAD ADVERT */
 
@@ -469,50 +528,15 @@ function showEditForm(
             required
           >
 
-            ${option(
-              "School",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Church",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Organization",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Event",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Training & Course",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Promotion",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Restaurant",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Business Advertisement",
-              listing.listing_type
-            )}
-
-            ${option(
-              "Other",
-              listing.listing_type
-            )}
+            ${option("School", listing.listing_type)}
+            ${option("Church", listing.listing_type)}
+            ${option("Organization", listing.listing_type)}
+            ${option("Event", listing.listing_type)}
+            ${option("Training & Course", listing.listing_type)}
+            ${option("Promotion", listing.listing_type)}
+            ${option("Restaurant", listing.listing_type)}
+            ${option("Business Advertisement", listing.listing_type)}
+            ${option("Other", listing.listing_type)}
 
           </select>
 
@@ -528,9 +552,7 @@ function showEditForm(
           <input
             type="text"
             id="title"
-            value="${escapeAttribute(
-              listing.title || ""
-            )}"
+            value="${escapeAttribute(listing.title || "")}"
             required
           >
 
@@ -546,9 +568,7 @@ function showEditForm(
           <input
             type="text"
             id="location"
-            value="${escapeAttribute(
-              listing.location || ""
-            )}"
+            value="${escapeAttribute(listing.location || "")}"
           >
 
         </div>
@@ -563,9 +583,7 @@ function showEditForm(
           <textarea
             id="description"
             required
-          >${escapeHtml(
-            listing.description || ""
-          )}</textarea>
+          >${escapeHtml(listing.description || "")}</textarea>
 
         </div>
 
@@ -579,9 +597,7 @@ function showEditForm(
           <input
             type="tel"
             id="phone"
-            value="${escapeAttribute(
-              listing.phone || ""
-            )}"
+            value="${escapeAttribute(listing.phone || "")}"
           >
 
         </div>
@@ -596,9 +612,7 @@ function showEditForm(
           <input
             type="tel"
             id="whatsapp"
-            value="${escapeAttribute(
-              listing.whatsapp || ""
-            )}"
+            value="${escapeAttribute(listing.whatsapp || "")}"
           >
 
         </div>
@@ -613,9 +627,7 @@ function showEditForm(
           <input
             type="text"
             id="website"
-            value="${escapeAttribute(
-              listing.website || ""
-            )}"
+            value="${escapeAttribute(listing.website || "")}"
             placeholder="https://example.com"
           >
 
@@ -631,9 +643,7 @@ function showEditForm(
           <input
             type="date"
             id="event-date"
-            value="${escapeAttribute(
-              listing.event_date || ""
-            )}"
+            value="${escapeAttribute(listing.event_date || "")}"
           >
 
         </div>
@@ -648,9 +658,7 @@ function showEditForm(
           <input
             type="time"
             id="event-time"
-            value="${escapeAttribute(
-              listing.event_time || ""
-            )}"
+            value="${escapeAttribute(listing.event_time || "")}"
           >
 
         </div>
@@ -659,7 +667,7 @@ function showEditForm(
         <div class="field">
 
           <div class="photos-title">
-            Current Photos
+            Advert Photos
           </div>
 
           <div
@@ -713,8 +721,35 @@ function showEditForm(
 
           </div>
 
+
           <div class="photo-help">
-            To keep your current advert photos safe, this editor manages your existing photos.
+            Remove any photo you no longer want, then choose new photos below to replace or add to your advert.
+          </div>
+
+
+          <div class="photo-upload-box">
+
+            <strong>
+              📷 Add New / Replacement Photos
+            </strong>
+
+            <span>
+              You can select multiple photos at once.
+            </span>
+
+            <input
+              type="file"
+              id="new-photos"
+              class="photo-input"
+              accept="image/*"
+              multiple
+            >
+
+            <div
+              id="upload-status"
+              class="upload-status"
+            ></div>
+
           </div>
 
         </div>
@@ -749,6 +784,179 @@ function showEditForm(
       "submit",
       saveChanges
     );
+
+
+  document
+    .getElementById("new-photos")
+    .addEventListener(
+      "change",
+      handleNewPhotos
+    );
+
+}
+
+
+/* HANDLE NEW PHOTO SELECTION */
+
+function handleNewPhotos(event) {
+
+  const files =
+    Array.from(
+      event.target.files || []
+    );
+
+
+  if (!files.length) {
+    return;
+  }
+
+
+  const validFiles =
+    files.filter(
+      function(file) {
+
+        return file.type.startsWith("image/");
+
+      }
+    );
+
+
+  if (validFiles.length !== files.length) {
+
+    alert(
+      "Only image files can be uploaded."
+    );
+
+  }
+
+
+  newPhotoFiles =
+    newPhotoFiles.concat(
+      validFiles
+    );
+
+
+  renderNewPhotoPreviews();
+
+
+  event.target.value = "";
+
+}
+
+
+/* RENDER NEW PHOTO PREVIEWS */
+
+function renderNewPhotoPreviews() {
+
+  const grid =
+    document.getElementById(
+      "photo-grid"
+    );
+
+
+  if (!grid) {
+    return;
+  }
+
+
+  const oldPreviews =
+    grid.querySelectorAll(
+      ".new-photo"
+    );
+
+
+  oldPreviews.forEach(
+    function(item) {
+      item.remove();
+    }
+  );
+
+
+  newPhotoPreviewUrls.forEach(
+    function(url) {
+
+      URL.revokeObjectURL(url);
+
+    }
+  );
+
+
+  newPhotoPreviewUrls = [];
+
+
+  newPhotoFiles.forEach(
+    function(file, index) {
+
+      const previewUrl =
+        URL.createObjectURL(file);
+
+
+      newPhotoPreviewUrls.push(
+        previewUrl
+      );
+
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "photo-item new-photo";
+
+
+      item.innerHTML = `
+
+        <img
+          src="${previewUrl}"
+          alt="New photo ${index + 1}"
+        >
+
+        <button
+          type="button"
+          class="photo-remove"
+          onclick="removeNewPhoto(${index})"
+        >
+          ×
+        </button>
+
+        <div class="new-photo-badge">
+          NEW
+        </div>
+
+      `;
+
+
+      grid.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* REMOVE NEW PHOTO */
+
+function removeNewPhoto(index) {
+
+  if (
+    index < 0 ||
+    index >= newPhotoFiles.length
+  ) {
+    return;
+  }
+
+
+  newPhotoFiles.splice(
+    index,
+    1
+  );
+
+
+  renderNewPhotoPreviews();
 
 }
 
@@ -799,7 +1007,7 @@ async function saveChanges(
   const remainingPhotos =
     Array.from(
       document.querySelectorAll(
-        ".photo-item"
+        "#photo-grid .photo-item:not(.new-photo)"
       )
     ).map(
       function(item) {
@@ -807,6 +1015,132 @@ async function saveChanges(
         return item.dataset.photo;
 
       }
+    );
+
+
+  let uploadedPhotoUrls = [];
+
+
+  /* UPLOAD NEW PHOTOS */
+
+  if (newPhotoFiles.length) {
+
+    const uploadStatus =
+      document.getElementById(
+        "upload-status"
+      );
+
+
+    if (uploadStatus) {
+
+      uploadStatus.style.display =
+        "block";
+
+      uploadStatus.textContent =
+        "⏳ Uploading new photos...";
+
+    }
+
+
+    for (
+      let i = 0;
+      i < newPhotoFiles.length;
+      i++
+    ) {
+
+      const file =
+        newPhotoFiles[i];
+
+
+      const extension =
+        file.name
+          .split(".")
+          .pop()
+          .toLowerCase();
+
+
+      const safeExtension =
+        extension || "jpg";
+
+
+      const fileName =
+        listingId +
+        "-" +
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2, 9) +
+        "." +
+        safeExtension;
+
+
+      const filePath =
+        user.id +
+        "/" +
+        fileName;
+
+
+      const uploadResult =
+        await supabaseClient
+          .storage
+          .from("discover-photos")
+          .upload(
+            filePath,
+            file,
+            {
+              cacheControl: "3600",
+              upsert: false
+            }
+          );
+
+
+      if (uploadResult.error) {
+
+        console.error(
+          "Photo upload error:",
+          uploadResult.error
+        );
+
+
+        saveButton.disabled =
+          false;
+
+        saveButton.textContent =
+          "💾 Save Changes";
+
+
+        alert(
+          "One of the new photos could not be uploaded.\n\n" +
+          uploadResult.error.message
+        );
+
+        return;
+
+      }
+
+
+      const publicUrlResult =
+        supabaseClient
+          .storage
+          .from("discover-photos")
+          .getPublicUrl(
+            filePath
+          );
+
+
+      uploadedPhotoUrls.push(
+        publicUrlResult.data.publicUrl
+      );
+
+    }
+
+  }
+
+
+  const allPhotoUrls =
+    remainingPhotos.concat(
+      uploadedPhotoUrls
     );
 
 
@@ -858,7 +1192,7 @@ async function saveChanges(
       ).value || null,
 
     photo_urls:
-      remainingPhotos.join(",")
+      allPhotoUrls.join(",")
 
   };
 
@@ -915,7 +1249,7 @@ async function saveChanges(
 }
 
 
-/* REMOVE PHOTO */
+/* REMOVE EXISTING PHOTO */
 
 function removePhoto(
   button
