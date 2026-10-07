@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edit Advert | OGARS</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7f5;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #006b00, #008f00);
+      color: white;
+      padding: 22px 18px 28px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 27px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      font-size: 14px;
+      opacity: 0.92;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      padding: 18px 14px 40px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #008000;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+    }
+
+    .notice {
+      background: #eef8ee;
+      border: 1px solid #cde7cd;
+      color: #176617;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      color: #222;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #d5d9d6;
+      border-radius: 9px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      background: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #008000;
+      box-shadow: 0 0 0 3px rgba(0,128,0,0.08);
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .photos-title {
+      color: #222;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+
+    .photo-item {
+      position: relative;
+      height: 105px;
+      border-radius: 9px;
+      overflow: hidden;
+      background: #edf4ed;
+      border: 1px solid #ddd;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-remove {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 27px;
+      height: 27px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(160,0,0,0.9);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .photo-help {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .save-button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      background: #008000;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .save-button:hover {
+      background: #006b00;
+    }
+
+    .save-button:disabled {
+      background: #777;
+      cursor: not-allowed;
+    }
+
+    .cancel-button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 13px;
+      background: #f1f3f2;
+      color: #444;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .message {
+      background: white;
+      border-radius: 16px;
+      padding: 35px 20px;
+      text-align: center;
+      color: #666;
+      border: 1px solid #e5e7eb;
+    }
+
+    .message-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .message h2 {
+      color: #222;
+      font-size: 20px;
+      margin-bottom: 7px;
+    }
+
+    .message p {
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+
+      .form-card {
+        padding: 16px;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      header h1 {
+        font-size: 24px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="logo">
+    OGAR'S WORKERS PLATFORM
+  </div>
+
+  <h1>Edit Advert</h1>
+
+  <p>
+    Update your Discover & Advertise listing
+  </p>
+
+</header>
+
+
+<div class="container">
+
+  <a
+    href="my-adverts.html"
+    class="back"
+  >
+    ← Back to My Adverts
+  </a>
+
+
+  <div id="page-content">
+
+    <div class="message">
+
+      <div class="message-icon">
+        ⏳
+      </div>
+
+      <h2>
+        Loading advert
+      </h2>
+
+      <p>
+        Please wait...
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<footer>
+  © 2026 OGARS Workers Platform
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+  "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+const supabaseClient =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+const pageContent =
+  document.getElementById(
+    "page-content"
+  );
+
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const listingId =
+  params.get("id");
+
+
+let currentListing = null;
+
+
+/* LOAD ADVERT */
+
+async function loadAdvert() {
+
+  if (!listingId) {
+
+    showMessage(
+      "⚠️",
+      "Advert Not Found",
+      "No advert ID was provided."
+    );
+
+    return;
+
+  }
+
+
+  const userResult =
+    await supabaseClient.auth.getUser();
+
+  const user =
+    userResult.data.user;
+
+
+  if (!user) {
+
+    window.location.href =
+      "account.html";
+
+    return;
+
+  }
+
+
+  const result =
+    await supabaseClient
+      .from("discover_listings")
+      .select("*")
+      .eq("id", listingId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+
+  if (result.error) {
+
+    showMessage(
+      "⚠️",
+      "Unable to Load Advert",
+      result.error.message
+    );
+
+    return;
+
+  }
+
+
+  if (!result.data) {
+
+    showMessage(
+      "🔎",
+      "Advert Not Found",
+      "This advert does not belong to your account or could not be found."
+    );
+
+    return;
+
+  }
+
+
+  currentListing =
+    result.data;
+
+
+  showEditForm(
+    currentListing
+  );
+
+}
+
+
+/* SHOW EDIT FORM */
+
+function showEditForm(
+  listing
+) {
+
+  const photos =
+    listing.photo_urls
+      ? listing.photo_urls
+          .split(",")
+          .map(
+            function(url) {
+              return url.trim();
+            }
+          )
+          .filter(
+            function(url) {
+              return url !== "";
+            }
+          )
+      : [];
+
+
+  pageContent.innerHTML = `
+
+    <div class="form-card">
+
+      <div class="notice">
+        ✏️ You are editing your own advert.
+        Your current 30-day expiry date will not be changed.
+      </div>
+
+
+      <form id="edit-form">
+
+        <div class="field">
+
+          <label for="listing-type">
+            Advertisement Type
+          </label>
+
+          <select
+            id="listing-type"
+            required
+          >
+
+            ${option(
+              "School",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Church",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Organization",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Event",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Training & Course",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Promotion",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Restaurant",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Business Advertisement",
+              listing.listing_type
+            )}
+
+            ${option(
+              "Other",
+              listing.listing_type
+            )}
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="title">
+            Title
+          </label>
+
+          <input
+            type="text"
+            id="title"
+            value="${escapeAttribute(
+              listing.title || ""
+            )}"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="location">
+            Location
+          </label>
+
+          <input
+            type="text"
+            id="location"
+            value="${escapeAttribute(
+              listing.location || ""
+            )}"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            id="description"
+            required
+          >${escapeHtml(
+            listing.description || ""
+          )}</textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="phone">
+            Phone Number
+          </label>
+
+          <input
+            type="tel"
+            id="phone"
+            value="${escapeAttribute(
+              listing.phone || ""
+            )}"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="whatsapp">
+            WhatsApp Number
+          </label>
+
+          <input
+            type="tel"
+            id="whatsapp"
+            value="${escapeAttribute(
+              listing.whatsapp || ""
+            )}"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="website">
+            Website
+          </label>
+
+          <input
+            type="text"
+            id="website"
+            value="${escapeAttribute(
+              listing.website || ""
+            )}"
+            placeholder="https://example.com"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="event-date">
+            Event Date
+          </label>
+
+          <input
+            type="date"
+            id="event-date"
+            value="${escapeAttribute(
+              listing.event_date || ""
+            )}"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="event-time">
+            Event Time
+          </label>
+
+          <input
+            type="time"
+            id="event-time"
+            value="${escapeAttribute(
+              listing.event_time || ""
+            )}"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <div class="photos-title">
+            Current Photos
+          </div>
+
+          <div
+            class="photo-grid"
+            id="photo-grid"
+          >
+
+            ${
+              photos.length
+                ? photos.map(
+                    function(photo, index) {
+
+                      return `
+
+                        <div
+                          class="photo-item"
+                          data-photo="${escapeAttribute(photo)}"
+                        >
+
+                          <img
+                            src="${escapeAttribute(photo)}"
+                            alt="Advert photo ${index + 1}"
+                          >
+
+                          <button
+                            type="button"
+                            class="photo-remove"
+                            onclick="removePhoto(this)"
+                          >
+                            ×
+                          </button>
+
+                        </div>
+
+                      `;
+
+                    }
+                  ).join("")
+                : `
+                    <div
+                      style="
+                        color:#777;
+                        font-size:13px;
+                        padding:10px 0;
+                      "
+                    >
+                      No photos currently attached.
+                    </div>
+                  `
+            }
+
+          </div>
+
+          <div class="photo-help">
+            To keep your current advert photos safe, this editor manages your existing photos.
+          </div>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="save-button"
+          id="save-button"
+        >
+          💾 Save Changes
+        </button>
+
+
+        <a
+          href="my-adverts.html"
+          class="cancel-button"
+        >
+          Cancel
+        </a>
+
+      </form>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("edit-form")
+    .addEventListener(
+      "submit",
+      saveChanges
+    );
+
+}
+
+
+/* SAVE CHANGES */
+
+async function saveChanges(
+  event
+) {
+
+  event.preventDefault();
+
+
+  const saveButton =
+    document.getElementById(
+      "save-button"
+    );
+
+
+  saveButton.disabled =
+    true;
+
+  saveButton.textContent =
+    "⏳ Saving...";
+
+
+  const userResult =
+    await supabaseClient.auth.getUser();
+
+  const user =
+    userResult.data.user;
+
+
+  if (!user) {
+
+    alert(
+      "Your session has expired. Please log in again."
+    );
+
+    window.location.href =
+      "account.html";
+
+    return;
+
+  }
+
+
+  const remainingPhotos =
+    Array.from(
+      document.querySelectorAll(
+        ".photo-item"
+      )
+    ).map(
+      function(item) {
+
+        return item.dataset.photo;
+
+      }
+    );
+
+
+  const updatedData = {
+
+    listing_type:
+      document.getElementById(
+        "listing-type"
+      ).value,
+
+    title:
+      document.getElementById(
+        "title"
+      ).value.trim(),
+
+    location:
+      document.getElementById(
+        "location"
+      ).value.trim(),
+
+    description:
+      document.getElementById(
+        "description"
+      ).value.trim(),
+
+    phone:
+      document.getElementById(
+        "phone"
+      ).value.trim(),
+
+    whatsapp:
+      document.getElementById(
+        "whatsapp"
+      ).value.trim(),
+
+    website:
+      document.getElementById(
+        "website"
+      ).value.trim(),
+
+    event_date:
+      document.getElementById(
+        "event-date"
+      ).value || null,
+
+    event_time:
+      document.getElementById(
+        "event-time"
+      ).value || null,
+
+    photo_urls:
+      remainingPhotos.join(",")
+
+  };
+
+
+  const result =
+    await supabaseClient
+      .from("discover_listings")
+      .update(
+        updatedData
+      )
+      .eq(
+        "id",
+        listingId
+      )
+      .eq(
+        "user_id",
+        user.id
+      );
+
+
+  if (result.error) {
+
+    console.error(
+      "Update error:",
+      result.error
+    );
+
+
+    saveButton.disabled =
+      false;
+
+    saveButton.textContent =
+      "💾 Save Changes";
+
+
+    alert(
+      "Unable to save changes.\n\n" +
+      result.error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "✅ Your advert has been updated successfully!"
+  );
+
+
+  window.location.href =
+    "my-adverts.html";
+
+}
+
+
+/* REMOVE PHOTO */
+
+function removePhoto(
+  button
+) {
+
+  const photoItem =
+    button.closest(
+      ".photo-item"
+    );
+
+
+  if (!photoItem) {
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      "Remove this photo from the advert?"
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  photoItem.remove();
+
+}
+
+
+/* SELECT OPTION */
+
+function option(
+  value,
+  selectedValue
+) {
+
+  return `
+
+    <option
+      value="${escapeAttribute(value)}"
+      ${
+        String(value) ===
+        String(selectedValue || "")
+          ? "selected"
+          : ""
+      }
+    >
+      ${escapeHtml(value)}
+    </option>
+
+  `;
+
+}
+
+
+/* MESSAGE */
+
+function showMessage(
+  icon,
+  title,
+  message
+) {
+
+  pageContent.innerHTML = `
+
+    <div class="message">
+
+      <div class="message-icon">
+        ${icon}
+      </div>
+
+      <h2>
+        ${escapeHtml(title)}
+      </h2>
+
+      <p>
+        ${escapeHtml(message)}
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* SECURITY HELPERS */
+
+function escapeHtml(
+  value
+) {
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(
+  value
+) {
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    );
+
+}
+
+
+/* START */
+
+loadAdvert();
+
+</script>
+
+</body>
+</html>
