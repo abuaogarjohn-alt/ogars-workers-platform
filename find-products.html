@@ -7,194 +7,795 @@
 
   <title>Find Products - OGARS</title>
 
+  <meta
+    name="description"
+    content="Find products and items from businesses and sellers on OGARS."
+  >
+
+  <meta name="theme-color" content="#008000">
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
+
+    :root {
+      --green: #008000;
+      --dark-green: #006400;
+      --light-green: #eaf7ea;
+      --background: #f4f7f5;
+      --text: #202820;
+      --muted: #657065;
+      --border: #e2e9e2;
+      --white: #ffffff;
+      --danger: #b42318;
+      --radius: 16px;
+      --shadow: 0 4px 16px rgba(0, 50, 0, 0.08);
+    }
+
 
     * {
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f8f5;
-      color: #183b25;
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+
+    button,
+    input,
+    select {
+      font-family: inherit;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
     header {
-      background: #087f3f;
+      background: var(--green);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    }
+
+
+    .header-inner {
+      max-width: 1150px;
+      margin: auto;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+
+    .brand {
       color: white;
-      padding: 18px;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+
+    .brand-title {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      line-height: 1.15;
+    }
+
+
+    .brand-subtitle {
+      margin-top: 3px;
+      font-size: 11px;
+      opacity: 0.92;
+    }
+
+
+    .post-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 14px;
+      background: white;
+      color: var(--dark-green);
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+
+    .post-button:hover {
+      background: #f0fff0;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      background:
+        linear-gradient(
+          120deg,
+          rgba(0, 80, 25, 0.96),
+          rgba(0, 128, 0, 0.88)
+        );
+      color: white;
+      padding: 32px 18px 34px;
       text-align: center;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 25px;
+
+    .hero-content {
+      max-width: 760px;
+      margin: auto;
     }
 
-    header p {
-      margin: 7px 0 0;
+
+    .hero-icon {
+      font-size: 38px;
+      margin-bottom: 5px;
+    }
+
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(27px, 5vw, 38px);
+      line-height: 1.2;
+    }
+
+
+    .hero p {
+      max-width: 620px;
+      margin: 9px auto 20px;
+      color: #eaffea;
       font-size: 14px;
     }
 
+
+    /* =========================
+       MAIN
+    ========================= */
+
     .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 18px;
-    }
-
-    .search-box {
-      background: white;
-      padding: 16px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-      margin-bottom: 20px;
-    }
-
-    .search-box input,
-    .search-box select {
       width: 100%;
-      padding: 13px;
-      margin-bottom: 10px;
-      border: 1px solid #ccd8cf;
-      border-radius: 9px;
-      font-size: 15px;
-      background: white;
+      max-width: 1150px;
+      margin: auto;
+      padding: 22px 18px 40px;
     }
+
+
+    /* =========================
+       SEARCH PANEL
+    ========================= */
+
+    .search-panel {
+      background: white;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+
+    .search-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 11px;
+    }
+
+
+    .search-main {
+      position: relative;
+    }
+
+
+    .search-main input {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 15px 12px 44px;
+      border: 2px solid #dce6dc;
+      border-radius: 11px;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+    }
+
+
+    .search-main input:focus {
+      border-color: var(--green);
+    }
+
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 19px;
+      pointer-events: none;
+    }
+
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+
+    .filters select {
+      width: 100%;
+      min-height: 47px;
+      padding: 10px 12px;
+      border: 1px solid #ccd8cf;
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+
+    .filters select:focus {
+      border-color: var(--green);
+    }
+
+
+    .results-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+
+    .clear-filters {
+      border: none;
+      background: var(--light-green);
+      color: var(--dark-green);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       PRODUCTS GRID
+    ========================= */
 
     .products {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
     }
 
+
     .product-card {
+      min-width: 0;
       background: white;
-      border-radius: 15px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
     }
+
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      border-color: #a9d9a9;
+      box-shadow: 0 8px 23px rgba(0, 70, 0, 0.13);
+    }
+
+
+    /* =========================
+       PRODUCT IMAGE
+    ========================= */
+
+    .image-wrap {
+      position: relative;
+      height: 205px;
+      background: #e8f1eb;
+      overflow: hidden;
+    }
+
 
     .product-image {
       width: 100%;
-      height: 180px;
+      height: 100%;
       object-fit: cover;
-      background: #e8f1eb;
       display: block;
+      background: #e8f1eb;
     }
 
+
     .no-image {
-      height: 180px;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #e8f1eb;
+      background:
+        linear-gradient(
+          135deg,
+          #e8f4ea,
+          #dcebdd
+        );
       color: #63806d;
-      font-size: 40px;
+      font-size: 45px;
     }
+
+
+    .category-badge {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      max-width: calc(100% - 20px);
+      padding: 6px 9px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.94);
+      color: var(--dark-green);
+      font-size: 11px;
+      font-weight: 800;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.12);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+    /* =========================
+       PRODUCT CONTENT
+    ========================= */
 
     .product-content {
       padding: 15px;
     }
 
+
     .product-name {
       margin: 0;
+      color: var(--text);
       font-size: 18px;
-      color: #087f3f;
+      line-height: 1.35;
     }
 
-    .category {
-      display: inline-block;
-      margin-top: 7px;
-      padding: 5px 8px;
-      border-radius: 20px;
-      background: #e8f7ee;
-      color: #087f3f;
-      font-size: 12px;
-      font-weight: bold;
-    }
 
     .price {
-      margin-top: 10px;
-      font-size: 19px;
-      font-weight: bold;
-      color: #183b25;
+      margin-top: 8px;
+      color: var(--green);
+      font-size: 20px;
+      font-weight: 900;
     }
+
 
     .description {
       margin-top: 8px;
-      font-size: 14px;
-      line-height: 1.5;
-      color: #5c6d62;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
 
     .business {
-      margin-top: 12px;
-      padding-top: 10px;
+      margin-top: 13px;
+      padding-top: 11px;
       border-top: 1px solid #edf0ed;
-      font-size: 13px;
-      font-weight: bold;
+      color: #314b38;
+      font-size: 12px;
+      line-height: 1.55;
     }
+
+
+    .business strong {
+      color: var(--text);
+    }
+
 
     .delivery {
-      margin-top: 9px;
-      padding: 8px;
-      border-radius: 8px;
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 9px;
       background: #f3faf5;
-      font-size: 13px;
       color: #31563d;
+      font-size: 12px;
+      line-height: 1.5;
     }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
 
     .button {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 43px;
+      padding: 9px 8px;
       text-align: center;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
+
     .whatsapp {
-      background: #087f3f;
+      background: var(--green);
       color: white;
     }
 
-    .call {
-      background: #e8f7ee;
-      color: #087f3f;
+
+    .whatsapp:hover {
+      background: var(--dark-green);
     }
+
+
+    .call {
+      background: var(--light-green);
+      color: var(--dark-green);
+    }
+
+
+    .call:hover {
+      background: #dff0df;
+    }
+
+
+    /* =========================
+       LOADING / EMPTY
+    ========================= */
 
     .loading,
     .empty {
+      grid-column: 1 / -1;
       background: white;
-      padding: 25px;
-      border-radius: 12px;
+      padding: 35px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       text-align: center;
-      color: #65746a;
+      color: var(--muted);
+      box-shadow: var(--shadow);
     }
 
-    .back {
-      display: block;
-      text-align: center;
-      margin: 25px 0;
-      color: #087f3f;
-      text-decoration: none;
-      font-weight: bold;
+
+    .loading-icon {
+      font-size: 30px;
+      margin-bottom: 8px;
     }
+
+
+    .empty-icon {
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+
+    .error {
+      color: var(--danger);
+    }
+
+
+    /* =========================
+       BACK
+    ========================= */
+
+    .back-area {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--dark-green);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+
+    .back:hover {
+      background: var(--light-green);
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      margin-top: 10px;
+      padding: 25px 18px;
+      background: #172117;
+      color: #c6d1c6;
+      text-align: center;
+      font-size: 12px;
+    }
+
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      margin-bottom: 13px;
+    }
+
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+
+    .footer-note {
+      color: #aebbae;
+      margin-top: 5px;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
 
     @media (max-width: 600px) {
 
-      .products {
+      .header-inner {
+        padding: 11px 14px;
+      }
+
+
+      .brand-title {
+        font-size: 22px;
+      }
+
+
+      .brand-subtitle {
+        font-size: 9px;
+      }
+
+
+      .post-button {
+        min-height: 41px;
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+
+      .hero {
+        padding: 27px 15px 29px;
+      }
+
+
+      .hero-icon {
+        font-size: 32px;
+      }
+
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+
+      .hero p {
+        font-size: 13px;
+        margin-bottom: 0;
+      }
+
+
+      .container {
+        padding: 15px 11px 30px;
+      }
+
+
+      .search-panel {
+        padding: 13px;
+        border-radius: 14px;
+      }
+
+
+      .filters {
         grid-template-columns: 1fr;
       }
 
-      .product-image,
-      .no-image {
-        height: 210px;
+
+      .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+
+      .product-card {
+        border-radius: 13px;
+      }
+
+
+      .image-wrap {
+        height: 145px;
+      }
+
+
+      .product-content {
+        padding: 11px;
+      }
+
+
+      .product-name {
+        font-size: 15px;
+      }
+
+
+      .price {
+        font-size: 17px;
+      }
+
+
+      .description {
+        font-size: 11px;
+        line-height: 1.45;
+      }
+
+
+      .business {
+        font-size: 10px;
+      }
+
+
+      .delivery {
+        font-size: 10px;
+        padding: 7px;
+      }
+
+
+      .button-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+
+      .button {
+        min-height: 39px;
+        font-size: 11px;
+      }
+
+
+      .category-badge {
+        font-size: 9px;
+        padding: 5px 7px;
+      }
+
+
+      .results-summary {
+        font-size: 11px;
+      }
+
+    }
+
+
+    @media (max-width: 360px) {
+
+      .products {
+        gap: 8px;
+      }
+
+
+      .product-content {
+        padding: 9px;
+      }
+
+
+      .image-wrap {
+        height: 130px;
+      }
+
+
+      .product-name {
+        font-size: 14px;
+      }
+
+
+      .price {
+        font-size: 16px;
+      }
+
+
+      .description {
+        font-size: 10px;
+      }
+
+
+      .business {
+        font-size: 9px;
+      }
+
+
+      .delivery {
+        font-size: 9px;
+      }
+
+    }
+
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
       }
 
     }
@@ -207,116 +808,273 @@
 <body>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
 
-  <h1>🛍️ Find Products</h1>
+  <div class="header-inner">
 
-  <p>
-    Find products from businesses on OGARS
-  </p>
+    <a
+      href="index.html"
+      class="brand"
+      aria-label="OGARS home"
+    >
+
+      <div class="brand-title">
+        OGARS
+      </div>
+
+      <div class="brand-subtitle">
+        Trusted people. Real opportunities.
+      </div>
+
+    </a>
+
+
+    <a
+      href="products.html"
+      class="post-button"
+    >
+      ➕ Post Product
+    </a>
+
+  </div>
 
 </header>
 
 
+<!-- =========================
+     HERO
+========================= -->
 
-<div class="container">
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-icon">
+      🛍️
+    </div>
+
+    <h1>
+      Find Products & Items
+    </h1>
+
+    <p>
+      Discover products from different businesses and sellers
+      and contact them directly on OGARS.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
 
 
   <!-- SEARCH -->
 
-  <div class="search-box">
+  <section class="search-panel">
 
-    <input
-      type="text"
-      id="product-search"
-      placeholder="Search for a product, e.g. tilapia"
-    >
+    <div class="search-title">
+      🔎 What are you looking for?
+    </div>
 
 
-    <select id="category-filter">
+    <div class="search-main">
 
-      <option value="">
-        All Categories
-      </option>
+      <span class="search-icon">
+        🔍
+      </span>
 
-      <option>Food & Groceries</option>
-      <option>Frozen Foods</option>
-      <option>Fresh Food & Produce</option>
-      <option>Drinks & Beverages</option>
-      <option>Clothing & Fashion</option>
-      <option>Shoes & Footwear</option>
-      <option>Bags & Accessories</option>
-      <option>Beauty & Personal Care</option>
-      <option>Health & Wellness</option>
-      <option>Phones & Tablets</option>
-      <option>Computers & Electronics</option>
-      <option>Home & Kitchen</option>
-      <option>Furniture</option>
-      <option>Building & Construction Materials</option>
-      <option>Electrical & Plumbing Materials</option>
-      <option>Automotive & Spare Parts</option>
-      <option>Tools & Equipment</option>
-      <option>Baby & Kids</option>
-      <option>Books & Stationery</option>
-      <option>Sports & Fitness</option>
-      <option>Agriculture & Farming</option>
-      <option>Pets & Animals</option>
-      <option>Office & Business Supplies</option>
-      <option>Services</option>
-      <option>Other</option>
+      <input
+        type="search"
+        id="product-search"
+        placeholder="Search products, sellers or locations..."
+        autocomplete="off"
+        enterkeyhint="search"
+      >
 
-    </select>
+    </div>
 
 
-    <select id="delivery-filter">
+    <div class="filters">
 
-      <option value="">
-        All Delivery Options
-      </option>
+      <select id="category-filter">
 
-      <option value="yes">
-        Delivery Available
-      </option>
+        <option value="">
+          All Categories
+        </option>
 
-      <option value="no">
-        No Delivery
-      </option>
+        <option>Food & Groceries</option>
+        <option>Frozen Foods</option>
+        <option>Fresh Food & Produce</option>
+        <option>Drinks & Beverages</option>
+        <option>Clothing & Fashion</option>
+        <option>Shoes & Footwear</option>
+        <option>Bags & Accessories</option>
+        <option>Beauty & Personal Care</option>
+        <option>Health & Wellness</option>
+        <option>Phones & Tablets</option>
+        <option>Computers & Electronics</option>
+        <option>Home & Kitchen</option>
+        <option>Furniture</option>
+        <option>Building & Construction Materials</option>
+        <option>Electrical & Plumbing Materials</option>
+        <option>Automotive & Spare Parts</option>
+        <option>Tools & Equipment</option>
+        <option>Baby & Kids</option>
+        <option>Books & Stationery</option>
+        <option>Sports & Fitness</option>
+        <option>Agriculture & Farming</option>
+        <option>Pets & Animals</option>
+        <option>Office & Business Supplies</option>
+        <option>Services</option>
+        <option>Other</option>
 
-    </select>
+      </select>
 
-  </div>
 
+      <select id="delivery-filter">
+
+        <option value="">
+          All Delivery Options
+        </option>
+
+        <option value="yes">
+          🚚 Delivery Available
+        </option>
+
+        <option value="no">
+          🚫 No Delivery
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="results-summary">
+
+      <span id="results-count">
+        Loading products...
+      </span>
+
+      <button
+        type="button"
+        class="clear-filters"
+        id="clear-filters"
+      >
+        Clear Filters
+      </button>
+
+    </div>
+
+  </section>
 
 
   <!-- PRODUCTS -->
 
-  <div
+  <section
     id="products"
     class="products"
+    aria-live="polite"
   >
 
     <div class="loading">
+
+      <div class="loading-icon">
+        🛍️
+      </div>
+
       Loading products...
+
     </div>
+
+  </section>
+
+
+  <!-- BACK -->
+
+  <div class="back-area">
+
+    <a
+      href="index.html"
+      class="back"
+    >
+      ← Back to OGARS
+    </a>
 
   </div>
 
 
+</main>
 
-  <a
-    href="business.html"
-    class="back"
+
+<!-- FOOTER -->
+
+<footer>
+
+  <nav
+    class="footer-links"
+    aria-label="Marketplace links"
   >
-    ← Back to Businesses
-  </a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="workers.html">
+      Workers
+    </a>
+
+    <a href="jobs.html">
+      Jobs
+    </a>
+
+    <a href="find-property.html">
+      Properties
+    </a>
+
+    <a href="vehicles.html">
+      Vehicles
+    </a>
+
+    <a href="business.html">
+      Businesses
+    </a>
+
+    <a href="discover.html">
+      Discover
+    </a>
+
+  </nav>
 
 
-</div>
+  <div>
+    © 2026 OGARS Workers Platform
+  </div>
 
+
+  <div class="footer-note">
+    Trusted people. Real opportunities.
+  </div>
+
+</footer>
 
 
 <script>
 
+
+/* ================================
+   SUPABASE
+================================ */
 
 const SUPABASE_URL =
   "https://pawqsmcswoypuiihfbrr.supabase.co";
@@ -333,9 +1091,7 @@ const supabaseClient =
   );
 
 
-
 let allProducts = [];
-
 
 
 /* ================================
@@ -344,11 +1100,11 @@ let allProducts = [];
 
 async function loadProducts() {
 
-
   const productsContainer =
-    document.getElementById(
-      "products"
-    );
+    document.getElementById("products");
+
+  const resultsCount =
+    document.getElementById("results-count");
 
 
   const {
@@ -371,13 +1127,29 @@ async function loadProducts() {
 
     console.error(error);
 
+
     productsContainer.innerHTML = `
-      <div class="empty">
+
+      <div class="empty error">
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
         Unable to load products.
+
         <br><br>
-        ${error.message}
+
+        ${escapeHtml(error.message)}
+
       </div>
+
     `;
+
+
+    resultsCount.textContent =
+      "Unable to load products";
+
 
     return;
 
@@ -398,13 +1170,11 @@ async function loadProducts() {
 }
 
 
-
 /* ================================
-   GET BUSINESS INFORMATION
+   BUSINESS INFORMATION
 ================================ */
 
 async function attachBusinessInformation() {
-
 
   const businessIds =
     [
@@ -487,7 +1257,6 @@ async function attachBusinessInformation() {
 }
 
 
-
 /* ================================
    DISPLAY PRODUCTS
 ================================ */
@@ -496,10 +1265,24 @@ function displayProducts(
   products
 ) {
 
-
   const container =
     document.getElementById(
       "products"
+    );
+
+
+  const resultsCount =
+    document.getElementById(
+      "results-count"
+    );
+
+
+  resultsCount.textContent =
+    products.length +
+    (
+      products.length === 1
+        ? " product found"
+        : " products found"
     );
 
 
@@ -508,9 +1291,25 @@ function displayProducts(
   ) {
 
     container.innerHTML = `
+
       <div class="empty">
-        No products found.
+
+        <div class="empty-icon">
+          🔍
+        </div>
+
+        <strong>
+          No products found
+        </strong>
+
+        <br>
+
+        <span>
+          Try another search or clear the filters.
+        </span>
+
       </div>
+
     `;
 
     return;
@@ -524,16 +1323,17 @@ function displayProducts(
   products.forEach(
     function(product) {
 
-
       const card =
         document.createElement(
-          "div"
+          "article"
         );
 
 
       card.className =
         "product-card";
 
+
+      /* IMAGE */
 
       let imageHtml =
         `<div class="no-image">🛍️</div>`;
@@ -552,17 +1352,30 @@ function displayProducts(
         if (firstPhoto) {
 
           imageHtml = `
+
             <img
-              src="${firstPhoto}"
+              src="${escapeAttribute(firstPhoto)}"
               class="product-image"
-              alt="${escapeHtml(product.product_name)}"
+              alt="${escapeAttribute(product.product_name || "Product")}"
+              loading="lazy"
+              decoding="async"
             >
+
           `;
 
         }
 
       }
 
+
+      /* CATEGORY */
+
+      const category =
+        product.category ||
+        "Other";
+
+
+      /* BUSINESS */
 
       const businessName =
         product.business
@@ -575,6 +1388,14 @@ function displayProducts(
           ? product.business.phone
           : "";
 
+
+      const businessLocation =
+        product.business
+          ? product.business.location
+          : "";
+
+
+      /* DELIVERY */
 
       let deliveryHtml = "";
 
@@ -593,7 +1414,7 @@ function displayProducts(
         ) {
 
           deliveryText +=
-            " • Free Delivery";
+            " • Free";
 
         }
 
@@ -637,22 +1458,27 @@ function displayProducts(
 
 
         deliveryHtml = `
+
           <div class="delivery">
             ${deliveryText}
           </div>
+
         `;
 
       } else {
 
         deliveryHtml = `
+
           <div class="delivery">
             🚫 No Delivery
           </div>
+
         `;
 
       }
 
 
+      /* WHATSAPP */
 
       let whatsappButton =
         "";
@@ -660,39 +1486,37 @@ function displayProducts(
 
       if (businessPhone) {
 
-        let cleanPhone =
-          businessPhone
-            .replace(
-              /\s+/g,
-              ""
-            )
-            .replace(
-              /^0/,
-              "233"
-            );
+        const cleanPhone =
+          cleanPhoneNumber(
+            businessPhone
+          );
 
 
         const message =
           encodeURIComponent(
             "Hello, I found your product \"" +
-            product.product_name +
+            (product.product_name || "product") +
             "\" on OGARS. Is it available?"
           );
 
 
         whatsappButton = `
+
           <a
             class="button whatsapp"
             href="https://wa.me/${cleanPhone}?text=${message}"
             target="_blank"
+            rel="noopener"
           >
-            💬 WhatsApp Seller
+            💬 WhatsApp
           </a>
+
         `;
 
       }
 
 
+      /* CALL */
 
       let callButton =
         "";
@@ -701,44 +1525,48 @@ function displayProducts(
       if (businessPhone) {
 
         callButton = `
+
           <a
             class="button call"
-            href="tel:${businessPhone}"
+            href="tel:${escapeAttribute(businessPhone)}"
           >
-            📞 Call Seller
+            📞 Call
           </a>
+
         `;
 
       }
 
 
-
       card.innerHTML = `
 
-        ${imageHtml}
+        <div class="image-wrap">
+
+          ${imageHtml}
+
+          <div class="category-badge">
+            ${escapeHtml(category)}
+          </div>
+
+        </div>
+
 
         <div class="product-content">
 
           <h2 class="product-name">
             ${escapeHtml(
-              product.product_name
+              product.product_name ||
+              "Unnamed Product"
             )}
           </h2>
-
-
-          <span class="category">
-            ${escapeHtml(
-              product.category ||
-              "Other"
-            )}
-          </span>
 
 
           <div class="price">
 
             ${
               product.price !== null &&
-              product.price !== undefined
+              product.price !== undefined &&
+              product.price !== ""
                 ? "GH₵" +
                   Number(
                     product.price
@@ -752,11 +1580,13 @@ function displayProducts(
           ${
             product.description
               ? `
+
                 <div class="description">
                   ${escapeHtml(
                     product.description
                   )}
                 </div>
+
               `
               : ""
           }
@@ -764,18 +1594,24 @@ function displayProducts(
 
           <div class="business">
 
-            🏢 ${escapeHtml(
-              businessName
-            )}
+            🏢
+            <strong>
+              ${escapeHtml(
+                businessName
+              )}
+            </strong>
 
             ${
-              product.business &&
-              product.business.location
+              businessLocation
                 ? `
+
                   <br>
-                  📍 ${escapeHtml(
-                    product.business.location
+
+                  📍
+                  ${escapeHtml(
+                    businessLocation
                   )}
+
                 `
                 : ""
             }
@@ -786,10 +1622,22 @@ function displayProducts(
           ${deliveryHtml}
 
 
-          ${whatsappButton}
+          ${
+            whatsappButton ||
+            callButton
+              ? `
 
+                <div class="button-row">
 
-          ${callButton}
+                  ${whatsappButton}
+
+                  ${callButton}
+
+                </div>
+
+              `
+              : ""
+          }
 
         </div>
 
@@ -806,13 +1654,11 @@ function displayProducts(
 }
 
 
-
 /* ================================
-   SEARCH
+   FILTER PRODUCTS
 ================================ */
 
 function filterProducts() {
-
 
   const search =
     document
@@ -838,7 +1684,6 @@ function filterProducts() {
         "delivery-filter"
       )
       .value;
-
 
 
   const filtered =
@@ -911,6 +1756,66 @@ function filterProducts() {
 }
 
 
+/* ================================
+   CLEAR FILTERS
+================================ */
+
+function clearFilters() {
+
+  document
+    .getElementById(
+      "product-search"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "category-filter"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "delivery-filter"
+    )
+    .value = "";
+
+
+  displayProducts(
+    allProducts
+  );
+
+}
+
+
+/* ================================
+   PHONE CLEANING
+================================ */
+
+function cleanPhoneNumber(
+  phone
+) {
+
+  return String(
+    phone || ""
+  )
+    .replace(
+      /\s+/g,
+      ""
+    )
+    .replace(
+      /^\+233/,
+      "233"
+    )
+    .replace(
+      /^0/,
+      "233"
+    );
+
+}
+
 
 /* ================================
    ESCAPE HTML
@@ -947,9 +1852,19 @@ function escapeHtml(
 }
 
 
+function escapeAttribute(
+  value
+) {
+
+  return escapeHtml(
+    value
+  );
+
+}
+
 
 /* ================================
-   SEARCH EVENTS
+   EVENTS
 ================================ */
 
 document
@@ -981,6 +1896,15 @@ document
     filterProducts
   );
 
+
+document
+  .getElementById(
+    "clear-filters"
+  )
+  .addEventListener(
+    "click",
+    clearFilters
+  );
 
 
 /* ================================
