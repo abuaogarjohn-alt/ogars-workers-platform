@@ -65,13 +65,70 @@
     .photo-area {
       width: 100%;
       background: #edf4ed;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-photo-wrapper {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      touch-action: pan-y;
+      overflow: hidden;
+      background: #edf4ed;
     }
 
     .main-photo {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
       display: block;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-count {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.65);
+      color: white;
+      border-radius: 20px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 5;
+    }
+
+    .photo-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.52);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-arrow:hover {
+      background: rgba(0,0,0,0.72);
+    }
+
+    .photo-prev {
+      left: 10px;
+    }
+
+    .photo-next {
+      right: 10px;
     }
 
     .no-photo {
@@ -89,6 +146,7 @@
       padding: 10px;
       overflow-x: auto;
       background: white;
+      scrollbar-width: thin;
     }
 
     .photo-thumb {
@@ -99,6 +157,7 @@
       cursor: pointer;
       border: 2px solid transparent;
       flex-shrink: 0;
+      user-select: none;
     }
 
     .photo-thumb.selected {
@@ -225,6 +284,82 @@
       font-weight: bold;
     }
 
+    /* FULLSCREEN PHOTO VIEWER */
+
+    .photo-viewer {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.94);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      touch-action: pan-y;
+    }
+
+    .photo-viewer.show {
+      display: flex;
+    }
+
+    .viewer-image {
+      max-width: 94vw;
+      max-height: 86vh;
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .viewer-close {
+      position: absolute;
+      top: 15px;
+      right: 17px;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .viewer-count {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      background: rgba(0,0,0,0.5);
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .viewer-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.16);
+      color: white;
+      font-size: 27px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .viewer-prev {
+      left: 15px;
+    }
+
+    .viewer-next {
+      right: 15px;
+    }
+
     .message {
       background: white;
       border-radius: 16px;
@@ -259,7 +394,7 @@
 
     @media (max-width: 480px) {
 
-      .main-photo {
+      .main-photo-wrapper {
         height: 240px;
       }
 
@@ -271,6 +406,25 @@
         padding: 17px;
       }
 
+      .photo-arrow {
+        width: 34px;
+        height: 34px;
+        font-size: 19px;
+      }
+
+      .viewer-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 23px;
+      }
+
+      .viewer-prev {
+        left: 8px;
+      }
+
+      .viewer-next {
+        right: 8px;
+      }
     }
   </style>
 </head>
@@ -326,6 +480,58 @@
 </footer>
 
 
+<!-- FULLSCREEN PHOTO VIEWER -->
+
+<div
+  id="photo-viewer"
+  class="photo-viewer"
+>
+
+  <button
+    type="button"
+    class="viewer-close"
+    onclick="closePhotoViewer()"
+  >
+    ×
+  </button>
+
+
+  <div
+    id="viewer-count"
+    class="viewer-count"
+  >
+    1 / 1
+  </div>
+
+
+  <button
+    type="button"
+    class="viewer-arrow viewer-prev"
+    onclick="previousPhoto()"
+  >
+    ‹
+  </button>
+
+
+  <img
+    id="viewer-image"
+    class="viewer-image"
+    src=""
+    alt="Advert photo"
+  >
+
+
+  <button
+    type="button"
+    class="viewer-arrow viewer-next"
+    onclick="nextPhoto()"
+  >
+    ›
+  </button>
+
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -349,15 +555,23 @@ const content =
   );
 
 
-/* GET ADVERT ID FROM URL */
-
 const params =
   new URLSearchParams(
     window.location.search
   );
 
+
 const listingId =
   params.get("id");
+
+
+let photos = [];
+
+let currentPhotoIndex = 0;
+
+let touchStartX = 0;
+
+let touchEndX = 0;
 
 
 /* LOAD ADVERT */
@@ -373,7 +587,6 @@ async function loadAdvert() {
     );
 
     return;
-
   }
 
 
@@ -394,7 +607,6 @@ async function loadAdvert() {
     );
 
     return;
-
   }
 
 
@@ -411,13 +623,12 @@ async function loadAdvert() {
     );
 
     return;
-
   }
 
 
   /* PHOTOS */
 
-  let photos = [];
+  photos = [];
 
   if (
     listing.photo_urls &&
@@ -441,7 +652,11 @@ async function loadAdvert() {
   }
 
 
+  currentPhotoIndex = 0;
+
+
   let photoHtml = "";
+
 
   if (photos.length > 0) {
 
@@ -449,17 +664,64 @@ async function loadAdvert() {
 
       <div class="photo-area">
 
-        <img
-          id="main-photo"
-          class="main-photo"
-          src="${escapeAttribute(photos[0])}"
-          alt="Advert photo"
+        <div
+          class="main-photo-wrapper"
+          id="main-photo-wrapper"
         >
+
+          <img
+            id="main-photo"
+            class="main-photo"
+            src="${escapeAttribute(photos[0])}"
+            alt="Advert photo"
+            onclick="openPhotoViewer()"
+          >
+
+
+          ${
+            photos.length > 1
+              ? `
+
+                <div
+                  id="photo-count"
+                  class="photo-count"
+                >
+                  1 / ${photos.length}
+                </div>
+
+
+                <button
+                  type="button"
+                  class="photo-arrow photo-prev"
+                  onclick="previousPhoto()"
+                >
+                  ‹
+                </button>
+
+
+                <button
+                  type="button"
+                  class="photo-arrow photo-next"
+                  onclick="nextPhoto()"
+                >
+                  ›
+                </button>
+
+              `
+              : ""
+          }
+
+        </div>
+
 
         ${
           photos.length > 1
             ? `
-              <div class="photo-thumbnails">
+
+              <div
+                class="photo-thumbnails"
+                id="photo-thumbnails"
+              >
 
                 ${photos.map(
                   function(photo, index) {
@@ -473,8 +735,9 @@ async function loadAdvert() {
                             ? "selected"
                             : ""
                         }"
-                        onclick="changePhoto(this, '${escapeAttribute(photo)}')"
+                        onclick="showPhoto(${index})"
                         alt="Photo ${index + 1}"
+                        loading="lazy"
                       >
 
                     `;
@@ -483,6 +746,7 @@ async function loadAdvert() {
                 ).join("")}
 
               </div>
+
             `
             : ""
         }
@@ -524,6 +788,7 @@ async function loadAdvert() {
 
 
   let expiryHtml = "";
+
 
   if (expiryDate) {
 
@@ -616,11 +881,37 @@ async function loadAdvert() {
     }
 
 
+    /*
+      CUSTOMIZED WHATSAPP MESSAGE
+    */
+
+    const advertTitle =
+      listing.title ||
+      "this advert";
+
+
+    const whatsappMessage =
+      "Hello, I saw your advert for \"" +
+      advertTitle +
+      "\" on OGAR'S Workers Platform. " +
+      "I would like to make an enquiry. " +
+      "Please, can you give me more information?";
+
+
+    const whatsappUrl =
+      "https://wa.me/" +
+      whatsapp +
+      "?text=" +
+      encodeURIComponent(
+        whatsappMessage
+      );
+
+
     contactHtml += `
 
       <a
         class="contact-button whatsapp-button"
-        href="https://wa.me/${escapeAttribute(whatsapp)}"
+        href="${escapeAttribute(whatsappUrl)}"
         target="_blank"
         rel="noopener"
       >
@@ -744,6 +1035,7 @@ async function loadAdvert() {
           ${escapeHtml(
             listing.event_time
           )}
+
         </div>
 
       </div>
@@ -759,6 +1051,7 @@ async function loadAdvert() {
 
       ${photoHtml}
 
+
       <div class="content">
 
         <div class="listing-type">
@@ -770,6 +1063,7 @@ async function loadAdvert() {
 
         </div>
 
+
         <h2 class="title">
 
           ${escapeHtml(
@@ -778,6 +1072,7 @@ async function loadAdvert() {
           )}
 
         </h2>
+
 
         ${
           listing.location
@@ -844,15 +1139,55 @@ async function loadAdvert() {
 
   `;
 
+
+  /* PRELOAD PHOTOS */
+
+  photos.forEach(
+    function(photo) {
+
+      const image =
+        new Image();
+
+      image.src =
+        photo;
+
+    }
+  );
+
+
+  setupSwipe();
 }
 
 
-/* CHANGE PHOTO */
+/* SHOW PHOTO */
 
-function changePhoto(
-  element,
-  photo
-) {
+function showPhoto(index) {
+
+  if (!photos.length) {
+    return;
+  }
+
+
+  if (index < 0) {
+
+    index =
+      photos.length - 1;
+
+  }
+
+
+  if (
+    index >= photos.length
+  ) {
+
+    index = 0;
+
+  }
+
+
+  currentPhotoIndex =
+    index;
+
 
   const mainPhoto =
     document.getElementById(
@@ -860,13 +1195,28 @@ function changePhoto(
     );
 
 
-  if (!mainPhoto) {
-    return;
+  if (mainPhoto) {
+
+    mainPhoto.src =
+      photos[index];
+
   }
 
 
-  mainPhoto.src =
-    photo;
+  const count =
+    document.getElementById(
+      "photo-count"
+    );
+
+
+  if (count) {
+
+    count.textContent =
+      (index + 1) +
+      " / " +
+      photos.length;
+
+  }
 
 
   document
@@ -874,21 +1224,377 @@ function changePhoto(
       ".photo-thumb"
     )
     .forEach(
-      function(thumb) {
+      function(thumb, thumbIndex) {
 
-        thumb.classList.remove(
-          "selected"
+        thumb.classList.toggle(
+          "selected",
+          thumbIndex === index
         );
 
       }
     );
 
 
-  element.classList.add(
-    "selected"
+  const thumbnail =
+    document.querySelectorAll(
+      ".photo-thumb"
+    )[index];
+
+
+  if (thumbnail) {
+
+    thumbnail.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+
+  }
+
+}
+
+
+/* NEXT PHOTO */
+
+function nextPhoto() {
+
+  if (photos.length <= 1) {
+    return;
+  }
+
+
+  showPhoto(
+    currentPhotoIndex + 1
   );
 
 }
+
+
+/* PREVIOUS PHOTO */
+
+function previousPhoto() {
+
+  if (photos.length <= 1) {
+    return;
+  }
+
+
+  showPhoto(
+    currentPhotoIndex - 1
+  );
+
+}
+
+
+/* OPEN FULLSCREEN VIEWER */
+
+function openPhotoViewer() {
+
+  if (!photos.length) {
+    return;
+  }
+
+
+  const viewer =
+    document.getElementById(
+      "photo-viewer"
+    );
+
+
+  if (!viewer) {
+    return;
+  }
+
+
+  viewer.classList.add(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "hidden";
+
+
+  updateViewer();
+
+}
+
+
+/* CLOSE FULLSCREEN VIEWER */
+
+function closePhotoViewer() {
+
+  const viewer =
+    document.getElementById(
+      "photo-viewer"
+    );
+
+
+  if (!viewer) {
+    return;
+  }
+
+
+  viewer.classList.remove(
+    "show"
+  );
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* UPDATE FULLSCREEN VIEWER */
+
+function updateViewer() {
+
+  const image =
+    document.getElementById(
+      "viewer-image"
+    );
+
+
+  const count =
+    document.getElementById(
+      "viewer-count"
+    );
+
+
+  if (!image || !count) {
+    return;
+  }
+
+
+  image.src =
+    photos[currentPhotoIndex];
+
+
+  count.textContent =
+    (currentPhotoIndex + 1) +
+    " / " +
+    photos.length;
+
+}
+
+
+/* SETUP SWIPE */
+
+function setupSwipe() {
+
+  const wrapper =
+    document.getElementById(
+      "main-photo-wrapper"
+    );
+
+
+  if (!wrapper) {
+    return;
+  }
+
+
+  wrapper.addEventListener(
+    "touchstart",
+    function(event) {
+
+      touchStartX =
+        event.changedTouches[0].screenX;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  wrapper.addEventListener(
+    "touchend",
+    function(event) {
+
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+
+      handleSwipe();
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  const viewer =
+    document.getElementById(
+      "photo-viewer"
+    );
+
+
+  if (viewer) {
+
+    viewer.addEventListener(
+      "touchstart",
+      function(event) {
+
+        touchStartX =
+          event.changedTouches[0].screenX;
+
+      },
+      {
+        passive: true
+      }
+    );
+
+
+    viewer.addEventListener(
+      "touchend",
+      function(event) {
+
+        touchEndX =
+          event.changedTouches[0].screenX;
+
+
+        handleViewerSwipe();
+
+      },
+      {
+        passive: true
+      }
+    );
+
+  }
+
+}
+
+
+/* HANDLE MAIN PHOTO SWIPE */
+
+function handleSwipe() {
+
+  const difference =
+    touchStartX -
+    touchEndX;
+
+
+  if (
+    Math.abs(difference) <
+    50
+  ) {
+
+    return;
+
+  }
+
+
+  if (difference > 0) {
+
+    nextPhoto();
+
+  } else {
+
+    previousPhoto();
+
+  }
+
+}
+
+
+/* HANDLE FULLSCREEN SWIPE */
+
+function handleViewerSwipe() {
+
+  const difference =
+    touchStartX -
+    touchEndX;
+
+
+  if (
+    Math.abs(difference) <
+    50
+  ) {
+
+    return;
+
+  }
+
+
+  if (difference > 0) {
+
+    nextPhoto();
+
+    updateViewer();
+
+  } else {
+
+    previousPhoto();
+
+    updateViewer();
+
+  }
+
+}
+
+
+/* KEYBOARD CONTROLS */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    const viewer =
+      document.getElementById(
+        "photo-viewer"
+      );
+
+
+    if (
+      !viewer ||
+      !viewer.classList.contains(
+        "show"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowRight"
+    ) {
+
+      nextPhoto();
+
+      updateViewer();
+
+    }
+
+
+    if (
+      event.key ===
+      "ArrowLeft"
+    ) {
+
+      previousPhoto();
+
+      updateViewer();
+
+    }
+
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      closePhotoViewer();
+
+    }
+
+  }
+);
 
 
 /* MESSAGE */
@@ -959,15 +1665,19 @@ function escapeAttribute(
 
   return String(value)
     .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
       /"/g,
       "&quot;"
     )
     .replace(
-      "<",
+      /</g,
       "&lt;"
     )
     .replace(
-      ">",
+      />/g,
       "&gt;"
     );
 
