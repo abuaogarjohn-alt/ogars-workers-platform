@@ -518,6 +518,7 @@
     class="viewer-image"
     src=""
     alt="Advert photo"
+    decoding="async"
   >
 
 
@@ -574,7 +575,9 @@ let touchStartX = 0;
 let touchEndX = 0;
 
 
-/* LOAD ADVERT */
+/* --------------------------------
+   LOAD ADVERT
+-------------------------------- */
 
 async function loadAdvert() {
 
@@ -632,11 +635,11 @@ async function loadAdvert() {
 
   if (
     listing.photo_urls &&
-    listing.photo_urls.trim() !== ""
+    String(listing.photo_urls).trim() !== ""
   ) {
 
     photos =
-      listing.photo_urls
+      String(listing.photo_urls)
         .split(",")
         .map(
           function(url) {
@@ -674,6 +677,8 @@ async function loadAdvert() {
             class="main-photo"
             src="${escapeAttribute(photos[0])}"
             alt="Advert photo"
+            fetchpriority="high"
+            decoding="async"
             onclick="openPhotoViewer()"
           >
 
@@ -694,6 +699,7 @@ async function loadAdvert() {
                   type="button"
                   class="photo-arrow photo-prev"
                   onclick="previousPhoto()"
+                  aria-label="Previous photo"
                 >
                   ‹
                 </button>
@@ -703,6 +709,7 @@ async function loadAdvert() {
                   type="button"
                   class="photo-arrow photo-next"
                   onclick="nextPhoto()"
+                  aria-label="Next photo"
                 >
                   ›
                 </button>
@@ -738,6 +745,7 @@ async function loadAdvert() {
                         onclick="showPhoto(${index})"
                         alt="Photo ${index + 1}"
                         loading="lazy"
+                        decoding="async"
                       >
 
                     `;
@@ -881,9 +889,7 @@ async function loadAdvert() {
     }
 
 
-    /*
-      CUSTOMIZED WHATSAPP MESSAGE
-    */
+    /* CUSTOMIZED WHATSAPP MESSAGE */
 
     const advertTitle =
       listing.title ||
@@ -1035,7 +1041,6 @@ async function loadAdvert() {
           ${escapeHtml(
             listing.event_time
           )}
-
         </div>
 
       </div>
@@ -1140,26 +1145,71 @@ async function loadAdvert() {
   `;
 
 
-  /* PRELOAD PHOTOS */
+  /*
+    IMPORTANT PERFORMANCE CHANGE:
 
-  photos.forEach(
-    function(photo) {
+    We no longer preload every photo.
+
+    Only the nearby photos are prepared.
+  */
+
+  preloadNearbyPhotos();
+
+  setupSwipe();
+
+}
+
+
+/* --------------------------------
+   PRELOAD NEARBY PHOTOS ONLY
+-------------------------------- */
+
+function preloadNearbyPhotos() {
+
+  if (!photos.length) {
+    return;
+  }
+
+
+  const indexes = [
+    currentPhotoIndex + 1,
+    currentPhotoIndex - 1
+  ];
+
+
+  indexes.forEach(
+    function(index) {
+
+      if (
+        index < 0 ||
+        index >= photos.length
+      ) {
+
+        return;
+
+      }
+
 
       const image =
         new Image();
 
+
+      image.decoding =
+        "async";
+
+
       image.src =
-        photo;
+        photos[index];
 
     }
   );
 
-
-  setupSwipe();
 }
 
 
-/* SHOW PHOTO */
+/* --------------------------------
+   SHOW PHOTO
+-------------------------------- */
 
 function showPhoto(index) {
 
@@ -1199,6 +1249,12 @@ function showPhoto(index) {
 
     mainPhoto.src =
       photos[index];
+
+    mainPhoto.fetchPriority =
+      "high";
+
+    mainPhoto.decoding =
+      "async";
 
   }
 
@@ -1251,10 +1307,20 @@ function showPhoto(index) {
 
   }
 
+
+  /*
+    Prepare only the next and
+    previous images.
+  */
+
+  preloadNearbyPhotos();
+
 }
 
 
-/* NEXT PHOTO */
+/* --------------------------------
+   NEXT PHOTO
+-------------------------------- */
 
 function nextPhoto() {
 
@@ -1267,10 +1333,28 @@ function nextPhoto() {
     currentPhotoIndex + 1
   );
 
+
+  const viewer =
+    document.getElementById(
+      "photo-viewer"
+    );
+
+
+  if (
+    viewer &&
+    viewer.classList.contains("show")
+  ) {
+
+    updateViewer();
+
+  }
+
 }
 
 
-/* PREVIOUS PHOTO */
+/* --------------------------------
+   PREVIOUS PHOTO
+-------------------------------- */
 
 function previousPhoto() {
 
@@ -1283,10 +1367,28 @@ function previousPhoto() {
     currentPhotoIndex - 1
   );
 
+
+  const viewer =
+    document.getElementById(
+      "photo-viewer"
+    );
+
+
+  if (
+    viewer &&
+    viewer.classList.contains("show")
+  ) {
+
+    updateViewer();
+
+  }
+
 }
 
 
-/* OPEN FULLSCREEN VIEWER */
+/* --------------------------------
+   OPEN FULLSCREEN VIEWER
+-------------------------------- */
 
 function openPhotoViewer() {
 
@@ -1320,7 +1422,9 @@ function openPhotoViewer() {
 }
 
 
-/* CLOSE FULLSCREEN VIEWER */
+/* --------------------------------
+   CLOSE FULLSCREEN VIEWER
+-------------------------------- */
 
 function closePhotoViewer() {
 
@@ -1346,7 +1450,9 @@ function closePhotoViewer() {
 }
 
 
-/* UPDATE FULLSCREEN VIEWER */
+/* --------------------------------
+   UPDATE FULLSCREEN VIEWER
+-------------------------------- */
 
 function updateViewer() {
 
@@ -1371,15 +1477,24 @@ function updateViewer() {
     photos[currentPhotoIndex];
 
 
+  image.decoding =
+    "async";
+
+
   count.textContent =
     (currentPhotoIndex + 1) +
     " / " +
     photos.length;
 
+
+  preloadNearbyPhotos();
+
 }
 
 
-/* SETUP SWIPE */
+/* --------------------------------
+   SETUP SWIPE
+-------------------------------- */
 
 function setupSwipe() {
 
@@ -1468,7 +1583,9 @@ function setupSwipe() {
 }
 
 
-/* HANDLE MAIN PHOTO SWIPE */
+/* --------------------------------
+   HANDLE MAIN PHOTO SWIPE
+-------------------------------- */
 
 function handleSwipe() {
 
@@ -1500,7 +1617,9 @@ function handleSwipe() {
 }
 
 
-/* HANDLE FULLSCREEN SWIPE */
+/* --------------------------------
+   HANDLE FULLSCREEN SWIPE
+-------------------------------- */
 
 function handleViewerSwipe() {
 
@@ -1523,20 +1642,18 @@ function handleViewerSwipe() {
 
     nextPhoto();
 
-    updateViewer();
-
   } else {
 
     previousPhoto();
-
-    updateViewer();
 
   }
 
 }
 
 
-/* KEYBOARD CONTROLS */
+/* --------------------------------
+   KEYBOARD CONTROLS
+-------------------------------- */
 
 document.addEventListener(
   "keydown",
@@ -1567,8 +1684,6 @@ document.addEventListener(
 
       nextPhoto();
 
-      updateViewer();
-
     }
 
 
@@ -1578,8 +1693,6 @@ document.addEventListener(
     ) {
 
       previousPhoto();
-
-      updateViewer();
 
     }
 
@@ -1597,7 +1710,9 @@ document.addEventListener(
 );
 
 
-/* MESSAGE */
+/* --------------------------------
+   MESSAGE
+-------------------------------- */
 
 function showMessage(
   icon,
@@ -1628,7 +1743,9 @@ function showMessage(
 }
 
 
-/* SECURITY HELPERS */
+/* --------------------------------
+   SECURITY HELPERS
+-------------------------------- */
 
 function escapeHtml(
   value
@@ -1684,7 +1801,9 @@ function escapeAttribute(
 }
 
 
-/* START */
+/* --------------------------------
+   START
+-------------------------------- */
 
 loadAdvert();
 
