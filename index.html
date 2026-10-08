@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,8 +59,6 @@
       outline-offset: 3px;
     }
 
-    /* HEADER */
-
     header {
       background: var(--green);
       color: var(--white);
@@ -119,8 +116,6 @@
     .join-button:hover {
       background: #eef9ee;
     }
-
-    /* WELCOME HERO */
 
     .hero {
       position: relative;
@@ -277,8 +272,6 @@
       color: #e1f4e1;
     }
 
-    /* WELCOME STRIP */
-
     .welcome-strip {
       max-width: 1106px;
       margin: -1px auto 0;
@@ -298,8 +291,6 @@
       color: var(--muted);
       font-size: 14px;
     }
-
-    /* MAIN CONTENT */
 
     .container {
       max-width: 1150px;
@@ -327,12 +318,44 @@
       font-size: 14px;
     }
 
-    /* PICTURE MARKETPLACE CARDS */
+    .category-block {
+      margin-bottom: 34px;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .category-heading .category-emoji {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--light-green);
+      border-radius: 12px;
+      font-size: 23px;
+      flex-shrink: 0;
+    }
+
+    .category-heading h3 {
+      font-size: 21px;
+      line-height: 1.3;
+    }
+
+    .category-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
 
     .options {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
     }
 
     .option {
@@ -340,7 +363,7 @@
       flex-direction: column;
       align-items: stretch;
       min-width: 0;
-      min-height: 340px;
+      min-height: 315px;
       overflow: hidden;
       background: var(--white);
       border: 1px solid var(--border);
@@ -422,8 +445,6 @@
       font-weight: 700;
     }
 
-    /* WORKER REGISTRATION */
-
     .featured {
       margin-top: 36px;
     }
@@ -470,8 +491,6 @@
       background: var(--dark-green);
     }
 
-    /* POPULAR SERVICES */
-
     .services {
       margin-top: 42px;
     }
@@ -496,8 +515,6 @@
       font-size: 14px;
       font-weight: 700;
     }
-
-    /* WHY OGARS */
 
     .trust {
       margin-top: 42px;
@@ -537,8 +554,6 @@
       font-size: 12px;
     }
 
-    /* FOOTER */
-
     footer {
       margin-top: 42px;
       background: #172117;
@@ -576,8 +591,6 @@
       font-size: 12px;
     }
 
-    /* TABLETS */
-
     @media (max-width: 850px) {
       .options {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -585,19 +598,17 @@
       }
 
       .option {
-        min-height: 330px;
+        min-height: 310px;
       }
 
       .option-image {
-        height: 160px;
+        height: 150px;
       }
 
       .service-list {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
-
-    /* MOBILE PHONES */
 
     @media (max-width: 600px) {
       .header-inner {
@@ -685,11 +696,33 @@
       }
 
       .section-title {
-        margin-bottom: 18px;
+        margin-bottom: 24px;
       }
 
       .section-title p {
         font-size: 13px;
+      }
+
+      .category-block {
+        margin-bottom: 28px;
+      }
+
+      .category-heading {
+        margin-bottom: 11px;
+      }
+
+      .category-heading .category-emoji {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+      }
+
+      .category-heading h3 {
+        font-size: 19px;
+      }
+
+      .category-heading p {
+        font-size: 12px;
       }
 
       .options {
@@ -698,7 +731,7 @@
       }
 
       .option {
-        min-height: 320px;
+        min-height: 310px;
         border-radius: 13px;
       }
 
@@ -815,8 +848,6 @@
       }
     }
 
-    /* VERY SMALL PHONES */
-
     @media (max-width: 360px) {
       .header-inner {
         padding: 10px;
@@ -854,7 +885,7 @@
       }
 
       .option {
-        min-height: 325px;
+        min-height: 315px;
       }
 
       .option-image {
@@ -895,7 +926,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <a href="index.html" class="brand" aria-label="OGARS home">
@@ -909,7 +939,6 @@
     </div>
   </header>
 
-  <!-- WELCOME HERO -->
   <section class="hero">
     <div class="hero-content">
 
@@ -931,6 +960,7 @@
         <a href="#explore" class="hero-link primary">
           Explore OGARS ↓
         </a>
+
         <a href="join-ogars.html" class="hero-link secondary">
           Get Started with OGARS →
         </a>
@@ -953,15 +983,15 @@
       </form>
 
       <div class="search-hint">
-        Try: plumber, jobs, tilapia, rooms for rent or drivers
+        Try: houses, jobs, tilapia, plumber, rooms for rent or drivers
       </div>
 
     </div>
   </section>
 
-  <!-- WELCOME MESSAGE -->
   <div class="welcome-strip">
     <h2>Find What You Need. Share What You Offer.</h2>
+
     <p>
       Welcome! Whether you're here to discover something new,
       find customers, offer your skills or grow your business,
@@ -969,170 +999,491 @@
     </p>
   </div>
 
-  <!-- MAIN -->
   <main class="container">
 
-    <!-- MARKETPLACE OPTIONS -->
     <section id="explore">
+
       <div class="section-title">
         <h2>Explore the OGARS Marketplace</h2>
         <p>Choose what you need and let's get you started.</p>
       </div>
 
-      <div class="options">
+      <!-- PROPERTY / ESTATE -->
+      <div class="category-block">
 
-        <a href="workers.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
-              alt="Construction workers working on a building"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🔧</div>
-            <h3>Find a Worker</h3>
-            <p>Find plumbers, electricians, carpenters, painters, masons and other skilled professionals.</p>
-            <span class="arrow">Find Workers →</span>
-          </div>
-        </a>
+        <div class="category-heading">
+          <div class="category-emoji">🏠</div>
 
-        <a href="post-job.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
-              alt="Colleagues discussing work together"
-              loading="lazy"
-            >
+          <div>
+            <h3>Property / Estate</h3>
+            <p>Buy, rent or advertise properties.</p>
           </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">📢</div>
-            <h3>Post a Job</h3>
-            <p>Have a vacancy or job opportunity? Connect with people who have the skills you need.</p>
-            <span class="arrow">Post a Job →</span>
-          </div>
-        </a>
+        </div>
 
-        <a href="jobs.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
-              alt="People meeting about employment"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">💼</div>
-            <h3>Find Work</h3>
-            <p>Explore job openings, employment opportunities and available work.</p>
-            <span class="arrow">Find Jobs →</span>
-          </div>
-        </a>
+        <div class="options">
 
-        <a href="find-property.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-              alt="Modern residential house"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🏠</div>
-            <h3>Find a Property</h3>
-            <p>Explore houses, apartments, rooms, land and commercial spaces for rent or sale.</p>
-            <span class="arrow">Find Property →</span>
-          </div>
-        </a>
+          <a href="properties.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
+                alt="House representing property opportunities"
+                loading="lazy"
+              >
+            </div>
 
-        <a href="properties.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
-              alt="House representing property opportunities"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🏘️</div>
-            <h3>Post a Property</h3>
-            <p>Advertise your house, apartment, land, shop or other property to potential customers.</p>
-            <span class="arrow">Post Property →</span>
-          </div>
-        </a>
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📢</div>
 
-        <a href="vehicles.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
-              alt="Car representing vehicle opportunities"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🚗</div>
-            <h3>Drivers & Vehicles</h3>
-            <p>Find drivers, vehicles and driving opportunities, or advertise a vehicle you own.</p>
-            <span class="arrow">Explore →</span>
-          </div>
-        </a>
+              <h3>Post Property</h3>
 
-        <a href="find-products.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
-              alt="Fresh products displayed in a market"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🛍️</div>
-            <h3>Find Products</h3>
-            <p>Discover products from different businesses and contact sellers directly.</p>
-            <span class="arrow">Explore Products →</span>
-          </div>
-        </a>
+              <p>
+                Advertise your house, apartment, land,
+                shop or other property to potential customers.
+              </p>
 
-        <a href="business.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
-              alt="Modern business workspace"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">🏢</div>
-            <h3>For Businesses</h3>
-            <p>Connect with customers, find workers, post jobs and discover business opportunities.</p>
-            <span class="arrow">Explore Businesses →</span>
-          </div>
-        </a>
+              <span class="arrow">Post Property →</span>
+            </div>
+          </a>
 
-        <a href="discover.html" class="option">
-          <div class="option-image">
-            <img
-              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
-              alt="People attending a special event"
-              loading="lazy"
-            >
-          </div>
-          <div class="option-content">
-            <div class="option-icon" aria-hidden="true">📣</div>
-            <h3>Discover & Advertise</h3>
-            <p>Discover or promote schools, churches, events, training, courses and other opportunities.</p>
-            <span class="arrow">Discover More →</span>
-          </div>
-        </a>
+          <a href="find-property.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                alt="Modern residential house"
+                loading="lazy"
+              >
+            </div>
 
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>View Property</h3>
+
+              <p>
+                Explore houses, apartments, rooms, land
+                and commercial spaces for rent or sale.
+              </p>
+
+              <span class="arrow">View Property →</span>
+            </div>
+          </a>
+
+        </div>
       </div>
+
+
+      <!-- JOBS / EMPLOYMENT -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">💼</div>
+
+          <div>
+            <h3>Jobs / Employment</h3>
+            <p>Post vacancies or find employment opportunities.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="post-job.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+                alt="Colleagues discussing work together"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📢</div>
+
+              <h3>Post a Job</h3>
+
+              <p>
+                Have a vacancy or job opportunity?
+                Connect with people who have the skills you need.
+              </p>
+
+              <span class="arrow">Post a Job →</span>
+            </div>
+          </a>
+
+          <a href="jobs.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
+                alt="People meeting about employment"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>Employment Opportunities</h3>
+
+              <p>
+                Explore job openings, employment opportunities
+                and available work.
+              </p>
+
+              <span class="arrow">Find Jobs →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- PRODUCTS / ITEMS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🛍️</div>
+
+          <div>
+            <h3>Products / Items</h3>
+            <p>Sell products or find items from different sellers.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+                alt="Seller displaying products"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📦</div>
+
+              <h3>Post Product / Item</h3>
+
+              <p>
+                Advertise your products or items and
+                connect with potential customers.
+              </p>
+
+              <span class="arrow">Post Product →</span>
+            </div>
+          </a>
+
+          <a href="find-products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
+                alt="Fresh products displayed in a market"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>Find Products / Items</h3>
+
+              <p>
+                Discover products from different businesses
+                and contact sellers directly.
+              </p>
+
+              <span class="arrow">Find Products →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- WORKERS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🔧</div>
+
+          <div>
+            <h3>Workers</h3>
+            <p>Find skilled professionals for your needs.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="workers.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
+                alt="Construction workers working on a building"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">👷</div>
+
+              <h3>Find a Worker</h3>
+
+              <p>
+                Find plumbers, electricians, carpenters,
+                painters, masons and other skilled professionals.
+              </p>
+
+              <span class="arrow">Find Workers →</span>
+            </div>
+          </a>
+
+          <a href="join.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+                alt="Professional worker"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🛠️</div>
+
+              <h3>Join as a Worker</h3>
+
+              <p>
+                Create your OGARS worker profile,
+                showcase your skills and get discovered by customers.
+              </p>
+
+              <span class="arrow">Create Profile →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- FOOD -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🍲</div>
+
+          <div>
+            <h3>Food</h3>
+            <p>Discover food products and food sellers.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="find-products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
+                alt="Food products at a market"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🍎</div>
+
+              <h3>Find Food</h3>
+
+              <p>
+                Discover fresh food, frozen foods,
+                fish, meat, groceries and other food items.
+              </p>
+
+              <span class="arrow">Find Food →</span>
+            </div>
+          </a>
+
+          <a href="products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=80"
+                alt="Food seller preparing products"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🍱</div>
+
+              <h3>Sell Food</h3>
+
+              <p>
+                Advertise your food products and
+                connect directly with customers.
+              </p>
+
+              <span class="arrow">Sell Food →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- DRIVERS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🚗</div>
+
+          <div>
+            <h3>Drivers & Vehicles</h3>
+            <p>Find drivers, vehicles and driving opportunities.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="vehicles.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
+                alt="Car representing vehicle opportunities"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🚗</div>
+
+              <h3>Drivers & Vehicles</h3>
+
+              <p>
+                Find drivers, vehicles and driving opportunities,
+                or advertise a vehicle you own.
+              </p>
+
+              <span class="arrow">Explore →</span>
+            </div>
+          </a>
+
+          <a href="vehicles.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=800&q=80"
+                alt="Professional driver"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">👨‍✈️</div>
+
+              <h3>Find a Driver</h3>
+
+              <p>
+                Connect with drivers looking for driving work
+                or businesses looking for reliable drivers.
+              </p>
+
+              <span class="arrow">Find Drivers →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- BUSINESSES -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🏢</div>
+
+          <div>
+            <h3>Businesses</h3>
+            <p>Connect businesses with customers and opportunities.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="business.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+                alt="Modern business workspace"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🏢</div>
+
+              <h3>For Businesses</h3>
+
+              <p>
+                Connect with customers, find workers,
+                post jobs and discover business opportunities.
+              </p>
+
+              <span class="arrow">Explore Businesses →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- DISCOVER & ADVERTISE -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">📣</div>
+
+          <div>
+            <h3>Discover & Advertise</h3>
+            <p>Promote events, schools, churches, training and more.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="discover.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
+                alt="People attending a special event"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📣</div>
+
+              <h3>Discover & Advertise</h3>
+
+              <p>
+                Discover or promote schools, churches,
+                events, training, courses and other opportunities.
+              </p>
+
+              <span class="arrow">Discover More →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
     </section>
 
-    <!-- WORKER REGISTRATION -->
+
+    <!-- SKILLED WORKER FEATURE -->
     <section class="featured">
+
       <div class="featured-box">
+
         <div>
           <h2>👷 Are You a Skilled Worker?</h2>
+
           <p>
             Create your OGARS profile, showcase your skills
             and let potential customers discover your services.
@@ -1142,17 +1493,22 @@
         <a href="join.html" class="green-button">
           Create Worker Profile
         </a>
+
       </div>
+
     </section>
+
 
     <!-- POPULAR SERVICES -->
     <section class="services">
+
       <div class="section-title">
         <h2>Popular Services</h2>
         <p>Find professionals for everyday jobs.</p>
       </div>
 
       <div class="service-list">
+
         <div class="service">🔧 Plumbing</div>
         <div class="service">⚡ Electrical</div>
         <div class="service">🪚 Carpentry</div>
@@ -1161,12 +1517,17 @@
         <div class="service">🚿 Tiling</div>
         <div class="service">🔩 Welding</div>
         <div class="service">❄️ AC Repair</div>
+
       </div>
+
     </section>
 
-    <!-- WHY OGARS -->
+
+    <!-- TRUST -->
     <section class="trust">
+
       <h2>Why Choose OGARS?</h2>
+
       <p>
         OGARS brings together skilled workers, job seekers,
         product sellers, property owners, drivers and businesses.
@@ -1181,13 +1542,17 @@
         <span>📈 Grow Your Business</span>
         <span>💚 One Convenient Platform</span>
       </div>
+
     </section>
 
   </main>
 
+
   <!-- FOOTER -->
   <footer>
+
     <nav class="footer-links" aria-label="Main marketplace links">
+
       <a href="workers.html">Workers</a>
       <a href="jobs.html">Jobs</a>
       <a href="find-products.html">Products</a>
@@ -1196,26 +1561,45 @@
       <a href="discover.html">Discover</a>
       <a href="business.html">Businesses</a>
       <a href="join-ogars.html">Join OGARS</a>
+
     </nav>
 
     <div>© 2026 OGARS Workers Platform</div>
-    <div class="footer-note">Trusted people. Real opportunities.</div>
+
+    <div class="footer-note">
+      Trusted people. Real opportunities.
+    </div>
+
   </footer>
 
+
   <script>
+
     function homeSearch() {
-      const searchInput = document.getElementById("home-search");
-      const search = searchInput.value.trim().toLowerCase();
+
+      const searchInput =
+        document.getElementById("home-search");
+
+      const search =
+        searchInput.value.trim().toLowerCase();
 
       if (!search) {
+
         alert("Please enter what you are looking for.");
+
         searchInput.focus();
+
         return;
       }
 
-      // PRODUCTS
+
+      /* PRODUCTS / FOOD */
+
       if (
         search.includes("product") ||
+        search.includes("products") ||
+        search.includes("item") ||
+        search.includes("items") ||
         search.includes("shop") ||
         search.includes("buy") ||
         search.includes("seller") ||
@@ -1226,13 +1610,22 @@
         search.includes("food") ||
         search.includes("clothes") ||
         search.includes("electronics") ||
-        search.includes("groceries")
+        search.includes("groceries") ||
+        search.includes("meat") ||
+        search.includes("sausage") ||
+        search.includes("turkey") ||
+        search.includes("beef")
       ) {
-        window.location.href = "find-products.html";
+
+        window.location.href =
+          "find-products.html";
+
         return;
       }
 
-      // WORKERS
+
+      /* WORKERS */
+
       if (
         search.includes("worker") ||
         search.includes("plumber") ||
@@ -1251,57 +1644,90 @@
         search.includes("hairdresser") ||
         search.includes("barber")
       ) {
-        window.location.href = "workers.html";
+
+        window.location.href =
+          "workers.html";
+
         return;
       }
 
-      // JOBS
+
+      /* JOBS */
+
       if (
         search.includes("job") ||
+        search.includes("jobs") ||
         search.includes("work") ||
         search.includes("employment") ||
         search.includes("vacancy") ||
         search.includes("career") ||
-        search.includes("recruit")
+        search.includes("recruit") ||
+        search.includes("hiring")
       ) {
-        window.location.href = "jobs.html";
+
+        window.location.href =
+          "jobs.html";
+
         return;
       }
 
-      // PROPERTIES
+
+      /* PROPERTIES */
+
       if (
         search.includes("house") ||
+        search.includes("houses") ||
         search.includes("apartment") ||
+        search.includes("apartments") ||
         search.includes("room") ||
+        search.includes("rooms") ||
         search.includes("land") ||
         search.includes("hotel") ||
         search.includes("property") ||
+        search.includes("properties") ||
+        search.includes("estate") ||
         search.includes("rent") ||
+        search.includes("rental") ||
         search.includes("accommodation") ||
         search.includes("hostel") ||
         search.includes("shop for rent")
       ) {
-        window.location.href = "find-property.html";
+
+        window.location.href =
+          "find-property.html";
+
         return;
       }
 
-      // DRIVERS AND VEHICLES
+
+      /* DRIVERS AND VEHICLES */
+
       if (
         search.includes("driver") ||
+        search.includes("drivers") ||
         search.includes("vehicle") ||
+        search.includes("vehicles") ||
         search.includes("car") ||
+        search.includes("cars") ||
         search.includes("truck") ||
         search.includes("pickup") ||
         search.includes("bus")
       ) {
-        window.location.href = "vehicles.html";
+
+        window.location.href =
+          "vehicles.html";
+
         return;
       }
 
-      // BUSINESSES AND DISCOVER
+
+      /* BUSINESSES AND DISCOVER */
+
       if (
         search.includes("business") ||
+        search.includes("businesses") ||
         search.includes("advertise") ||
+        search.includes("advertisement") ||
         search.includes("promotion") ||
         search.includes("church") ||
         search.includes("school") ||
@@ -1312,21 +1738,31 @@
         search.includes("seminar") ||
         search.includes("conference")
       ) {
-        window.location.href = "discover.html";
+
+        window.location.href =
+          "discover.html";
+
         return;
       }
+
 
       alert(
         "We could not identify that category. Try searching for a worker, job, product, property, driver or opportunity."
       );
+
     }
+
 
     document
       .getElementById("home-search-form")
       .addEventListener("submit", function(event) {
+
         event.preventDefault();
+
         homeSearch();
+
       });
+
   </script>
 
 </body>
