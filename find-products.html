@@ -1,917 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Find Products - OGARS</title>
-
-  <meta
-    name="description"
-    content="Find products and items from businesses and sellers on OGARS."
-  >
-
   <meta name="theme-color" content="#008000">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-
     :root {
       --green: #008000;
-      --dark-green: #006400;
-      --light-green: #eaf7ea;
-      --background: #f4f7f5;
+      --dark: #006400;
+      --light: #eaf7ea;
+      --bg: #f4f7f5;
       --text: #202820;
       --muted: #657065;
       --border: #e2e9e2;
-      --white: #ffffff;
-      --danger: #b42318;
-      --radius: 16px;
-      --shadow: 0 4px 16px rgba(0, 50, 0, 0.08);
+      --white: #fff;
     }
 
-
-    * {
-      box-sizing: border-box;
-    }
-
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
-
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--background);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.5;
     }
 
-
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-
-    button,
-    input,
-    select {
-      font-family: inherit;
-    }
-
-
-    /* =========================
-       HEADER
-    ========================= */
-
     header {
       background: var(--green);
-      color: var(--white);
+      color: white;
+      padding: 13px 16px;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      z-index: 10;
     }
-
 
     .header-inner {
       max-width: 1150px;
       margin: auto;
-      padding: 13px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
 
-
     .brand {
       color: white;
       text-decoration: none;
-      min-width: 0;
-    }
-
-
-    .brand-title {
       font-size: 25px;
       font-weight: 900;
       letter-spacing: 1px;
-      line-height: 1.15;
     }
 
-
-    .brand-subtitle {
-      margin-top: 3px;
-      font-size: 11px;
-      opacity: 0.92;
+    .brand small {
+      display: block;
+      font-size: 10px;
+      font-weight: normal;
+      letter-spacing: 0;
     }
-
 
     .post-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 9px 14px;
       background: white;
-      color: var(--dark-green);
-      border-radius: 10px;
+      color: var(--dark);
       text-decoration: none;
+      padding: 10px 13px;
+      border-radius: 9px;
       font-size: 13px;
-      font-weight: 800;
+      font-weight: bold;
       white-space: nowrap;
     }
 
-
-    .post-button:hover {
-      background: #f0fff0;
-    }
-
-
-    /* =========================
-       HERO
-    ========================= */
-
     .hero {
-      background:
-        linear-gradient(
-          120deg,
-          rgba(0, 80, 25, 0.96),
-          rgba(0, 128, 0, 0.88)
-        );
+      background: linear-gradient(120deg, #064c20, #008000);
       color: white;
-      padding: 32px 18px 34px;
       text-align: center;
+      padding: 29px 15px;
     }
 
-
-    .hero-content {
-      max-width: 760px;
-      margin: auto;
-    }
-
-
-    .hero-icon {
-      font-size: 38px;
-      margin-bottom: 5px;
-    }
-
+    .hero .icon { font-size: 36px; }
 
     .hero h1 {
-      margin: 0;
-      font-size: clamp(27px, 5vw, 38px);
-      line-height: 1.2;
+      margin: 5px 0;
+      font-size: clamp(26px, 5vw, 36px);
     }
 
-
     .hero p {
-      max-width: 620px;
-      margin: 9px auto 20px;
+      max-width: 600px;
+      margin: 8px auto 0;
       color: #eaffea;
       font-size: 14px;
     }
 
-
-    /* =========================
-       MAIN
-    ========================= */
-
     .container {
-      width: 100%;
       max-width: 1150px;
       margin: auto;
-      padding: 22px 18px 40px;
+      padding: 18px 14px 35px;
     }
-
-
-    /* =========================
-       SEARCH PANEL
-    ========================= */
 
     .search-panel {
       background: white;
-      padding: 17px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      margin-bottom: 24px;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.06);
     }
-
 
     .search-title {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 11px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
-
-    .search-main {
-      position: relative;
-    }
-
-
-    .search-main input {
+    .search-panel input,
+    .search-panel select {
       width: 100%;
-      min-height: 50px;
-      padding: 12px 15px 12px 44px;
-      border: 2px solid #dce6dc;
-      border-radius: 11px;
+      min-height: 47px;
+      padding: 11px 12px;
+      border: 1px solid #ccd8cf;
+      border-radius: 9px;
       background: white;
       color: var(--text);
       font-size: 16px;
-      outline: none;
+      margin-bottom: 9px;
     }
-
-
-    .search-main input:focus {
-      border-color: var(--green);
-    }
-
-
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 19px;
-      pointer-events: none;
-    }
-
 
     .filters {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 8px;
     }
 
-
-    .filters select {
-      width: 100%;
-      min-height: 47px;
-      padding: 10px 12px;
-      border: 1px solid #ccd8cf;
-      border-radius: 10px;
-      background: white;
-      color: var(--text);
-      font-size: 14px;
-      outline: none;
-    }
-
-
-    .filters select:focus {
-      border-color: var(--green);
-    }
-
+    .filters select { min-width: 0; }
 
     .results-summary {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      margin-top: 13px;
+      gap: 8px;
+      font-size: 12px;
       color: var(--muted);
-      font-size: 13px;
     }
 
-
-    .clear-filters {
-      border: none;
-      background: var(--light-green);
-      color: var(--dark-green);
-      border-radius: 8px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 700;
+    .clear-button {
+      background: var(--light);
+      border: 0;
+      color: var(--dark);
+      padding: 8px 10px;
+      border-radius: 7px;
+      font-weight: bold;
       cursor: pointer;
     }
-
-
-    /* =========================
-       PRODUCTS GRID
-    ========================= */
 
     .products {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 17px;
+      gap: 15px;
     }
-
 
     .product-card {
       min-width: 0;
       background: white;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: var(--shadow);
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+      box-shadow: 0 4px 13px rgba(0,0,0,.06);
     }
-
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      border-color: #a9d9a9;
-      box-shadow: 0 8px 23px rgba(0, 70, 0, 0.13);
-    }
-
-
-    /* =========================
-       PRODUCT IMAGE
-    ========================= */
 
     .image-wrap {
-      position: relative;
-      height: 205px;
+      height: 195px;
       background: #e8f1eb;
-      overflow: hidden;
+      position: relative;
     }
-
 
     .product-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      background: #e8f1eb;
     }
-
 
     .no-image {
       width: 100%;
       height: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      background:
-        linear-gradient(
-          135deg,
-          #e8f4ea,
-          #dcebdd
-        );
-      color: #63806d;
+      align-items: center;
       font-size: 45px;
+      color: #63806d;
     }
-
 
     .category-badge {
       position: absolute;
-      left: 10px;
-      bottom: 10px;
-      max-width: calc(100% - 20px);
-      padding: 6px 9px;
+      bottom: 9px;
+      left: 9px;
+      background: white;
+      color: var(--dark);
+      padding: 5px 8px;
       border-radius: 20px;
-      background: rgba(255,255,255,0.94);
-      color: var(--dark-green);
-      font-size: 11px;
-      font-weight: 800;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.12);
-      white-space: nowrap;
+      font-size: 10px;
+      font-weight: bold;
+      max-width: calc(100% - 18px);
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-
-    /* =========================
-       PRODUCT CONTENT
-    ========================= */
-
-    .product-content {
-      padding: 15px;
-    }
-
+    .product-content { padding: 13px; }
 
     .product-name {
       margin: 0;
-      color: var(--text);
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.35;
+      overflow-wrap: anywhere;
     }
-
 
     .price {
-      margin-top: 8px;
       color: var(--green);
-      font-size: 20px;
       font-weight: 900;
+      font-size: 20px;
+      margin-top: 7px;
     }
 
-
     .description {
-      margin-top: 8px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-
+      font-size: 12px;
+      margin-top: 8px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-
     .business {
-      margin-top: 13px;
-      padding-top: 11px;
       border-top: 1px solid #edf0ed;
-      color: #314b38;
+      margin-top: 12px;
+      padding-top: 10px;
       font-size: 12px;
-      line-height: 1.55;
+      overflow-wrap: anywhere;
     }
-
-
-    .business strong {
-      color: var(--text);
-    }
-
 
     .delivery {
-      margin-top: 10px;
-      padding: 8px 9px;
-      border-radius: 9px;
+      margin-top: 9px;
+      padding: 8px;
+      border-radius: 8px;
       background: #f3faf5;
       color: #31563d;
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11px;
+      overflow-wrap: anywhere;
     }
-
-
-    /* =========================
-       BUTTONS
-    ========================= */
 
     .button-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 7px;
       margin-top: 12px;
     }
 
-
     .button {
       display: flex;
-      align-items: center;
       justify-content: center;
-      min-height: 43px;
-      padding: 9px 8px;
+      align-items: center;
+      min-height: 41px;
+      padding: 8px 5px;
+      border-radius: 8px;
       text-align: center;
       text-decoration: none;
-      border-radius: 9px;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: bold;
     }
-
 
     .whatsapp {
       background: var(--green);
       color: white;
     }
 
-
-    .whatsapp:hover {
-      background: var(--dark-green);
-    }
-
-
     .call {
-      background: var(--light-green);
-      color: var(--dark-green);
+      background: var(--light);
+      color: var(--dark);
     }
 
-
-    .call:hover {
-      background: #dff0df;
-    }
-
-
-    /* =========================
-       LOADING / EMPTY
-    ========================= */
-
-    .loading,
-    .empty {
+    .message {
       grid-column: 1 / -1;
       background: white;
-      padding: 35px 20px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
+      border-radius: 13px;
+      padding: 30px 18px;
       text-align: center;
       color: var(--muted);
-      box-shadow: var(--shadow);
+      overflow-wrap: anywhere;
     }
 
-
-    .loading-icon {
-      font-size: 30px;
-      margin-bottom: 8px;
+    .message strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 7px;
     }
 
-
-    .empty-icon {
-      font-size: 38px;
-      margin-bottom: 8px;
+    .retry-button {
+      background: var(--green);
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: bold;
+      margin-top: 12px;
+      cursor: pointer;
     }
-
-
-    .error {
-      color: var(--danger);
-    }
-
-
-    /* =========================
-       BACK
-    ========================= */
 
     .back-area {
-      margin-top: 28px;
       text-align: center;
+      margin-top: 25px;
     }
-
 
     .back {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 16px;
-      border-radius: 10px;
+      display: inline-block;
+      padding: 11px 16px;
       background: white;
       border: 1px solid var(--border);
-      color: var(--dark-green);
+      color: var(--dark);
+      border-radius: 9px;
       text-decoration: none;
       font-size: 13px;
-      font-weight: 800;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-weight: bold;
     }
-
-
-    .back:hover {
-      background: var(--light-green);
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================= */
 
     footer {
-      margin-top: 10px;
-      padding: 25px 18px;
       background: #172117;
       color: #c6d1c6;
       text-align: center;
+      padding: 23px 15px;
       font-size: 12px;
     }
 
-
     .footer-links {
       display: flex;
-      align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 8px 18px;
+      gap: 12px 17px;
       margin-bottom: 13px;
     }
-
 
     .footer-links a {
       color: white;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: bold;
     }
 
-
-    .footer-note {
-      color: #aebbae;
-      margin-top: 5px;
+    @media (max-width: 850px) {
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 900px) {
-
-      .products {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-    }
-
 
     @media (max-width: 600px) {
-
-      .header-inner {
-        padding: 11px 14px;
-      }
-
-
-      .brand-title {
-        font-size: 22px;
-      }
-
-
-      .brand-subtitle {
-        font-size: 9px;
-      }
-
-
-      .post-button {
-        min-height: 41px;
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-
-
-      .hero {
-        padding: 27px 15px 29px;
-      }
-
-
-      .hero-icon {
-        font-size: 32px;
-      }
-
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-
-      .hero p {
-        font-size: 13px;
-        margin-bottom: 0;
-      }
-
-
-      .container {
-        padding: 15px 11px 30px;
-      }
-
-
-      .search-panel {
-        padding: 13px;
-        border-radius: 14px;
-      }
-
-
-      .filters {
-        grid-template-columns: 1fr;
-      }
-
-
-      .products {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-
-      .product-card {
-        border-radius: 13px;
-      }
-
-
-      .image-wrap {
-        height: 145px;
-      }
-
-
-      .product-content {
-        padding: 11px;
-      }
-
-
-      .product-name {
-        font-size: 15px;
-      }
-
-
-      .price {
-        font-size: 17px;
-      }
-
-
-      .description {
-        font-size: 11px;
-        line-height: 1.45;
-      }
-
-
-      .business {
-        font-size: 10px;
-      }
-
-
-      .delivery {
-        font-size: 10px;
-        padding: 7px;
-      }
-
-
-      .button-row {
-        grid-template-columns: 1fr;
-        gap: 6px;
-      }
-
-
-      .button {
-        min-height: 39px;
-        font-size: 11px;
-      }
-
-
-      .category-badge {
-        font-size: 9px;
-        padding: 5px 7px;
-      }
-
-
-      .results-summary {
-        font-size: 11px;
-      }
-
+      .header-inner { gap: 8px; }
+      .brand { font-size: 22px; }
+      .brand small { font-size: 9px; }
+      .post-button { padding: 9px; font-size: 11px; }
+      .hero { padding: 25px 14px; }
+      .hero h1 { font-size: 27px; }
+      .container { padding: 13px 10px 28px; }
+      .search-panel { padding: 12px; }
+      .filters { grid-template-columns: 1fr; gap: 0; }
+      .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .image-wrap { height: 140px; }
+      .product-content { padding: 10px; }
+      .product-name { font-size: 14px; }
+      .price { font-size: 16px; }
+      .description { font-size: 11px; }
+      .business { font-size: 10px; }
+      .delivery { font-size: 10px; padding: 7px; }
+      .button-row { grid-template-columns: 1fr; gap: 6px; }
+      .button { font-size: 11px; min-height: 38px; }
     }
 
-
-    @media (max-width: 360px) {
-
-      .products {
-        gap: 8px;
-      }
-
-
-      .product-content {
-        padding: 9px;
-      }
-
-
-      .image-wrap {
-        height: 130px;
-      }
-
-
-      .product-name {
-        font-size: 14px;
-      }
-
-
-      .price {
-        font-size: 16px;
-      }
-
-
-      .description {
-        font-size: 10px;
-      }
-
-
-      .business {
-        font-size: 9px;
-      }
-
-
-      .delivery {
-        font-size: 9px;
-      }
-
-    }
-
-
-    @media (prefers-reduced-motion: reduce) {
-
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        transition-duration: 0.01ms !important;
-      }
-
+    @media (max-width: 340px) {
+      .products { grid-template-columns: 1fr; }
+      .image-wrap { height: 190px; }
     }
 
   </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
-
   <div class="header-inner">
-
-    <a
-      href="index.html"
-      class="brand"
-      aria-label="OGARS home"
-    >
-
-      <div class="brand-title">
-        OGARS
-      </div>
-
-      <div class="brand-subtitle">
-        Trusted people. Real opportunities.
-      </div>
-
+    <a href="index.html" class="brand">
+      OGARS
+      <small>Trusted people. Real opportunities.</small>
     </a>
 
-
-    <a
-      href="products.html"
-      class="post-button"
-    >
+    <a href="products.html" class="post-button">
       ➕ Post Product
     </a>
-
   </div>
-
 </header>
 
-
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero">
-
-  <div class="hero-content">
-
-    <div class="hero-icon">
-      🛍️
-    </div>
-
-    <h1>
-      Find Products & Items
-    </h1>
-
-    <p>
-      Discover products from different businesses and sellers
-      and contact them directly on OGARS.
-    </p>
-
-  </div>
-
+  <div class="icon">🛍️</div>
+  <h1>Find Products & Items</h1>
+  <p>
+    Discover products from different businesses and sellers
+    and contact them directly on OGARS.
+  </p>
 </section>
-
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <main class="container">
 
-
-  <!-- SEARCH -->
-
   <section class="search-panel">
+    <div class="search-title">🔎 What are you looking for?</div>
 
-    <div class="search-title">
-      🔎 What are you looking for?
-    </div>
-
-
-    <div class="search-main">
-
-      <span class="search-icon">
-        🔍
-      </span>
-
-      <input
-        type="search"
-        id="product-search"
-        placeholder="Search products, sellers or locations..."
-        autocomplete="off"
-        enterkeyhint="search"
-      >
-
-    </div>
-
+    <input
+      type="search"
+      id="product-search"
+      placeholder="Search products, sellers or locations..."
+      autocomplete="off"
+    >
 
     <div class="filters">
-
       <select id="category-filter">
-
-        <option value="">
-          All Categories
-        </option>
-
+        <option value="">All Categories</option>
         <option>Food & Groceries</option>
         <option>Frozen Foods</option>
         <option>Fresh Food & Produce</option>
@@ -937,998 +450,486 @@
         <option>Office & Business Supplies</option>
         <option>Services</option>
         <option>Other</option>
-
       </select>
-
 
       <select id="delivery-filter">
-
-        <option value="">
-          All Delivery Options
-        </option>
-
-        <option value="yes">
-          🚚 Delivery Available
-        </option>
-
-        <option value="no">
-          🚫 No Delivery
-        </option>
-
+        <option value="">All Delivery Options</option>
+        <option value="yes">🚚 Delivery Available</option>
+        <option value="no">🚫 No Delivery</option>
       </select>
-
     </div>
-
 
     <div class="results-summary">
-
-      <span id="results-count">
-        Loading products...
-      </span>
-
-      <button
-        type="button"
-        class="clear-filters"
-        id="clear-filters"
-      >
+      <span id="results-count">Connecting to OGARS...</span>
+      <button type="button" class="clear-button" id="clear-filters">
         Clear Filters
       </button>
-
     </div>
-
   </section>
 
-
-  <!-- PRODUCTS -->
-
-  <section
-    id="products"
-    class="products"
-    aria-live="polite"
-  >
-
-    <div class="loading">
-
-      <div class="loading-icon">
-        🛍️
-      </div>
-
-      Loading products...
-
+  <section id="products" class="products" aria-live="polite">
+    <div class="message">
+      <strong>🛍️ Loading products...</strong>
+      Please wait while we connect to the marketplace.
     </div>
-
   </section>
-
-
-  <!-- BACK -->
 
   <div class="back-area">
-
-    <a
-      href="index.html"
-      class="back"
-    >
-      ← Back to OGARS
-    </a>
-
+    <a href="index.html" class="back">← Back to OGARS</a>
   </div>
-
 
 </main>
 
-
-<!-- FOOTER -->
-
 <footer>
-
-  <nav
-    class="footer-links"
-    aria-label="Marketplace links"
-  >
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="workers.html">
-      Workers
-    </a>
-
-    <a href="jobs.html">
-      Jobs
-    </a>
-
-    <a href="find-property.html">
-      Properties
-    </a>
-
-    <a href="vehicles.html">
-      Vehicles
-    </a>
-
-    <a href="business.html">
-      Businesses
-    </a>
-
-    <a href="discover.html">
-      Discover
-    </a>
-
+  <nav class="footer-links" aria-label="Marketplace links">
+    <a href="index.html">Home</a>
+    <a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="find-property.html">Properties</a>
+    <a href="vehicles.html">Vehicles</a>
+    <a href="business.html">Businesses</a>
+    <a href="discover.html">Discover</a>
   </nav>
-
-
-  <div>
-    © 2026 OGARS Workers Platform
-  </div>
-
-
-  <div class="footer-note">
+  <div>© 2026 OGARS Workers Platform</div>
+  <div style="margin-top:5px;color:#aebbae">
     Trusted people. Real opportunities.
   </div>
-
 </footer>
 
-
 <script>
+"use strict";
 
-
-/* ================================
-   SUPABASE
-================================ */
+/* SUPABASE CONNECTION */
 
 const SUPABASE_URL =
   "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-
 const SUPABASE_KEY =
   "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
 let allProducts = [];
+let businessMap = {};
 
+/* HTML SAFETY */
 
-/* ================================
-   LOAD PRODUCTS
-================================ */
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
-async function loadProducts() {
+/* SHOW MESSAGE */
 
-  const productsContainer =
-    document.getElementById("products");
-
-  const resultsCount =
-    document.getElementById("results-count");
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("business_products")
-      .select("*")
-      .eq("available", true)
-      .order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
-
-
-if (error) {
-
-  console.error("OGARS PRODUCTS ERROR:", error);
-
-  productsContainer.innerHTML = `
-    <div class="empty error">
-      <h3>Unable to load products</h3>
-      <p>${escapeHtml(error.message)}</p>
-      <p>Please refresh and try again.</p>
+function showMessage(title, detail, isError = false) {
+  document.getElementById("products").innerHTML = `
+    <div class="message">
+      <strong>${escapeHtml(title)}</strong>
+      <div>${escapeHtml(detail)}</div>
+      <button class="retry-button" type="button" onclick="loadProducts()">
+        Try Again
+      </button>
     </div>
   `;
 
   document.getElementById("results-count").textContent =
-    "Product loading error";
-
-  return;
+    isError ? "Could not load products" : "0 products found";
 }
 
-
-    productsContainer.innerHTML = `
-
-      <div class="empty error">
-
-        <div class="empty-icon">
-          ⚠️
-        </div>
-
-        Unable to load products.
-
-        <br><br>
-
-        ${escapeHtml(error.message)}
-
-      </div>
-
-    `;
-
-
-    resultsCount.textContent =
-      "Unable to load products";
-
-
-    return;
-
-  }
-
-
-  allProducts =
-    data || [];
-
-
-  await attachBusinessInformation();
-
-
-  displayProducts(
-    allProducts
-  );
-
-}
-
-
-/* ================================
-   BUSINESS INFORMATION
-================================ */
-
-async function attachBusinessInformation() {
-
-  const businessIds =
-    [
-      ...new Set(
-        allProducts
-          .map(
-            product =>
-              product.business_id
-          )
-          .filter(Boolean)
-      )
-    ];
-
-
-  if (
-    businessIds.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("businesses")
-      .select(
-        "id,business_name,phone,location"
-      )
-      .in(
-        "id",
-        businessIds
-      );
-
-
-  if (error) {
-
-    console.error(error);
-
-    return;
-
-  }
-
-
-  const businessMap = {};
-
-
-  (data || []).forEach(
-    function(business) {
-
-      businessMap[
-        business.id
-      ] = business;
-
-    }
-  );
-
-
-  allProducts =
-    allProducts.map(
-      function(product) {
-
-        return {
-
-          ...product,
-
-          business:
-            businessMap[
-              product.business_id
-            ] || null
-
-        };
-
-      }
-    );
-
-}
-
-
-/* ================================
-   DISPLAY PRODUCTS
-================================ */
-
-function displayProducts(
-  products
-) {
-
-  const container =
-    document.getElementById(
-      "products"
-    );
-
-
-  const resultsCount =
-    document.getElementById(
-      "results-count"
-    );
-
-
-  resultsCount.textContent =
-    products.length +
-    (
-      products.length === 1
-        ? " product found"
-        : " products found"
-    );
-
-
-  if (
-    products.length === 0
-  ) {
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">
-          🔍
-        </div>
-
-        <strong>
-          No products found
-        </strong>
-
-        <br>
-
-        <span>
-          Try another search or clear the filters.
-        </span>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML = "";
-
-
-  products.forEach(
-    function(product) {
-
-      const card =
-        document.createElement(
-          "article"
+/* REQUEST WITH TIMEOUT */
+
+async function requestWithTimeout(promise, milliseconds = 15000) {
+  let timer;
+
+  try {
+    return await Promise.race([
+      promise,
+      new Promise((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error("The request took too long. Please check your internet connection and try again.")),
+          milliseconds
         );
-
-
-      card.className =
-        "product-card";
-
-
-      /* IMAGE */
-
-      let imageHtml =
-        `<div class="no-image">🛍️</div>`;
-
-
-      if (
-        product.photo_urls
-      ) {
-
-        const firstPhoto =
-          product.photo_urls
-            .split(",")[0]
-            .trim();
-
-
-        if (firstPhoto) {
-
-          imageHtml = `
-
-            <img
-              src="${escapeAttribute(firstPhoto)}"
-              class="product-image"
-              alt="${escapeAttribute(product.product_name || "Product")}"
-              loading="lazy"
-              decoding="async"
-            >
-
-          `;
-
-        }
-
-      }
-
-
-      /* CATEGORY */
-
-      const category =
-        product.category ||
-        "Other";
-
-
-      /* BUSINESS */
-
-      const businessName =
-        product.business
-          ? product.business.business_name
-          : "Business";
-
-
-      const businessPhone =
-        product.business
-          ? product.business.phone
-          : "";
-
-
-      const businessLocation =
-        product.business
-          ? product.business.location
-          : "";
-
-
-      /* DELIVERY */
-
-      let deliveryHtml = "";
-
-
-      if (
-        product.delivery_available
-      ) {
-
-        let deliveryText =
-          "🚚 Delivery Available";
-
-
-        if (
-          product.delivery_fee_type ===
-          "free"
-        ) {
-
-          deliveryText +=
-            " • Free";
-
-        }
-
-
-        if (
-          product.delivery_fee_type ===
-          "fixed"
-        ) {
-
-          deliveryText +=
-            " • GH₵" +
-            Number(
-              product.delivery_fee || 0
-            ).toFixed(2);
-
-        }
-
-
-        if (
-          product.delivery_fee_type ===
-          "negotiable"
-        ) {
-
-          deliveryText +=
-            " • Fee Negotiable";
-
-        }
-
-
-        if (
-          product.delivery_areas
-        ) {
-
-          deliveryText +=
-            "<br>📍 " +
-            escapeHtml(
-              product.delivery_areas
-            );
-
-        }
-
-
-        deliveryHtml = `
-
-          <div class="delivery">
-            ${deliveryText}
-          </div>
-
-        `;
-
-      } else {
-
-        deliveryHtml = `
-
-          <div class="delivery">
-            🚫 No Delivery
-          </div>
-
-        `;
-
-      }
-
-
-      /* WHATSAPP */
-
-      let whatsappButton =
-        "";
-
-
-      if (businessPhone) {
-
-        const cleanPhone =
-          cleanPhoneNumber(
-            businessPhone
-          );
-
-
-        const message =
-          encodeURIComponent(
-            "Hello, I found your product \"" +
-            (product.product_name || "product") +
-            "\" on OGARS. Is it available?"
-          );
-
-
-        whatsappButton = `
-
-          <a
-            class="button whatsapp"
-            href="https://wa.me/${cleanPhone}?text=${message}"
-            target="_blank"
-            rel="noopener"
-          >
-            💬 WhatsApp
-          </a>
-
-        `;
-
-      }
-
-
-      /* CALL */
-
-      let callButton =
-        "";
-
-
-      if (businessPhone) {
-
-        callButton = `
-
-          <a
-            class="button call"
-            href="tel:${escapeAttribute(businessPhone)}"
-          >
-            📞 Call
-          </a>
-
-        `;
-
-      }
-
-
-      card.innerHTML = `
-
-        <div class="image-wrap">
-
-          ${imageHtml}
-
-          <div class="category-badge">
-            ${escapeHtml(category)}
-          </div>
-
-        </div>
-
-
-        <div class="product-content">
-
-          <h2 class="product-name">
-            ${escapeHtml(
-              product.product_name ||
-              "Unnamed Product"
-            )}
-          </h2>
-
-
-          <div class="price">
-
-            ${
-              product.price !== null &&
-              product.price !== undefined &&
-              product.price !== ""
-                ? "GH₵" +
-                  Number(
-                    product.price
-                  ).toFixed(2)
-                : "Price on request"
-            }
-
-          </div>
-
-
-          ${
-            product.description
-              ? `
-
-                <div class="description">
-                  ${escapeHtml(
-                    product.description
-                  )}
-                </div>
-
-              `
-              : ""
-          }
-
-
-          <div class="business">
-
-            🏢
-            <strong>
-              ${escapeHtml(
-                businessName
-              )}
-            </strong>
-
-            ${
-              businessLocation
-                ? `
-
-                  <br>
-
-                  📍
-                  ${escapeHtml(
-                    businessLocation
-                  )}
-
-                `
-                : ""
-            }
-
-          </div>
-
-
-          ${deliveryHtml}
-
-
-          ${
-            whatsappButton ||
-            callButton
-              ? `
-
-                <div class="button-row">
-
-                  ${whatsappButton}
-
-                  ${callButton}
-
-                </div>
-
-              `
-              : ""
-          }
-
-        </div>
-
-      `;
-
-
-      container.appendChild(
-        card
-      );
-
-    }
-  );
-
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
+/* LOAD PRODUCTS FIRST */
 
-/* ================================
-   FILTER PRODUCTS
-================================ */
+async function loadProducts() {
+  const container = document.getElementById("products");
 
-function filterProducts() {
+  container.innerHTML = `
+    <div class="message">
+      <strong>🛍️ Loading products...</strong>
+      Connecting to the OGARS marketplace.
+    </div>
+  `;
 
-  const search =
-    document
-      .getElementById(
-        "product-search"
-      )
-      .value
-      .toLowerCase()
-      .trim();
+  document.getElementById("results-count").textContent =
+    "Connecting to OGARS...";
 
+  try {
+    const result = await requestWithTimeout(
+      supabaseClient
+        .from("business_products")
+        .select("*")
+        .eq("available", true)
+        .order("created_at", { ascending: false })
+    );
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    allProducts = result.data || [];
+
+    /*
+      DISPLAY PRODUCTS IMMEDIATELY.
+      Seller information is loaded afterward.
+    */
+
+    displayProducts(allProducts);
+
+    if (allProducts.length === 0) {
+      return;
+    }
+
+    /*
+      Fetch seller information separately.
+      If this request fails, the products remain visible.
+    */
+
+    loadBusinessInformation();
+
+  } catch (error) {
+    console.error("OGARS product loading error:", error);
+
+    showMessage(
+      "Unable to load products",
+      error.message || "An unexpected error occurred.",
+      true
+    );
+  }
+}
+
+/* LOAD SELLER INFORMATION SEPARATELY */
+
+async function loadBusinessInformation() {
+  const ids = [
+    ...new Set(
+      allProducts
+        .map(product => product.business_id)
+        .filter(id => id !== null && id !== undefined)
+    )
+  ];
+
+  if (ids.length === 0) {
+    return;
+  }
+
+  try {
+    const result = await requestWithTimeout(
+      supabaseClient
+        .from("businesses")
+        .select("id,business_name,phone,location")
+        .in("id", ids)
+    );
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    businessMap = {};
+
+    (result.data || []).forEach(business => {
+      businessMap[String(business.id)] = business;
+    });
+
+    displayProducts(getFilteredProducts());
+
+  } catch (error) {
+    /*
+      Do not hide the products if seller lookup fails.
+    */
+    console.error("OGARS seller information error:", error);
+  }
+}
+
+/* PHONE NUMBER */
+
+function cleanPhoneNumber(phone) {
+  let value = String(phone || "").replace(/[^\d+]/g, "");
+
+  if (value.startsWith("+")) {
+    value = value.substring(1);
+  }
+
+  if (value.startsWith("0")) {
+    value = "233" + value.substring(1);
+  }
+
+  return value;
+}
+
+/* PRODUCT CARD */
+
+function createProductCard(product) {
+  const card = document.createElement("article");
+  card.className = "product-card";
+
+  const photoUrls = String(product.photo_urls || "")
+    .split(",")
+    .map(url => url.trim())
+    .filter(Boolean);
+
+  const photo = photoUrls[0] || "";
+
+  const business =
+    businessMap[String(product.business_id)] || null;
+
+  const businessName =
+    business?.business_name || "Business";
+
+  const businessPhone =
+    business?.phone || "";
+
+  const businessLocation =
+    business?.location || "";
+
+  let imageHtml = `
+    <div class="no-image">🛍️</div>
+  `;
+
+  if (photo) {
+    imageHtml = `
+      <img
+        class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(product.product_name || "Product")}"
+        loading="lazy"
+        decoding="async"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'"
+      >
+    `;
+  }
+
+  let priceText = "Price on request";
+
+  if (
+    product.price !== null &&
+    product.price !== undefined &&
+    product.price !== ""
+  ) {
+    const numericPrice = Number(product.price);
+
+    if (Number.isFinite(numericPrice)) {
+      priceText = "GH₵" + numericPrice.toFixed(2);
+    }
+  }
+
+  let deliveryText = "🚫 No Delivery";
+
+  if (product.delivery_available === true) {
+    deliveryText = "🚚 Delivery Available";
+
+    if (product.delivery_fee_type === "free") {
+      deliveryText += " • Free delivery";
+    } else if (product.delivery_fee_type === "fixed") {
+      deliveryText +=
+        " • GH₵" +
+        Number(product.delivery_fee || 0).toFixed(2);
+    } else if (product.delivery_fee_type === "negotiable") {
+      deliveryText += " • Fee negotiable";
+    }
+
+    if (product.delivery_areas) {
+      deliveryText +=
+        " • " + String(product.delivery_areas);
+    }
+  }
+
+  let contactButtons = "";
+
+  if (businessPhone) {
+    const phone = cleanPhoneNumber(businessPhone);
+
+    const message = encodeURIComponent(
+      'Hello, I found your product "' +
+      (product.product_name || "product") +
+      '" on OGARS. Is it available?'
+    );
+
+    contactButtons = `
+      <div class="button-row">
+        <a
+          class="button whatsapp"
+          href="https://wa.me/${escapeHtml(phone)}?text=${message}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >💬 WhatsApp</a>
+
+        <a
+          class="button call"
+          href="tel:${escapeHtml(businessPhone)}"
+        >📞 Call Seller</a>
+      </div>
+    `;
+  }
+
+  card.innerHTML = `
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">
+        ${escapeHtml(product.category || "Other")}
+      </div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">
+        ${escapeHtml(product.product_name || "Unnamed Product")}
+      </h2>
+
+      <div class="price">${escapeHtml(priceText)}</div>
+
+      ${
+        product.description
+          ? `<div class="description">${escapeHtml(product.description)}</div>`
+          : ""
+      }
+
+      <div class="business">
+        🏢 <strong>${escapeHtml(businessName)}</strong>
+        ${
+          businessLocation
+            ? `<br>📍 ${escapeHtml(businessLocation)}`
+            : ""
+        }
+      </div>
+
+      <div class="delivery">
+        ${escapeHtml(deliveryText)}
+      </div>
+
+      ${contactButtons}
+    </div>
+  `;
+
+  return card;
+}
+
+/* DISPLAY PRODUCTS */
+
+function displayProducts(products) {
+  const container = document.getElementById("products");
+
+  document.getElementById("results-count").textContent =
+    products.length +
+    (products.length === 1 ? " product found" : " products found");
+
+  if (products.length === 0) {
+    container.innerHTML = `
+      <div class="message">
+        <strong>🔍 No products found</strong>
+        Try another search or clear the filters.
+      </div>
+    `;
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  products.forEach(product => {
+    fragment.appendChild(createProductCard(product));
+  });
+
+  container.replaceChildren(fragment);
+}
+
+/* SEARCH AND FILTERS */
+
+function getFilteredProducts() {
+  const search = document
+    .getElementById("product-search")
+    .value
+    .toLowerCase()
+    .trim();
 
   const category =
-    document
-      .getElementById(
-        "category-filter"
-      )
-      .value;
-
+    document.getElementById("category-filter").value;
 
   const delivery =
-    document
-      .getElementById(
-        "delivery-filter"
-      )
-      .value;
+    document.getElementById("delivery-filter").value;
 
+  return allProducts.filter(product => {
+    const business =
+      businessMap[String(product.business_id)] || null;
 
-  const filtered =
-    allProducts.filter(
-      function(product) {
+    const text = [
+      product.product_name,
+      product.category,
+      product.description,
+      business?.business_name,
+      business?.location
+    ].filter(Boolean).join(" ").toLowerCase();
 
+    const matchesSearch =
+      !search || text.includes(search);
 
-        const searchableText =
-          (
-            (product.product_name || "") +
-            " " +
-            (product.category || "") +
-            " " +
-            (product.description || "") +
-            " " +
-            (
-              product.business
-                ? product.business.business_name
-                : ""
-            ) +
-            " " +
-            (
-              product.business
-                ? product.business.location
-                : ""
-            )
-          )
-          .toLowerCase();
+    const matchesCategory =
+      !category || product.category === category;
 
+    const matchesDelivery =
+      !delivery ||
+      (delivery === "yes" && product.delivery_available === true) ||
+      (delivery === "no" && product.delivery_available !== true);
 
-        const matchesSearch =
-          !search ||
-          searchableText.includes(
-            search
-          );
-
-
-        const matchesCategory =
-          !category ||
-          product.category ===
-            category;
-
-
-        const matchesDelivery =
-          !delivery ||
-          (
-            delivery === "yes" &&
-            product.delivery_available === true
-          ) ||
-          (
-            delivery === "no" &&
-            product.delivery_available !== true
-          );
-
-
-        return (
-          matchesSearch &&
-          matchesCategory &&
-          matchesDelivery
-        );
-
-      }
-    );
-
-
-  displayProducts(
-    filtered
-  );
-
+    return matchesSearch && matchesCategory && matchesDelivery;
+  });
 }
 
-
-/* ================================
-   CLEAR FILTERS
-================================ */
+function filterProducts() {
+  displayProducts(getFilteredProducts());
+}
 
 function clearFilters() {
+  document.getElementById("product-search").value = "";
+  document.getElementById("category-filter").value = "";
+  document.getElementById("delivery-filter").value = "";
 
-  document
-    .getElementById(
-      "product-search"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "category-filter"
-    )
-    .value = "";
-
-
-  document
-    .getElementById(
-      "delivery-filter"
-    )
-    .value = "";
-
-
-  displayProducts(
-    allProducts
-  );
-
+  filterProducts();
 }
 
-
-/* ================================
-   PHONE CLEANING
-================================ */
-
-function cleanPhoneNumber(
-  phone
-) {
-
-  return String(
-    phone || ""
-  )
-    .replace(
-      /\s+/g,
-      ""
-    )
-    .replace(
-      /^\+233/,
-      "233"
-    )
-    .replace(
-      /^0/,
-      "233"
-    );
-
-}
-
-
-/* ================================
-   ESCAPE HTML
-================================ */
-
-function escapeHtml(
-  value
-) {
-
-  return String(
-    value || ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(
-  value
-) {
-
-  return escapeHtml(
-    value
-  );
-
-}
-
-
-/* ================================
-   EVENTS
-================================ */
+document
+  .getElementById("product-search")
+  .addEventListener("input", filterProducts);
 
 document
-  .getElementById(
-    "product-search"
-  )
-  .addEventListener(
-    "input",
-    filterProducts
-  );
-
+  .getElementById("category-filter")
+  .addEventListener("change", filterProducts);
 
 document
-  .getElementById(
-    "category-filter"
-  )
-  .addEventListener(
-    "change",
-    filterProducts
-  );
-
+  .getElementById("delivery-filter")
+  .addEventListener("change", filterProducts);
 
 document
-  .getElementById(
-    "delivery-filter"
-  )
-  .addEventListener(
-    "change",
-    filterProducts
-  );
+  .getElementById("clear-filters")
+  .addEventListener("click", clearFilters);
 
-
-document
-  .getElementById(
-    "clear-filters"
-  )
-  .addEventListener(
-    "click",
-    clearFilters
-  );
-
-
-/* ================================
-   START
-================================ */
+/* START */
 
 loadProducts();
 
 </script>
-
 
 </body>
 </html>
