@@ -1123,9 +1123,23 @@ async function loadProducts() {
       );
 
 
-  if (error) {
+if (error) {
 
-    console.error(error);
+  console.error("OGARS PRODUCTS ERROR:", error);
+
+  productsContainer.innerHTML = `
+    <div class="empty error">
+      <h3>Unable to load products</h3>
+      <p>${escapeHtml(error.message)}</p>
+      <p>Please refresh and try again.</p>
+    </div>
+  `;
+
+  document.getElementById("results-count").textContent =
+    "Product loading error";
+
+  return;
+}
 
 
     productsContainer.innerHTML = `
