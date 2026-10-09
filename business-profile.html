@@ -296,7 +296,7 @@ async function loadBusiness() {
       .from("businesses")
       .select("*")
       .eq("id", businessId)
-      .single();
+      .maybeSingle();
 
 
   if (error) {
