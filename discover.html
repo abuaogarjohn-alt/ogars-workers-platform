@@ -1,345 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Discover & Advertise - OGARS</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7f8;
-      color: #222;
-      line-height: 1.5;
-    }
-
-    header {
-      background: #008000;
-      color: white;
-      padding: 25px 18px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    header h1 {
-      font-size: 28px;
-    }
-
-    header p {
-      margin-top: 7px;
-      font-size: 14px;
-      opacity: 0.95;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 22px 15px;
-    }
-
-    .intro {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      text-align: center;
-    }
-
-    .intro h2 {
-      color: #008000;
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .intro p {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      border: 1px solid #eee;
-      text-align: center;
-    }
-
-    .icon {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      font-size: 18px;
-      margin-bottom: 7px;
-    }
-
-    .card p {
-      color: #666;
-      font-size: 13px;
-      min-height: 42px;
-    }
-
-    .button {
-      display: block;
-      background: #008000;
-      color: white;
-      text-decoration: none;
-      padding: 11px;
-      margin-top: 15px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .button:hover {
-      background: #006400;
-    }
-
-    .advertise {
-      background: #008000;
-      color: white;
-      margin-top: 20px;
-      padding: 22px;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .advertise h2 {
-      font-size: 21px;
-      margin-bottom: 7px;
-    }
-
-    .advertise p {
-      font-size: 14px;
-      opacity: 0.95;
-    }
-
-    .advertise .button {
-      background: white;
-      color: #008000;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .back {
-      display: block;
-      text-align: center;
-      margin: 25px 0;
-      color: #008000;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      color: #777;
-      font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fffaf0">
+<meta name="description" content="Discover schools, churches, organizations, events, training and promotions on OGARS PLATFORM.">
+<title>Discover & Advertise | OGARS PLATFORM</title>
+<style>
+:root{--gold:#d3a022;--gold-dark:#986b08;--orange:#f4510b;--orange-dark:#dc4305;--cream:#fff8e9;--cream-deep:#fff0cf;--ink:#171717;--muted:#626b75;--line:#eee2cc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fffdf8;line-height:1.5}a{color:inherit;text-decoration:none}
+.site-header{background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 8px rgba(50,30,0,.035)}.header-inner{width:min(1180px,100%);margin:auto;padding:12px 22px;min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-mark{width:47px;height:47px;display:grid;place-items:center;flex-shrink:0;border:4px solid var(--gold);border-right-color:transparent;border-radius:50%;color:var(--gold-dark);font-size:24px;font-weight:900;transform:rotate(-12deg)}.brand-name{font-weight:900;letter-spacing:-.7px;font-size:clamp(18px,2.4vw,25px);line-height:1.1;white-space:nowrap}.brand-name span{color:var(--orange)}.brand-tag{font-size:11px;font-weight:700;color:#484848;margin-top:4px}
+.header-actions{display:flex;align-items:center;gap:9px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 17px;border-radius:10px;font-weight:800;font-size:13px;border:1px solid transparent;transition:transform .15s,filter .15s}.btn:hover{transform:translateY(-1px);filter:brightness(.98)}.btn-orange{background:linear-gradient(110deg,#ff5b08,var(--orange-dark));color:#fff}.btn-light{background:#fff;border-color:#e6b75c;color:#533c0b}
+.hero{background:linear-gradient(100deg,rgba(255,248,225,.98),rgba(255,239,198,.88) 60%,rgba(255,224,156,.6));border-bottom:1px solid #f2e5cc}.hero-inner{width:min(1180px,100%);margin:auto;padding:29px 22px 25px;display:flex;align-items:center;justify-content:space-between;gap:25px}.eyebrow{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #ecd28f;border-radius:999px;padding:5px 11px;color:var(--gold-dark);font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;margin-bottom:11px}
+h1{font-size:clamp(29px,4vw,43px);letter-spacing:-1.4px;line-height:1.08;margin:0 0 9px;font-weight:900}h1 span{color:var(--gold-dark)}.hero p{font-size:15px;line-height:1.5;color:#4e4a42;margin:0;max-width:660px}.hero-art{width:116px;height:116px;flex-shrink:0;border-radius:28px;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#ffedc5);border:1px solid #ecd7a9;box-shadow:0 5px 18px rgba(74,48,5,.08);font-size:57px}
+.container{width:min(1180px,100%);margin:auto;padding:22px}.intro-row{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:15px}.section-kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold-dark);font-weight:900;margin-bottom:4px}h2{font-size:clamp(21px,2.6vw,28px);letter-spacing:-.65px;line-height:1.15;margin:0 0 5px}.intro-row p{font-size:13px;color:var(--muted);margin:0;max-width:650px}.count-pill{flex-shrink:0;border-radius:999px;background:var(--cream-deep);border:1px solid #f0dfb6;padding:7px 11px;font-size:11px;font-weight:800;color:#725313}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.card{position:relative;min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:0 2px 8px rgba(54,35,0,.045);overflow:hidden;transition:transform .18s,box-shadow .18s,border-color .18s}.card:hover{transform:translateY(-3px);box-shadow:0 5px 18px rgba(74,48,5,.08);border-color:#e8c76f}.card-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}.icon{width:53px;height:53px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#fff7e3,#ffedc2);border:1px solid #f2e1b8;font-size:29px;flex-shrink:0}.card h3{font-size:17px;line-height:1.2;margin:0 0 3px}.card-tag{font-size:10px;color:var(--gold-dark);font-weight:800;text-transform:uppercase;letter-spacing:.7px}.card p{color:var(--muted);font-size:12px;line-height:1.5;margin:0 0 14px;flex:1;min-height:36px}.button{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;background:var(--orange);color:#fff;padding:11px 12px;border-radius:9px;font-weight:800;font-size:12px}.button:hover{background:var(--orange-dark)}
+.advertise{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:16px;margin-top:18px;padding:19px 21px;border-radius:16px;border:1px solid #f0d58d;background:linear-gradient(110deg,#fff0bf,#fff8e7 70%);box-shadow:0 3px 12px rgba(70,47,4,.05)}.advertise-icon{font-size:39px;text-align:center}.advertise h2{font-size:21px;margin:0 0 5px}.advertise p{font-size:12px;color:#62533b;margin:0;max-width:680px}.advertise .btn{min-width:185px}
+.bottom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line)}.back{font-size:12px;font-weight:800;color:var(--gold-dark)}.bottom-note{font-size:11px;color:#858079}footer{background:#241b0e;color:#fff;margin-top:7px}.footer-inner{width:min(1180px,100%);margin:auto;padding:17px 22px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.footer-brand{font-size:15px;font-weight:900}.footer-brand span{color:#ff6a24}footer p{font-size:10px;color:#ddd0bb;margin:3px 0 0}.footer-links{display:flex;gap:14px;flex-wrap:wrap}.footer-links a{font-size:11px;color:#f5e9d7}
+@media(max-width:760px){.header-inner{min-height:70px;padding:10px 14px;gap:10px}.brand-mark{width:40px;height:40px;font-size:20px;border-width:3px}.brand-name{font-size:clamp(16px,4.2vw,21px)}.brand-tag{font-size:9px}.header-actions .btn-light{display:none}.header-actions .btn{padding:10px 12px;font-size:12px}.hero-inner{padding:25px 16px 22px;gap:12px}.hero-art{width:68px;height:68px;border-radius:18px;font-size:34px}h1{font-size:clamp(28px,7vw,37px)}.hero p{font-size:13px}.container{padding:20px 14px}.intro-row{align-items:start}.count-pill{font-size:10px;padding:6px 8px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:12px;border-radius:13px}.card-top{gap:9px;margin-bottom:8px}.icon{width:43px;height:43px;font-size:24px;border-radius:12px}.card h3{font-size:14px}.card-tag{font-size:9px}.card p{font-size:11px;min-height:50px;margin-bottom:10px}.button{padding:10px 7px;font-size:11px}.advertise{grid-template-columns:37px minmax(0,1fr);gap:10px;padding:15px 12px}.advertise-icon{font-size:29px}.advertise h2{font-size:18px}.advertise p{font-size:11px}.advertise .btn{grid-column:1/-1;width:100%;min-width:0}.bottom-row{align-items:flex-start;flex-direction:column}.footer-inner{padding:16px 14px;align-items:flex-start;flex-direction:column}}
+@media(max-width:360px){.brand-tag{font-size:8px}.header-actions .btn{padding:9px}.hero-art{display:none}.grid{gap:8px}.card{padding:10px}.card-top{align-items:flex-start;flex-direction:column}.card p{min-height:62px}.intro-row{flex-direction:column}}
+</style>
 </head>
-
 <body>
-
-<header>
-  <h1>🌍 Discover & Advertise</h1>
-  <p>Discover places, organizations, events and opportunities around you.</p>
-</header>
-
-<div class="container">
-
-  <div class="intro">
-    <h2>What would you like to discover?</h2>
-
-    <p>
-      Find schools, churches, organizations, events, promotions
-      and other useful listings on OGARS.
-    </p>
-  </div>
-
-
-  <div class="grid">
-
-
-    <div class="card">
-
-      <div class="icon">🏫</div>
-
-      <h3>Schools</h3>
-
-      <p>
-        Discover schools, programs and admission opportunities.
-      </p>
-
-      <a
-        href="find-discover.html?type=School"
-        class="button"
-      >
-        Find Schools
-      </a>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="icon">⛪</div>
-
-      <h3>Churches</h3>
-
-      <p>
-        Find churches, services, programs and special events.
-      </p>
-
-      <a
-        href="find-discover.html?type=Church"
-        class="button"
-      >
-        Find Churches
-      </a>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="icon">🏢</div>
-
-      <h3>Organizations</h3>
-
-      <p>
-        Discover organizations, groups and community activities.
-      </p>
-
-      <a
-        href="find-discover.html?type=Organization"
-        class="button"
-      >
-        Find Organizations
-      </a>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="icon">🎉</div>
-
-      <h3>Events</h3>
-
-      <p>
-        Discover upcoming events, programs and activities.
-      </p>
-
-      <a
-        href="find-discover.html?type=Event"
-        class="button"
-      >
-        Find Events
-      </a>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="icon">🎓</div>
-
-      <h3>Training & Courses</h3>
-
-      <p>
-        Find training programs, courses and learning opportunities.
-      </p>
-
-      <a
-        href="find-discover.html?type=Training%20%26%20Course"
-        class="button"
-      >
-        Find Training
-      </a>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="icon">📢</div>
-
-      <h3>Promotions</h3>
-
-      <p>
-        Discover special offers, promotions and announcements.
-      </p>
-
-      <a
-        href="find-discover.html?type=Promotion"
-        class="button"
-      >
-        View Promotions
-      </a>
-
-    </div>
-
-
-  </div>
-
-
-  <div class="advertise">
-
-    <h2>📣 Advertise on OGARS</h2>
-
-    <p>
-      Promote your school, church, organization, event,
-      course, business or special offer.
-    </p>
-
-    <a
-      href="advertise.html"
-      class="button"
-    >
-      Advertise With OGARS
-    </a>
-
-  </div>
-
-
-  <a
-    href="index.html"
-    class="back"
-  >
-    ← Back to Home
-  </a>
-
-</div>
-
-
-<footer>
-  © 2026 OGARS Workers Platform
-</footer>
-
-
+<header class="site-header"><div class="header-inner">
+<a class="brand" href="index.html" aria-label="OGARS PLATFORM home"><div class="brand-mark">O</div><div><div class="brand-name">OGARS <span>PLATFORM</span></div><div class="brand-tag">Buy • Sell • Find • Hire • Rent • Connect</div></div></a>
+<div class="header-actions"><a class="btn btn-light" href="account.html">👤 Login</a><a class="btn btn-orange" href="account.html">Sign Up →</a></div>
+</div></header>
+<section class="hero"><div class="hero-inner"><div><div class="eyebrow">🌍 Explore the community</div><h1>Discover more.<br><span>Find your opportunities.</span></h1><p>Explore schools, churches, organizations, events, training programs and promotions from around your community.</p></div><div class="hero-art" aria-hidden="true">🌍</div></div></section>
+<main class="container">
+<div class="intro-row"><div><div class="section-kicker">Discover on OGARS</div><h2>What would you like to discover?</h2><p>Choose a category below to find useful listings, programs and opportunities.</p></div><div class="count-pill">6 CATEGORIES</div></div>
+<section class="grid" aria-label="Discover categories">
+<article class="card"><div class="card-top"><div class="icon">🏫</div><div><div class="card-tag">Education</div><h3>Schools</h3></div></div><p>Discover schools, programs and admission opportunities.</p><a href="find-discover.html?type=School" class="button">Find Schools <span>→</span></a></article>
+<article class="card"><div class="card-top"><div class="icon">⛪</div><div><div class="card-tag">Faith &amp; community</div><h3>Churches</h3></div></div><p>Find churches, service times, programs and special events.</p><a href="find-discover.html?type=Church" class="button">Find Churches <span>→</span></a></article>
+<article class="card"><div class="card-top"><div class="icon">🏢</div><div><div class="card-tag">Community</div><h3>Organizations</h3></div></div><p>Discover organizations, groups and community activities.</p><a href="find-discover.html?type=Organization" class="button">Find Organizations <span>→</span></a></article>
+<article class="card"><div class="card-top"><div class="icon">🎉</div><div><div class="card-tag">What's happening</div><h3>Events</h3></div></div><p>Discover upcoming events, programs and activities.</p><a href="find-discover.html?type=Event" class="button">Find Events <span>→</span></a></article>
+<article class="card"><div class="card-top"><div class="icon">🎓</div><div><div class="card-tag">Learn &amp; grow</div><h3>Training &amp; Courses</h3></div></div><p>Find training programs, courses and learning opportunities.</p><a href="find-discover.html?type=Training%20%26%20Course" class="button">Find Training <span>→</span></a></article>
+<article class="card"><div class="card-top"><div class="icon">📢</div><div><div class="card-tag">Special offers</div><h3>Promotions</h3></div></div><p>Discover special offers, promotions and announcements.</p><a href="find-discover.html?type=Promotion" class="button">View Promotions <span>→</span></a></article>
+</section>
+<section class="advertise"><div class="advertise-icon" aria-hidden="true">📣</div><div><h2>Promote something on OGARS?</h2><p>Reach people with your school, church, organization, event, course, business or special offer.</p></div><a href="advertise.html" class="btn btn-orange">Advertise With OGARS →</a></section>
+<div class="bottom-row"><a href="index.html" class="back">← Back to OGARS PLATFORM Home</a><span class="bottom-note">Buy • Sell • Find • Hire • Rent • Connect</span></div>
+</main>
+<footer><div class="footer-inner"><div><div class="footer-brand">OGARS <span>PLATFORM</span></div><p>© 2026 OGARS PLATFORM. All rights reserved.</p></div><nav class="footer-links" aria-label="Footer navigation"><a href="discover.html">Adverts</a><a href="jobs.html">Jobs</a><a href="workers.html">Workers</a><a href="find-property.html">Property</a><a href="account.html">My Account</a></nav></div></footer>
 </body>
 </html>
