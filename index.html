@@ -1,2109 +1,1783 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>OGARS PLATFORM | Your Opportunities, All in One Place</title>
-  <meta name="description" content="Welcome to OGARS. Find skilled workers, jobs, products, properties, drivers, businesses and opportunities across Ghana.">
-  <meta name="theme-color" content="#c99a2e">
-  <meta name="color-scheme" content="light">
-
-  <style>
-    :root {
-      --green: #008000;
-      --dark-green: #006400;
-      --light-green: #eaf7ea;
-      --background: #f4f7f5;
-      --text: #202820;
-      --muted: #657065;
-      --border: #e4eae4;
-      --white: #ffffff;
-      --radius: 17px;
-      --shadow: 0 4px 16px rgba(0, 50, 0, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      line-height: 1.55;
-      min-height: 100vh;
-      overflow-wrap: break-word;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-    }
-
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    a:focus-visible,
-    button:focus-visible,
-    input:focus-visible {
-      outline: 3px solid #ffcc00;
-      outline-offset: 3px;
-    }
-
-    header {
-      background: var(--green);
-      color: var(--white);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
-    }
-
-    .header-inner {
-      max-width: 1150px;
-      margin: auto;
-      padding: 12px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      min-width: 0;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      line-height: 1.2;
-    }
-
-    .tagline {
-      font-size: 12px;
-      opacity: 0.95;
-      margin-top: 2px;
-    }
-
-    .join-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 16px;
-      background: var(--white);
-      color: var(--dark-green);
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .join-button:hover {
-      background: #eef9ee;
-    }
-
-    .hero {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      background: #064c20;
-      color: var(--white);
-      padding: 64px 20px 56px;
-      text-align: center;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background-image: url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85");
-      background-size: cover;
-      background-position: center 45%;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(
-        115deg,
-        rgba(0, 72, 20, 0.94),
-        rgba(0, 100, 0, 0.83),
-        rgba(0, 45, 10, 0.77)
-      );
-    }
-
-    .hero-content {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .hero-label {
-      display: inline-block;
-      padding: 6px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 17px;
-      letter-spacing: 0.5px;
-    }
-
-    .hero h1 {
-      font-size: clamp(30px, 5vw, 46px);
-      line-height: 1.18;
-      margin-bottom: 15px;
-      letter-spacing: -0.7px;
-    }
-
-    .hero h1 span {
-      color: #b8ff9d;
-    }
-
-    .hero p {
-      max-width: 680px;
-      margin: 0 auto 24px;
-      font-size: 16px;
-      color: #f0fff0;
-    }
-
-    .hero-actions {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 26px;
-    }
-
-    .hero-link {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 46px;
-      padding: 11px 19px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .hero-link.primary {
-      background: #ffffff;
-      color: var(--dark-green);
-    }
-
-    .hero-link.secondary {
-      color: #ffffff;
-      border: 1px solid rgba(255,255,255,0.65);
-      background: rgba(255,255,255,0.1);
-    }
-
-    .search-box {
-      width: 100%;
-      max-width: 690px;
-      margin: auto;
-      display: flex;
-      align-items: stretch;
-      gap: 7px;
-      background: var(--white);
-      padding: 6px;
-      border-radius: 13px;
-      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .search-box input {
-      flex: 1;
-      width: 100%;
-      min-width: 0;
-      min-height: 49px;
-      padding: 12px 14px;
-      border: 2px solid transparent;
-      border-radius: 9px;
-      background: var(--white);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .search-box input:focus {
-      border-color: var(--green);
-    }
-
-    .search-button {
-      min-height: 49px;
-      padding: 0 20px;
-      border: none;
-      border-radius: 9px;
-      background: #172117;
-      color: var(--white);
-      font-family: inherit;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .search-button:hover {
-      background: #2d422d;
-    }
-
-    .search-hint {
-      margin-top: 12px;
-      font-size: 12px;
-      color: #e1f4e1;
-    }
-
-    .welcome-strip {
-      max-width: 1106px;
-      margin: -1px auto 0;
-      padding: 24px 22px 5px;
-      text-align: center;
-    }
-
-    .welcome-strip h2 {
-      font-size: clamp(22px, 3vw, 28px);
-      margin-bottom: 7px;
-      line-height: 1.3;
-    }
-
-    .welcome-strip p {
-      max-width: 760px;
-      margin: auto;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .container {
-      max-width: 1150px;
-      margin: auto;
-      padding: 25px 22px 36px;
-    }
-
-    section {
-      scroll-margin-top: 90px;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 23px;
-    }
-
-    .section-title h2 {
-      font-size: clamp(22px, 3vw, 28px);
-      line-height: 1.3;
-      margin-bottom: 6px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .category-block {
-      margin-bottom: 34px;
-    }
-
-    .category-heading {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .category-heading .category-emoji {
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--light-green);
-      border-radius: 12px;
-      font-size: 23px;
-      flex-shrink: 0;
-    }
-
-    .category-heading h3 {
-      font-size: 21px;
-      line-height: 1.3;
-    }
-
-    .category-heading p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 2px;
-    }
-
-    .options {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 15px;
-    }
-
-    .option {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      min-width: 0;
-      min-height: 315px;
-      overflow: hidden;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--text);
-      box-shadow: var(--shadow);
-      transition: transform 0.2s ease, box-shadow 0.2s ease,
-        border-color 0.2s ease;
-    }
-
-    .option:hover {
-      transform: translateY(-4px);
-      border-color: #a9d9a9;
-      box-shadow: 0 8px 23px rgba(0, 70, 0, 0.13);
-    }
-
-    .option-image {
-      height: 155px;
-      flex-shrink: 0;
-      overflow: hidden;
-      background: #e3eee3;
-    }
-
-    .option-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.35s ease;
-    }
-
-    .option:hover .option-image img {
-      transform: scale(1.045);
-    }
-
-    .option-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      flex: 1;
-      padding: 17px 18px 18px;
-    }
-
-    .option-icon {
-      width: 39px;
-      height: 39px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: -36px;
-      margin-bottom: 11px;
-      position: relative;
-      background: var(--white);
-      border: 3px solid var(--white);
-      border-radius: 11px;
-      font-size: 22px;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.08);
-    }
-
-    .option h3 {
-      font-size: 18px;
-      line-height: 1.35;
-      margin-bottom: 7px;
-    }
-
-    .option p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .arrow {
-      display: block;
-      margin-top: auto;
-      padding-top: 13px;
-      color: var(--dark-green);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .featured {
-      margin-top: 36px;
-    }
-
-    .featured-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 28px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .featured-box h2 {
-      font-size: 22px;
-      line-height: 1.35;
-      margin-bottom: 8px;
-    }
-
-    .featured-box p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .green-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 12px 19px;
-      border-radius: 10px;
-      background: var(--green);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .green-button:hover {
-      background: var(--dark-green);
-    }
-
-    .services {
-      margin-top: 42px;
-    }
-
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .service {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 55px;
-      padding: 12px 10px;
-      text-align: center;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .trust {
-      margin-top: 42px;
-      padding: 38px 25px;
-      background: linear-gradient(135deg, #172b19, #064c20);
-      color: var(--white);
-      border-radius: var(--radius);
-      text-align: center;
-    }
-
-    .trust h2 {
-      font-size: 25px;
-      margin-bottom: 11px;
-    }
-
-    .trust p {
-      max-width: 740px;
-      margin: auto;
-      color: #dce8dc;
-      font-size: 14px;
-      line-height: 1.8;
-    }
-
-    .trust-points {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .trust-points span {
-      padding: 8px 12px;
-      border: 1px solid rgba(255,255,255,0.22);
-      background: rgba(255,255,255,0.08);
-      border-radius: 30px;
-      font-size: 12px;
-    }
-
-    footer {
-      margin-top: 42px;
-      background: #172117;
-      color: #c6d1c6;
-      text-align: center;
-      padding: 27px 18px;
-      font-size: 13px;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px 19px;
-      margin-bottom: 18px;
-    }
-
-    .footer-links a {
-      display: inline-flex;
-      align-items: center;
-      min-height: 36px;
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
-    }
-
-    .footer-note {
-      margin-top: 5px;
-      color: #aebbae;
-      font-size: 12px;
-    }
-
-    @media (max-width: 850px) {
-      .options {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .option {
-        min-height: 310px;
-      }
-
-      .option-image {
-        height: 150px;
-      }
-
-      .service-list {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header-inner {
-        padding: 11px 15px;
-      }
-
-      .logo {
-        font-size: 25px;
-      }
-
-      .tagline {
-        display: block;
-        font-size: 10px;
-      }
-
-      .join-button {
-        min-height: 44px;
-        padding: 9px 12px;
-        font-size: 13px;
-      }
-
-      .hero {
-        padding: 40px 15px 35px;
-      }
-
-      .hero-label {
-        font-size: 10px;
-        margin-bottom: 13px;
-      }
-
-      .hero h1 {
-        font-size: 31px;
-      }
-
-      .hero p {
-        font-size: 14px;
-        margin-bottom: 20px;
-      }
-
-      .hero-actions {
-        gap: 8px;
-        margin-bottom: 22px;
-      }
-
-      .hero-link {
-        min-height: 43px;
-        padding: 10px 13px;
-        font-size: 13px;
-      }
-
-      .search-box {
-        flex-direction: column;
-        padding: 7px;
-        gap: 7px;
-      }
-
-      .search-box input {
-        min-height: 48px;
-        font-size: 16px;
-      }
-
-      .search-button {
-        width: 100%;
-        min-height: 48px;
-      }
-
-      .search-hint {
-        font-size: 11px;
-      }
-
-      .welcome-strip {
-        padding: 23px 15px 3px;
-      }
-
-      .welcome-strip h2 {
-        font-size: 23px;
-      }
-
-      .welcome-strip p {
-        font-size: 13px;
-      }
-
-      .container {
-        padding: 24px 13px 30px;
-      }
-
-      .section-title {
-        margin-bottom: 24px;
-      }
-
-      .section-title p {
-        font-size: 13px;
-      }
-
-      .category-block {
-        margin-bottom: 28px;
-      }
-
-      .category-heading {
-        margin-bottom: 11px;
-      }
-
-      .category-heading .category-emoji {
-        width: 38px;
-        height: 38px;
-        font-size: 21px;
-      }
-
-      .category-heading h3 {
-        font-size: 19px;
-      }
-
-      .category-heading p {
-        font-size: 12px;
-      }
-
-      .options {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 11px;
-      }
-
-      .option {
-        min-height: 310px;
-        border-radius: 13px;
-      }
-
-      .option-image {
-        height: 118px;
-      }
-
-      .option-content {
-        padding: 14px 11px 14px;
-      }
-
-      .option-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
-        margin-top: -32px;
-        margin-bottom: 9px;
-        border-radius: 10px;
-      }
-
-      .option h3 {
-        font-size: 15px;
-        line-height: 1.35;
-      }
-
-      .option p {
-        font-size: 12px;
-        line-height: 1.5;
-      }
-
-      .arrow {
-        padding-top: 12px;
-        font-size: 12px;
-      }
-
-      .featured {
-        margin-top: 27px;
-      }
-
-      .featured-box {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 17px;
-        padding: 22px 16px;
-        text-align: center;
-      }
-
-      .featured-box h2 {
-        font-size: 20px;
-      }
-
-      .featured-box p {
-        font-size: 13px;
-      }
-
-      .green-button {
-        width: 100%;
-        white-space: normal;
-        text-align: center;
-      }
-
-      .services {
-        margin-top: 32px;
-      }
-
-      .service-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 9px;
-      }
-
-      .service {
-        min-height: 52px;
-        padding: 10px 7px;
-        font-size: 13px;
-        gap: 5px;
-      }
-
-      .trust {
-        margin-top: 32px;
-        padding: 28px 16px;
-      }
-
-      .trust h2 {
-        font-size: 22px;
-      }
-
-      .trust p {
-        font-size: 13px;
-        line-height: 1.75;
-      }
-
-      .trust-points {
-        gap: 7px;
-      }
-
-      .trust-points span {
-        font-size: 11px;
-        padding: 7px 9px;
-      }
-
-      footer {
-        margin-top: 30px;
-        padding: 24px 14px;
-      }
-
-      .footer-links {
-        gap: 5px 13px;
-        margin-bottom: 14px;
-      }
-
-      .footer-links a {
-        min-height: 40px;
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .header-inner {
-        padding: 10px;
-      }
-
-      .logo {
-        font-size: 22px;
-      }
-
-      .tagline {
-        font-size: 9px;
-      }
-
-      .join-button {
-        padding: 8px 9px;
-        font-size: 12px;
-      }
-
-      .hero h1 {
-        font-size: 27px;
-      }
-
-      .hero-link {
-        padding: 9px 10px;
-        font-size: 12px;
-      }
-
-      .container {
-        padding-right: 10px;
-        padding-left: 10px;
-      }
-
-      .options {
-        gap: 8px;
-      }
-
-      .option {
-        min-height: 315px;
-      }
-
-      .option-image {
-        height: 105px;
-      }
-
-      .option-content {
-        padding: 12px 9px;
-      }
-
-      .option h3 {
-        font-size: 14px;
-      }
-
-      .option p {
-        font-size: 11px;
-      }
-
-      .arrow {
-        font-size: 11px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-      }
-    }
-
-    /* OGARS PLATFORM gold, cream and white redesign */
-    :root {
-      --green: #bd8b22;
-      --dark-green: #7c5710;
-      --light-green: #fff5df;
-      --background: #fffdf8;
-      --text: #28251f;
-      --muted: #746e62;
-      --border: #eee5d3;
-      --white: #ffffff;
-      --shadow: 0 8px 26px rgba(88, 63, 15, 0.08);
-    }
-
-    header {
-      background: rgba(255,255,255,0.97);
-      color: #29251c;
-      border-bottom: 1px solid #f0e6d2;
-    }
-    .logo { color: #8a6212; letter-spacing: 1.8px; }
-    .tagline { color: #746e62; }
-    .join-button {
-      background: #c99a2e;
-      color: #fff;
-      border: 1px solid #c99a2e;
-    }
-    .join-button:hover { background: #a87918; color: #fff; }
-    .hero {
-      background: #f7edda;
-      color: #fff;
-      padding-top: 68px;
-      padding-bottom: 62px;
-    }
-    .hero::after {
-      background: linear-gradient(115deg,
-        rgba(42, 32, 14, 0.82),
-        rgba(115, 78, 13, 0.70),
-        rgba(34, 27, 15, 0.76));
-    }
-    .hero h1 span { color: #ffd77b; }
-    .hero-label {
-      border-color: rgba(255, 221, 151, 0.65);
-      background: rgba(201, 154, 46, 0.25);
-    }
-    .hero-link.primary { color: #65480d; }
-    .search-box input:focus { border-color: #c99a2e; }
-    .search-button { background: #c58f1c; color: #fff; }
-    .search-button:hover { background: #9f7115; }
-    .category-heading .category-emoji { background: #fff2d2; }
-    .option:hover { border-color: #d8b45f; box-shadow: 0 10px 28px rgba(117, 80, 12, 0.13); }
-    .arrow { color: #95680f; }
-    .green-button { background: #c99a2e; color: #fff; }
-    .green-button:hover { background: #a87918; }
-    .trust { background: linear-gradient(135deg, #382c15, #7a5717); }
-    footer { background: #29251d; }
-
-    .latest-adverts {
-      padding: 38px 0 18px;
-      background: linear-gradient(180deg, #fffaf0 0%, #fffdf8 100%);
-      border-top: 1px solid #f1e5cb;
-      border-bottom: 1px solid #f1e5cb;
-    }
-    .latest-adverts-inner {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 0 22px 26px;
-    }
-    .latest-adverts-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-    .latest-adverts-heading h2 {
-      color: #29251d;
-      font-size: clamp(24px, 3vw, 31px);
-      line-height: 1.25;
-      margin: 4px 0 7px;
-    }
-    .latest-adverts-heading p {
-      color: #746e62;
-      font-size: 14px;
-      max-width: 640px;
-    }
-    .eyebrow {
-      color: #a87918;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.3px;
-    }
-    .sort-control {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-      color: #625a4b;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .sort-control select {
-      min-height: 42px;
-      max-width: 180px;
-      padding: 8px 11px;
-      border: 1px solid #e7d7b5;
-      border-radius: 10px;
-      background: #fff;
-      color: #30291c;
-      font: inherit;
-    }
-    .adverts-status {
-      color: #746e62;
-      text-align: center;
-      padding: 24px 10px;
-      font-size: 14px;
-    }
-    .adverts-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 15px;
-    }
-    .advert-card {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-      overflow: hidden;
-      border: 1px solid #eee4d0;
-      border-radius: 15px;
-      background: #fff;
-      color: #29251d;
-      text-decoration: none;
-      box-shadow: 0 5px 18px rgba(75, 55, 16, 0.06);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .advert-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 24px rgba(75, 55, 16, 0.12);
-    }
-    .advert-image-wrap {
-      position: relative;
-      height: 155px;
-      background: #f4ead4;
-      overflow: hidden;
-    }
-    .advert-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .advert-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 5px 8px;
-      border-radius: 20px;
-      background: #fff;
-      color: #815c12;
-      font-size: 10px;
-      font-weight: 800;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
-    .advert-card-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 7px;
-      padding: 13px 14px 15px;
-      flex: 1;
-    }
-    .advert-card h3 {
-      width: 100%;
-      font-size: 15px;
-      line-height: 1.4;
-      overflow-wrap: anywhere;
-    }
-    .advert-description {
-      color: #746e62;
-      font-size: 12px;
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .advert-price {
-      color: #94670e;
-      font-size: 15px;
-      font-weight: 800;
-      margin-top: auto;
-    }
-    .advert-location, .advert-date {
-      color: #7c766b;
-      font-size: 11px;
-    }
-    .adverts-footer {
-      display: flex;
-      justify-content: center;
-      margin-top: 23px;
-    }
-    .gold-button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 9px;
-      min-height: 46px;
-      padding: 11px 20px;
-      border-radius: 10px;
-      background: #c99a2e;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 5px 14px rgba(143, 99, 12, .15);
-    }
-    .gold-button:hover { background: #a87918; }
-    .adverts-empty {
-      grid-column: 1 / -1;
-      padding: 26px 18px;
-      border: 1px dashed #dfc991;
-      border-radius: 14px;
-      color: #746e62;
-      text-align: center;
-      background: rgba(255,255,255,.7);
-      font-size: 14px;
-    }
-
-    @media (max-width: 850px) {
-      .adverts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .advert-image-wrap { height: 140px; }
-    }
-    @media (max-width: 600px) {
-      .latest-adverts { padding-top: 28px; }
-      .latest-adverts-inner { padding: 0 13px 23px; }
-      .latest-adverts-heading {
-        align-items: stretch;
-        flex-direction: column;
-        gap: 13px;
-      }
-      .sort-control { justify-content: space-between; }
-      .sort-control select { flex: 1; max-width: none; }
-      .adverts-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-      .advert-image-wrap { height: 118px; }
-      .advert-card-content { padding: 11px 10px 12px; gap: 6px; }
-      .advert-card h3 { font-size: 13px; }
-      .advert-description { font-size: 11px; }
-      .advert-price { font-size: 13px; }
-      .advert-location, .advert-date { font-size: 10px; }
-      .hero { padding-top: 42px; padding-bottom: 38px; }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OGARS PLATFORM | Buy, Sell, Find, Hire, Rent & Connect</title>
+<meta name="description" content="Discover jobs, workers, houses, products, vehicles, services and businesses on OGARS PLATFORM.">
+<meta name="theme-color" content="#ffffff">
+
+<style>
+:root {
+  --gold: #c99724;
+  --gold-dark: #8b6410;
+  --orange: #f45b08;
+  --orange-dark: #dc4900;
+  --cream: #fff8e9;
+  --cream-dark: #f9edcf;
+  --white: #ffffff;
+  --ink: #171717;
+  --muted: #666666;
+  --border: #eadfc9;
+  --green: #168342;
+  --shadow: 0 4px 18px rgba(63, 42, 7, .09);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background: #fffdf8;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button, a, select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: min(1400px, 100%);
+  margin: auto;
+  padding: 0 24px;
+}
+
+/* HEADER */
+
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #eee3cf;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  width: min(1500px, 100%);
+  min-height: 82px;
+  margin: auto;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border: 5px solid var(--gold);
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  font-weight: 900;
+  color: var(--gold-dark);
+  transform: rotate(-20deg);
+}
+
+.brand-copy {
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.brand-name span {
+  color: var(--orange);
+}
+
+.brand-tagline {
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 5px;
+  color: #444;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.main-nav a {
+  min-width: 62px;
+  text-align: center;
+  padding: 8px 7px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background: var(--cream);
+  color: var(--orange);
+}
+
+.nav-icon {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 3px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  border-radius: 10px;
+  padding: 12px 19px;
+  font-weight: 800;
+  border: 1px solid transparent;
+  transition: transform .15s, background .15s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  border-color: var(--gold);
+  color: #392b10;
+  background: white;
+}
+
+.btn-orange {
+  background: var(--orange);
+  color: white;
+}
+
+.btn-orange:hover {
+  background: var(--orange-dark);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: white;
+}
+
+.mobile-menu {
+  display: none;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 9px;
+  padding: 9px 12px;
+  font-size: 23px;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg,
+      rgba(255, 248, 228, .98) 0%,
+      rgba(255, 243, 211, .94) 42%,
+      rgba(255, 211, 131, .35) 100%),
+    url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85")
+    center 43% / cover no-repeat;
+}
+
+.hero-inner {
+  min-height: 330px;
+  padding: 45px 24px 26px;
+  width: min(1400px, 100%);
+  margin: auto;
+}
+
+.hero-copy {
+  max-width: 700px;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 4.5vw, 57px);
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+}
+
+.hero h1 span {
+  color: #bd8010;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: 0;
+  font-size: clamp(15px, 1.7vw, 20px);
+  line-height: 1.55;
+}
+
+.hero-search {
+  width: min(1300px, calc(100% - 48px));
+  margin: -2px auto 0;
+  position: relative;
+  z-index: 2;
+  padding: 12px;
+  background: white;
+  border: 1px solid #eadcc2;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(65, 43, 10, .12);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 205px 180px;
+  gap: 10px;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid #dedede;
+  border-radius: 11px;
+  padding: 9px 14px;
+}
+
+.search-symbol {
+  color: var(--orange);
+  font-size: 27px;
+}
+
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.search-field input::placeholder {
+  color: #666;
+}
+
+.location-select {
+  min-width: 0;
+  width: 100%;
+  padding: 12px;
+  background: white;
+  border: 1px solid #dedede;
+  border-radius: 11px;
+}
+
+.search-submit {
+  border: 0;
+  border-radius: 11px;
+  background: var(--orange);
+  color: white;
+  font-weight: 900;
+  padding: 14px;
+  font-size: 16px;
+}
+
+.search-submit:hover {
+  background: var(--orange-dark);
+}
+
+.search-hint {
+  width: min(1300px, calc(100% - 48px));
+  margin: 10px auto 22px;
+  color: #66502b;
+  font-size: 13px;
+}
+
+/* CATEGORIES */
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 18px;
+  padding-bottom: 22px;
+}
+
+.category-card {
+  min-width: 0;
+  min-height: 94px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 4px;
+  border: 1px solid #f0e5d3;
+  background: linear-gradient(145deg, white, #fff9ee);
+  border-radius: 13px;
+  box-shadow: 0 3px 10px rgba(40, 30, 10, .04);
+  font-size: 12px;
+  font-weight: 800;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.category-card:hover {
+  border-color: var(--gold);
+  background: #fff2d6;
+  transform: translateY(-2px);
+}
+
+.category-icon {
+  font-size: 29px;
+  line-height: 1.2;
+}
+
+/* TRUST BAR */
+
+.trust-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: linear-gradient(110deg, #fff1ce, #fff9eb);
+  border: 1px solid #f1e1bd;
+  border-radius: 13px;
+  margin-bottom: 30px;
+  padding: 16px 5px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 4px 14px;
+  border-right: 1px solid #e7d3a6;
+}
+
+.trust-item:last-child {
+  border-right: 0;
+}
+
+.trust-icon {
+  font-size: 31px;
+  color: var(--gold-dark);
+}
+
+.trust-item strong {
+  display: block;
+  font-size: 14px;
+}
+
+.trust-item small {
+  display: block;
+  color: #65583f;
+  font-size: 12px;
+}
+
+/* LATEST ADVERTS */
+
+.adverts-section {
+  padding: 0 0 34px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.section-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.flame {
+  font-size: 35px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(23px, 3vw, 31px);
+  letter-spacing: -.7px;
+}
+
+.section-heading p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.advert-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-label {
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sort-select {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  padding: 11px 10px;
+  min-width: 145px;
+}
+
+.view-all-outline {
+  border: 1.5px solid var(--orange);
+  color: var(--orange-dark);
+  background: white;
+  border-radius: 10px;
+  padding: 11px 15px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.view-all-outline:hover {
+  background: #fff1e8;
+}
+
+.adverts-status {
+  text-align: center;
+  padding: 22px 10px;
+  color: var(--muted);
+}
+
+.adverts-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.advert-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e9e2d7;
+  border-radius: 13px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .045);
+  transition: transform .18s, box-shadow .18s;
+}
+
+.advert-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.advert-image-wrap {
+  position: relative;
+  background: #f1e9dc;
+  aspect-ratio: 1.15 / 1;
+  overflow: hidden;
+}
+
+.advert-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.advert-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--green);
+  color: white;
+  border-radius: 7px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  max-width: calc(100% - 16px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.advert-price {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  background: rgba(0, 0, 0, .88);
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.advert-content {
+  padding: 10px;
+}
+
+.advert-content h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  line-height: 1.35;
+  min-height: 35px;
+  overflow-wrap: anywhere;
+}
+
+.advert-description {
+  font-size: 11px;
+  color: #777;
+  line-height: 1.45;
+  margin: 0 0 9px;
+  overflow-wrap: anywhere;
+}
+
+.advert-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: #777;
+}
+
+.advert-meta span {
+  overflow-wrap: anywhere;
+}
+
+.advert-meta .meta-icon {
+  color: var(--orange);
+  margin-right: 4px;
+}
+
+.advert-open {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 7px;
+  background: #fff5e4;
+  color: #855600;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.advert-open:hover {
+  background: #ffe9bc;
+}
+
+.adverts-bottom {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 0;
+}
+
+.view-all-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 310px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ff5b0b, #f47b00);
+  color: white;
+  font-weight: 900;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(239, 91, 0, .15);
+}
+
+/* BUSINESS PROMOTION */
+
+.business-banner {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 35px;
+  background:
+    radial-gradient(circle at 90% 20%, #fff4d2 0, transparent 28%),
+    linear-gradient(110deg, #efbd36, #ffe8a5 55%, #fff6dc);
+  border: 1px solid #f2d58b;
+}
+
+.business-megaphone {
+  font-size: 55px;
+}
+
+.business-copy h2 {
+  margin: 0 0 7px;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.2;
+}
+
+.business-copy p {
+  margin: 0 0 16px;
+  max-width: 650px;
+  font-size: 14px;
+}
+
+.business-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.business-benefits {
+  background: rgba(255,255,255,.83);
+  border-radius: 13px;
+  padding: 17px;
+  min-width: 190px;
+}
+
+.business-benefits span {
+  display: block;
+  margin: 7px 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* FOOTER */
+
+.site-footer {
+  background: #201a10;
+  color: white;
+  padding: 32px 0;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.footer-brand span {
+  color: #ff8b25;
+}
+
+.footer-inner p {
+  color: #d4c8b4;
+  font-size: 12px;
+  margin: 5px 0 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 17px;
+}
+
+.footer-links a {
+  color: #eee2cf;
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  color: #ffc85a;
+}
+
+/* MOBILE NAVIGATION */
+
+.mobile-nav-panel {
+  display: none;
+  background: white;
+  border-top: 1px solid var(--border);
+  padding: 10px 16px 15px;
+}
+
+.mobile-nav-panel.open {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mobile-nav-panel a {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 10px 5px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+  .header-inner {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    font-size: 19px;
+  }
+
+  .brand-name {
+    font-size: 22px;
+  }
+
+  .brand-tagline {
+    font-size: 9px;
+  }
+
+  .main-nav a {
+    min-width: 47px;
+    padding: 7px 4px;
+    font-size: 11px;
+  }
+
+  .nav-icon {
+    font-size: 18px;
+  }
+
+  .header-actions .btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .adverts-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .header-inner {
+    min-height: 70px;
+    padding: 9px 12px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-width: 4px;
+    font-size: 16px;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+
+  .brand-tagline {
+    font-size: 9px;
+    max-width: 190px;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .header-actions .login-button {
+    display: none;
+  }
+
+  .header-actions .btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .hero {
+    background-position: 60% center;
+  }
+
+  .hero-inner {
+    min-height: 295px;
+    padding: 35px 18px 28px;
+  }
+
+  .hero-copy {
+    max-width: 540px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 7vw, 45px);
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    max-width: 490px;
+    font-size: 15px;
+  }
+
+  .hero-search {
+    width: calc(100% - 28px);
+    grid-template-columns: 1fr;
+    gap: 9px;
+    padding: 10px;
+  }
+
+  .search-field {
+    min-height: 54px;
+  }
+
+  .location-select,
+  .search-submit {
+    min-height: 49px;
+  }
+
+  .search-hint {
+    width: calc(100% - 30px);
+    font-size: 11px;
+  }
+
+  .category-grid {
+    gap: 8px;
+    padding-top: 10px;
+  }
+
+  .category-card {
+    min-height: 80px;
+    font-size: 11px;
+  }
+
+  .category-icon {
+    font-size: 25px;
+  }
+
+  .trust-bar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 8px;
+    margin-bottom: 25px;
+  }
+
+  .trust-item {
+    justify-content: flex-start;
+    padding: 11px 8px;
+    border-right: 0;
+    border-bottom: 1px solid #e7d3a6;
+    gap: 8px;
+  }
+
+  .trust-item:nth-child(odd) {
+    border-right: 1px solid #e7d3a6;
+  }
+
+  .trust-item:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+
+  .trust-icon {
+    font-size: 25px;
+  }
+
+  .trust-item strong {
+    font-size: 12px;
+  }
+
+  .trust-item small {
+    font-size: 10px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .advert-tools {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .sort-select {
+    flex: 1;
+    min-width: 125px;
+  }
+
+  .view-all-outline {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .adverts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+  }
+
+  .advert-image-wrap {
+    aspect-ratio: 1.08 / 1;
+  }
+
+  .advert-content {
+    padding: 9px;
+  }
+
+  .advert-content h3 {
+    font-size: 13px;
+    min-height: auto;
+  }
+
+  .advert-description {
+    font-size: 11px;
+  }
+
+  .advert-price {
+    font-size: 11px;
+  }
+
+  .business-banner {
+    grid-template-columns: 42px minmax(0, 1fr);
+    padding: 20px 15px;
+    gap: 12px;
+  }
+
+  .business-megaphone {
+    font-size: 34px;
+    align-self: start;
+  }
+
+  .business-copy h2 {
+    font-size: 22px;
+  }
+
+  .business-copy p {
+    font-size: 13px;
+  }
+
+  .business-benefits {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .business-benefits span {
+    font-size: 11px;
+  }
+
+  .business-actions .btn {
+    width: 100%;
+  }
+
+  .view-all-main {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 370px) {
+  .brand-name {
+    font-size: 16px;
+  }
+
+  .brand-tagline {
+    font-size: 8px;
+  }
+
+  .header-actions .btn {
+    padding: 9px 8px;
+  }
+
+  .category-grid {
+    gap: 6px;
+  }
+
+  .category-card {
+    font-size: 10px;
+  }
+
+  .category-icon {
+    font-size: 22px;
+  }
+
+  .sort-label {
+    font-size: 12px;
+  }
+
+  .view-all-outline {
+    font-size: 11px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="header-inner">
-      <a href="index.html" class="brand" aria-label="OGARS home">
-        <div class="logo">OGARS</div>
-        <div class="tagline">Trusted people. Real opportunities.</div>
-      </a>
-
-      <a href="join-ogars.html" class="join-button">
-        👋 Join OGARS
-      </a>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-
-      <div class="hero-label">WELCOME TO OGARS</div>
-
-      <h1>
-        Your Opportunities,<br>
-        <span>All in One Place!</span>
-      </h1>
-
-      <p>
-        Whether you're looking for work, searching for a property,
-        hiring a professional, selling products, growing your business
-        or promoting an event, OGARS helps connect you with
-        opportunities and people that matter.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#explore" class="hero-link primary">
-          Explore OGARS ↓
-        </a>
-
-        <a href="join-ogars.html" class="hero-link secondary">
-          Get Started with OGARS →
-        </a>
-      </div>
-
-      <form class="search-box" id="home-search-form">
-        <input
-          type="search"
-          placeholder="What are you looking for today?"
-          id="home-search"
-          aria-label="Search workers, jobs, products, properties and opportunities"
-          autocomplete="off"
-          enterkeyhint="search"
-          required
-        >
-
-        <button type="submit" class="search-button">
-          🔎 Search OGARS
-        </button>
-      </form>
-
-      <div class="search-hint">
-        Try: houses, jobs, tilapia, plumber, rooms for rent or drivers
-      </div>
-
-    </div>
-  </section>
-
-  <div class="welcome-strip">
-    <h2>Find What You Need. Share What You Offer.</h2>
-
-    <p>
-      Welcome! Whether you're here to discover something new,
-      find customers, offer your skills or grow your business,
-      there's a place for you at OGARS.
-    </p>
-  </div>
-
-
-  <!-- LATEST CUSTOMER ADVERTS -->
-  <section class="latest-adverts" id="latest-adverts" aria-labelledby="latest-adverts-title">
-    <div class="latest-adverts-inner">
-      <div class="latest-adverts-heading">
-        <div>
-          <span class="eyebrow">WHAT'S NEW ON OGARS</span>
-          <h2 id="latest-adverts-title">Latest Adverts</h2>
-          <p>Discover the latest offers, announcements and opportunities shared by customers.</p>
-        </div>
-        <label class="sort-control" for="adverts-sort">
-          <span>Sort by</span>
-          <select id="adverts-sort">
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            <option value="lowest">Lowest Price</option>
-            <option value="highest">Highest Price</option>
-          </select>
-        </label>
-      </div>
-      <div id="latest-adverts-status" class="adverts-status" role="status" aria-live="polite">
-        Loading latest adverts…
-      </div>
-      <div id="latest-adverts-grid" class="adverts-grid"></div>
-      <div class="adverts-footer">
-        <a href="discover.html" class="gold-button">View All Adverts <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
-
-    <section id="explore">
-
-      <div class="section-title">
-        <h2>Explore the OGARS Marketplace</h2>
-        <p>Choose what you need and let's get you started.</p>
-      </div>
-
-      <!-- PROPERTY / ESTATE -->
-      <div class="category-block">
-
-        <div class="category-heading">
-          <div class="category-emoji">🏠</div>
-
-          <div>
-            <h3>Property / Estate</h3>
-            <p>Buy, rent or advertise properties.</p>
-          </div>
-        </div>
-
-        <div class="options">
-
-          <a href="properties.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
-                alt="House representing property opportunities"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">📢</div>
-
-              <h3>Post Property</h3>
-
-              <p>
-                Advertise your house, apartment, land,
-                shop or other property to potential customers.
-              </p>
-
-              <span class="arrow">Post Property →</span>
-            </div>
-          </a>
-
-          <a href="find-property.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-                alt="Modern residential house"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">🔎</div>
-
-              <h3>View Property</h3>
-
-              <p>
-                Explore houses, apartments, rooms, land
-                and commercial spaces for rent or sale.
-              </p>
-
-              <span class="arrow">View Property →</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- JOBS / EMPLOYMENT -->
-      <div class="category-block">
-
-        <div class="category-heading">
-          <div class="category-emoji">💼</div>
-
-          <div>
-            <h3>Jobs / Employment</h3>
-            <p>Post vacancies or find employment opportunities.</p>
-          </div>
-        </div>
-
-        <div class="options">
-
-          <a href="post-job.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
-                alt="Colleagues discussing work together"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">📢</div>
-
-              <h3>Post a Job</h3>
-
-              <p>
-                Have a vacancy or job opportunity?
-                Connect with people who have the skills you need.
-              </p>
-
-              <span class="arrow">Post a Job →</span>
-            </div>
-          </a>
-
-          <a href="jobs.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
-                alt="People meeting about employment"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">🔎</div>
-
-              <h3>Employment Opportunities</h3>
-
-              <p>
-                Explore job openings, employment opportunities
-                and available work.
-              </p>
-
-              <span class="arrow">Find Jobs →</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- PRODUCTS / ITEMS -->
-      <div class="category-block">
-
-        <div class="category-heading">
-          <div class="category-emoji">🛍️</div>
-
-          <div>
-            <h3>Products / Items</h3>
-            <p>Sell products or find items from different sellers.</p>
-          </div>
-        </div>
-
-        <div class="options">
-
-          <a href="products.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
-                alt="Seller displaying products"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">📦</div>
-
-              <h3>Post Product / Item</h3>
-
-              <p>
-                Advertise your products or items and
-                connect with potential customers.
-              </p>
-
-              <span class="arrow">Post Product →</span>
-            </div>
-          </a>
-
-          <a href="find-products.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
-                alt="Fresh products displayed in a market"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">🔎</div>
-
-              <h3>Find Products / Items</h3>
-
-              <p>
-                Discover products from different businesses
-                and contact sellers directly.
-              </p>
-
-              <span class="arrow">Find Products →</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- WORKERS -->
-      <div class="category-block">
-
-        <div class="category-heading">
-          <div class="category-emoji">🔧</div>
-
-          <div>
-            <h3>Workers</h3>
-            <p>Find skilled professionals for your needs.</p>
-          </div>
-        </div>
-
-        <div class="options">
-
-          <a href="workers.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
-                alt="Construction workers working on a building"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">👷</div>
-
-              <h3>Find a Worker</h3>
-
-              <p>
-                Find plumbers, electricians, carpenters,
-                painters, masons and other skilled professionals.
-              </p>
-
-              <span class="arrow">Find Workers →</span>
-            </div>
-          </a>
-
-          <a href="join.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
-                alt="Professional worker"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">🛠️</div>
-
-              <h3>Join as a Worker</h3>
-
-              <p>
-                Create your OGARS worker profile,
-                showcase your skills and get discovered by customers.
-              </p>
-
-              <span class="arrow">Create Profile →</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-
-      
-
-      <!-- DRIVERS -->
-      <div class="category-block">
-
-        <div class="category-heading">
-          <div class="category-emoji">🚗</div>
-
-          <div>
-            <h3>Drivers & Vehicles</h3>
-            <p>Find drivers, vehicles and driving opportunities.</p>
-          </div>
-        </div>
-
-        <div class="options">
-
-          <a href="vehicles.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
-                alt="Car representing vehicle opportunities"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">🚗</div>
-
-              <h3>Drivers & Vehicles</h3>
-
-              <p>
-                Find drivers, vehicles and driving opportunities,
-                or advertise a vehicle you own.
-              </p>
-
-              <span class="arrow">Explore →</span>
-            </div>
-          </a>
-
-          <a href="vehicles.html" class="option">
-            <div class="option-image">
-              <img
-                src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=800&q=80"
-                alt="Professional driver"
-                loading="lazy"
-              >
-            </div>
-
-            <div class="option-content">
-              <div class="option-icon" aria-hidden="true">👨‍✈️</div>
-
-              <h3>Find a Driver</h3>
-
-              <p>
-                Connect with drivers looking for driving work
-                or businesses looking for reliable drivers.
-              </p>
-
-              <span class="arrow">Find Drivers →</span>
-            </div>
-          </a>
-
-        </div>
-      </div>
-
-
-      <!-- BUSINESSES + DISCOVER & ADVERTISE -->
-<div class="category-block">
-
-  <div class="options">
-
-    <!-- BUSINESS -->
-    <a href="business.html" class="option">
-      <div class="option-image">
-        <img
-          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
-          alt="Modern business workspace"
-          loading="lazy"
-        >
-      </div>
-
-      <div class="option-content">
-        <div class="option-icon" aria-hidden="true">🏢</div>
-
-        <h3>Businesses</h3>
-
-        <p>
-          Connect with customers, find workers,
-          post jobs and discover business opportunities.
-        </p>
-
-        <span class="arrow">Explore Businesses →</span>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+
+    <a class="brand" href="index.html" aria-label="OGARS PLATFORM home">
+      <div class="brand-mark">O</div>
+      <div class="brand-copy">
+        <div class="brand-name">OGARS <span>PLATFORM</span></div>
+        <div class="brand-tagline">Buy • Sell • Find • Hire • Rent • Connect</div>
       </div>
     </a>
 
-
-    <!-- DISCOVER & ADVERTISE -->
-    <a href="discover.html" class="option">
-      <div class="option-image">
-        <img
-          src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
-          alt="People attending a special event"
-          loading="lazy"
-        >
-      </div>
-
-      <div class="option-content">
-        <div class="option-icon" aria-hidden="true">📣</div>
-
-        <h3>Discover & Advertise</h3>
-
-        <p>
-          Discover or promote schools, churches,
-          events, training, courses and other opportunities.
-        </p>
-
-        <span class="arrow">Discover More →</span>
-      </div>
-    </a>
-
-  </div>
-
-</div>
-
-
-    <!-- SKILLED WORKER FEATURE -->
-    <section class="featured">
-
-      <div class="featured-box">
-
-        <div>
-          <h2>👷 Are You a Skilled Worker?</h2>
-
-          <p>
-            Create your OGARS profile, showcase your skills
-            and let potential customers discover your services.
-          </p>
-        </div>
-
-        <a href="join.html" class="green-button">
-          Create Worker Profile
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- POPULAR SERVICES -->
-    <section class="services">
-
-      <div class="section-title">
-        <h2>Popular Services</h2>
-        <p>Find professionals for everyday jobs.</p>
-      </div>
-
-      <div class="service-list">
-
-        <div class="service">🔧 Plumbing</div>
-        <div class="service">⚡ Electrical</div>
-        <div class="service">🪚 Carpentry</div>
-        <div class="service">🎨 Painting</div>
-        <div class="service">🧱 Masonry</div>
-        <div class="service">🚿 Tiling</div>
-        <div class="service">🔩 Welding</div>
-        <div class="service">❄️ AC Repair</div>
-
-      </div>
-
-    </section>
-
-
-    <!-- TRUST -->
-    <section class="trust">
-
-      <h2>Why Choose OGARS?</h2>
-
-      <p>
-        OGARS brings together skilled workers, job seekers,
-        product sellers, property owners, drivers and businesses.
-        Our goal is to make it easier for people to discover
-        services, connect with sellers and find opportunities
-        in one convenient place.
-      </p>
-
-      <div class="trust-points">
-        <span>🌍 Discover Opportunities</span>
-        <span>🤝 Connect with People</span>
-        <span>📈 Grow Your Business</span>
-        <span>💚 One Convenient Platform</span>
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <nav class="footer-links" aria-label="Main marketplace links">
-
-      <a href="workers.html">Workers</a>
-      <a href="jobs.html">Jobs</a>
-      <a href="find-products.html">Products</a>
-      <a href="find-property.html">Properties</a>
-      <a href="vehicles.html">Vehicles</a>
-      <a href="discover.html">Discover</a>
-      <a href="business.html">Businesses</a>
-      <a href="join-ogars.html">Join OGARS</a>
-
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="active" href="index.html"><span class="nav-icon">🏠</span>Home</a>
+      <a href="discover.html"><span class="nav-icon">▦</span>Adverts</a>
+      <a href="workers.html"><span class="nav-icon">👷</span>Workers</a>
+      <a href="jobs.html"><span class="nav-icon">💼</span>Jobs</a>
+      <a href="find-property.html"><span class="nav-icon">🏠</span>Property</a>
+      <a href="#categories"><span class="nav-icon">▦</span>More</a>
     </nav>
 
-    <div>© 2026 OGARS PLATFORM</div>
-
-    <div class="footer-note">
-      Trusted people. Real opportunities.
+    <div class="header-actions">
+      <a class="btn btn-outline login-button" href="account.html">👤 Login</a>
+      <a class="btn btn-orange" href="account.html">Sign Up</a>
+      <button class="mobile-menu" id="mobile-menu" aria-label="Open menu" aria-expanded="false">☰</button>
     </div>
 
-  </footer>
+  </div>
 
+  <nav class="mobile-nav-panel" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="discover.html">▦ Adverts</a>
+    <a href="workers.html">👷 Workers</a>
+    <a href="jobs.html">💼 Jobs</a>
+    <a href="find-property.html">🏘️ Property</a>
+    <a href="find-products.html">🛒 Products</a>
+    <a href="vehicles.html">🚘 Vehicles</a>
+    <a href="business.html">🏪 Businesses</a>
+    <a href="account.html">👤 Login / Sign Up</a>
+    <a href="advertise.html">📣 Post an Advert</a>
+    <a href="my-adverts.html">📋 My Adverts</a>
+    <a href="#business-promotion">➕ More</a>
+  </nav>
+</header>
 
-  <script>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>Find <span>Everything</span><br>You Need in One Place</h1>
 
-    function homeSearch() {
+      <p>
+        Jobs, Workers, Houses, Products, Vehicles,<br>
+        Services, Businesses and more — all in OGARS PLATFORM.
+      </p>
+    </div>
+  </div>
 
-      const searchInput =
-        document.getElementById("home-search");
+  <form class="hero-search" id="home-search-form">
+    <div class="search-field">
+      <span class="search-symbol">⌕</span>
+      <input
+        type="search"
+        id="home-search"
+        placeholder="What are you looking for? e.g. job, house for rent, electrician, chicken, car, phone..."
+        aria-label="What are you looking for?"
+        required
+      >
+    </div>
 
-      const search =
-        searchInput.value.trim().toLowerCase();
+    <select class="location-select" id="home-location" aria-label="Select location">
+      <option value="">📍 All Locations</option>
+      <option>Accra</option>
+      <option>Tema</option>
+      <option>Kumasi</option>
+      <option>Kasoa</option>
+      <option>Achimota</option>
+      <option>Madina</option>
+      <option>Lapaz</option>
+      <option>East Legon</option>
+      <option>Other locations</option>
+    </select>
 
-      if (!search) {
+    <button class="search-submit" type="submit">Search →</button>
+  </form>
 
-        alert("Please enter what you are looking for.");
+  <div class="search-hint">
+    Try: houses, jobs, tilapia, plumber, rooms for rent or drivers
+  </div>
+</section>
 
-        searchInput.focus();
+<!-- CATEGORIES -->
+<section class="container" id="categories">
+  <div class="category-grid">
 
-        return;
+    <a class="category-card" href="jobs.html">
+      <span class="category-icon">💼</span>Jobs
+    </a>
+
+    <a class="category-card" href="workers.html">
+      <span class="category-icon">👷</span>Workers
+    </a>
+
+    <a class="category-card" href="find-property.html">
+      <span class="category-icon">🏠</span>Property
+    </a>
+
+    <a class="category-card" href="find-products.html">
+      <span class="category-icon">🛒</span>Products
+    </a>
+
+    <a class="category-card" href="vehicles.html">
+      <span class="category-icon">🚘</span>Vehicles
+    </a>
+
+    <a class="category-card" href="workers.html">
+      <span class="category-icon">🛠️</span>Services
+    </a>
+
+    <a class="category-card" href="business.html">
+      <span class="category-icon">🏪</span>Businesses
+    </a>
+
+    <a class="category-card" href="find-products.html">
+      <span class="category-icon">📱</span>Electronics
+    </a>
+
+    <a class="category-card" href="find-products.html">
+      <span class="category-icon">👕</span>Fashion
+    </a>
+
+    <a class="category-card" href="discover.html">
+      <span class="category-icon">▦</span>More
+    </a>
+
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="container">
+  <div class="trust-bar">
+
+    <div class="trust-item">
+      <span class="trust-icon">🛡️</span>
+      <div>
+        <strong>Trusted Platform</strong>
+        <small>Safe &amp; Secure</small>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">👥</span>
+      <div>
+        <strong>Real People</strong>
+        <small>Real Opportunities</small>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">⚡</span>
+      <div>
+        <strong>Fast &amp; Easy</strong>
+        <small>Post or Find in Minutes</small>
+      </div>
+    </div>
+
+    <div class="trust-item">
+      <span class="trust-icon">🎧</span>
+      <div>
+        <strong>Support</strong>
+        <small>We're Here to Help</small>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LATEST CUSTOMER ADVERTS -->
+<main class="container">
+  <section class="adverts-section" id="latest-adverts">
+
+    <div class="section-heading">
+      <div class="section-title-group">
+        <span class="flame">🔥</span>
+        <div>
+          <h2>Latest Customer Adverts</h2>
+          <p>Discover the latest offers from our community.</p>
+        </div>
+      </div>
+
+      <div class="advert-tools">
+        <label class="sort-label" for="advert-sort">Sort By:</label>
+
+        <select class="sort-select" id="advert-sort">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="price-low">Lowest Price</option>
+          <option value="price-high">Highest Price</option>
+        </select>
+
+        <a class="view-all-outline" href="discover.html">View All Adverts →</a>
+      </div>
+    </div>
+
+    <div class="adverts-status" id="adverts-status" aria-live="polite">
+      Loading latest adverts...
+    </div>
+
+    <div class="adverts-grid" id="adverts-grid"></div>
+
+    <div class="adverts-bottom">
+      <a class="view-all-main" href="discover.html">▦ &nbsp; View All Adverts →</a>
+    </div>
+
+  </section>
+
+  <!-- BUSINESS PROMOTION -->
+  <section class="business-banner" id="business-promotion">
+
+    <div class="business-megaphone">📣</div>
+
+    <div class="business-copy">
+      <h2>Are You a Business or Service Provider?</h2>
+      <p>
+        Get more customers. Post your advert today and reach people
+        across Ghana on OGARS PLATFORM.
+      </p>
+
+      <div class="business-actions">
+        <a class="btn btn-orange" href="advertise.html">Post an Advert →</a>
+        <a class="btn btn-outline" href="account.html">👤 Create an Account</a>
+      </div>
+    </div>
+
+    <div class="business-benefits">
+      <span>✅ Quick &amp; Easy Posting</span>
+      <span>✅ Reach More Customers</span>
+      <span>✅ Grow Your Business</span>
+      <span>✅ Trusted Community</span>
+    </div>
+
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+
+    <div>
+      <div class="footer-brand">OGARS <span>PLATFORM</span></div>
+      <p>Buy • Sell • Find • Hire • Rent • Connect</p>
+      <p>© 2026 OGARS PLATFORM</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="discover.html">Adverts</a>
+      <a href="workers.html">Workers</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="find-property.html">Property</a>
+      <a href="find-products.html">Products</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="business.html">Businesses</a>
+      <a href="account.html">My Account</a>
+      <a href="advertise.html">Post an Advert</a>
+    </nav>
+
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   OGARS PLATFORM HOMEPAGE
+   Supabase public/publishable key only.
+   Never put a service-role key in browser code.
+   ========================================================= */
+
+const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+
+const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+const ADVERTS_TABLE = "discover_listings";
+
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80";
+
+let allAdverts = [];
+
+/* SAFE TEXT HELPERS */
+
+function getText(value, fallback = "") {
+  if (value === null || value === undefined) return fallback;
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
+  }
+  return fallback;
+}
+
+function firstValue(object, keys, fallback = "") {
+  for (const key of keys) {
+    const value = object && object[key];
+    if (value !== null && value !== undefined && value !== "") {
+      return value;
+    }
+  }
+  return fallback;
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[character]);
+}
+
+function getAdvertTitle(ad) {
+  return getText(firstValue(ad, [
+    "title", "name", "advert_title", "listing_title"
+  ], "Customer Advert"));
+}
+
+function getAdvertDescription(ad) {
+  return getText(firstValue(ad, [
+    "description", "details", "content"
+  ], ""));
+}
+
+function getAdvertCategory(ad) {
+  return getText(firstValue(ad, [
+    "category", "listing_type", "type"
+  ], "Advert"));
+}
+
+function getAdvertLocation(ad) {
+  return getText(firstValue(ad, [
+    "location", "town", "city", "region"
+  ], "Ghana"));
+}
+
+function getAdvertPrice(ad) {
+  return firstValue(ad, [
+    "price", "amount", "advert_price"
+  ], null);
+}
+
+function getAdvertDate(ad) {
+  return firstValue(ad, [
+    "created_at", "createdAt", "posted_at", "date_created"
+  ], null);
+}
+
+function getAdvertImage(ad) {
+  let value = firstValue(ad, [
+    "image_url",
+    "image",
+    "photo_url",
+    "photo",
+    "cover_image",
+    "thumbnail",
+    "main_image",
+    "image_urls",
+    "images",
+    "photos"
+  ], "");
+
+  if (Array.isArray(value)) {
+    value = value[0] || "";
+  }
+
+  if (typeof value === "string" && value.trim().startsWith("[")) {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) value = parsed[0] || "";
+    } catch (_) {}
+  }
+
+  if (value && typeof value === "object") {
+    value = value.url || value.publicUrl || value.path || "";
+  }
+
+  if (typeof value !== "string") return FALLBACK_IMAGE;
+
+  value = value.trim();
+
+  if (value.startsWith("http://") || value.startsWith("https://")) {
+    return value;
+  }
+
+  if (value.startsWith("/")) return value;
+
+  return FALLBACK_IMAGE;
+}
+
+function getPriceNumber(ad) {
+  const price = getAdvertPrice(ad);
+  if (price === null || price === "") return null;
+
+  const number = Number(String(price).replace(/[^\d.-]/g, ""));
+  return Number.isFinite(number) ? number : null;
+}
+
+function formatPrice(ad) {
+  const price = getAdvertPrice(ad);
+
+  if (price === null || price === "") return "Contact for price";
+
+  const number = getPriceNumber(ad);
+
+  if (number === null) {
+    return getText(price);
+  }
+
+  return "GH₵ " + number.toLocaleString("en-GH", {
+    maximumFractionDigits: 2
+  });
+}
+
+function formatDate(dateValue) {
+  if (!dateValue) return "Recently posted";
+
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return "Recently posted";
+
+  const elapsed = Math.max(0, Date.now() - date.getTime());
+  const minutes = Math.floor(elapsed / 60000);
+
+  if (minutes < 60) {
+    return minutes <= 1 ? "Just now" : minutes + " minutes ago";
+  }
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return hours + (hours === 1 ? " hour ago" : " hours ago");
+  }
+
+  const days = Math.floor(hours / 24);
+
+  if (days < 7) {
+    return days + (days === 1 ? " day ago" : " days ago");
+  }
+
+  return date.toLocaleDateString("en-GH", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function advertIsActive(ad) {
+  const status = getText(firstValue(ad, [
+    "status", "approval_status", "listing_status"
+  ], "")).toLowerCase();
+
+  if (["deleted", "rejected", "inactive", "expired", "removed"].includes(status)) {
+    return false;
+  }
+
+  if (ad.is_active === false || ad.active === false) {
+    return false;
+  }
+
+  const expiry = firstValue(ad, [
+    "expires_at", "expiry_date", "expires_on"
+  ], null);
+
+  if (expiry) {
+    const expiryTime = new Date(expiry).getTime();
+
+    if (Number.isFinite(expiryTime) && expiryTime < Date.now()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function getAdvertUrl(ad) {
+  const id = firstValue(ad, ["id", "advert_id", "listing_id"], null);
+
+  if (id === null) return "discover.html";
+
+  return "discover-details.html?id=" + encodeURIComponent(String(id));
+}
+
+/* MOBILE MENU */
+
+const mobileMenuButton = document.getElementById("mobile-menu");
+const mobileNav = document.getElementById("mobile-nav");
+
+mobileMenuButton.addEventListener("click", () => {
+  const isOpen = mobileNav.classList.toggle("open");
+  mobileMenuButton.setAttribute("aria-expanded", String(isOpen));
+  mobileMenuButton.textContent = isOpen ? "✕" : "☰";
+});
+
+/* UNIVERSAL SEARCH */
+
+document.getElementById("home-search-form").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const input = document.getElementById("home-search");
+  const location = document.getElementById("home-location").value.trim();
+  const query = input.value.trim().toLowerCase();
+
+  if (!query) {
+    input.focus();
+    return;
+  }
+
+  let destination = "discover.html";
+
+  const includesAny = words => words.some(word => query.includes(word));
+
+  if (includesAny([
+    "worker", "plumber", "plumbing", "electrician", "carpenter",
+    "painter", "mason", "welder", "mechanic", "barber",
+    "hairdresser", "tiler", "repairer", "technician", "cleaner"
+  ])) {
+    destination = "workers.html";
+  } else if (includesAny([
+    "job", "jobs", "employment", "vacancy", "career", "recruitment",
+    "job vacancy", "work wanted"
+  ])) {
+    destination = "jobs.html";
+  } else if (includesAny([
+    "house", "houses", "room", "rooms", "rent", "rental",
+    "property", "properties", "land", "apartment", "apartments",
+    "hostel", "accommodation"
+  ])) {
+    destination = "find-property.html";
+  } else if (includesAny([
+    "vehicle", "car", "cars", "taxi", "driver", "drivers",
+    "truck", "van", "motorbike", "motorcycle"
+  ])) {
+    destination = "vehicles.html";
+  } else if (includesAny([
+    "business", "businesses", "company", "companies", "restaurant",
+    "shop", "store", "hotel"
+  ])) {
+    destination = "business.html";
+  } else if (includesAny([
+    "product", "products", "buy", "sell", "fish", "chicken",
+    "food", "clothes", "clothing", "phone", "phones", "laptop",
+    "electronics", "turkey", "beef", "sausage", "furniture"
+  ])) {
+    destination = "find-products.html";
+  }
+
+  const params = new URLSearchParams();
+  params.set("search", input.value.trim());
+
+  if (location) params.set("location", location);
+
+  window.location.href = destination + "?" + params.toString();
+});
+
+/* LATEST ADVERTS */
+
+async function loadLatestAdverts() {
+  const statusElement = document.getElementById("adverts-status");
+  const grid = document.getElementById("adverts-grid");
+
+  statusElement.textContent = "Loading latest adverts...";
+
+  try {
+    const endpoint =
+      SUPABASE_URL +
+      "/rest/v1/" +
+      ADVERTS_TABLE +
+      "?select=*&order=created_at.desc&limit=100";
+
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
       }
+    });
 
-
-      /* PRODUCTS / FOOD */
-
-      if (
-        search.includes("product") ||
-        search.includes("products") ||
-        search.includes("item") ||
-        search.includes("items") ||
-        search.includes("shop") ||
-        search.includes("buy") ||
-        search.includes("seller") ||
-        search.includes("store") ||
-        search.includes("tilapia") ||
-        search.includes("fish") ||
-        search.includes("chicken") ||
-        search.includes("food") ||
-        search.includes("clothes") ||
-        search.includes("electronics") ||
-        search.includes("groceries") ||
-        search.includes("meat") ||
-        search.includes("sausage") ||
-        search.includes("turkey") ||
-        search.includes("beef")
-      ) {
-
-        window.location.href =
-          "find-products.html";
-
-        return;
-      }
-
-
-      /* WORKERS */
-
-      if (
-        search.includes("worker") ||
-        search.includes("plumber") ||
-        search.includes("plumbing") ||
-        search.includes("electrician") ||
-        search.includes("electrical") ||
-        search.includes("carpenter") ||
-        search.includes("carpentry") ||
-        search.includes("painter") ||
-        search.includes("painting") ||
-        search.includes("mason") ||
-        search.includes("welder") ||
-        search.includes("tiler") ||
-        search.includes("welding") ||
-        search.includes("mechanic") ||
-        search.includes("hairdresser") ||
-        search.includes("barber")
-      ) {
-
-        window.location.href =
-          "workers.html";
-
-        return;
-      }
-
-
-      /* JOBS */
-
-      if (
-        search.includes("job") ||
-        search.includes("jobs") ||
-        search.includes("work") ||
-        search.includes("employment") ||
-        search.includes("vacancy") ||
-        search.includes("career") ||
-        search.includes("recruit") ||
-        search.includes("hiring")
-      ) {
-
-        window.location.href =
-          "jobs.html";
-
-        return;
-      }
-
-
-      /* PROPERTIES */
-
-      if (
-        search.includes("house") ||
-        search.includes("houses") ||
-        search.includes("apartment") ||
-        search.includes("apartments") ||
-        search.includes("room") ||
-        search.includes("rooms") ||
-        search.includes("land") ||
-        search.includes("hotel") ||
-        search.includes("property") ||
-        search.includes("properties") ||
-        search.includes("estate") ||
-        search.includes("rent") ||
-        search.includes("rental") ||
-        search.includes("accommodation") ||
-        search.includes("hostel") ||
-        search.includes("shop for rent")
-      ) {
-
-        window.location.href =
-          "find-property.html";
-
-        return;
-      }
-
-
-      /* DRIVERS AND VEHICLES */
-
-      if (
-        search.includes("driver") ||
-        search.includes("drivers") ||
-        search.includes("vehicle") ||
-        search.includes("vehicles") ||
-        search.includes("car") ||
-        search.includes("cars") ||
-        search.includes("truck") ||
-        search.includes("pickup") ||
-        search.includes("bus")
-      ) {
-
-        window.location.href =
-          "vehicles.html";
-
-        return;
-      }
-
-
-      /* BUSINESSES AND DISCOVER */
-
-      if (
-        search.includes("business") ||
-        search.includes("businesses") ||
-        search.includes("advertise") ||
-        search.includes("advertisement") ||
-        search.includes("promotion") ||
-        search.includes("church") ||
-        search.includes("school") ||
-        search.includes("event") ||
-        search.includes("training") ||
-        search.includes("course") ||
-        search.includes("organization") ||
-        search.includes("seminar") ||
-        search.includes("conference")
-      ) {
-
-        window.location.href =
-          "discover.html";
-
-        return;
-      }
-
-
-      alert(
-        "We could not identify that category. Try searching for a worker, job, product, property, driver or opportunity."
-      );
-
+    if (!response.ok) {
+      throw new Error("Could not load adverts (" + response.status + ").");
     }
 
+    const rows = await response.json();
 
-    document
-      .getElementById("home-search-form")
-      .addEventListener("submit", function(event) {
+    if (!Array.isArray(rows)) {
+      throw new Error("Unexpected advert data.");
+    }
 
-        event.preventDefault();
+    allAdverts = rows.filter(advertIsActive);
 
-        homeSearch();
+    allAdverts.sort((a, b) => {
+      const dateA = new Date(getAdvertDate(a) || 0).getTime() || 0;
+      const dateB = new Date(getAdvertDate(b) || 0).getTime() || 0;
+      return dateB - dateA;
+    });
 
-      });
+    renderAdverts();
 
+  } catch (error) {
+    console.error("OGARS advert feed:", error);
 
-    // Public homepage feed: show up to 12 active adverts from Discover & Advertise.
-    (function () {
-      const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-      const SUPABASE_PUBLIC_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-      const grid = document.getElementById("latest-adverts-grid");
-      const status = document.getElementById("latest-adverts-status");
-      const sortSelect = document.getElementById("adverts-sort");
-      if (!grid || !status || !sortSelect) return;
+    statusElement.textContent =
+      "We couldn't load adverts right now. Please visit All Adverts to browse listings.";
 
-      let adverts = [];
+    grid.innerHTML = "";
+  }
+}
 
-      function firstValue(item, keys) {
-        for (const key of keys) {
-          const value = item && item[key];
-          if (value !== undefined && value !== null && String(value).trim() !== "") return value;
-        }
-        return "";
-      }
+function renderAdverts() {
+  const grid = document.getElementById("adverts-grid");
+  const statusElement = document.getElementById("adverts-status");
+  const sortValue = document.getElementById("advert-sort").value;
 
-      function isActive(item) {
-        const state = String(firstValue(item, ["status", "listing_status", "approval_status"])).toLowerCase().trim();
-        if (["inactive", "expired", "deleted", "rejected", "draft", "hidden", "suspended"].includes(state)) return false;
-        if (["pending", "under_review"].includes(state)) return false;
-        const expiry = firstValue(item, ["expires_at", "expiry_date", "expires_on", "expiration_date"]);
-        if (expiry) {
-          const date = new Date(expiry);
-          if (!Number.isNaN(date.getTime()) && date.getTime() < Date.now()) return false;
-        }
-        return true;
-      }
+  let adverts = [...allAdverts];
 
-      function imageFor(item) {
-        let image = firstValue(item, [
-          "image_url", "photo_url", "image", "photo", "cover_image",
-          "thumbnail_url", "featured_image", "main_image"
-        ]);
-        if (!image) {
-          const photos = firstValue(item, ["photos", "images", "photo_urls", "image_urls"]);
-          if (Array.isArray(photos)) image = photos[0] || "";
-          else if (typeof photos === "string") {
-            try {
-              const parsed = JSON.parse(photos);
-              image = Array.isArray(parsed) ? (parsed[0] || "") : photos;
-            } catch (_) { image = photos; }
-          }
-        }
-        if (image && typeof image === "string" && image.startsWith("[")) {
-          try { const parsed = JSON.parse(image); if (Array.isArray(parsed)) image = parsed[0] || ""; } catch (_) {}
-        }
-        if (image && typeof image === "string" && !/^https?:\/\//i.test(image)) {
-          image = image.startsWith("/") ? image : "";
-        }
-        return image || "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=700&q=80";
-      }
+  if (sortValue === "newest") {
+    adverts.sort((a, b) =>
+      (new Date(getAdvertDate(b) || 0).getTime() || 0) -
+      (new Date(getAdvertDate(a) || 0).getTime() || 0)
+    );
+  }
 
-      function formatPrice(item) {
-        const raw = firstValue(item, ["price", "amount", "advert_price", "price_ghs"]);
-        if (raw === "") return "Contact for price";
-        const numeric = Number(String(raw).replace(/[^\d.]/g, ""));
-        if (!Number.isFinite(numeric) || numeric <= 0) {
-          return String(raw).toLowerCase().includes("free") ? "Free" : "Contact for price";
-        }
-        return "GH₵ " + numeric.toLocaleString("en-GH", { maximumFractionDigits: 2 });
-      }
+  if (sortValue === "oldest") {
+    adverts.sort((a, b) =>
+      (new Date(getAdvertDate(a) || 0).getTime() || 0) -
+      (new Date(getAdvertDate(b) || 0).getTime() || 0)
+    );
+  }
 
-      function formatDate(item) {
-        const raw = firstValue(item, ["created_at", "created_on", "posted_at", "published_at"]);
-        if (!raw) return "";
-        const date = new Date(raw);
-        if (Number.isNaN(date.getTime())) return "";
-        return date.toLocaleDateString("en-GH", { day: "numeric", month: "short" });
-      }
+  if (sortValue === "price-low") {
+    adverts.sort((a, b) => {
+      const pa = getPriceNumber(a);
+      const pb = getPriceNumber(b);
 
-      function escapeHTML(value) {
-        return String(value == null ? "" : value).replace(/[&<>"']/g, ch => ({
-          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[ch]));
-      }
+      if (pa === null) return 1;
+      if (pb === null) return -1;
 
-      function sortAdverts(list) {
-        const sorted = [...list];
-        const created = item => new Date(firstValue(item, ["created_at", "created_on", "posted_at", "published_at"]) || 0).getTime();
-        const price = item => {
-          const raw = firstValue(item, ["price", "amount", "advert_price", "price_ghs"]);
-          const num = Number(String(raw).replace(/[^\d.]/g, ""));
-          return Number.isFinite(num) && num > 0 ? num : Number.POSITIVE_INFINITY;
-        };
-        switch (sortSelect.value) {
-          case "oldest": sorted.sort((a, b) => created(a) - created(b)); break;
-          case "lowest": sorted.sort((a, b) => price(a) - price(b)); break;
-          case "highest": sorted.sort((a, b) => price(b) - price(a)); break;
-          default: sorted.sort((a, b) => created(b) - created(a));
-        }
-        return sorted.slice(0, 12);
-      }
+      return pa - pb;
+    });
+  }
 
-      function render() {
-        const list = sortAdverts(adverts);
-        if (!list.length) {
-          grid.innerHTML = '<div class="adverts-empty">No active adverts are available to display right now. Please check back soon.</div>';
-          status.textContent = "";
-          return;
-        }
-        status.textContent = "Showing " + list.length + " recent advert" + (list.length === 1 ? "" : "s") + ".";
-        grid.innerHTML = list.map(item => {
-          const id = firstValue(item, ["id", "listing_id", "uuid"]);
-          const title = firstValue(item, ["title", "name", "headline", "advert_title"]) || "Customer advert";
-          const description = firstValue(item, ["description", "details", "content", "summary"]) || "Open this advert to see more details.";
-          const category = firstValue(item, ["category", "listing_type", "type"]) || "Advert";
-          const location = firstValue(item, ["location", "town", "city", "region", "address"]);
-          const date = formatDate(item);
-          const href = id ? "discover-details.html?id=" + encodeURIComponent(id) : "discover.html";
-          return '<a class="advert-card" href="' + escapeHTML(href) + '">' +
-            '<div class="advert-image-wrap"><img class="advert-image" src="' + escapeHTML(imageFor(item)) + '" alt="" loading="lazy" onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=700&q=80\';">' +
-            '<span class="advert-badge">' + escapeHTML(category) + '</span></div>' +
-            '<div class="advert-card-content"><h3>' + escapeHTML(title) + '</h3>' +
-            '<p class="advert-description">' + escapeHTML(description) + '</p>' +
-            '<div class="advert-price">' + escapeHTML(formatPrice(item)) + '</div>' +
-            (location ? '<div class="advert-location">📍 ' + escapeHTML(location) + '</div>' : '') +
-            (date ? '<div class="advert-date">Posted ' + escapeHTML(date) + '</div>' : '') +
-            '</div></a>';
-        }).join("");
-      }
+  if (sortValue === "price-high") {
+    adverts.sort((a, b) => {
+      const pa = getPriceNumber(a);
+      const pb = getPriceNumber(b);
 
-      sortSelect.addEventListener("change", render);
+      if (pa === null) return 1;
+      if (pb === null) return -1;
 
-      async function loadAdverts() {
-        try {
-          const response = await fetch(
-            SUPABASE_URL + "/rest/v1/discover_listings?select=*&order=created_at.desc&limit=100",
-            { headers: { "apikey": SUPABASE_PUBLIC_KEY, "Authorization": "Bearer " + SUPABASE_PUBLIC_KEY } }
-          );
-          if (!response.ok) throw new Error("Could not load adverts (" + response.status + ")");
-          const data = await response.json();
-          adverts = (Array.isArray(data) ? data : []).filter(isActive);
-          render();
-        } catch (error) {
-          console.error("OGARS latest adverts feed:", error);
-          status.textContent = "Latest adverts could not be loaded right now.";
-          grid.innerHTML = '<div class="adverts-empty">You can still browse all customer adverts using the button below.</div>';
-        }
-      }
-      loadAdverts();
-    })();
+      return pb - pa;
+    });
+  }
 
+  adverts = adverts.slice(0, 12);
 
-  </script>
+  statusElement.textContent = allAdverts.length
+    ? "Showing " + adverts.length + " recent adverts."
+    : "No active adverts are available right now. Please check again soon.";
+
+  grid.innerHTML = adverts.map(ad => {
+    const title = escapeHTML(getAdvertTitle(ad));
+    const category = escapeHTML(getAdvertCategory(ad));
+    const description = escapeHTML(getAdvertDescription(ad));
+    const location = escapeHTML(getAdvertLocation(ad));
+    const price = escapeHTML(formatPrice(ad));
+    const image = escapeHTML(getAdvertImage(ad));
+    const date = escapeHTML(formatDate(getAdvertDate(ad)));
+    const url = escapeHTML(getAdvertUrl(ad));
+
+    return `
+      <article class="advert-card">
+        <a href="${url}" aria-label="View ${title}">
+          <div class="advert-image-wrap">
+            <img
+              class="advert-image"
+              src="${image}"
+              alt="${title}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"
+            >
+            <span class="advert-badge">${category}</span>
+            <span class="advert-price">${price}</span>
+          </div>
+        </a>
+
+        <div class="advert-content">
+          <h3>${title}</h3>
+
+          ${description ? `<p class="advert-description">${description.length > 90 ? description.slice(0, 90) + "…" : description}</p>` : ""}
+
+          <div class="advert-meta">
+            <span><span class="meta-icon">📍</span>${location}</span>
+            <span><span class="meta-icon">◷</span>${date}</span>
+          </div>
+
+          <a class="advert-open" href="${url}">View Advert →</a>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+document.getElementById("advert-sort").addEventListener("change", renderAdverts);
+
+/* IMAGE FALLBACK FOR EXTERNAL PHOTOS */
+document.addEventListener("error", event => {
+  const target = event.target;
+
+  if (target instanceof HTMLImageElement &&
+      target.classList.contains("advert-image")) {
+    target.src = FALLBACK_IMAGE;
+  }
+}, true);
+
+/* START */
+loadLatestAdverts();
+</script>
 
 </body>
 </html>
