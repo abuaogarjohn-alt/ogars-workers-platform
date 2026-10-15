@@ -4,293 +4,621 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VIP Video Advertising | OGARS</title>
+  <meta name="theme-color" content="#5936e8">
+  <title>VIP Video Submission | OGARS PLATFORM</title>
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --purple: #5936e8;
+      --purple-dark: #4323c5;
+      --lavender: #f0edff;
+      --navy: #171b3a;
+      --muted: #747995;
+      --border: #dedbf0;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #faf6ed;
-      color: #17243a;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f8f7ff;
+      color: var(--navy);
       line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
-      background: #17243a;
-      color: #f2c46d;
-      padding: 24px 16px;
-      text-align: center;
+    /* OGARS brand header */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 17px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
     }
 
-    header h1 { margin: 0 0 6px; font-size: 26px; }
-    header p { margin: 0; color: #fff; }
+    .brand {
+      color: var(--navy);
+      font-size: 23px;
+      font-weight: 650;
+      letter-spacing: -0.8px;
+    }
+
+    .brand span {
+      color: var(--purple);
+    }
+
+    .tagline {
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 1.8px;
+    }
+
+    .back-home {
+      color: var(--purple);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Bright VIP banner */
+    .vip-banner {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 18px auto 0;
+      padding: 23px 22px;
+      width: calc(100% - 28px);
+      max-width: 760px;
+      border-radius: 19px;
+      color: white;
+      background: linear-gradient(
+        115deg,
+        #4c29d9 0%,
+        #6844f4 55%,
+        #8a70ff 100%
+      );
+      box-shadow: 0 8px 24px #5936e82b;
+    }
+
+    .play-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 54px;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: white;
+      color: var(--purple);
+      font-size: 25px;
+    }
+
+    .vip-banner h1 {
+      margin: 0;
+      font-size: 27px;
+      font-weight: 650;
+      letter-spacing: -0.6px;
+      line-height: 1.25;
+    }
+
+    .vip-banner p {
+      margin: 5px 0 0;
+      color: #f3efff;
+      font-size: 14px;
+    }
 
     main {
-      max-width: 620px;
-      margin: 25px auto;
+      width: 100%;
+      max-width: 760px;
+      margin: 18px auto 38px;
       padding: 0 14px;
     }
 
-    .card {
-      background: #fff;
-      padding: 22px;
-      border-radius: 14px;
-      border: 1px solid #e7dfd0;
-      box-shadow: 0 4px 18px #17243a12;
+    .form-card {
+      padding: 23px;
+      border: 1px solid #e8e4f7;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 8px 30px #2b205b0a;
+    }
+
+    .form-heading {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 650;
+      letter-spacing: -0.35px;
+    }
+
+    .intro {
+      margin: 5px 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .notice {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 19px;
+      padding: 11px 13px;
+      border-radius: 11px;
+      background: var(--lavender);
+      color: #4b32bd;
+      font-size: 13px;
+    }
+
+    .notice-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 25px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: white;
+      font-weight: 700;
+    }
+
+    .field {
+      margin-top: 15px;
     }
 
     label {
       display: block;
-      margin: 16px 0 6px;
-      font-weight: bold;
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 600;
     }
 
-    input, textarea {
+    .required {
+      color: #d9305b;
+    }
+
+    input:not([type="file"]),
+    textarea {
       display: block;
       width: 100%;
-      padding: 12px;
-      border: 1px solid #c9cdd3;
-      border-radius: 8px;
-      font: inherit;
+      padding: 12px 13px;
+      border: 1px solid #d7d5e8;
+      border-radius: 10px;
+      outline: none;
       background: white;
-    }
-
-    textarea { min-height: 100px; resize: vertical; }
-
-    .note {
-      margin-top: 16px;
-      padding: 12px;
-      background: #fff6e4;
-      border-radius: 8px;
+      color: var(--navy);
+      font: inherit;
       font-size: 14px;
+      transition: border-color .15s, box-shadow .15s;
     }
 
-    button {
-      width: 100%;
+    input:not([type="file"]) {
+      min-height: 48px;
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9296af;
+    }
+
+    input:not([type="file"]):focus,
+    textarea:focus {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px #5936e81a;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    /* Video upload */
+    .upload-box {
       padding: 14px;
-      margin-top: 20px;
-      background: #d69a32;
-      color: #17243a;
+      border: 1.5px dashed #a99afa;
+      border-radius: 13px;
+      background: #f8f6ff;
+    }
+
+    input[type="file"] {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      color: var(--navy);
+      font: inherit;
+      font-size: 12px;
+    }
+
+    input[type="file"]::file-selector-button {
+      margin: 0 9px 7px 0;
+      padding: 10px 12px;
       border: 0;
       border-radius: 8px;
-      font-weight: bold;
-      font-size: 16px;
+      background: var(--purple);
+      color: white;
+      font: inherit;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    button:disabled { opacity: .6; }
-
-    .back {
-      display: block;
-      margin-top: 18px;
-      text-align: center;
-      color: #17243a;
+    .upload-help {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
     }
 
-    #status { overflow-wrap: anywhere; }
+    #file-name {
+      margin-top: 8px;
+      color: var(--purple-dark);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .submit-button {
+      display: block;
+      width: 100%;
+      min-height: 51px;
+      margin-top: 21px;
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 11px;
+      background: linear-gradient(105deg, #5936e8, #754fff);
+      color: white;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 650;
+      box-shadow: 0 5px 15px #5936e82b;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+
+    .submit-button:disabled {
+      opacity: .6;
+      cursor: wait;
+      box-shadow: none;
+    }
+
+    #status {
+      margin: 13px 0 0;
+      color: var(--navy);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .bottom-note {
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .topbar {
+        padding: 14px;
+      }
+
+      .brand {
+        font-size: 20px;
+      }
+
+      .back-home {
+        font-size: 12px;
+      }
+
+      .vip-banner {
+        gap: 12px;
+        padding: 19px 15px;
+      }
+
+      .play-icon {
+        flex-basis: 45px;
+        width: 45px;
+        height: 45px;
+        font-size: 21px;
+      }
+
+      .vip-banner h1 {
+        font-size: 24px;
+      }
+
+      .vip-banner p {
+        font-size: 12px;
+      }
+
+      main {
+        margin-top: 14px;
+        padding: 0 12px;
+      }
+
+      .form-card {
+        padding: 19px 16px;
+        border-radius: 17px;
+      }
+
+      .form-heading {
+        font-size: 19px;
+      }
+
+      .two-columns {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 
 <body>
-<header>
-  <h1>OGARS VIP Deals</h1>
-  <p>Submit a video advert for review</p>
-</header>
+  <div class="topbar">
+    <div>
+      <div class="brand"><span>OGARS</span> PLATFORM</div>
+      <div class="tagline">BUY · SELL · FIND · CONNECT</div>
+    </div>
+    <a class="back-home" href="index.html">← Home</a>
+  </div>
 
-<main>
-  <section class="card">
-    <p>
-      Submit your promotional video for consideration on the
-      OGARS VIP Deals billboard. Submission does not guarantee approval
-      or billboard placement.
-    </p>
+  <section class="vip-banner">
+    <div class="play-icon" aria-hidden="true">▶</div>
+    <div>
+      <h1>VIP Deals</h1>
+      <p>Submit a video advert for review</p>
+    </div>
+  </section>
 
-    <form id="vip-form">
-      <label for="title">Advert title *</label>
-      <input id="title" maxlength="150"
-             placeholder="Enter your advert title" required>
-
-      <label for="business">Business or organization</label>
-      <input id="business" maxlength="150"
-             placeholder="Business or organization name">
-
-      <label for="description">Advert description</label>
-      <textarea id="description" maxlength="3000"
-                placeholder="Describe your promotion"></textarea>
-
-      <label for="location">Location</label>
-      <input id="location" maxlength="200"
-             placeholder="e.g. Accra, Ghana">
-
-      <label for="phone">Contact phone</label>
-      <input id="phone" type="tel" maxlength="40"
-             placeholder="Phone number">
-
-      <label for="video">Choose video *</label>
-      <input id="video" type="file"
-             accept="video/mp4,video/webm,video/quicktime" required>
-
-      <p id="file-note" class="note">
-        Select an MP4, WebM or MOV video. Keep the file small for mobile
-        uploads. Videos are submitted privately for review.
+  <main>
+    <section class="form-card">
+      <h2 class="form-heading">Video advert submission</h2>
+      <p class="intro">
+        Submit your video for review on the OGARS VIP Deals billboard.
       </p>
 
-      <button id="submit-button" type="submit">
-        Submit VIP Video
-      </button>
+      <div class="notice">
+        <span class="notice-icon" aria-hidden="true">i</span>
+        <span>Approval is required before display.</span>
+      </div>
 
-      <p id="status" role="status" aria-live="polite"></p>
-    </form>
+      <form id="vip-form">
+        <div class="field">
+          <label for="title">
+            Advert title <span class="required">*</span>
+          </label>
+          <input id="title" maxlength="150"
+                 placeholder="Enter your advert title" required>
+        </div>
 
-    <a class="back" href="index.html">← Back to OGARS homepage</a>
-  </section>
-</main>
+        <div class="field">
+          <label for="business">Business / organization</label>
+          <input id="business" maxlength="150"
+                 placeholder="Business or organization name">
+        </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL =
-  "https://pawqsmcswoypuiihfbrr.supabase.co";
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" maxlength="3000"
+                    placeholder="Describe your promotion"></textarea>
+        </div>
 
-const SUPABASE_KEY =
-  "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+        <div class="two-columns">
+          <div class="field">
+            <label for="location">Location</label>
+            <input id="location" maxlength="200"
+                   placeholder="e.g. Accra, Ghana">
+          </div>
 
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+          <div class="field">
+            <label for="phone">Contact phone</label>
+            <input id="phone" type="tel" maxlength="40"
+                   placeholder="Phone number">
+          </div>
+        </div>
 
-const form = document.getElementById("vip-form");
-const videoInput = document.getElementById("video");
-const submitButton = document.getElementById("submit-button");
-const statusBox = document.getElementById("status");
+        <div class="field">
+          <label for="video">
+            Video file <span class="required">*</span>
+          </label>
+          <div class="upload-box">
+            <input id="video" type="file"
+                   accept="video/mp4,video/webm,video/quicktime"
+                   required>
+            <p class="upload-help">
+              MP4, WebM or MOV · Maximum 50 MB for this test
+            </p>
+            <div id="file-name" aria-live="polite"></div>
+          </div>
+        </div>
 
-videoInput.addEventListener("change", () => {
-  const file = videoInput.files[0];
+        <button class="submit-button" id="submit-button" type="submit">
+          Submit for review
+        </button>
 
-  if (!file) return;
+        <p id="status" role="status" aria-live="polite"></p>
 
-  const allowed = [
-    "video/mp4",
-    "video/webm",
-    "video/quicktime"
-  ];
+        <p class="bottom-note">
+          You'll be notified when a decision is made.
+        </p>
+      </form>
+    </section>
+  </main>
 
-  if (!allowed.includes(file.type)) {
-    videoInput.value = "";
-    alert("Please choose an MP4, WebM or MOV video.");
-    return;
-  }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL =
+      "https://pawqsmcswoypuiihfbrr.supabase.co";
 
-  // Conservative limit for this first upload test.
-  if (file.size > 50 * 1024 * 1024) {
-    videoInput.value = "";
-    alert("For this first test, please choose a video under 50 MB.");
-    return;
-  }
+    const SUPABASE_KEY =
+      "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-  document.getElementById("file-note").textContent =
-    "Selected: " + file.name + " (" +
-    (file.size / (1024 * 1024)).toFixed(1) + " MB).";
-});
+    const db = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
+    const form = document.getElementById("vip-form");
+    const videoInput = document.getElementById("video");
+    const submitButton = document.getElementById("submit-button");
+    const statusBox = document.getElementById("status");
+    const fileNameBox = document.getElementById("file-name");
 
-  if (submitButton.disabled) return;
+    const MAX_VIDEO_SIZE = 50 * 1024 * 1024;
+    const ALLOWED_TYPES = [
+      "video/mp4",
+      "video/webm",
+      "video/quicktime"
+    ];
 
-  const { data: authData, error: authError } =
-    await db.auth.getUser();
+    videoInput.addEventListener("change", () => {
+      const file = videoInput.files[0];
+      fileNameBox.textContent = "";
 
-  const user = authData?.user;
+      if (!file) return;
 
-  if (authError || !user) {
-    alert("Please log in to your OGARS account first.");
-    window.location.href = "account.html";
-    return;
-  }
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        videoInput.value = "";
+        alert("Please choose an MP4, WebM or MOV video.");
+        return;
+      }
 
-  const file = videoInput.files[0];
-  const title = document.getElementById("title").value.trim();
+      if (file.size > MAX_VIDEO_SIZE) {
+        videoInput.value = "";
+        alert("Please choose a video under 50 MB for this test.");
+        return;
+      }
 
-  if (!title || !file) {
-    alert("Please enter a title and choose a video.");
-    return;
-  }
+      fileNameBox.textContent =
+        file.name + " · " +
+        (file.size / (1024 * 1024)).toFixed(1) + " MB";
+    });
 
-  if (file.size > 50 * 1024 * 1024) {
-    alert("Please choose a video under 50 MB.");
-    return;
-  }
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-  submitButton.disabled = true;
-  submitButton.textContent = "Submitting...";
-  statusBox.textContent = "Uploading your video. Please wait.";
+      if (submitButton.disabled) return;
 
-  let uploadedPath = null;
+      statusBox.textContent = "";
 
-  try {
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = user.id + "/" + crypto.randomUUID() + "-" + safeName;
+      try {
+        const { data: authData, error: authError } =
+          await db.auth.getUser();
 
-    const { error: uploadError } = await db.storage
-      .from("vip-videos")
-      .upload(path, file, {
-        contentType: file.type,
-        upsert: false
-      });
+        if (authError || !authData?.user) {
+          alert("Please log in to your OGARS account first.");
+          window.location.href = "account.html";
+          return;
+        }
 
-    if (uploadError) throw uploadError;
+        const user = authData.user;
+        const file = videoInput.files[0];
+        const title = document.getElementById("title").value.trim();
 
-    uploadedPath = path;
+        if (!title || !file) {
+          alert("Please enter an advert title and choose a video.");
+          return;
+        }
 
-    // Store the private storage path, not a public URL.
-    const listing = {
-      user_id: user.id,
-      title: title,
-      listing_type: "VIP Video",
-      location: document.getElementById("location").value.trim() || null,
-      description: [
-        document.getElementById("business").value.trim(),
-        document.getElementById("description").value.trim(),
-        "Contact: " + (
-          document.getElementById("phone").value.trim() || "Not provided"
-        )
-      ].filter(Boolean).join("\n"),
-      photo_urls: null,
-      video_url: path,
-      video_status: "pending",
-      video_submitted_at: new Date().toISOString(),
-      featured: false,
-      available: true
-    };
+        if (!ALLOWED_TYPES.includes(file.type) ||
+            file.size > MAX_VIDEO_SIZE) {
+          alert("Please choose a supported video under 50 MB.");
+          return;
+        }
 
-    const { error: saveError } = await db
-      .from("discover_listings")
-      .insert([listing]);
+        submitButton.disabled = true;
+        submitButton.textContent = "Uploading video...";
+        statusBox.textContent = "Please keep this page open while uploading.";
 
-    if (saveError) throw saveError;
+        const safeName = file.name.replace(
+          /[^a-zA-Z0-9._-]/g, "_"
+        );
 
-    statusBox.textContent =
-      "Video submitted successfully for review. It has not been published to VIP Deals.";
+        const path = user.id + "/" +
+          crypto.randomUUID() + "-" + safeName;
 
-    form.reset();
-    document.getElementById("file-note").textContent =
-      "Select an MP4, WebM or MOV video. Keep the file small for mobile uploads.";
+        const { error: uploadError } = await db.storage
+          .from("vip-videos")
+          .upload(path, file, {
+            contentType: file.type,
+            upsert: false
+          });
 
-  } catch (error) {
-    console.error("VIP video submission error:", error);
+        if (uploadError) throw uploadError;
 
-    statusBox.textContent =
-      "Submission failed: " + (error.message || "Please try again.");
+        submitButton.textContent = "Saving submission...";
 
-    if (uploadedPath) {
-      statusBox.textContent +=
-        " The uploaded file may remain in private storage and may need cleanup.";
-    }
-  } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Submit VIP Video";
-  }
-});
-</script>
+        const business =
+          document.getElementById("business").value.trim();
+
+        const description =
+          document.getElementById("description").value.trim();
+
+        const phone =
+          document.getElementById("phone").value.trim();
+
+        const listing = {
+          user_id: user.id,
+          title: title,
+          listing_type: "VIP Video",
+          location:
+            document.getElementById("location").value.trim() || null,
+          description: [
+            business ? "Business: " + business : "",
+            description,
+            phone ? "Contact: " + phone : ""
+          ].filter(Boolean).join("\n") || null,
+          photo_urls: null,
+          video_url: path,
+          video_status: "pending",
+          video_submitted_at: new Date().toISOString(),
+          featured: false,
+          available: true
+        };
+
+        const { error: saveError } = await db
+          .from("discover_listings")
+          .insert([listing]);
+
+        if (saveError) {
+          throw new Error(
+            "The video uploaded, but the submission could not be saved. " +
+            saveError.message
+          );
+        }
+
+        statusBox.textContent =
+          "Submitted successfully. Your video is awaiting review and is not yet displayed on the billboard.";
+
+        form.reset();
+        fileNameBox.textContent = "";
+
+      } catch (error) {
+        console.error("VIP video submission error:", error);
+        statusBox.textContent =
+          "Submission failed: " +
+          (error.message || "Please try again.");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit for review";
+      }
+    });
+  </script>
 </body>
-</html>
+  </html>
+  
