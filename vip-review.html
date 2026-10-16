@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIP Video Review | OGARS Platform</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root {
+  --purple:#7028d8;
+  --lavender:#f0e7ff;
+  --navy:#17213d;
+  --white:#ffffff;
+  --muted:#68718a;
+  --border:#e5def2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:#f8f6fc;color:var(--navy);
+  font-family:Arial,sans-serif;
+}
+header{
+  background:var(--white);padding:18px 16px;
+  border-bottom:1px solid var(--border);
+}
+header h1{margin:0;color:var(--purple);font-size:22px}
+header p{margin:6px 0 0;color:var(--muted);font-size:13px}
+main{max-width:850px;margin:24px auto;padding:0 14px 40px}
+.panel,.video-card{
+  background:white;border:1px solid var(--border);
+  border-radius:16px;padding:20px;margin-bottom:16px;
+}
+h2{font-size:19px;margin:0 0 14px}
+label{display:block;font-weight:bold;font-size:13px;margin:12px 0 6px}
+input{
+  width:100%;padding:13px;border:1px solid #d8d0e6;
+  border-radius:9px;font-size:16px;
+}
+button{
+  border:0;border-radius:9px;padding:12px 16px;
+  font-weight:bold;font-size:14px;cursor:pointer;
+}
+.primary{background:var(--purple);color:white;width:100%;margin-top:16px}
+.approve{background:var(--purple);color:white}
+.reject{background:var(--lavender);color:var(--navy)}
+button:disabled{opacity:.55;cursor:not-allowed}
+#status{font-size:14px;line-height:1.5;white-space:pre-wrap}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+video{width:100%;max-height:420px;background:#111;border-radius:12px;margin:12px 0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.actions button{flex:1;min-width:120px}
+.hidden{display:none!important}
+.video-card h3{margin:0 0 8px;overflow-wrap:anywhere}
+.detail{font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+#signout{float:right;background:var(--lavender);color:var(--navy)}
+@media(max-width:480px){
+ .panel,.video-card{padding:15px}
+ header h1{font-size:20px}
+}
+</style>
+</head>
+<body>
+<header>
+  <button id="signout" class="hidden">Sign out</button>
+  <h1>OGARS PLATFORM</h1>
+  <p>VIP Video Administrator Review</p>
+</header>
+
+<main>
+  <section id="login-panel" class="panel">
+    <h2>Administrator sign in</h2>
+    <p class="muted">Sign in with your existing administrator account. There is no public sign-up on this page.</p>
+    <form id="login-form">
+      <label for="email">Administrator email</label>
+      <input id="email" type="email" autocomplete="username" required>
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+      <button class="primary" type="submit">Sign in</button>
+    </form>
+  </section>
+
+  <section id="review-panel" class="hidden">
+    <div class="panel">
+      <h2>Pending VIP videos</h2>
+      <p class="muted">Preview each submission before approving or rejecting it.</p>
+      <button id="refresh" class="reject">Refresh submissions</button>
+    </div>
+    <div id="videos"></div>
+  </section>
+
+  <section class="panel">
+    <p id="status">Please sign in with your administrator account.</p>
+  </section>
+</main>
+
+<script>
+const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const $ = id => document.getElementById(id);
+let busy = false;
+
+function status(message) {
+  $("status").textContent = message;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function dateText(value) {
+  if (!value) return "Not provided";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "Not provided" : date.toLocaleString();
+}
+
+async function checkAdmin(user) {
+  const { data, error } = await db
+    .from("vip_admins")
+    .select("user_id")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (!data) throw new Error("This account is not authorised to review VIP videos.");
+}
+
+async function showLogin() {
+  $("login-panel").classList.remove("hidden");
+  $("review-panel").classList.add("hidden");
+  $("signout").classList.add("hidden");
+}
+
+async function showReview(user) {
+  await checkAdmin(user);
+  $("login-panel").classList.add("hidden");
+  $("review-panel").classList.remove("hidden");
+  $("signout").classList.remove("hidden");
+  await loadPending();
+}
+
+async function loadPending() {
+  $("videos").replaceChildren();
+  status("Loading pending submissions...");
+
+  const { data, error } = await db
+    .from("discover_listings")
+    .select("id,title,location,description,video_url,video_status,created_at")
+    .eq("listing_type", "VIP Video")
+    .eq("video_status", "pending")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    status("Could not load submissions: " + error.message);
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    status("There are no pending VIP videos.");
+    return;
+  }
+
+  status("Pending submissions: " + data.length);
+
+  for (const item of data) {
+    const card = document.createElement("article");
+    card.className = "video-card";
+    card.innerHTML = `
+      <h3>${escapeHtml(item.title || "Untitled VIP video")}</h3>
+      <div class="detail">
+        <strong>Location:</strong> ${escapeHtml(item.location || "Not provided")}<br>
+        <strong>Submitted:</strong> ${escapeHtml(dateText(item.created_at))}<br>
+        <strong>Description:</strong><br>
+        ${escapeHtml(item.description || "No description provided").replace(/\n/g, "<br>")}
+      </div>
+      <p class="muted video-status">Preparing secure video preview...</p>
+      <video controls playsinline preload="metadata"></video>
+      <div class="actions">
+        <button class="approve" data-decision="approved">Approve video</button>
+        <button class="reject" data-decision="rejected">Reject video</button>
+      </div>
+    `;
+
+    const preview = card.querySelector("video");
+    const previewStatus = card.querySelector(".video-status");
+    const buttons = card.querySelectorAll("button");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => reviewItem(item.id, button.dataset.decision, card));
+    });
+
+    $("videos").appendChild(card);
+
+    if (!item.video_url) {
+      previewStatus.textContent = "No video file path was saved for this submission.";
+      preview.remove();
+      continue;
+    }
+
+    const { data: signed, error: signedError } = await db.storage
+      .from("vip-videos")
+      .createSignedUrl(item.video_url, 300);
+
+    if (signedError) {
+      previewStatus.textContent = "Preview unavailable: " + signedError.message;
+      preview.remove();
+    } else {
+      preview.src = signed.signedUrl;
+      previewStatus.textContent = "Secure preview ready. Review before making a decision.";
+    }
+  }
+}
+
+async function reviewItem(id, decision, card) {
+  if (busy) return;
+  const confirmed = confirm(
+    decision === "approved"
+      ? "Approve this VIP video for publication?"
+      : "Reject this VIP video?"
+  );
+  if (!confirmed) return;
+
+  busy = true;
+  const buttons = card.querySelectorAll("button");
+  buttons.forEach(button => button.disabled = true);
+  status("Submitting review decision...");
+
+  try {
+    const { data, error } = await db.rpc("review_vip_video", {
+      p_listing_id: id,
+      p_decision: decision
+    });
+
+    if (error) throw error;
+    status("Video review completed: " + data + ".");
+    await loadPending();
+  } catch (error) {
+    status("Review failed: " + error.message);
+    buttons.forEach(button => button.disabled = false);
+  } finally {
+    busy = false;
+  }
+}
+
+$("login-form").addEventListener("submit", async event => {
+  event.preventDefault();
+  const button = $("login-form").querySelector("button");
+  button.disabled = true;
+  status("Signing in...");
+
+  try {
+    const { data, error } = await db.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+    if (error) throw error;
+    await showReview(data.user);
+  } catch (error) {
+    status("Sign-in or access check failed: " + error.message);
+    await showLogin();
+  } finally {
+    button.disabled = false;
+  }
+});
+
+$("refresh").addEventListener("click", loadPending);
+
+$("signout").addEventListener("click", async () => {
+  await db.auth.signOut();
+  await showLogin();
+  status("You have signed out.");
+});
+
+(async function init() {
+  const { data, error } = await db.auth.getSession();
+  if (error) {
+    status("Could not check your session: " + error.message);
+    return;
+  }
+  if (data.session) {
+    try {
+      await showReview(data.session.user);
+    } catch (error) {
+      await db.auth.signOut();
+      await showLogin();
+      status(error.message);
+    }
+  } else {
+    await showLogin();
+    status("Please sign in with your administrator account.");
+  }
+})();
+</script>
+</body>
+  </html>
