@@ -139,19 +139,243 @@ function active(a){const s=String(val(a,["status","approval_status","listing_sta
 function ago(v){if(!v)return "Recently posted";const d=new Date(v);if(Number.isNaN(d.getTime()))return "Recently posted";const m=Math.max(0,Math.floor((Date.now()-d.getTime())/60000));if(m<60)return m<2?"Just now":m+" minutes ago";const h=Math.floor(m/60);if(h<24)return h+" hour"+(h===1?"":"s")+" ago";const days=Math.floor(h/24);if(days<7)return days+" day"+(days===1?"":"s")+" ago";return d.toLocaleDateString("en-GH",{day:"numeric",month:"short"})}
 function advertUrl(a){const id=val(a,["id","advert_id","listing_id"],null);return id===null?"discover.html":"discover-details.html?id="+encodeURIComponent(String(id))}
 function renderAdverts(){let list=[...adverts],sort=$("sort-adverts").value,t=a=>{const n=new Date(dateOf(a)||0).getTime();return Number.isFinite(n)?n:0};if(sort==="newest")list.sort((a,b)=>t(b)-t(a));if(sort==="oldest")list.sort((a,b)=>t(a)-t(b));if(sort==="low")list.sort((a,b)=>(priceNumber(a)??Infinity)-(priceNumber(b)??Infinity));if(sort==="high")list.sort((a,b)=>(priceNumber(b)??-Infinity)-(priceNumber(a)??-Infinity));list=list.slice(0,12);$("adverts-status").textContent=adverts.length?"Showing "+list.length+" recent adverts.":"No active adverts are available right now. Please visit All Adverts to browse.";$("adverts-grid").innerHTML=list.length?list.map(a=>{const title=esc(titleOf(a)),cat=esc(categoryOf(a)),desc=esc(descOf(a)),loc=esc(locationOf(a)),price=esc(money(a)),date=esc(ago(dateOf(a))),img=esc(imageOf(a)),url=esc(advertUrl(a));return `<article class="ad-card"><a href="${url}" aria-label="View ${title}"><div class="ad-photo"><img src="${img}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"><span class="ad-badge">${cat}</span></div></a><div class="ad-body"><div class="ad-price">${price}</div><h3 class="ad-title">${title}</h3>${desc?`<p class="ad-desc">${desc}</p>`:""}<div class="ad-meta"><span>📍 ${loc}</span><span>◷ ${date}</span></div></div></article>`}).join(""):`<div class="empty-state">No adverts to show yet. Be among the first to <a href="advertise.html" style="color:#9b5b00;font-weight:800">post an advert</a>.</div>`}
-async function loadAdverts(){$("adverts-status").textContent="Loading latest adverts…";$("adverts-status").classList.add("loading");try{const url=SUPABASE_URL+"/rest/v1/"+TABLE+"?select=*&order=created_at.desc&limit=100";const r=await fetch(url,{headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY}});if(!r.ok)throw new Error("Supabase returned "+r.status);const rows=await r.json();if(!Array.isArray(rows))throw new Error("Unexpected response");adverts=rows.filter(active);renderAdverts();vipItems=adverts.filter(vipEligible);showVip()}catch(e){console.error("OGARS advert feed:",e);$("adverts-status").textContent="We couldn't load adverts right now. Please try All Adverts.";$("adverts-grid").innerHTML=""}finally{$("adverts-status").classList.remove("loading")}}
-$("sort-adverts").addEventListener("change",renderAdverts);
-$("menu-button").addEventListener("click",()=>{const open=$("mobile-nav").classList.toggle("open");$("menu-button").setAttribute("aria-expanded",String(open));$("menu-button").textContent=open?"✕":"☰"});
-$("search-form").addEventListener("submit",e=>{e.preventDefault();const raw=$("search-query").value.trim();if(!raw){$("search-query").focus();return}const q=raw.toLowerCase(),loc=$("search-location").value,has=ws=>ws.some(w=>q.includes(w));let page="discover.html";if(has(["plumber","plumbing","electrician","carpenter","painter","mason","welder","mechanic","barber","hairdresser","worker","tiler","cleaner","technician","service"]))page="workers.html";else if(has(["job","jobs","employment","vacancy","career","recruit"]))page="jobs.html";else if(has(["house","room","rent","rental","property","land","apartment","hostel","accommodation"]))page="find-property.html";else if(has(["vehicle","car","taxi","driver","truck","van","motorbike","motorcycle"]))page="vehicles.html";else if(has(["business","company","restaurant","shop","hotel"]))page="business.html";else if(has(["product","buy","sell","fish","chicken","food","clothes","phone","laptop","electronics","turkey","beef","sausage","furniture","fashion"]))page="find-products.html";const p=new URLSearchParams({search:raw});if(loc)p.set("location",loc);window.location.href=page+"?"+p.toString()});
 
-let vipItems=[],vipIndex=0,vipTimer=null,vipTick=null,vipMuted=true;
-function mediaUrl(a){let v=val(a,["video_url","videoUrl","video","video_path","media_url","mediaUrl"],"");if(v&&typeof v==="object")v=v.url||v.publicUrl||v.public_url||v.path||"";if(typeof v==="string"&&v.trim()){v=v.trim();if(/^https?:\/\//i.test(v))return v;if(!v.startsWith("/"))return SUPABASE_URL+"/storage/v1/object/public/discover-photos/"+v}return ""}
-function vipEligible(a){const yes=[a.is_vip,a.vip,a.is_featured,a.featured,a.vip_advert,a.is_promoted].some(v=>v===true||String(v).toLowerCase()==="true"||String(v).toLowerCase()==="vip");const tag=String(val(a,["promotion_type","advert_type","listing_badge","badge","plan"],"")).toLowerCase();return yes||tag.includes("vip")||tag.includes("featured")}
-function showVip(){const stage=$("vip-stage"),cap=$("vip-caption"),empty=$("vip-empty");if(!stage)return;stage.querySelectorAll("video,img,a").forEach(n=>n.remove());if(!vipItems.length){if(empty)empty.style.display="none";cap.textContent="No approved VIP adverts yet";$("vip-progress-fill").style.width="0%";return}if(empty)empty.style.display="none";const a=vipItems[vipIndex%vipItems.length],video=mediaUrl(a),img=imageOf(a),url=advertUrl(a);cap.textContent=titleOf(a);const link=document.createElement("a");link.href=url;link.setAttribute("aria-label","View VIP advert: "+titleOf(a));stage.appendChild(link);if(video){const el=document.createElement("video");el.src=video;el.autoplay=true;el.muted=vipMuted;el.playsInline=true;el.controls=false;el.preload="metadata";el.setAttribute("aria-label",titleOf(a));el.addEventListener("error",()=>{el.remove();const im=document.createElement("img");im.src=img;im.alt=titleOf(a);stage.insertBefore(im,link)});stage.insertBefore(el,link);el.play().catch(()=>{});}else{const im=document.createElement("img");im.src=img;im.alt=titleOf(a);im.onerror=()=>{im.onerror=null;im.src=FALLBACK_IMAGE};stage.insertBefore(im,link)}let started=Date.now();clearInterval(vipTick);vipTick=setInterval(()=>{const pct=Math.min(100,((Date.now()-started)/10000)*100);$("vip-progress-fill").style.width=pct+"%";},150);clearTimeout(vipTimer);vipTimer=setTimeout(nextVip,10000)}
-function nextVip(){if(!vipItems.length)return;vipIndex=(vipIndex+1)%vipItems.length;showVip()}function prevVip(){if(!vipItems.length)return;vipIndex=(vipIndex-1+vipItems.length)%vipItems.length;showVip()}
-$("vip-next").addEventListener("click",nextVip);$("vip-prev").addEventListener("click",prevVip);$("vip-mute").addEventListener("click",()=>{vipMuted=!vipMuted;$("vip-mute").textContent=vipMuted?"Sound off":"Sound on";const v=$("vip-stage").querySelector("video");if(v)v.muted=vipMuted});
-$("ai-search-form").addEventListener("submit",e=>{e.preventDefault();const q=$("ai-query").value.trim();if(!q)return;$("ai-status").textContent="Opening relevant OGARS listings…";const query=new URLSearchParams({search:q});window.location.href="discover.html?"+query.toString()});document.querySelectorAll("[data-ai-example]").forEach(b=>b.addEventListener("click",()=>{$("ai-query").value=b.dataset.aiExample;$("ai-query").focus()}));
+async function loadAdverts() {
+  $("adverts-status").textContent = "Loading latest adverts…";
+  $("adverts-status").classList.add("loading");
 
-$("year").textContent=new Date().getFullYear();loadAdverts();
+  try {
+    const url = SUPABASE_URL + "/rest/v1/" + TABLE +
+      "?select=*&order=created_at.desc&limit=100";
+
+    const r = await fetch(url, {
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": "Bearer " + SUPABASE_KEY
+      }
+    });
+
+    if (!r.ok) throw new Error("Supabase returned " + r.status);
+
+    const rows = await r.json();
+    if (!Array.isArray(rows)) throw new Error("Unexpected response");
+
+    const activeRows = rows.filter(active);
+
+    // Keep VIP Video adverts out of Trending Ads.
+    adverts = activeRows.filter(a =>
+      String(a.listing_type || "").toLowerCase() !== "vip video"
+    );
+
+    renderAdverts();
+
+    // Show only approved VIP videos, while retaining other eligible VIP adverts.
+    vipItems = activeRows.filter(a => {
+      const type = String(a.listing_type || "").toLowerCase();
+
+      if (type === "vip video") {
+        return String(a.video_status || "").toLowerCase() === "approved"
+          && !!mediaUrl(a);
+      }
+
+      return vipEligible(a) && !!(imageOf(a) || mediaUrl(a));
+    });
+
+    vipIndex = 0;
+    showVip();
+
+  } catch (e) {
+    console.error("OGARS advert feed:", e);
+    $("adverts-status").textContent =
+      "We couldn't load adverts right now. Please try All Adverts.";
+    $("adverts-grid").innerHTML = "";
+
+  } finally {
+    $("adverts-status").classList.remove("loading");
+  }
+}
+
+$("sort-adverts").addEventListener("change", renderAdverts);
+
+$("menu-button").addEventListener("click", () => {
+  const open = $("mobile-nav").classList.toggle("open");
+  $("menu-button").setAttribute("aria-expanded", String(open));
+  $("menu-button").textContent = open ? "✕" : "☰";
+});
+
+let vipItems = [], vipIndex = 0, vipTimer = null, vipTick = null, vipMuted = true;
+
+function mediaUrl(a) {
+  let v = val(a, [
+    "video_url", "videoUrl", "video",
+    "video_path", "media_url", "mediaUrl"
+  ], "");
+
+  if (v && typeof v === "object") {
+    v = v.url || v.publicUrl || v.public_url || v.path || "";
+  }
+
+  if (typeof v !== "string" || !v.trim()) return "";
+
+  v = v.trim();
+
+  if (/^https?:\/\//i.test(v)) return v;
+
+  const path = v.replace(/^\/+/, "");
+  const isVipVideo =
+    String(a.listing_type || "").toLowerCase() === "vip video";
+
+  if (isVipVideo) {
+    // Use the private bucket's object endpoint.
+    // Approved-video access is controlled by Supabase storage policies.
+    return SUPABASE_URL +
+      "/storage/v1/object/vip-videos/" +
+      path.split("/").map(encodeURIComponent).join("/");
+  }
+
+  return SUPABASE_URL +
+    "/storage/v1/object/public/discover-photos/" +
+    path.split("/").map(encodeURIComponent).join("/");
+}
+
+function vipEligible(a) {
+  const yes = [
+    a.is_vip, a.vip, a.is_featured, a.featured,
+    a.vip_advert, a.is_promoted
+  ].some(v =>
+    v === true ||
+    String(v).toLowerCase() === "true" ||
+    String(v).toLowerCase() === "vip"
+  );
+
+  const tag = String(val(a, [
+    "promotion_type", "advert_type", "listing_badge", "badge", "plan"
+  ], "")).toLowerCase();
+
+  return yes || tag.includes("vip") || tag.includes("featured");
+}
+
+function showVip() {
+  const stage = $("vip-stage");
+  const cap = $("vip-caption");
+  const empty = $("vip-empty");
+
+  if (!stage) return;
+
+  stage.querySelectorAll("video,img,a").forEach(n => n.remove());
+
+  if (!vipItems.length) {
+    if (empty) empty.style.display = "none";
+    cap.textContent = "No approved VIP adverts yet";
+    $("vip-progress-fill").style.width = "0%";
+    clearTimeout(vipTimer);
+    clearInterval(vipTick);
+    return;
+  }
+
+  if (empty) empty.style.display = "none";
+
+  const a = vipItems[vipIndex % vipItems.length];
+  const video = mediaUrl(a);
+  const img = imageOf(a);
+  const url = advertUrl(a);
+
+  cap.textContent = titleOf(a);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("aria-label", "View VIP advert: " + titleOf(a));
+  stage.appendChild(link);
+
+  if (video) {
+    const el = document.createElement("video");
+    el.src = video;
+    el.autoplay = true;
+    el.muted = vipMuted;
+    el.playsInline = true;
+    el.controls = true;
+    el.preload = "metadata";
+    el.setAttribute("aria-label", titleOf(a));
+
+    el.addEventListener("error", () => {
+      el.remove();
+      const im = document.createElement("img");
+      im.src = img;
+      im.alt = titleOf(a);
+      im.onerror = () => {
+        im.onerror = null;
+        im.src = FALLBACK_IMAGE;
+      };
+      stage.insertBefore(im, link);
+    });
+
+    stage.insertBefore(el, link);
+    el.play().catch(() => {});
+  } else {
+    const im = document.createElement("img");
+    im.src = img;
+    im.alt = titleOf(a);
+    im.onerror = () => {
+      im.onerror = null;
+      im.src = FALLBACK_IMAGE;
+    };
+    stage.insertBefore(im, link);
+  }
+
+  const started = Date.now();
+  clearInterval(vipTick);
+
+  vipTick = setInterval(() => {
+    const pct = Math.min(100, ((Date.now() - started) / 10000) * 100);
+    $("vip-progress-fill").style.width = pct + "%";
+  }, 150);
+
+  clearTimeout(vipTimer);
+  vipTimer = setTimeout(nextVip, 10000);
+}
+
+function nextVip() {
+  if (!vipItems.length) return;
+  vipIndex = (vipIndex + 1) % vipItems.length;
+  showVip();
+}
+
+function prevVip() {
+  if (!vipItems.length) return;
+  vipIndex = (vipIndex - 1 + vipItems.length) % vipItems.length;
+  showVip();
+}
+
+$("vip-next").addEventListener("click", nextVip);
+$("vip-prev").addEventListener("click", prevVip);
+
+$("vip-mute").addEventListener("click", () => {
+  vipMuted = !vipMuted;
+  $("vip-mute").textContent = vipMuted ? "Sound off" : "Sound on";
+
+  const v = $("vip-stage").querySelector("video");
+  if (v) v.muted = vipMuted;
+});
+
+$("ai-search-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const q = $("ai-query").value.trim();
+  if (!q) return;
+
+  $("ai-status").textContent = "Opening relevant OGARS listings…";
+  const query = new URLSearchParams({ search: q });
+  window.location.href = "discover.html?" + query.toString();
+});
+
+document.querySelectorAll("[data-ai-example]").forEach(b => {
+  b.addEventListener("click", () => {
+    $("ai-query").value = b.dataset.aiExample;
+    $("ai-query").focus();
+  });
+});
+
+$("year").textContent = new Date().getFullYear();
+loadAdverts();
 </script>
-</body></html>
+</body>
+</html>
