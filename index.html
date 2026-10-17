@@ -255,7 +255,7 @@ function vipEligible(a) {
   return yes || tag.includes("vip") || tag.includes("featured");
 }
 
-function showVip() {
+async function showVip() {
   const stage = $("vip-stage");
   const cap = $("vip-caption");
   const empty = $("vip-empty");
@@ -264,19 +264,21 @@ function showVip() {
 
   stage.querySelectorAll("video,img,a").forEach(n => n.remove());
 
+  clearTimeout(vipTimer);
+  clearInterval(vipTick);
+
   if (!vipItems.length) {
     if (empty) empty.style.display = "none";
     cap.textContent = "No approved VIP adverts yet";
     $("vip-progress-fill").style.width = "0%";
-    clearTimeout(vipTimer);
-    clearInterval(vipTick);
     return;
   }
 
   if (empty) empty.style.display = "none";
 
   const a = vipItems[vipIndex % vipItems.length];
-  const video = mediaUrl(a);
+  const isVipVideo =
+    String(a.listing_type || "").toLowerCase() === "vip video";
   const img = imageOf(a);
   const url = advertUrl(a);
 
@@ -287,31 +289,7 @@ function showVip() {
   link.setAttribute("aria-label", "View VIP advert: " + titleOf(a));
   stage.appendChild(link);
 
-  if (video) {
-    const el = document.createElement("video");
-    el.src = video;
-    el.autoplay = true;
-    el.muted = vipMuted;
-    el.playsInline = true;
-    el.controls = true;
-    el.preload = "metadata";
-    el.setAttribute("aria-label", titleOf(a));
-
-    el.addEventListener("error", () => {
-      el.remove();
-      const im = document.createElement("img");
-      im.src = img;
-      im.alt = titleOf(a);
-      im.onerror = () => {
-        im.onerror = null;
-        im.src = FALLBACK_IMAGE;
-      };
-      stage.insertBefore(im, link);
-    });
-
-    stage.insertBefore(el, link);
-    el.play().catch(() => {});
-  } else {
+  function showImage() {
     const im = document.createElement("img");
     im.src = img;
     im.alt = titleOf(a);
@@ -322,15 +300,97 @@ function showVip() {
     stage.insertBefore(im, link);
   }
 
+  if (isVipVideo) {
+    try {
+      const response = await fetch(
+        SUPABASE_URL + "/functions/v1/vip-video-url",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY,
+            "Authorization": "Bearer " + SUPABASE_KEY
+          },
+          body: JSON.stringify({
+            listing_id: Number(a.id)
+          })
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Video URL request failed: " + response.status
+        );
+      }
+
+      const result = await response.json();
+
+      if (!result.video_url) {
+        throw new Error("No video URL returned");
+      }
+
+      const el = document.createElement("video");
+      el.src = result.video_url;
+      el.autoplay = true;
+      el.muted = vipMuted;
+      el.playsInline = true;
+      el.controls = true;
+      el.preload = "metadata";
+      el.setAttribute("aria-label", titleOf(a));
+
+      el.addEventListener("error", () => {
+        if (el.isConnected) {
+          el.remove();
+          showImage();
+        }
+      });
+
+      stage.insertBefore(el, link);
+      el.play().catch(() => {});
+    } catch (error) {
+      console.error("VIP video could not load:", error);
+      showImage();
+    }
+  } else {
+    const video = mediaUrl(a);
+
+    if (video) {
+      const el = document.createElement("video");
+      el.src = video;
+      el.autoplay = true;
+      el.muted = vipMuted;
+      el.playsInline = true;
+      el.controls = true;
+      el.preload = "metadata";
+      el.setAttribute("aria-label", titleOf(a));
+
+      el.addEventListener("error", () => {
+        if (el.isConnected) {
+          el.remove();
+          showImage();
+        }
+      });
+
+      stage.insertBefore(el, link);
+      el.play().catch(() => {});
+    } else {
+      showImage();
+    }
+  }
+
   const started = Date.now();
-  clearInterval(vipTick);
 
   vipTick = setInterval(() => {
-    const pct = Math.min(100, ((Date.now() - started) / 10000) * 100);
-    $("vip-progress-fill").style.width = pct + "%";
+    const fill = $("vip-progress-fill");
+    if (fill) {
+      const pct = Math.min(
+        100,
+        ((Date.now() - started) / 10000) * 100
+      );
+      fill.style.width = pct + "%";
+    }
   }, 150);
 
-  clearTimeout(vipTimer);
   vipTimer = setTimeout(nextVip, 10000);
 }
 
