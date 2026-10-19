@@ -119,6 +119,20 @@
     .results-heading { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
     .filter-panel .search-title { margin-bottom: 10px; }
     .filter-panel .filter-grid { margin-top: 10px; }
+    .filter-toggle-row { display:none; margin: 8px 0 10px; }
+    .filter-toggle-button { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; border:1px solid #ded6ef; border-radius:12px; padding:12px 14px; background:#fff; color:var(--purple); font-weight:800; cursor:pointer; box-shadow:0 2px 8px rgba(32,25,65,.035); }
+    .filter-toggle-left { display:flex; align-items:center; gap:9px; }
+    .filter-toggle-icon { width:34px; height:34px; display:grid; place-items:center; border-radius:9px; background:var(--lavender); font-size:18px; }
+    .filter-toggle-subtitle { display:block; color:var(--muted); font-size:11px; font-weight:400; margin-top:1px; text-align:left; }
+    .filter-toggle-chevron { font-size:18px; transition:transform .18s ease; }
+    body.category-mode .filter-toggle-row { display:block; }
+    body.category-mode .filter-panel { display:none; }
+    body.category-mode.filters-open .filter-panel { display:block; }
+    body.category-mode .filter-panel { margin-top:0; }
+    body.category-mode .filter-panel .search-title { display:none; }
+    body.category-mode.filters-open .filter-toggle-chevron { transform:rotate(180deg); }
+    body.category-mode .category-results-heading { margin-top:16px; }
+
     @media (min-width: 760px) {
       .compact-search-row { grid-template-columns: 2fr 1fr 1fr; }
       .compact-search .primary-btn { grid-column: 1 / -1; }
@@ -202,7 +216,17 @@
       </div>
     </section>
 
-    <section class="search-panel filter-panel" aria-label="Search and filter vehicles">
+    <div class="filter-toggle-row" id="filterToggleRow">
+      <button class="filter-toggle-button" id="filterToggleButton" type="button" aria-expanded="false" aria-controls="vehicleFilterPanel">
+        <span class="filter-toggle-left">
+          <span class="filter-toggle-icon" aria-hidden="true">☷</span>
+          <span><span>Filters</span><span class="filter-toggle-subtitle" id="filterToggleSubtitle">Choose location, price, make, year and more</span></span>
+        </span>
+        <span class="filter-toggle-chevron" aria-hidden="true">⌄</span>
+      </button>
+    </div>
+
+    <section id="vehicleFilterPanel" class="search-panel filter-panel" aria-label="Search and filter vehicles">
       <div class="search-title">
         <h2>Search vehicles</h2>
         <span>Find the right match</span>
@@ -579,6 +603,7 @@
       ["keyword","town","minPrice","maxPrice","model","yearFrom","yearTo","maxMileage","colour"].forEach(id => $(id).value = "");
       ["region","make","condition","transmission","fuel","vehicleType"].forEach(id => $(id).value = "");
       $("sortBy").value = "newest";
+      updateFilterToggleSubtitle();
       renderVehicles();
     }
     async function loadVehicles() {
@@ -602,6 +627,25 @@
       }
     }
 
+    function setFiltersOpen(open) {
+      document.body.classList.toggle("filters-open", Boolean(open));
+      const button = $("filterToggleButton");
+      if (button) button.setAttribute("aria-expanded", String(Boolean(open)));
+    }
+    function updateFilterToggleSubtitle() {
+      const ids = ["keyword","region","town","minPrice","maxPrice","make","model","yearFrom","yearTo","condition","transmission","fuel","maxMileage","colour","vehicleType"];
+      const count = ids.filter(id => clean($(id)?.value)).length;
+      const subtitle = $("filterToggleSubtitle");
+      if (subtitle) subtitle.textContent = count ? `${count} filter${count === 1 ? "" : "s"} selected · Tap to edit` : "Choose location, price, make, year and more";
+    }
+    $("filterToggleButton").addEventListener("click", () => {
+      setFiltersOpen(!document.body.classList.contains("filters-open"));
+    });
+    ["keyword","region","town","minPrice","maxPrice","make","model","yearFrom","yearTo","condition","transmission","fuel","maxMileage","colour","vehicleType"].forEach(id => {
+      $(id).addEventListener("change", updateFilterToggleSubtitle);
+      $(id).addEventListener("input", updateFilterToggleSubtitle);
+    });
+
     // Landing page search transfers the chosen criteria into the category search.
     $("landingSearch").addEventListener("click", () => {
       $("keyword").value = $("landingKeyword").value;
@@ -616,18 +660,20 @@
       }
       activeCategory = "all";
       document.body.classList.add("category-mode");
+      setFiltersOpen(false);
+      updateFilterToggleSubtitle();
       history.replaceState(null, "", "vehicles.html?category=all");
       renderVehicles();
       document.querySelector(".category-mode-heading").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     $("backToCategories").addEventListener("click", () => {
-      document.body.classList.remove("category-mode");
+      document.body.classList.remove("category-mode", "filters-open");
       activeCategory = "all";
       history.replaceState(null, "", "vehicles.html");
       renderVehicles();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-    $("searchBtn").addEventListener("click", renderVehicles);
+    $("searchBtn").addEventListener("click", () => { renderVehicles(); updateFilterToggleSubtitle(); setFiltersOpen(false); });
     $("sortBy").addEventListener("change", renderVehicles);
     $("resetBtn").addEventListener("click", resetFilters);
     document.querySelectorAll(".category-chip").forEach(btn => {
@@ -643,6 +689,8 @@
 
     if (activeCategory !== "all") {
       document.body.classList.add("category-mode");
+      setFiltersOpen(false);
+      updateFilterToggleSubtitle();
       if ($("categoryPageTitle")) $("categoryPageTitle").textContent = categoryNames[activeCategory] || "Vehicles";
     }
     loadVehicles();
