@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#542B9A">
-  <title>Vehicles for Sale & Rent - OGARS Platform</title>
+  <title>OGARS Vehicles | Find Vehicles in Ghana</title>
   <style>
     :root {
       --purple: #542B9A;
@@ -22,7 +22,7 @@
     a { color: inherit; text-decoration: none; }
     button, input, select { font: inherit; }
     button, a, select { -webkit-tap-highlight-color: transparent; }
-    .topbar { background: var(--purple); color: #fff; padding: 13px 16px; }
+    .topbar { background: var(--purple); color: #fff; padding: 10px 14px; }
     .topbar-inner { max-width: 1180px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .brand { font-weight: 800; letter-spacing: .3px; font-size: 19px; }
     .brand span { color: #e5d9ff; }
@@ -80,6 +80,52 @@
     .state-box button { margin-top: 12px; }
     .secondary-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 25px 0 0; color: var(--purple); font-size: 13px; font-weight: 700; }
     footer { text-align: center; padding: 23px 15px; color: #7b8494; font-size: 12px; }
+    /* Compact, category-first OGARS layout inspired by the supplied reference */
+    .hero { background: #fff; color: var(--ink); padding: 12px 14px 16px; border-bottom: 1px solid var(--line); }
+    .hero-inner { max-width: 1180px; margin: auto; }
+    .eyebrow, .hero h1, .hero p, .quick-actions { display: none; }
+    .compact-search { background: var(--lavender); border-radius: 15px; padding: 14px; }
+    .compact-search h2 { color: var(--purple-dark); font-size: 17px; margin-bottom: 10px; }
+    .compact-search-row { display: grid; grid-template-columns: 1fr; gap: 9px; }
+    .compact-search input, .compact-search select { width: 100%; height: 44px; border: 1px solid #d9cbed; border-radius: 10px; background: #fff; padding: 0 12px; color: var(--ink); }
+    .compact-search .primary-btn { width: 100%; min-height: 46px; font-size: 15px; }
+    .section-heading { font-size: 19px; margin: 18px 0 12px; }
+    .category-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 9px; }
+    .category-card { min-width: 0; background: #fff; border: 1px solid #e4ddeb; border-radius: 13px; min-height: 105px; padding: 12px 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 7px; cursor: pointer; }
+    .category-card:hover, .category-card:focus { border-color: var(--purple); background: #fbf9ff; outline: none; }
+    .category-avatar { width: 48px; height: 48px; border-radius: 13px; background: var(--lavender); display: grid; place-items: center; font-size: 28px; }
+    .category-card strong { color: #322344; font-size: 12px; line-height: 1.25; }
+    .category-count { color: var(--muted); font-size: 10px; }
+    .landing-latest { margin-top: 22px; }
+    .category-page-title { display:flex; align-items:center; gap:10px; margin: 4px 0 14px; }
+    .back-category { border:0; border-radius:50%; width:38px; height:38px; background:var(--lavender); color:var(--purple); font-size:21px; cursor:pointer; }
+    .category-page-title h1 { font-size:22px; }
+    .category-page-title p { color:var(--muted); font-size:12px; }
+    body:not(.category-mode) .filter-panel, body:not(.category-mode) .category-results-heading { display:none; }
+    body.category-mode .landing-categories, body.category-mode .landing-latest { display:none; }
+    body.category-mode .compact-search h2 { display:none; }
+    body.category-mode .hero { padding-bottom: 10px; }
+    body.category-mode .page { padding-top: 10px; }
+    .category-mode-heading { display:none; }
+    body.category-mode .category-mode-heading { display:flex; }
+    body.category-mode .search-title span { display:none; }
+    .filter-panel { margin-top: 12px; }
+    .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .vehicle-card { border-radius: 12px; }
+    .vehicle-image-wrap { aspect-ratio: 4 / 3; }
+    .vehicle-content { padding: 11px; }
+    .vehicle-price { color: #16834a; font-size: 17px; }
+    .sort-field { width: 180px; }
+    .results-heading { border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+    .filter-panel .search-title { margin-bottom: 10px; }
+    .filter-panel .filter-grid { margin-top: 10px; }
+    @media (min-width: 760px) {
+      .compact-search-row { grid-template-columns: 2fr 1fr 1fr; }
+      .compact-search .primary-btn { grid-column: 1 / -1; }
+      .category-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .listing-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
+
     @media (max-width: 850px) {
       .listing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -119,29 +165,44 @@
 
   <section class="hero">
     <div class="hero-inner">
-      <div class="eyebrow">OGARS VEHICLES MARKETPLACE</div>
-      <h1>Find your next vehicle</h1>
-      <p>Explore vehicles for sale and rent, compare prices and details, and contact advertisers directly.</p>
-      <div class="quick-actions">
-        <a class="quick-action" href="find-vehicles.html">🚗 I Need a Vehicle</a>
-        <a class="quick-action" href="find-drivers.html">👨‍✈️ I Need a Driver</a>
-        <a class="quick-action" href="business-drivers.html">🏢 I'm a Business</a>
+      <div class="compact-search">
+        <h2>What are you looking for?</h2>
+        <div class="compact-search-row">
+          <input id="landingKeyword" type="search" placeholder="Search Toyota, Corolla, Honda…" aria-label="Search vehicles">
+          <select id="landingRegion" aria-label="Choose region">
+            <option value="">All Ghana</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Volta</option><option>Northern</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option><option>Oti</option><option>Savannah</option><option>North East</option><option>Western North</option>
+          </select>
+          <select id="landingPrice" aria-label="Choose price range">
+            <option value="">Any price</option><option value="0-50000">Under GH₵50,000</option><option value="50000-100000">GH₵50,000–100,000</option><option value="100000-200000">GH₵100,000–200,000</option><option value="200000-500000">GH₵200,000–500,000</option><option value="500000-">Above GH₵500,000</option>
+          </select>
+          <button class="primary-btn" id="landingSearch" type="button">Search Vehicles</button>
+        </div>
+      </div>
+      <div class="category-page-title category-mode-heading">
+        <button class="back-category" id="backToCategories" type="button" aria-label="Back to vehicle categories">←</button>
+        <div><h1 id="categoryPageTitle">Cars</h1><p>Find the right vehicle in Ghana</p></div>
       </div>
     </div>
   </section>
 
   <main class="page">
-    <nav class="category-strip" aria-label="Vehicle categories">
-      <button class="category-chip active" type="button" data-category="all">All vehicles</button>
-      <button class="category-chip" type="button" data-category="car">Cars</button>
-      <button class="category-chip" type="button" data-category="motorbike">Motorbikes</button>
-      <button class="category-chip" type="button" data-category="bus">Buses & minibuses</button>
-      <button class="category-chip" type="button" data-category="truck">Trucks & pickups</button>
-      <button class="category-chip" type="button" data-category="parts">Vehicle parts</button>
-      <button class="category-chip" type="button" data-category="rental">Vehicles for rent</button>
-    </nav>
+    <section class="landing-categories">
+      <h2 class="section-heading">Browse vehicle categories</h2>
+      <div class="category-grid">
+        <a class="category-card" href="vehicles.html?category=car"><span class="category-avatar">🚘</span><strong>Cars</strong></a>
+        <a class="category-card" href="vehicles.html?category=motorbike"><span class="category-avatar">🏍️</span><strong>Motorcycles & Scooters</strong></a>
+        <a class="category-card" href="vehicles.html?category=bus"><span class="category-avatar">🚌</span><strong>Buses & Microbuses</strong></a>
+        <a class="category-card" href="vehicles.html?category=truck"><span class="category-avatar">🚚</span><strong>Trucks & Trailers</strong></a>
+        <a class="category-card" href="vehicles.html?category=machinery"><span class="category-avatar">🚜</span><strong>Construction & Heavy Machinery</strong></a>
+        <a class="category-card" href="vehicles.html?category=parts"><span class="category-avatar">⚙️</span><strong>Vehicle Parts & Accessories</strong></a>
+        <a class="category-card" href="vehicles.html?category=boat"><span class="category-avatar">🛥️</span><strong>Watercraft & Boats</strong></a>
+        <a class="category-card" href="vehicles.html?category=mobility"><span class="category-avatar">🛴</span><strong>Personal Mobility</strong></a>
+        <a class="category-card" href="vehicles.html?category=services"><span class="category-avatar">🛞</span><strong>Car Services</strong></a>
+        <a class="category-card" href="vehicles.html?category=rental"><span class="category-avatar">🔑</span><strong>Vehicle Rental</strong></a>
+      </div>
+    </section>
 
-    <section class="search-panel" aria-label="Search and filter vehicles">
+    <section class="search-panel filter-panel" aria-label="Search and filter vehicles">
       <div class="search-title">
         <h2>Search vehicles</h2>
         <span>Find the right match</span>
@@ -235,7 +296,7 @@
       </div>
     </section>
 
-    <section>
+    <section class="category-results-heading">
       <div class="results-heading">
         <div>
           <h2>Vehicles available</h2>
@@ -260,10 +321,18 @@
       </div>
     </section>
 
+    <section class="landing-latest">
+      <h2 class="section-heading">Latest vehicle adverts</h2>
+      <div class="listing-grid" id="latestVehicleGrid"><div class="state-box"><strong>Loading latest adverts…</strong>Real OGARS vehicle listings will appear here.</div></div>
+    </section>
+
     <div class="secondary-links">
-      <a href="advertise.html">＋ Advertise a vehicle</a>
-      <a href="find-drivers.html">Find a driver</a>
+      <a href="find-vehicles.html">I need a vehicle</a>
+      <a href="find-drivers.html">I need a driver</a>
+      <a href="post-driver.html">Register as a driver</a>
+      <a href="post-vehicle.html">Post a vehicle</a>
       <a href="business-drivers.html">Business driver services</a>
+      <a href="advertise.html">＋ Advertise a vehicle</a>
     </div>
   </main>
 
@@ -277,8 +346,9 @@
 
     const $ = id => document.getElementById(id);
     let allVehicles = [];
-    let activeCategory = "all";
+    let activeCategory = new URLSearchParams(location.search).get("category") || "all";
     let loadingFailed = false;
+    const categoryNames = { car: "Cars", motorbike: "Motorcycles & Scooters", bus: "Buses & Microbuses", truck: "Trucks & Trailers", machinery: "Construction & Heavy Machinery", parts: "Vehicle Parts & Accessories", boat: "Watercraft & Boats", mobility: "Personal Mobility", services: "Car Services", rental: "Vehicle Rental", all: "All Vehicles" };
 
     function clean(value) {
       return String(value ?? "").trim();
@@ -346,8 +416,12 @@
       if (/parts|accessor|spare/.test(text)) return "parts";
       if (/rent|rental|hire/.test(text)) return "rental";
       if (/motorbike|motorcycle|scooter/.test(text)) return "motorbike";
-      if (/bus|minibus|coach/.test(text)) return "bus";
-      if (/truck|pickup|pick-up|van/.test(text)) return "truck";
+      if (/bus|minibus|microbus|coach/.test(text)) return "bus";
+      if (/truck|trailer|pickup|pick-up|van/.test(text)) return "truck";
+      if (/excavator|bulldozer|heavy machinery|construction equipment|loader|tractor/.test(text)) return "machinery";
+      if (/boat|watercraft|yacht|jet ski/.test(text)) return "boat";
+      if (/scooter|mobility|wheelchair|electric bike/.test(text)) return "mobility";
+      if (/car service|mechanic|tyre|tire|car wash|vehicle repair/.test(text)) return "services";
       if (/car|suv|sedan|hatchback|coupe|wagon/.test(text)) return "car";
       return "other";
     }
@@ -476,27 +550,35 @@
       else filtered.sort((a,b) => b.created - a.created);
       return filtered;
     }
+    function emptyState(containerId, title, message) {
+      $(containerId).innerHTML = `<div class="state-box"><strong>${escapeHtml(title)}</strong>${escapeHtml(message)}</div>`;
+    }
     function renderVehicles() {
       const filtered = getFilteredVehicles();
-      $("filterCount").textContent = `${filtered.length} vehicle advert${filtered.length === 1 ? "" : "s"} found`;
-      $("resultsSubtitle").textContent = activeCategory === "all" ? "Browse current vehicle adverts on OGARS" : `Showing ${activeCategory} listings`;
+      const title = categoryNames[activeCategory] || "Vehicles";
+      $("filterCount").textContent = `${filtered.length} advert${filtered.length === 1 ? "" : "s"} found`;
+      $("resultsSubtitle").textContent = activeCategory === "all" ? "Browse current vehicle adverts on OGARS" : `Browse ${title.toLowerCase()} in Ghana`;
+      if (document.body.classList.contains("category-mode")) $("categoryPageTitle").textContent = title;
       if (!filtered.length) {
-        const title = loadingFailed ? "Vehicle adverts could not be loaded" : (allVehicles.length ? "No matching vehicles found" : "No vehicle adverts yet");
+        const heading = loadingFailed ? "Vehicle adverts could not be loaded" : (allVehicles.length ? "No matching adverts found" : "No vehicle adverts yet");
         const message = loadingFailed
-          ? "Please check your internet connection and try again. If this continues, check the Supabase Data API and table access policies."
-          : (allVehicles.length ? "Try changing your search, category or filters." : "When vehicle adverts are published on OGARS, they will appear here automatically.");
-        $("vehicleGrid").innerHTML = `<div class="state-box"><strong>${title}</strong>${message}<br><button type="button" class="reset-btn" id="emptyReset">Reset filters</button></div>`;
-        $("emptyReset").addEventListener("click", resetFilters);
-        return;
+          ? "Check your internet connection and Supabase table access policies, then reload this page."
+          : (allVehicles.length ? "Try changing your search or filters." : "Vehicle adverts published on OGARS will appear here automatically.");
+        emptyState("vehicleGrid", heading, message);
+      } else {
+        $("vehicleGrid").innerHTML = filtered.map(renderCard).join("");
       }
-      $("vehicleGrid").innerHTML = filtered.map(renderCard).join("");
+      const latest = [...allVehicles].sort((a,b) => b.created - a.created).slice(0, 6);
+      if (!latest.length) {
+        emptyState("latestVehicleGrid", loadingFailed ? "Latest adverts could not be loaded" : "No vehicle adverts yet", loadingFailed ? "Please check your connection and try again." : "Your published vehicle adverts will appear here.");
+      } else {
+        $("latestVehicleGrid").innerHTML = latest.map(renderCard).join("");
+      }
     }
     function resetFilters() {
       ["keyword","town","minPrice","maxPrice","model","yearFrom","yearTo","maxMileage","colour"].forEach(id => $(id).value = "");
       ["region","make","condition","transmission","fuel","vehicleType"].forEach(id => $(id).value = "");
       $("sortBy").value = "newest";
-      activeCategory = "all";
-      document.querySelectorAll(".category-chip").forEach(btn => btn.classList.toggle("active", btn.dataset.category === "all"));
       renderVehicles();
     }
     async function loadVehicles() {
@@ -520,6 +602,31 @@
       }
     }
 
+    // Landing page search transfers the chosen criteria into the category search.
+    $("landingSearch").addEventListener("click", () => {
+      $("keyword").value = $("landingKeyword").value;
+      $("region").value = $("landingRegion").value;
+      const range = $("landingPrice").value;
+      if (range) {
+        const parts = range.split("-");
+        $("minPrice").value = parts[0] || "";
+        $("maxPrice").value = parts[1] || "";
+      } else {
+        $("minPrice").value = ""; $("maxPrice").value = "";
+      }
+      activeCategory = "all";
+      document.body.classList.add("category-mode");
+      history.replaceState(null, "", "vehicles.html?category=all");
+      renderVehicles();
+      document.querySelector(".category-mode-heading").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    $("backToCategories").addEventListener("click", () => {
+      document.body.classList.remove("category-mode");
+      activeCategory = "all";
+      history.replaceState(null, "", "vehicles.html");
+      renderVehicles();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
     $("searchBtn").addEventListener("click", renderVehicles);
     $("sortBy").addEventListener("change", renderVehicles);
     $("resetBtn").addEventListener("click", resetFilters);
@@ -534,6 +641,10 @@
       $(id).addEventListener("keydown", event => { if (event.key === "Enter") renderVehicles(); });
     });
 
+    if (activeCategory !== "all") {
+      document.body.classList.add("category-mode");
+      if ($("categoryPageTitle")) $("categoryPageTitle").textContent = categoryNames[activeCategory] || "Vehicles";
+    }
     loadVehicles();
   </script>
 </body>
