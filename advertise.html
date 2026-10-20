@@ -62,7 +62,264 @@ sub.addEventListener("change",()=>{
 function say(text,kind){message.textContent=text;message.className="message show "+kind;message.scrollIntoView({behavior:"smooth",block:"center"});}function clearMsg(){message.textContent="";message.className="message";}
 photoInput.addEventListener("change",()=>{const files=Array.from(photoInput.files||[]).filter(f=>f.type.startsWith("image/"));if(files.some(f=>f.size>10*1024*1024)){say("Each photo must be 10 MB or smaller. Please choose a smaller image.","error");photoInput.value="";return;}selectedPhotos=selectedPhotos.concat(files);photoInput.value="";clearMsg();drawPreviews();});
 function drawPreviews(){preview.innerHTML="";selectedPhotos.forEach((file,i)=>{const reader=new FileReader();reader.onload=e=>{const box=document.createElement("div");box.className="preview";const img=document.createElement("img");img.src=e.target.result;img.alt="Photo preview";const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="×";b.setAttribute("aria-label","Remove photo");b.onclick=()=>{selectedPhotos.splice(i,1);drawPreviews();};box.append(img,b);preview.appendChild(box);};reader.readAsDataURL(file);});}
-form.addEventListener("submit",async e=>{e.preventDefault();if(submit.disabled)return;clearMsg();if(!type.value||!sub.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please choose a category, subcategory, advert title, and Ghana region/town.","error");return;}submit.disabled=true;submit.textContent="Publishing...";try{const {data:userData,error:userError}=await client.auth.getUser();if(userError)throw new Error("We couldn't check your login. Please log in again.");const user=userData.user;if(!user){say("Please log in to publish an advert. Taking you to your OGARS account page...","error");submit.disabled=false;submit.textContent="Publish advert";setTimeout(()=>location.href="account.html",1400);return;}
-const title=$("title").value.trim(),region=regionSelect.value,town=townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value,location=[town,region].filter(Boolean).join(", "),description=$("description").value.trim(),phone=$("phone").value.trim(),whatsapp=$("whatsapp").value.trim(),website=$("website").value.trim(),eventDate=$("event-date").value,eventTime=$("event-time").value.trim();const detailLines=["Category: "+type.value,"Subcategory: "+sub.value,"Region: "+region,"Town / area: "+town];dynamic.querySelectorAll("[data-dynamic='1']").forEach(el=>{if(el.value.trim())detailLines.push(el.dataset.label+": "+el.value.trim());});vehicleExtra.querySelectorAll("[data-vehicle]").forEach(el=>{if(el.value.trim())detailLines.push(el.dataset.vehicle+": "+el.value.trim());});const fullDescription=[description,detailLines.join("\n")].filter(Boolean).join("\n\n");const photoUrls=[];for(const file of selectedPhotos){const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-");const path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;const {error}=await client.storage.from("discover-photos").upload(path,file);if(error)throw new Error("Photo upload failed: "+error.message);const {data}=client.storage.from("discover-photos").getPublicUrl(path);if(data?.publicUrl)photoUrls.push(data.publicUrl);}
-const listing={user_id:user.id,title,listing_type:type.value,location:location||null,description:fullDescription||null,phone:phone||null,whatsapp:whatsapp||null,website:website||null,event_date:eventDate||null,event_time:eventTime||null,photo_urls:photoUrls.length?photoUrls.join(","):null,featured:false,available:true};const {error:insertError}=await client.from("discover_listings").insert([listing]);if(insertError)throw new Error("Advert could not be saved: "+insertError.message);form.reset();selectedPhotos=[];preview.innerHTML="";townSelect.disabled=true;fillSelect(townSelect,[],"Choose a region first");otherTownWrap.classList.add("hidden");otherTownInput.required=false;vehicleExtra.innerHTML="";vehicleExtra.classList.add("hidden");updateCategory();say("Your advert has been published successfully!","success");window.scrollTo({top:0,behavior:"smooth"});}catch(err){console.error("OGARS advert error:",err);say("Unable to publish your advert. "+(err.message||"Please try again."),"error");}finally{submit.disabled=false;submit.textContent="Publish advert";}});
-</script></body></html>
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  if (submit.disabled) return;
+
+  clearMsg();
+  const isProperty = type.value === "Houses & Property";
+
+  if (
+    !type.value ||
+    !sub.value ||
+    !$("title").value.trim() ||
+    !regionSelect.value ||
+    !townSelect.value ||
+    (townSelect.value === "Other town / area" &&
+      !otherTownInput.value.trim())
+  ) {
+    say(
+      "Please choose a category, subcategory, advert title, and Ghana region/town.",
+      "error"
+    );
+    return;
+  }
+
+  submit.disabled = true;
+  submit.textContent = "Publishing...";
+
+  try {
+    const { data: userData, error: userError } =
+      await client.auth.getUser();
+
+    if (userError) {
+      throw new Error("Please log in again.");
+    }
+
+    const user = userData.user;
+
+    if (!user) {
+      say("Please log in to publish an advert.", "error");
+      setTimeout(() => location.href = "account.html", 1400);
+      return;
+    }
+
+    const title = $("title").value.trim();
+    const region = regionSelect.value;
+    const town = townSelect.value === "Other town / area"
+      ? otherTownInput.value.trim()
+      : townSelect.value;
+    const location = [town, region].filter(Boolean).join(", ");
+    const description = $("description").value.trim();
+    const phone = $("phone").value.trim();
+    const whatsapp = $("whatsapp").value.trim();
+    const website = $("website").value.trim();
+    const eventDate = $("event-date").value;
+    const eventTime = $("event-time").value.trim();
+
+    const details = {};
+
+    dynamic.querySelectorAll("[data-dynamic='1']").forEach(el => {
+      if (el.value.trim()) {
+        details[el.dataset.label] = el.value.trim();
+      }
+    });
+
+    vehicleExtra.querySelectorAll("[data-vehicle]").forEach(el => {
+      if (el.value.trim()) {
+        details[el.dataset.vehicle] = el.value.trim();
+      }
+    });
+
+    const detailLines = [
+      "Category: " + type.value,
+      "Subcategory: " + sub.value,
+      "Region: " + region,
+      "Town / area: " + town
+    ];
+
+    Object.entries(details).forEach(([label, value]) => {
+      detailLines.push(label + ": " + value);
+    });
+
+    const fullDescription =
+      [description, detailLines.join("\n\n")]
+        .filter(Boolean)
+        .join("\n\n");
+
+    // Upload property photos to their own bucket.
+    // Other adverts continue using discover-photos.
+    const photoBucket = isProperty
+      ? "property-photos"
+      : "discover-photos";
+
+    const photoUrls = [];
+
+    for (const file of selectedPhotos) {
+      const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+      const path =
+        user.id + "/" +
+        Date.now() + "-" +
+        Math.random().toString(36).slice(2, 9) + "-" +
+        safe;
+
+      const { error: uploadError } = await client.storage
+        .from(photoBucket)
+        .upload(path, file);
+
+      if (uploadError) {
+        throw new Error("Photo upload failed: " + uploadError.message);
+      }
+
+      const { data: urlData } = client.storage
+        .from(photoBucket)
+        .getPublicUrl(path);
+
+      if (urlData?.publicUrl) {
+        photoUrls.push(urlData.publicUrl);
+      }
+    }
+
+    let result;
+
+    if (isProperty) {
+      // Convert the advert subcategory into a property type.
+      const subcategory = sub.value.toLowerCase();
+      let propertyType = "Other";
+
+      if (subcategory.includes("apartment") || subcategory.includes("flat")) {
+        propertyType = "Apartment";
+      } else if (subcategory.includes("student")) {
+        propertyType = "Student Housing";
+      } else if (subcategory.includes("short stay") ||
+                 subcategory.includes("hotel")) {
+        propertyType = subcategory.includes("hotel") ? "Hotel" : "Short Stay";
+      } else if (subcategory.includes("room")) {
+        propertyType = "Room";
+      } else if (subcategory.includes("house")) {
+        propertyType = "House";
+      } else if (subcategory.includes("warehouse")) {
+        propertyType = "Warehouse";
+      } else if (subcategory.includes("office")) {
+        propertyType = "Office";
+      } else if (subcategory.includes("shop")) {
+        propertyType = "Shop";
+      } else if (subcategory.includes("commercial")) {
+        propertyType = "Commercial Space";
+      } else if (subcategory.includes("land")) {
+        propertyType = "Land";
+      }
+
+      const getDetail = (...labels) => {
+        const key = Object.keys(details).find(k =>
+          labels.some(label => k.toLowerCase() === label.toLowerCase())
+        );
+        return key ? details[key] : null;
+      };
+
+      const numberValue = value => {
+        if (value == null || value === "") return null;
+        const n = Number(String(value).replace(/,/g, ""));
+        return Number.isFinite(n) ? n : null;
+      };
+
+      const price = numberValue(getDetail("Price", "Price (GH₵)", "Price (GHS)"));
+      const bedrooms = numberValue(getDetail("Bedrooms", "Number of bedrooms"));
+      const bathrooms = numberValue(getDetail("Bathrooms", "Number of bathrooms"));
+
+      const listingType = /\bsale\b|for sale|selling/i.test(sub.value)
+        ? "Sale"
+        : "Rent";
+
+      const property = {
+        listing_type: listingType,
+        property_type: propertyType,
+        title,
+        location,
+        price,
+        price_period: getDetail("Price Period", "Payment Period"),
+        bedrooms,
+        bathrooms,
+        description: fullDescription || null,
+        facilities: getDetail("Facilities", "Facilities / Features"),
+        contact_name:
+          user.user_metadata?.full_name ||
+          user.user_metadata?.name ||
+          user.email ||
+          "OGARS Advertiser",
+        contact_phone: phone || whatsapp,
+        photo_url: photoUrls.length ? photoUrls.join(",") : null,
+        available: true,
+        furnished: getDetail("Furnished"),
+        land_size: getDetail("Land Size"),
+        documentation: getDetail("Documentation"),
+        road_access: getDetail("Road Access"),
+        room_type: getDetail("Room Type"),
+        distance_to_school: getDetail("Distance to School"),
+        floor_size: getDetail("Floor Size"),
+        business_use: getDetail("Business Use", "Suitable Business Use")
+      };
+
+      result = await client.from("properties").insert([property]);
+
+    } else {
+      // Keep the existing general-advert system.
+      const listing = {
+        user_id: user.id,
+        title,
+        listing_type: type.value,
+        location: location || null,
+        description: fullDescription || null,
+        phone: phone || null,
+        whatsapp: whatsapp || null,
+        website: website || null,
+        event_date: eventDate || null,
+        event_time: eventTime || null,
+        photo_urls: photoUrls.length ? photoUrls.join(",") : null,
+        featured: false,
+        available: true
+      };
+
+      result = await client.from("discover_listings").insert([listing]);
+    }
+
+    if (result.error) {
+      throw new Error("Advert could not be saved: " + result.error.message);
+    }
+
+    form.reset();
+    selectedPhotos = [];
+    preview.innerHTML = "";
+    townSelect.disabled = true;
+    fillSelect(townSelect, [], "Choose a region first");
+    otherTownWrap.classList.add("hidden");
+    otherTownInput.required = false;
+    vehicleExtra.innerHTML = "";
+    vehicleExtra.classList.add("hidden");
+    updateCategory();
+
+    say(
+      isProperty
+        ? "Property published successfully!"
+        : "Your advert has been published successfully!",
+      "success"
+    );
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+  } catch (err) {
+    console.error("OGARS advert error:", err);
+    say(
+      "Unable to publish your advert. " +
+      (err.message || "Please try again."),
+      "error"
+    );
+  } finally {
+    submit.disabled = false;
+    submit.textContent = "Publish advert";
+  }
+});
+</script>
+</body>
+</html>
