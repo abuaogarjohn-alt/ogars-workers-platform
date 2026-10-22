@@ -63,11 +63,9 @@ async function load() {
   $("result-count").textContent = "Checking Supabase connection…";
 
   const { data, error, status } = await db
-    .from("properties")
-    .select("*")
-    .eq("available", true)
-    .order("created_at", { ascending: false });
-
+  .from("properties")
+  .select("id,title,available,created_at")
+  .order("created_at", { ascending: false });
   if (error) {
     console.error("Supabase error:", error);
 
