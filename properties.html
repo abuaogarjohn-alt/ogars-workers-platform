@@ -58,7 +58,54 @@ function apply(){let q=search.value.trim().toLowerCase(),key=category.value,loc=
 if(sort.value==="price-low")rows.sort((a,b)=>(a.price==null?Infinity:Number(a.price))-(b.price==null?Infinity:Number(b.price)));else if(sort.value==="price-high")rows.sort((a,b)=>(b.price==null?-Infinity:Number(b.price))-(a.price==null?-Infinity:Number(a.price)));else rows.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
 $("result-count").textContent=`${rows.length} ${rows.length===1?"property":"properties"} found`;
 if(!rows.length){list.innerHTML=`<div class="state"><strong>No properties found</strong>Try another category, location or price range, or check back later.<br><a href="advertise.html">Post a property</a></div>`;return;}list.innerHTML=rows.map(draw).join("");}
-async function load(){const {data,error}=await db.from("properties").select("*").eq("available",true).order("created_at",{ascending:false});if(error){console.error(error);$("result-count").textContent="Properties could not be loaded.";list.innerHTML=`<div class="state"><strong>Unable to load properties</strong>Refresh and try again. If this continues, the public read policy for the properties table may need checking.</div>`;return;}properties=data||[];apply();}
+
+async function load() {
+  $("result-count").textContent = "Checking Supabase connection…";
+
+  const { data, error, status } = await db
+    .from("properties")
+    .select("*")
+    .eq("available", true)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Supabase error:", error);
+
+    $("result-count").textContent =
+      "Supabase error (HTTP " + status + ")";
+
+    list.innerHTML = `
+      <div class="state">
+        <strong>Could not load property adverts</strong>
+        ${esc(error.message)}
+        <br>Please send me a screenshot of this message.
+      </div>`;
+
+    return;
+  }
+
+  properties = data || [];
+
+  console.log("Supabase status:", status);
+  console.log("Properties returned:", properties.length);
+  console.log("Property data:", properties);
+
+  if (properties.length === 0) {
+    $("result-count").textContent =
+      "Supabase returned 0 available properties.";
+
+    list.innerHTML = `
+      <div class="state">
+        <strong>No records received from Supabase</strong>
+        The database query returned no available properties.
+        Please send me a screenshot of this message.
+      </div>`;
+
+    return;
+  }
+
+  apply();
+}
 let initial=params.get("category")||"";if(configs[initial])category.value=initial;if(params.get("q"))search.value=params.get("q");if(params.get("region"))region.value=params.get("region");if(params.get("purpose"))purpose.value=params.get("purpose");
 if(initial&&configs[initial]){$("page-heading").textContent=configs[initial].title;$("page-subtitle").textContent="Browse available listings in this category.";if(configs[initial].listing)purpose.value=configs[initial].listing;}
 if(params.get("price")){let last=Number(params.get("price").split("-").pop());if(Number.isFinite(last))price.value=String(last);}
