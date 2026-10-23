@@ -227,6 +227,15 @@
     content.className = "";
     content.innerHTML = `
       ${renderGallery(photos, title)}
+      <section class="contact-panel">
+        <h3>Interested in this property?</h3>
+        <p>Contact the owner to ask questions or arrange a viewing.</p>
+        <div class="contact-actions">
+          ${whatsappUrl ? `<a class="contact-button whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> Chat on WhatsApp</a>` : `<span class="contact-button whatsapp" style="opacity:.65">WhatsApp number unavailable</span>`}
+          ${phone ? `<a class="contact-button call" href="tel:${esc(phone)}"><span aria-hidden="true">☎</span> Call Owner</a>` : `<span class="contact-button call" style="opacity:.65">Phone number unavailable</span>`}
+        </div>
+        ${!phone ? `<p style="margin-top:10px;margin-bottom:0">The advertiser has not provided a contact number for this listing.</p>` : ""}
+      </section>
       <p class="eyebrow">${esc(property.listing_type || "Property advert")}</p>
       <h2 class="property-title">${esc(title)}</h2>
       <p class="price">${priceText}${period}</p>
@@ -250,15 +259,7 @@
       ${facilities ? `<section class="section"><h3>✨ Facilities</h3><p>${esc(facilities)}</p></section>` : ""}
       <section class="section"><h3>📝 Description</h3><p>${description ? esc(description) : "No description provided."}</p></section>
 
-      <section class="contact-panel">
-        <h3>Interested in this property?</h3>
-        <p>Contact the owner to ask questions or arrange a viewing.</p>
-        <div class="contact-actions">
-          ${whatsappUrl ? `<a class="contact-button whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> Chat on WhatsApp</a>` : `<span class="contact-button whatsapp" style="opacity:.65">WhatsApp number unavailable</span>`}
-          ${phone ? `<a class="contact-button call" href="tel:${esc(phone)}"><span aria-hidden="true">☎</span> Call Owner</a>` : `<span class="contact-button call" style="opacity:.65">Phone number unavailable</span>`}
-        </div>
-        ${!phone ? `<p style="margin-top:10px;margin-bottom:0">The advertiser has not provided a contact number for this listing.</p>` : ""}
-      </section>
+
     `;
     setupGallery(photos, title);
   }
