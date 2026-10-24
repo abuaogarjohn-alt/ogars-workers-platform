@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Find Products - OGARS</title>
-  <meta name="theme-color" content="#008000">
+  <title>Find Products - OGARS Platform</title>
+  <meta name="theme-color" content="#6545c5">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
-      --green: #008000;
-      --dark: #006400;
-      --light: #eaf7ea;
-      --bg: #f4f7f5;
-      --text: #202820;
-      --muted: #657065;
-      --border: #e2e9e2;
+      --green: #6545c5;
+      --dark: #4d32a5;
+      --light: #f0ebff;
+      --bg: #fbfaff;
+      --text: #211b36;
+      --muted: #716b83;
+      --border: #e6e0f5;
       --white: #fff;
     }
 
@@ -31,8 +31,9 @@
     }
 
     header {
-      background: var(--green);
-      color: white;
+      background: #ffffff;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
       padding: 13px 16px;
       position: sticky;
       top: 0;
@@ -49,7 +50,7 @@
     }
 
     .brand {
-      color: white;
+      color: var(--dark);
       text-decoration: none;
       font-size: 25px;
       font-weight: 900;
@@ -64,7 +65,7 @@
     }
 
     .post-button {
-      background: white;
+      background: var(--light);
       color: var(--dark);
       text-decoration: none;
       padding: 10px 13px;
@@ -75,8 +76,9 @@
     }
 
     .hero {
-      background: linear-gradient(120deg, #064c20, #008000);
-      color: white;
+      background: linear-gradient(135deg, #f2edff, #ffffff);
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
       text-align: center;
       padding: 29px 15px;
     }
@@ -91,7 +93,7 @@
     .hero p {
       max-width: 600px;
       margin: 8px auto 0;
-      color: #eaffea;
+      color: var(--muted);
       font-size: 14px;
     }
 
@@ -172,7 +174,7 @@
 
     .image-wrap {
       height: 195px;
-      background: #e8f1eb;
+      background: #f2edff;
       position: relative;
     }
 
@@ -190,7 +192,7 @@
       justify-content: center;
       align-items: center;
       font-size: 45px;
-      color: #63806d;
+      color: #7b68b8;
     }
 
     .category-badge {
@@ -238,7 +240,7 @@
     }
 
     .business {
-      border-top: 1px solid #edf0ed;
+      border-top: 1px solid var(--border);
       margin-top: 12px;
       padding-top: 10px;
       font-size: 12px;
@@ -249,8 +251,8 @@
       margin-top: 9px;
       padding: 8px;
       border-radius: 8px;
-      background: #f3faf5;
-      color: #31563d;
+      background: #f6f2ff;
+      color: #55427f;
       font-size: 11px;
       overflow-wrap: anywhere;
     }
@@ -331,8 +333,8 @@
     }
 
     footer {
-      background: #172117;
-      color: #c6d1c6;
+      background: #211b36;
+      color: #e1dced;
       text-align: center;
       padding: 23px 15px;
       font-size: 12px;
@@ -351,6 +353,31 @@
       text-decoration: none;
       font-weight: bold;
     }
+
+
+    .electronics-intro { margin: 0 0 10px; }
+    .electronics-intro h2 { margin: 0 0 4px; font-size: 21px; color: var(--text); }
+    .electronics-intro p { margin: 0 0 14px; color: var(--muted); font-size: 13px; }
+    .electronics-shortcuts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin: 0 0 18px;
+    }
+    .shortcut {
+      display: flex; min-width: 0; flex-direction: column; align-items: center;
+      gap: 7px; padding: 10px 5px; border: 1px solid var(--border);
+      border-radius: 14px; background: #fff; color: var(--text);
+      text-align: center; font-size: 11px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 3px 10px rgba(77,50,165,.06);
+    }
+    .shortcut-icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; height: 58px; border-radius: 10px;
+      background: #f3efff; font-size: 28px;
+    }
+    .shortcut.active { border-color: #8a70e8; background: #f8f5ff; }
+    .electronics-note { margin: -5px 0 14px; color: var(--muted); font-size: 12px; }
 
     @media (max-width: 850px) {
       .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -401,24 +428,40 @@
   </div>
 </header>
 
-<section class="hero">
-  <div class="icon">🛍️</div>
-  <h1>Find Products & Items</h1>
-  <p>
-    Discover products from different businesses and sellers
-    and contact them directly on OGARS.
+<section class="hero" id="page-hero">
+  <div class="icon" id="hero-icon">💻</div>
+  <h1 id="hero-title">Find Electronics</h1>
+  <p id="hero-description">
+    Discover electronics from sellers across Ghana and contact them directly on OGARS.
   </p>
 </section>
 
 <main class="container">
 
+  <section class="electronics-intro" id="electronics-intro">
+    <h2>Browse Electronics</h2>
+    <p>Choose a category to narrow your search.</p>
+  </section>
+  <section class="electronics-shortcuts" id="electronics-shortcuts" aria-label="Electronics subcategories">
+    <button class="shortcut" type="button" data-subcategory="Laptops & Computers"><span class="shortcut-icon">💻</span><span>Laptops & Computers</span></button>
+    <button class="shortcut" type="button" data-subcategory="TVs & Projectors"><span class="shortcut-icon">📺</span><span>TVs & Projectors</span></button>
+    <button class="shortcut" type="button" data-subcategory="Gaming Devices"><span class="shortcut-icon">🎮</span><span>Gaming Devices</span></button>
+    <button class="shortcut" type="button" data-subcategory="Audio & Headphones"><span class="shortcut-icon">🎧</span><span>Audio & Headphones</span></button>
+    <button class="shortcut" type="button" data-subcategory="Cameras"><span class="shortcut-icon">📷</span><span>Cameras</span></button>
+    <button class="shortcut" type="button" data-subcategory="Printers & Scanners"><span class="shortcut-icon">🖨️</span><span>Printers & Scanners</span></button>
+    <button class="shortcut" type="button" data-subcategory="Home Appliances"><span class="shortcut-icon">🧊</span><span>Home Appliances</span></button>
+    <button class="shortcut" type="button" data-subcategory="Fans & Cooling"><span class="shortcut-icon">🌀</span><span>Fans & Cooling</span></button>
+    <button class="shortcut" type="button" data-subcategory="Electronics Accessories"><span class="shortcut-icon">🔌</span><span>Accessories</span></button>
+  </section>
+  <p class="electronics-note" id="electronics-note">Showing electronic products only.</p>
+
   <section class="search-panel">
-    <div class="search-title">🔎 What are you looking for?</div>
+    <div class="search-title">🔎 What electronics are you looking for?</div>
 
     <input
       type="search"
       id="product-search"
-      placeholder="Search products, sellers or locations..."
+      placeholder="Search TVs, laptops, brands or locations..."
       autocomplete="off"
     >
 
@@ -491,7 +534,7 @@
     <a href="discover.html">Discover</a>
   </nav>
   <div>© 2026 OGARS Workers Platform</div>
-  <div style="margin-top:5px;color:#aebbae">
+  <div style="margin-top:5px;color:#c5bddb">
     Trusted people. Real opportunities.
   </div>
 </footer>
@@ -514,6 +557,40 @@ const supabaseClient = supabase.createClient(
 
 let allProducts = [];
 let businessMap = {};
+const pageParams = new URLSearchParams(window.location.search);
+const isElectronicsPage = (pageParams.get("category") || "").trim().toLowerCase() === "electronics";
+let selectedSubcategory = (pageParams.get("subcategory") || "").trim();
+
+const electronicsGroups = {
+  "Laptops & Computers": ["laptop", "notebook", "desktop computer", "computer", "macbook", "chromebook", "monitor", "keyboard", "mouse"],
+  "TVs & Projectors": ["tv", "television", "smart tv", "projector", "decoder", "set top box"],
+  "Gaming Devices": ["gaming", "game console", "playstation", "xbox", "nintendo", "controller", "video game"],
+  "Audio & Headphones": ["headphone", "earbud", "earphone", "speaker", "sound system", "home theatre", "microphone", "audio"],
+  "Cameras": ["camera", "camcorder", "lens", "photography"],
+  "Printers & Scanners": ["printer", "scanner", "ink cartridge", "toner"],
+  "Home Appliances": ["refrigerator", "fridge", "freezer", "washing machine", "microwave", "blender", "iron", "electric kettle", "vacuum cleaner", "appliance"],
+  "Fans & Cooling": ["fan", "air conditioner", "air conditioning", "cooling"],
+  "Electronics Accessories": ["charger", "cable", "adapter", "power bank", "remote control", "router", "wifi", "networking", "electronic accessory", "computer accessories"]
+};
+const electronicsTerms = Object.values(electronicsGroups).flat().concat(["electronics", "electronic", "laptop", "computer", "television", "projector", "decoder", "console", "speaker", "headphone", "camera", "printer", "scanner", "router", "monitor", "keyboard", "mouse", "refrigerator", "washing machine", "microwave", "fan", "air conditioner", "charger", "power bank"]);
+
+function productSearchText(product) {
+  return [product.product_name, product.category, product.description, product.brand, product.subcategory]
+    .filter(Boolean).join(" ").toLowerCase();
+}
+function isElectronicProduct(product) {
+  const category = String(product.category || "").toLowerCase();
+  const text = productSearchText(product);
+  const excluded = ["food", "frozen", "grocery", "chicken", "fish", "meat", "clothing", "fashion", "shoes", "furniture", "beauty", "fresh produce"];
+  if (excluded.some(term => category.includes(term))) return false;
+  return category.includes("electronic") || category.includes("computer") || electronicsTerms.some(term => text.includes(term));
+}
+function matchesSubcategory(product, subcategory) {
+  if (!subcategory) return true;
+  const text = productSearchText(product);
+  const terms = electronicsGroups[subcategory] || [subcategory.toLowerCase()];
+  return terms.some(term => text.includes(term.toLowerCase())) || String(product.category || "").toLowerCase() === subcategory.toLowerCase();
+}
 
 /* HTML SAFETY */
 
@@ -592,6 +669,7 @@ async function loadProducts() {
     }
 
     allProducts = result.data || [];
+    if (isElectronicsPage) allProducts = allProducts.filter(isElectronicProduct);
 
     /*
       DISPLAY PRODUCTS IMMEDIATELY.
@@ -885,8 +963,9 @@ function getFilteredProducts() {
     const matchesSearch =
       !search || text.includes(search);
 
-    const matchesCategory =
-      !category || product.category === category;
+    const matchesCategory = isElectronicsPage
+      ? (!category || matchesSubcategory(product, category)) && matchesSubcategory(product, selectedSubcategory)
+      : (!category || product.category === category);
 
     const matchesDelivery =
       !delivery ||
@@ -905,7 +984,8 @@ function clearFilters() {
   document.getElementById("product-search").value = "";
   document.getElementById("category-filter").value = "";
   document.getElementById("delivery-filter").value = "";
-
+  selectedSubcategory = "";
+  document.querySelectorAll(".shortcut").forEach(button => button.classList.remove("active"));
   filterProducts();
 }
 
@@ -924,6 +1004,32 @@ document
 document
   .getElementById("clear-filters")
   .addEventListener("click", clearFilters);
+
+document.querySelectorAll(".shortcut").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedSubcategory = selectedSubcategory === button.dataset.subcategory ? "" : button.dataset.subcategory;
+    document.getElementById("category-filter").value = selectedSubcategory;
+    document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
+    filterProducts();
+    document.getElementById("products").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+});
+document.getElementById("category-filter").addEventListener("change", () => {
+  selectedSubcategory = document.getElementById("category-filter").value;
+  document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
+});
+
+if (!isElectronicsPage) {
+  document.getElementById("electronics-intro").hidden = true;
+  document.getElementById("electronics-shortcuts").hidden = true;
+  document.getElementById("electronics-note").hidden = true;
+  document.getElementById("hero-icon").textContent = "🛍️";
+  document.getElementById("hero-title").textContent = "Find Products & Items";
+  document.getElementById("hero-description").textContent = "Discover products from different businesses and sellers and contact them directly on OGARS.";
+} else if (selectedSubcategory) {
+  document.getElementById("category-filter").value = selectedSubcategory;
+  document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
+}
 
 /* START */
 
