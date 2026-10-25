@@ -457,12 +457,6 @@
           <option value="Western North">Western North Region</option>
         </select>
       </div>
-      <div id="generic-category-wrap" hidden>
-        <label class="filter-label" for="category-filter" style="display:block">Category</label>
-        <select id="category-filter" aria-label="Product category">
-          <option value="">All Categories</option>
-        </select>
-      </div>
       <div>
         <label class="filter-label" for="sort-filter">Sort by</label>
         <select id="sort-filter" aria-label="Sort Home and Living listings">
@@ -564,37 +558,51 @@ const homeLivingGroups = {
   "Wardrobes & Storage": ["wardrobe", "cabinet", "drawer", "shelf", "shelving", "storage", "bookshelf", "cupboard", "shoe rack"],
   "Lighting": ["lamp", "lighting", "light bulb", "chandelier", "ceiling light", "table lamp", "floor lamp"],
   "Cleaning Supplies": ["mop", "broom", "bucket", "dustpan", "cleaning", "detergent", "brush", "vacuum cleaner"],
-  "Household Essentials": ["household", "home essential", "laundry basket", "hanger", "iron board", "ironing board", "bin", "waste bin", "bathroom accessory"]
+  "Household Essentials": ["household", "home essential", "laundry basket", "hanger", "ironing board", "bin", "waste bin", "bathroom accessory"]
 };
-const homeLivingTerms = Object.values(homeLivingGroups).flat().concat([
-  "furniture", "home and living", "home living", "homeware", "household", "sofa", "couch",
-  "bed", "mattress", "wardrobe", "table", "chair", "kitchenware", "curtain", "carpet",
-  "rug", "cabinet", "shelf", "lighting", "decor", "cleaning supplies", "household items"
-]);
+const homeLivingCategoryTerms = [
+  "home & living", "home and living", "home & kitchen", "home and kitchen",
+  "furniture", "homeware", "household items", "kitchen items", "kitchenware",
+  "sofa", "couch", "bed", "mattress", "wardrobe", "dining table", "coffee table",
+  "chair", "curtain", "carpet", "rug", "cabinet", "bookshelf", "home decor",
+  "lighting", "cleaning supplies", "household essentials", "kitchen appliance"
+];
+const excludedHomeLivingCategories = [
+  "electronic", "computer", "phone", "tablet", "laptop", "television", "frozen",
+  "food", "grocery", "chicken", "fish", "meat", "sausage", "restaurant", "drink",
+  "beverage", "clothing", "fashion", "shoes", "beauty", "vehicle", "car",
+  "motorbike", "property", "apartment", "house for rent", "job", "service"
+];
 
 function productSearchText(product) {
   return [product.product_name, product.category, product.description, product.brand, product.subcategory]
     .filter(Boolean).join(" ").toLowerCase();
 }
+function containsPhrase(text, phrase) {
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp("(^|[^a-z0-9])" + escaped + "([^a-z0-9]|$)", "i").test(text);
+}
 function isHomeLivingProduct(product) {
-  const category = String(product.category || "").toLowerCase();
-  const text = productSearchText(product);
-  const excluded = [
-    "electronic", "computer", "phone", "tablet", "laptop", "television", "tv &",
-    "food", "frozen", "grocery", "chicken", "fish", "meat", "sausage",
-    "clothing", "fashion", "shoes", "beauty", "vehicle", "car", "motorbike",
-    "property", "apartment", "house for rent", "job", "service"
-  ];
-  if (excluded.some(term => category.includes(term))) return false;
-  return category.includes("home") || category.includes("living") || category.includes("furniture") ||
-    category.includes("kitchen") || category.includes("household") ||
-    homeLivingTerms.some(term => text.includes(term));
+  const category = String(product.category || "").toLowerCase().trim();
+  const name = String(product.product_name || "").toLowerCase().trim();
+  const description = String(product.description || "").toLowerCase().trim();
+  const text = [name, category, description, String(product.subcategory || "").toLowerCase()].filter(Boolean).join(" ");
+
+  if (excludedHomeLivingCategories.some(term => containsPhrase(category, term))) return false;
+  if (homeLivingCategoryTerms.some(term => containsPhrase(category, term))) return true;
+
+  const nameMatches = homeLivingCategoryTerms.some(term => containsPhrase(name, term)) ||
+    Object.values(homeLivingGroups).flat().some(term => containsPhrase(name, term));
+  if (nameMatches) return true;
+
+  return Object.values(homeLivingGroups).flat().some(term => containsPhrase(description, term)) &&
+    !excludedHomeLivingCategories.some(term => containsPhrase(text, term));
 }
 function matchesSubcategory(product, subcategory) {
   if (!subcategory) return true;
   const text = productSearchText(product);
   const terms = homeLivingGroups[subcategory] || [subcategory.toLowerCase()];
-  return terms.some(term => text.includes(term.toLowerCase())) ||
+  return terms.some(term => containsPhrase(text, term)) ||
     String(product.category || "").toLowerCase() === subcategory.toLowerCase();
 }
 
@@ -674,8 +682,7 @@ async function loadProducts() {
       throw result.error;
     }
 
-    allProducts = result.data || [];
-    allProducts = allProducts.filter(isHomeLivingProduct);
+    allProducts = (result.data || []).filter(isHomeLivingProduct);
 
     /*
       DISPLAY PRODUCTS IMMEDIATELY.
@@ -943,8 +950,7 @@ function displayProducts(products) {
 
 function getFilteredProducts() {
   const search = document.getElementById("product-search").value.toLowerCase().trim();
-  const categoryElement = document.getElementById("category-filter");
-  const category = selectedSubcategory || (categoryElement ? categoryElement.value : "");
+  const category = selectedSubcategory;
   const location = document.getElementById("location-filter").value.toLowerCase().trim();
   const sort = document.getElementById("sort-filter").value;
 
@@ -1013,8 +1019,6 @@ function filterProducts() {
 
 function clearFilters() {
   document.getElementById("product-search").value = "";
-  const categoryFilter = document.getElementById("category-filter");
-  if (categoryFilter) categoryFilter.value = "";
   document.getElementById("location-filter").value = "";
   document.getElementById("sort-filter").value = "newest";
   selectedSubcategory = "";
@@ -1026,14 +1030,7 @@ document
   .getElementById("product-search")
   .addEventListener("input", filterProducts);
 
-const categoryFilterElement = document.getElementById("category-filter");
-if (categoryFilterElement) {
-  categoryFilterElement.addEventListener("change", () => {
-    selectedSubcategory = categoryFilterElement.value;
-    document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
-    filterProducts();
-  });
-}
+// Category shortcuts filter the selected Home & Living subcategory directly.
 document.getElementById("location-filter").addEventListener("change", filterProducts);
 document.getElementById("sort-filter").addEventListener("change", filterProducts);
 document.getElementById("search-button").addEventListener("click", filterProducts);
@@ -1048,7 +1045,6 @@ document
 document.querySelectorAll(".shortcut").forEach(button => {
   button.addEventListener("click", () => {
     selectedSubcategory = selectedSubcategory === button.dataset.subcategory ? "" : button.dataset.subcategory;
-    document.getElementById("category-filter").value = selectedSubcategory;
     document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
     filterProducts();
     document.getElementById("products").scrollIntoView({ behavior: "smooth", block: "start" });
