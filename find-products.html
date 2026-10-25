@@ -31,13 +31,14 @@
     }
 
     header {
-      background: #ffffff;
-      color: var(--text);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(120deg, #4d32a5, #7655d6);
+      color: #fff;
+      border-bottom: 0;
       padding: 13px 16px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      box-shadow: 0 3px 12px rgba(48, 30, 100, .18);
     }
 
     .header-inner {
@@ -50,7 +51,7 @@
     }
 
     .brand {
-      color: var(--dark);
+      color: #fff;
       text-decoration: none;
       font-size: 25px;
       font-weight: 900;
@@ -65,7 +66,7 @@
     }
 
     .post-button {
-      background: var(--light);
+      background: #fff;
       color: var(--dark);
       text-decoration: none;
       padding: 10px 13px;
@@ -76,11 +77,11 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #f2edff, #ffffff);
-      color: var(--text);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, #4d32a5, #7655d6);
+      color: #fff;
+      border-bottom: 0;
       text-align: center;
-      padding: 29px 15px;
+      padding: 27px 15px 30px;
     }
 
     .hero .icon { font-size: 36px; }
@@ -93,14 +94,14 @@
     .hero p {
       max-width: 600px;
       margin: 8px auto 0;
-      color: var(--muted);
+      color: #eee8ff;
       font-size: 14px;
     }
 
     .container {
       max-width: 1150px;
       margin: auto;
-      padding: 18px 14px 35px;
+      padding: 14px 14px 105px;
     }
 
     .search-panel {
@@ -122,7 +123,7 @@
       width: 100%;
       min-height: 47px;
       padding: 11px 12px;
-      border: 1px solid #ccd8cf;
+      border: 1px solid #ded6f3;
       border-radius: 9px;
       background: white;
       color: var(--text);
@@ -132,11 +133,15 @@
 
     .filters {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
 
     .filters select { min-width: 0; }
+    .search-button-row { display:flex; gap:8px; }
+    .search-button-row input { flex:1; min-width:0; }
+    .search-button { border:0; border-radius:9px; background:var(--dark); color:#fff; font-weight:800; padding:0 16px; min-height:47px; margin-bottom:9px; cursor:pointer; }
+    .filter-label { display:block; color:var(--muted); font-size:11px; font-weight:700; margin:0 0 4px 2px; }
 
     .results-summary {
       display: flex;
@@ -379,6 +384,22 @@
     .shortcut.active { border-color: #8a70e8; background: #f8f5ff; }
     .electronics-note { margin: -5px 0 14px; color: var(--muted); font-size: 12px; }
 
+    .bottom-nav {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+      padding: 7px 5px calc(7px + env(safe-area-inset-bottom));
+      background: rgba(255,255,255,.98); border-top: 1px solid var(--border);
+      box-shadow: 0 -4px 16px rgba(35,24,70,.09);
+    }
+    .bottom-nav a, .bottom-nav button {
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:3px; min-width:0; color:#777187; text-decoration:none; background:none;
+      border:0; font:inherit; font-size:10px; font-weight:700; padding:3px 0; cursor:pointer;
+    }
+    .bottom-nav .nav-icon { font-size:21px; line-height:1.2; }
+    .bottom-nav .active { color:var(--dark); }
+    .bottom-nav .sell-icon { width:39px; height:31px; display:grid; place-items:center; background:var(--dark); color:#fff; border-radius:11px; font-size:22px; margin-top:-12px; box-shadow:0 3px 8px #d8cef7; }
+
     @media (max-width: 850px) {
       .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -390,9 +411,12 @@
       .post-button { padding: 9px; font-size: 11px; }
       .hero { padding: 25px 14px; }
       .hero h1 { font-size: 27px; }
-      .container { padding: 13px 10px 28px; }
+      .container { padding: 13px 10px 105px; }
       .search-panel { padding: 12px; }
-      .filters { grid-template-columns: 1fr; gap: 0; }
+      .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+      .search-button-row { display:block; }
+      .search-button-row input { margin-bottom:8px; }
+      .search-button { width:100%; margin-bottom:8px; min-height:43px; }
       .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
       .image-wrap { height: 140px; }
       .product-content { padding: 10px; }
@@ -438,6 +462,36 @@
 
 <main class="container">
 
+  <section class="search-panel" id="search-panel">
+    <div class="search-title">🔎 What electronics are you looking for?</div>
+    <div class="search-button-row">
+      <input type="search" id="product-search" placeholder="Search TVs, laptops, brands..." autocomplete="off" aria-label="Search products">
+      <button type="button" class="search-button" id="search-button">Search</button>
+    </div>
+    <div class="filters">
+      <div><label class="filter-label" for="location-filter">Location</label><input type="search" id="location-filter" placeholder="e.g. Accra, Lapaz" autocomplete="off" aria-label="Filter by location"></div>
+      <div><label class="filter-label" for="category-filter">Category</label><select id="category-filter">
+        <option value="">All Electronics</option>
+        <option value="Laptops & Computers">Laptops & Computers</option>
+        <option value="TVs & Projectors">TVs & Projectors</option>
+        <option value="Gaming Devices">Gaming Devices</option>
+        <option value="Audio & Headphones">Audio & Headphones</option>
+        <option value="Cameras">Cameras</option>
+        <option value="Printers & Scanners">Printers & Scanners</option>
+        <option value="Home Appliances">Home Appliances</option>
+        <option value="Fans & Cooling">Fans & Cooling</option>
+        <option value="Electronics Accessories">Electronics Accessories</option>
+      </select></div>
+      <div><label class="filter-label" for="min-price">Minimum price (GH₵)</label><input type="number" id="min-price" min="0" step="0.01" placeholder="Min price" inputmode="decimal"></div>
+      <div><label class="filter-label" for="max-price">Maximum price (GH₵)</label><input type="number" id="max-price" min="0" step="0.01" placeholder="Max price" inputmode="decimal"></div>
+      <div><label class="filter-label" for="delivery-filter">Delivery</label><select id="delivery-filter"><option value="">All Delivery Options</option><option value="yes">🚚 Delivery Available</option><option value="no">🚫 No Delivery</option></select></div>
+    </div>
+    <div class="results-summary">
+      <span id="results-count">Connecting to OGARS...</span>
+      <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+    </div>
+  </section>
+
   <section class="electronics-intro" id="electronics-intro">
     <h2>Browse Electronics</h2>
     <p>Choose a category to narrow your search.</p>
@@ -455,61 +509,6 @@
   </section>
   <p class="electronics-note" id="electronics-note">Showing electronic products only.</p>
 
-  <section class="search-panel">
-    <div class="search-title">🔎 What electronics are you looking for?</div>
-
-    <input
-      type="search"
-      id="product-search"
-      placeholder="Search TVs, laptops, brands or locations..."
-      autocomplete="off"
-    >
-
-    <div class="filters">
-      <select id="category-filter">
-        <option value="">All Categories</option>
-        <option>Food & Groceries</option>
-        <option>Frozen Foods</option>
-        <option>Fresh Food & Produce</option>
-        <option>Drinks & Beverages</option>
-        <option>Clothing & Fashion</option>
-        <option>Shoes & Footwear</option>
-        <option>Bags & Accessories</option>
-        <option>Beauty & Personal Care</option>
-        <option>Health & Wellness</option>
-        <option>Phones & Tablets</option>
-        <option>Computers & Electronics</option>
-        <option>Home & Kitchen</option>
-        <option>Furniture</option>
-        <option>Building & Construction Materials</option>
-        <option>Electrical & Plumbing Materials</option>
-        <option>Automotive & Spare Parts</option>
-        <option>Tools & Equipment</option>
-        <option>Baby & Kids</option>
-        <option>Books & Stationery</option>
-        <option>Sports & Fitness</option>
-        <option>Agriculture & Farming</option>
-        <option>Pets & Animals</option>
-        <option>Office & Business Supplies</option>
-        <option>Services</option>
-        <option>Other</option>
-      </select>
-
-      <select id="delivery-filter">
-        <option value="">All Delivery Options</option>
-        <option value="yes">🚚 Delivery Available</option>
-        <option value="no">🚫 No Delivery</option>
-      </select>
-    </div>
-
-    <div class="results-summary">
-      <span id="results-count">Connecting to OGARS...</span>
-      <button type="button" class="clear-button" id="clear-filters">
-        Clear Filters
-      </button>
-    </div>
-  </section>
-
   <section id="products" class="products" aria-live="polite">
     <div class="message">
       <strong>🛍️ Loading products...</strong>
@@ -523,6 +522,14 @@
 
 </main>
 
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="products.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav" aria-label="AI Search coming soon"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+</nav>
+
 <footer>
   <nav class="footer-links" aria-label="Marketplace links">
     <a href="index.html">Home</a>
@@ -533,7 +540,7 @@
     <a href="business.html">Businesses</a>
     <a href="discover.html">Discover</a>
   </nav>
-  <div>© 2026 OGARS Workers Platform</div>
+  <div>© 2026 OGARS Platform</div>
   <div style="margin-top:5px;color:#c5bddb">
     Trusted people. Real opportunities.
   </div>
@@ -936,43 +943,31 @@ function displayProducts(products) {
 /* SEARCH AND FILTERS */
 
 function getFilteredProducts() {
-  const search = document
-    .getElementById("product-search")
-    .value
-    .toLowerCase()
-    .trim();
-
-  const category =
-    document.getElementById("category-filter").value;
-
-  const delivery =
-    document.getElementById("delivery-filter").value;
+  const search = document.getElementById("product-search").value.toLowerCase().trim();
+  const category = document.getElementById("category-filter").value;
+  const delivery = document.getElementById("delivery-filter").value;
+  const location = document.getElementById("location-filter").value.toLowerCase().trim();
+  const minValue = document.getElementById("min-price").value;
+  const maxValue = document.getElementById("max-price").value;
+  const minPrice = minValue === "" ? null : Number(minValue);
+  const maxPrice = maxValue === "" ? null : Number(maxValue);
 
   return allProducts.filter(product => {
-    const business =
-      businessMap[String(product.business_id)] || null;
-
-    const text = [
-      product.product_name,
-      product.category,
-      product.description,
-      business?.business_name,
-      business?.location
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    const matchesSearch =
-      !search || text.includes(search);
-
-    const matchesCategory = isElectronicsPage
-      ? (!category || matchesSubcategory(product, category)) && matchesSubcategory(product, selectedSubcategory)
-      : (!category || product.category === category);
-
-    const matchesDelivery =
-      !delivery ||
+    const business = businessMap[String(product.business_id)] || null;
+    const text = [product.product_name, product.category, product.description,
+      business?.business_name, business?.location].filter(Boolean).join(" ").toLowerCase();
+    const productLocation = String(business?.location || "").toLowerCase();
+    const price = Number(product.price);
+    const hasPrice = product.price !== null && product.price !== undefined && product.price !== "" && Number.isFinite(price);
+    const matchesSearch = !search || text.includes(search);
+    const matchesCategory = !category || matchesSubcategory(product, category);
+    const matchesLocation = !location || productLocation.includes(location);
+    const matchesMin = minPrice === null || (hasPrice && price >= minPrice);
+    const matchesMax = maxPrice === null || (hasPrice && price <= maxPrice);
+    const matchesDelivery = !delivery ||
       (delivery === "yes" && product.delivery_available === true) ||
       (delivery === "no" && product.delivery_available !== true);
-
-    return matchesSearch && matchesCategory && matchesDelivery;
+    return matchesSearch && matchesCategory && matchesLocation && matchesMin && matchesMax && matchesDelivery;
   });
 }
 
@@ -984,6 +979,9 @@ function clearFilters() {
   document.getElementById("product-search").value = "";
   document.getElementById("category-filter").value = "";
   document.getElementById("delivery-filter").value = "";
+  document.getElementById("location-filter").value = "";
+  document.getElementById("min-price").value = "";
+  document.getElementById("max-price").value = "";
   selectedSubcategory = "";
   document.querySelectorAll(".shortcut").forEach(button => button.classList.remove("active"));
   filterProducts();
@@ -993,9 +991,18 @@ document
   .getElementById("product-search")
   .addEventListener("input", filterProducts);
 
-document
-  .getElementById("category-filter")
-  .addEventListener("change", filterProducts);
+document.getElementById("category-filter").addEventListener("change", () => {
+  selectedSubcategory = document.getElementById("category-filter").value;
+  document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
+  filterProducts();
+});
+["location-filter", "min-price", "max-price"].forEach(id => {
+  document.getElementById(id).addEventListener("input", filterProducts);
+});
+document.getElementById("search-button").addEventListener("click", filterProducts);
+document.getElementById("ai-search-nav").addEventListener("click", () => {
+  alert("OGARS AI Search is coming soon. We will connect it when the AI Search page is ready.");
+});
 
 document
   .getElementById("delivery-filter")
@@ -1014,12 +1021,19 @@ document.querySelectorAll(".shortcut").forEach(button => {
     document.getElementById("products").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 });
-document.getElementById("category-filter").addEventListener("change", () => {
-  selectedSubcategory = document.getElementById("category-filter").value;
-  document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
-});
-
 if (!isElectronicsPage) {
+  document.getElementById("category-filter").innerHTML = `
+    <option value="">All Categories</option>
+    <option>Food & Groceries</option><option>Frozen Foods</option><option>Fresh Food & Produce</option>
+    <option>Drinks & Beverages</option><option>Clothing & Fashion</option><option>Shoes & Footwear</option>
+    <option>Bags & Accessories</option><option>Beauty & Personal Care</option><option>Health & Wellness</option>
+    <option>Phones & Tablets</option><option>Computers & Electronics</option><option>Home & Kitchen</option>
+    <option>Furniture</option><option>Building & Construction Materials</option><option>Electrical & Plumbing Materials</option>
+    <option>Automotive & Spare Parts</option><option>Tools & Equipment</option><option>Baby & Kids</option>
+    <option>Books & Stationery</option><option>Sports & Fitness</option><option>Agriculture & Farming</option>
+    <option>Pets & Animals</option><option>Office & Business Supplies</option><option>Services</option><option>Other</option>`;
+  document.getElementById("search-panel").querySelector(".search-title").textContent = "🔎 Search products and items";
+  document.getElementById("product-search").placeholder = "Search products, brands or items...";
   document.getElementById("electronics-intro").hidden = true;
   document.getElementById("electronics-shortcuts").hidden = true;
   document.getElementById("electronics-note").hidden = true;
