@@ -1,446 +1,1682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#082d5b"><meta name="description" content="OGARS PLATFORM — Buy, sell, find work, hire, rent and discover opportunities anywhere in Ghana.">
-<title>OGARS PLATFORM | Buy • Sell • Find • Hire • Rent</title>
-<style>
-:root{--gold:#d39b13;--orange:#ff4d0a;--cream:#fff8e7;--ink:#202020;--muted:#6f6a60;--line:#eee4d1;--white:#fff;--soft:#fffdf8;--shadow:0 5px 18px rgba(49,35,9,.09);--deep:#4a3208}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}.wrap{width:min(1180px,100%);margin:auto;padding:0 14px}.topbar{background:var(--white);border-bottom:1px solid var(--line);position:relative;z-index:10}.toprow{min-height:76px;display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px}.brand{display:flex;align-items:center;gap:8px;min-width:178px}.brand-mark{width:39px;height:39px;border-radius:50%;border:7px solid var(--gold);border-right-color:var(--orange);transform:rotate(-25deg);position:relative;flex:none}.brand-mark:after{content:"";position:absolute;width:10px;height:10px;background:var(--orange);border-radius:50%;right:-6px;top:-5px}.brand-name{font-weight:900;line-height:.9;font-size:25px;letter-spacing:-1px;color:#8d5e00}.brand-name small{display:block;font-size:10px;letter-spacing:3px;color:#292929;margin-top:5px;text-align:center}.tagline{font-size:10px;color:var(--muted);margin-top:5px}.head-search{display:flex;align-items:center;gap:0;flex:1;min-width:180px;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff;height:47px}.head-search input{min-width:0;flex:1;border:0;outline:0;padding:0 14px;background:transparent}.head-search select{max-width:130px;border:0;border-left:1px solid var(--line);padding:0 8px;height:100%;background:#fff;outline:0}.btn{border:0;cursor:pointer;border-radius:10px;padding:12px 17px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn-orange{background:var(--orange);color:#fff}.btn-gold{background:var(--gold);color:#201700}.btn-outline{border:1px solid var(--gold);color:var(--deep);background:#fff}.head-actions{display:flex;align-items:center;gap:8px}.text-btn{font-weight:700;padding:10px 7px}.mobile-menu{display:none;border:0;background:none;font-size:26px}.navrow{border-top:1px solid #f2eadb;background:#fff}.navlinks{display:flex;align-items:center;gap:4px;overflow:auto;white-space:nowrap}.navlinks a{padding:13px 12px;font-size:13px;font-weight:700;border-bottom:3px solid transparent}.navlinks a:hover,.navlinks a.active{border-color:var(--gold);color:#8b5e00}.hero{margin:16px auto 18px;border-radius:20px;overflow:hidden;min-height:290px;background:linear-gradient(90deg,rgba(24,28,31,.84),rgba(24,28,31,.5) 48%,rgba(24,28,31,.03)),url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1800&q=85') center 55%/cover;display:flex;align-items:center;color:#fff;box-shadow:var(--shadow)}.hero-inner{padding:34px;max-width:580px}.eyebrow{font-size:12px;letter-spacing:1.6px;font-weight:800;text-transform:uppercase;color:#ffd76a}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.04;margin:12px 0}.hero h1 span{color:#ffd05a}.hero p{font-size:15px;line-height:1.55;max-width:460px;margin:0 0 20px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.hero .btn-outline{background:rgba(255,255,255,.95);color:#4a3208}.trust-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:0 auto 23px}.trust-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:9px;align-items:center;font-size:12px;font-weight:700}.trust-icon{width:34px;height:34px;border-radius:10px;background:#fff0c4;display:grid;place-items:center;color:#8b5e00;font-size:17px;flex:none}.section{margin:24px auto}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.section-head h2{font-size:22px;margin:0;letter-spacing:-.4px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.view-link{font-weight:800;color:#8b5e00;font-size:13px;white-space:nowrap}.category-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px}.category-card{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.035);transition:transform .18s,box-shadow .18s}.category-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.category-card img{width:100%;height:100px;object-fit:cover;display:block;background:#f4ead8}.category-label{padding:10px 9px 12px;font-size:13px;font-weight:800;line-height:1.2}.category-label small{display:block;font-size:10px;font-weight:500;color:var(--muted);margin-top:4px;line-height:1.25}.vip-panel{background:linear-gradient(110deg,#fff1c9,#fffdf7);border:1px solid #f1dba2;border-radius:18px;padding:16px;margin:26px auto}.vip-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.vip-title{display:flex;align-items:center;gap:10px}.vip-icon{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#fff;font-size:21px}.vip-title h2{margin:0;font-size:21px}.vip-title p{margin:4px 0 0;font-size:12px;color:#6b5a35}.vip-note{font-size:11px;color:#6b5a35;margin:8px 0 0}.ad-tools{display:flex;gap:10px;align-items:center}.ad-tools select{border:1px solid var(--line);border-radius:9px;padding:8px;background:#fff;color:#333}.ad-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ad-card{min-width:0;background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.05);transition:transform .18s}.ad-card:hover{transform:translateY(-2px)}.ad-photo{height:155px;position:relative;background:#f0e8d9}.ad-photo img{width:100%;height:100%;object-fit:cover;display:block}.ad-badge{position:absolute;left:9px;top:9px;background:var(--gold);color:#241900;font-weight:900;font-size:10px;padding:5px 8px;border-radius:6px}.ad-price{font-size:14px;font-weight:900;color:#9b5b00;margin:0 0 6px}.ad-body{padding:11px}.ad-title{font-size:14px;line-height:1.3;margin:0 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ad-desc{font-size:11px;color:var(--muted);margin:0 0 8px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ad-meta{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)}.empty-state{grid-column:1/-1;padding:26px 14px;text-align:center;background:#fff;border:1px dashed #dfcda7;border-radius:12px;color:var(--muted);font-size:13px}.promo{background:#2a2110;color:#fff;border-radius:18px;padding:23px;display:flex;align-items:center;justify-content:space-between;gap:18px;background-image:radial-gradient(circle at 90% 10%,rgba(211,155,19,.32),transparent 35%)}.promo h2{margin:0 0 7px;font-size:22px}.promo p{margin:0;color:#f0dfb8;font-size:13px;line-height:1.5}.promo-actions{display:flex;gap:9px;flex-wrap:wrap;flex:none}.footer{background:#fff;border-top:1px solid var(--line);margin-top:28px;padding:26px 0 88px}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer p{font-size:12px;color:var(--muted);line-height:1.6;max-width:430px}.footer-links{display:flex;gap:15px;flex-wrap:wrap;font-size:12px;font-weight:700}.bottom-nav{display:none}.status{font-size:12px;color:var(--muted);margin:0 0 10px;min-height:15px}.loading{opacity:.7}.hidden{display:none!important}
-/* OGARS Style 2 colour enhancement: navy + official gold/orange/cream/white */
-.topbar{background:#fff}
-.navrow{background:#082d5b;border-top:0}
-.navlinks a{color:#fff}
-.navlinks a:hover,.navlinks a.active{border-color:var(--gold);color:#ffd76a}
-.mobile-menu{color:#082d5b}
-.hero{box-shadow:0 8px 24px rgba(8,45,91,.18)}
-.vip-panel{background:linear-gradient(120deg,#082d5b,#123f70);border-color:#d39b13;color:#fff}
-.vip-title h2{color:#fff}
-.vip-title p,.vip-note{color:#f6e7c1}
-.vip-head .view-link{color:#ffd76a}
-.vip-icon{background:#d39b13;color:#082d5b}
-.promo{background-color:#082d5b;background-image:radial-gradient(circle at 90% 10%,rgba(211,155,19,.34),transparent 35%)}
-.promo p{color:#e8edf4}
-.footer{border-top-color:#d9c99f}
-.bottom-nav{border-top-color:#d39b13}
-.bottom-nav a.active{color:#082d5b}
-.bottom-nav .sell .nav-ico{background:#ff4d0a;color:#fff;box-shadow:0 3px 8px rgba(8,45,91,.25)}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* VIP electronic billboard + AI Search */
-.vip-screen{position:relative;margin:14px auto 20px;background:#07111e;border:2px solid #d39b13;border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(8,45,91,.2);color:#fff}
-.vip-screen-head{position:absolute;z-index:3;left:14px;top:12px;background:rgba(8,45,91,.76);border:1px solid rgba(211,155,19,.8);border-radius:9px;padding:7px 11px;font-size:12px;font-weight:900;letter-spacing:.8px;pointer-events:none}
-.vip-stage{height:clamp(230px,42vw,440px);position:relative;background:#111;display:grid;place-items:center}
-.vip-stage video,.vip-stage img{width:100%;height:100%;object-fit:contain;background:#090909;display:block}
-.vip-stage a{position:absolute;inset:0;z-index:2}
-.vip-screen-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 13px;background:#082d5b;color:#fff;font-size:11px}
-.vip-screen-footer button{background:transparent;color:#fff;border:1px solid #d39b13;border-radius:8px;padding:5px 9px;font-weight:700}
-.vip-progress{height:3px;background:#34475b}.vip-progress span{display:block;height:100%;width:0;background:#d39b13}
-.ai-panel{background:linear-gradient(120deg,#082d5b,#123f70);border:1px solid #d39b13;border-radius:18px;padding:20px;margin:24px auto;color:#fff;box-shadow:0 7px 22px rgba(8,45,91,.12)}
-.ai-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.ai-brand{display:flex;align-items:center;gap:11px}.ai-icon{width:44px;height:44px;border-radius:13px;background:#d39b13;color:#082d5b;display:grid;place-items:center;font-size:24px;font-weight:900}.ai-head h2{margin:0;color:#ffd76a;font-size:25px}.ai-head p{margin:4px 0 0;font-size:12px;color:#e8edf4}.ai-form{background:#fff;border:1px solid #dbe2ec;border-radius:13px;padding:9px;display:flex;gap:8px;align-items:center}.ai-form textarea{flex:1;min-width:0;min-height:58px;max-height:130px;resize:vertical;border:0;outline:0;padding:9px;color:#202020;font:inherit}.ai-form button{align-self:stretch;min-width:48px;border:0;border-radius:10px;background:#ff4d0a;color:#fff;font-size:22px;font-weight:900}.ai-examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.ai-examples button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.5);border-radius:22px;padding:8px 12px;color:#fff;font-size:12px}
-@media(max-width:560px){.vip-screen{margin:10px auto 17px;border-radius:14px}.vip-stage{height:245px}.vip-screen-head{left:9px;top:9px;font-size:11px}.vip-screen-footer{padding:8px 9px;font-size:10px}.ai-panel{padding:14px;border-radius:14px;margin:19px auto}.ai-head h2{font-size:22px}.ai-icon{width:39px;height:39px}.ai-form textarea{font-size:13px}.ai-examples{gap:6px}.ai-examples button{font-size:11px;padding:7px 9px}}
+  <title>OGARS - Your Opportunities, All in One Place</title>
+  <meta name="description" content="Welcome to OGARS. Find skilled workers, jobs, products, properties, drivers, businesses and opportunities across Ghana.">
+  <meta name="theme-color" content="#008000">
+  <meta name="color-scheme" content="light">
 
-@media(max-width:850px){.wrap{padding-left:12px;padding-right:12px}.toprow{gap:9px}.brand{min-width:auto}.brand-name{font-size:21px}.tagline{display:none}.head-actions .text-btn{display:none}.head-search select{max-width:105px}.navlinks a{padding:12px 9px}.category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.category-card img{height:94px}.ad-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ad-photo{height:135px}}
-@media(max-width:560px){body{padding-bottom:70px}.wrap{padding-left:10px;padding-right:10px}.toprow{min-height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px;gap:9px}.brand{flex:1}.brand-mark{width:33px;height:33px;border-width:6px}.brand-name{font-size:21px}.head-actions{gap:4px}.head-actions .post-top{display:none}.mobile-menu{display:block;color:#5e4107;padding:3px 5px}.head-search{order:3;flex-basis:100%;height:43px}.head-search select{max-width:110px;font-size:12px}.navrow{display:none}.navrow.open{display:block}.navlinks{display:grid;grid-template-columns:repeat(3,1fr);white-space:normal;padding:5px 0}.navlinks a{text-align:center;padding:10px 4px;font-size:12px}.hero{margin:10px auto 14px;min-height:255px;background-position:58% center;border-radius:15px}.hero-inner{padding:22px 17px;max-width:95%}.hero h1{font-size:31px;max-width:340px}.hero p{font-size:13px;max-width:300px}.hero .btn{padding:11px 13px;font-size:12px}.trust-row{grid-template-columns:repeat(2,1fr);gap:7px;margin-bottom:20px}.trust-item{padding:9px;font-size:11px}.trust-icon{width:29px;height:29px}.section{margin:20px auto}.section-head{margin-bottom:11px}.section-head h2{font-size:19px}.section-head p{font-size:11px}.category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.category-card{border-radius:11px}.category-card img{height:84px}.category-label{font-size:12px;padding:8px 7px 10px}.category-label small{font-size:9px}.vip-panel{padding:12px;margin:21px auto;border-radius:14px}.vip-icon{width:34px;height:34px}.vip-title h2{font-size:18px}.vip-title p{font-size:10px}.vip-head{align-items:flex-start}.vip-head .view-link{font-size:11px;padding-top:9px}.ad-tools{width:100%;justify-content:flex-end;margin-bottom:10px}.ad-tools select{font-size:11px;padding:7px}.ad-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.ad-photo{height:125px}.ad-body{padding:9px}.ad-price{font-size:13px}.ad-title{font-size:12px}.ad-meta{font-size:10px}.promo{padding:18px;display:block;border-radius:14px}.promo h2{font-size:19px}.promo p{font-size:12px}.promo-actions{margin-top:13px}.promo-actions .btn{padding:10px 12px;font-size:12px}.footer{padding-bottom:18px}.footer-row{display:block}.footer-links{gap:12px;margin-top:15px}.bottom-nav{position:fixed;z-index:30;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8ddc8;display:grid;grid-template-columns:repeat(5,1fr);padding:5px 4px max(6px,env(safe-area-inset-bottom));box-shadow:0 -4px 15px rgba(0,0,0,.08)}.bottom-nav a{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;color:#5f5b53;font-size:10px;padding:3px 0}.bottom-nav .nav-ico{font-size:19px;line-height:1.1}.bottom-nav .sell .nav-ico{background:var(--gold);color:#201700;width:39px;height:39px;border-radius:50%;display:grid;place-items:center;font-size:25px;margin-top:-17px;box-shadow:0 3px 8px #d8bf7e}.bottom-nav a.active{color:#8a5d00;font-weight:800}}
-@media(min-width:561px) and (max-width:700px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ad-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  <style>
+    :root {
+      --green: #008000;
+      --dark-green: #006400;
+      --light-green: #eaf7ea;
+      --background: #f4f7f5;
+      --text: #202820;
+      --muted: #657065;
+      --border: #e4eae4;
+      --white: #ffffff;
+      --radius: 17px;
+      --shadow: 0 4px 16px rgba(0, 50, 0, 0.08);
+    }
 
-/* Final homepage palette: purple, lavender and white */
-:root{--gold:#7150e8;--orange:#5b35ed;--cream:#f5f3ff;--ink:#171b3d;--muted:#666b91;--line:#e8e5f5;--white:#fff;--soft:#fbfaff;--shadow:0 7px 22px rgba(61,43,140,.09);--deep:#2e246d}
-body{background:linear-gradient(180deg,#f0edff 0,#fff 300px,#f8f7ff 100%);color:#171b3d}
-.topbar{background:rgba(255,255,255,.97);border-bottom-color:#e4e0fa}
-.brand-name{color:#5537d8}.brand-name small{color:#24284d}
-.brand-mark{border-color:#7657f0;border-right-color:#b9aaff}.brand-mark:after{background:#5b35ed}
-.head-search{border-color:#e0dcf7;box-shadow:0 3px 12px rgba(61,43,140,.04)}
-.btn-orange,.bottom-nav .sell .nav-ico{background:#5b35ed;color:#fff}
-.btn-gold{background:#7354ed;color:#fff}.btn-outline{border-color:#c6baff;color:#4c35c4}
-.navrow{background:#fff;border-top-color:#eeebfc}.navlinks a{color:#35385e}.navlinks a:hover,.navlinks a.active{border-color:#7150e8;color:#5b35ed}
-.mobile-menu{color:#5b35ed}
-.section-head h2{color:#171b3d}.section-head p{color:#6b6f95}.view-link{color:#5b35ed}
-.category-grid{gap:11px}.category-card{background:linear-gradient(150deg,#fff,#f4f1ff);border:1px solid #e8e3ff;border-radius:17px;box-shadow:0 5px 15px rgba(65,47,147,.055);text-align:center;padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;min-width:0}
-.category-card:hover{border-color:#b9aaff;box-shadow:0 8px 20px rgba(91,53,237,.12)}
-.category-art{width:100%;height:94px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#f0edff,#fff);font-size:clamp(38px,5vw,57px);line-height:1;filter:drop-shadow(0 5px 3px rgba(57,43,118,.12))}
-.category-label{width:100%;padding:10px 2px 0;font-size:13px;color:#171b3d}.category-label small{color:#686d93;font-size:10px}
-.vip-screen{margin:16px auto 22px;background:#fff;border:1px solid #dcd5ff;border-radius:20px;overflow:hidden;box-shadow:0 9px 28px rgba(63,45,147,.12);color:#171b3d}
-.vip-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:linear-gradient(110deg,#21164f,#4930b4 60%,#7056e9);color:#fff}
-.vip-title{display:flex;align-items:center;gap:10px}.vip-icon{width:39px;height:39px;background:#fff;color:#5b35ed;border-radius:50%;display:grid;place-items:center;font-size:20px}.vip-title h2{margin:0;color:#fff;font-size:21px}.vip-title p{margin:3px 0 0;color:#e4ddff;font-size:11px}.vip-explore{font-size:12px;font-weight:800;color:#fff;white-space:nowrap}
-.vip-stage{height:clamp(220px,42vw,430px);position:relative;background:#080812;display:grid;place-items:center;overflow:hidden}
-.vip-stage video,.vip-stage img{width:100%;height:100%;object-fit:contain;background:#080812;display:block}
-.vip-stage a{position:absolute;inset:0;z-index:2}
-.vip-progress{height:3px;background:#dcd5ff}.vip-progress span{display:block;height:100%;width:0;background:#7251ed}
-.vip-screen-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 13px;background:#f2efff;color:#4d477c;font-size:11px}
-.vip-screen-footer button{background:#fff;color:#4e35cf;border:1px solid #d5ccff;border-radius:8px;padding:5px 9px;font-weight:700}.vip-controls{white-space:nowrap}
-.ai-panel{background:linear-gradient(125deg,#e8e2ff,#f7f5ff 80%);border:1px solid #d8ceff;border-radius:20px;padding:20px;margin:24px auto;color:#171b3d;box-shadow:0 7px 22px rgba(91,53,237,.08)}
-.ai-icon{background:#5b35ed;color:#fff}.ai-head h2{color:#2c216e}.ai-head p{color:#5c6088}.ai-form{border-color:#ddd6ff;box-shadow:0 3px 12px rgba(62,45,145,.05)}.ai-form textarea{color:#171b3d}.ai-form button{background:#5b35ed}.ai-examples button{background:#fff;border-color:#d8ceff;color:#4f37cb}
-.ad-card{border-color:#e9e5f8;box-shadow:0 5px 16px rgba(45,35,110,.06)}.ad-photo{background:#eeebf8}.ad-price{color:#5b35ed}.ad-badge{background:#ebe6ff;color:#4b31c4}.empty-state{border-color:#d9d1ff;color:#65698c}
-.promo{background-color:#21164f;background-image:radial-gradient(circle at 90% 10%,rgba(147,125,255,.34),transparent 35%)}.promo p{color:#e5e0ff}
-.footer{background:#fff;border-top-color:#e6e1fa}.bottom-nav{border-top-color:#e4defc}.bottom-nav a.active{color:#5b35ed}.bottom-nav .sell .nav-ico{box-shadow:0 3px 9px rgba(91,53,237,.25)}
-@media(max-width:850px){.category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.category-art{height:82px}}
-@media(max-width:560px){.category-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.category-card{padding:8px 6px 10px;border-radius:14px}.category-art{height:76px;font-size:43px;border-radius:11px}.category-label{font-size:11px;padding-top:8px}.category-label small{font-size:9px}.vip-screen{margin:12px auto 18px;border-radius:15px}.vip-panel-heading{padding:11px 10px}.vip-title h2{font-size:18px}.vip-title p{font-size:9px}.vip-icon{width:33px;height:33px}.vip-explore{font-size:10px}.vip-stage{height:235px}.vip-screen-footer{padding:8px 9px;font-size:10px}.vip-screen-footer button{padding:5px 7px}.ai-panel{background:linear-gradient(135deg,#e7e1ff,#f7f5ff);border-radius:16px;padding:14px}.ai-head h2{font-size:21px}.ai-examples button{font-size:10px;padding:7px 9px}.bottom-nav{background:#fff;border-top-color:#e3def9}.bottom-nav a.active{color:#5b35ed}}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
-/* Match the property pages: rounded purple house mark and mobile navigation */
-.brand-mark.header-property-mark{width:43px;height:43px;border:2px solid #d8ceff;border-radius:13px;display:grid;place-items:center;font-size:29px;line-height:1;color:#fff;transform:none;background:linear-gradient(145deg,#7150e8,#5b35ed);box-shadow:0 3px 10px rgba(91,53,237,.18)}
-.brand-mark.header-property-mark:after{display:none}
-@media(max-width:560px){.brand-mark.header-property-mark{width:39px;height:39px;border:2px solid #d8ceff;border-radius:12px;font-size:26px}}
-</style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+      overflow-wrap: break-word;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #ffcc00;
+      outline-offset: 3px;
+    }
+
+    header {
+      background: var(--green);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+    }
+
+    .header-inner {
+      max-width: 1150px;
+      margin: auto;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      min-width: 0;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      line-height: 1.2;
+    }
+
+    .tagline {
+      font-size: 12px;
+      opacity: 0.95;
+      margin-top: 2px;
+    }
+
+    .join-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      background: var(--white);
+      color: var(--dark-green);
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .join-button:hover {
+      background: #eef9ee;
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: #064c20;
+      color: var(--white);
+      padding: 64px 20px 56px;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: url("https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85");
+      background-size: cover;
+      background-position: center 45%;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        115deg,
+        rgba(0, 72, 20, 0.94),
+        rgba(0, 100, 0, 0.83),
+        rgba(0, 45, 10, 0.77)
+      );
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .hero-label {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 17px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.18;
+      margin-bottom: 15px;
+      letter-spacing: -0.7px;
+    }
+
+    .hero h1 span {
+      color: #b8ff9d;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+      color: #f0fff0;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .hero-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      padding: 11px 19px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .hero-link.primary {
+      background: #ffffff;
+      color: var(--dark-green);
+    }
+
+    .hero-link.secondary {
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .search-box {
+      width: 100%;
+      max-width: 690px;
+      margin: auto;
+      display: flex;
+      align-items: stretch;
+      gap: 7px;
+      background: var(--white);
+      padding: 6px;
+      border-radius: 13px;
+      box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-box input {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      min-height: 49px;
+      padding: 12px 14px;
+      border: 2px solid transparent;
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--green);
+    }
+
+    .search-button {
+      min-height: 49px;
+      padding: 0 20px;
+      border: none;
+      border-radius: 9px;
+      background: #172117;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .search-button:hover {
+      background: #2d422d;
+    }
+
+    .search-hint {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #e1f4e1;
+    }
+
+    .welcome-strip {
+      max-width: 1106px;
+      margin: -1px auto 0;
+      padding: 24px 22px 5px;
+      text-align: center;
+    }
+
+    .welcome-strip h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+
+    .welcome-strip p {
+      max-width: 760px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 25px 22px 36px;
+    }
+
+    section {
+      scroll-margin-top: 90px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 23px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(22px, 3vw, 28px);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .category-block {
+      margin-bottom: 34px;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .category-heading .category-emoji {
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--light-green);
+      border-radius: 12px;
+      font-size: 23px;
+      flex-shrink: 0;
+    }
+
+    .category-heading h3 {
+      font-size: 21px;
+      line-height: 1.3;
+    }
+
+    .category-heading p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .option {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-width: 0;
+      min-height: 315px;
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .option:hover {
+      transform: translateY(-4px);
+      border-color: #a9d9a9;
+      box-shadow: 0 8px 23px rgba(0, 70, 0, 0.13);
+    }
+
+    .option-image {
+      height: 155px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: #e3eee3;
+    }
+
+    .option-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+
+    .option:hover .option-image img {
+      transform: scale(1.045);
+    }
+
+    .option-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+      padding: 17px 18px 18px;
+    }
+
+    .option-icon {
+      width: 39px;
+      height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: -36px;
+      margin-bottom: 11px;
+      position: relative;
+      background: var(--white);
+      border: 3px solid var(--white);
+      border-radius: 11px;
+      font-size: 22px;
+      box-shadow: 0 2px 7px rgba(0,0,0,0.08);
+    }
+
+    .option h3 {
+      font-size: 18px;
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
+
+    .option p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .arrow {
+      display: block;
+      margin-top: auto;
+      padding-top: 13px;
+      color: var(--dark-green);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .featured {
+      margin-top: 36px;
+    }
+
+    .featured-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .featured-box h2 {
+      font-size: 22px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .featured-box p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .green-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 19px;
+      border-radius: 10px;
+      background: var(--green);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .green-button:hover {
+      background: var(--dark-green);
+    }
+
+    .services {
+      margin-top: 42px;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .service {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 55px;
+      padding: 12px 10px;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .trust {
+      margin-top: 42px;
+      padding: 38px 25px;
+      background: linear-gradient(135deg, #172b19, #064c20);
+      color: var(--white);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .trust h2 {
+      font-size: 25px;
+      margin-bottom: 11px;
+    }
+
+    .trust p {
+      max-width: 740px;
+      margin: auto;
+      color: #dce8dc;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .trust-points {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .trust-points span {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+    footer {
+      margin-top: 42px;
+      background: #172117;
+      color: #c6d1c6;
+      text-align: center;
+      padding: 27px 18px;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 19px;
+      margin-bottom: 18px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      margin-top: 5px;
+      color: #aebbae;
+      font-size: 12px;
+    }
+
+    @media (max-width: 850px) {
+      .options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .option {
+        min-height: 310px;
+      }
+
+      .option-image {
+        height: 150px;
+      }
+
+      .service-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        padding: 11px 15px;
+      }
+
+      .logo {
+        font-size: 25px;
+      }
+
+      .tagline {
+        display: block;
+        font-size: 10px;
+      }
+
+      .join-button {
+        min-height: 44px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 40px 15px 35px;
+      }
+
+      .hero-label {
+        font-size: 10px;
+        margin-bottom: 13px;
+      }
+
+      .hero h1 {
+        font-size: 31px;
+      }
+
+      .hero p {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero-actions {
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+
+      .hero-link {
+        min-height: 43px;
+        padding: 10px 13px;
+        font-size: 13px;
+      }
+
+      .search-box {
+        flex-direction: column;
+        padding: 7px;
+        gap: 7px;
+      }
+
+      .search-box input {
+        min-height: 48px;
+        font-size: 16px;
+      }
+
+      .search-button {
+        width: 100%;
+        min-height: 48px;
+      }
+
+      .search-hint {
+        font-size: 11px;
+      }
+
+      .welcome-strip {
+        padding: 23px 15px 3px;
+      }
+
+      .welcome-strip h2 {
+        font-size: 23px;
+      }
+
+      .welcome-strip p {
+        font-size: 13px;
+      }
+
+      .container {
+        padding: 24px 13px 30px;
+      }
+
+      .section-title {
+        margin-bottom: 24px;
+      }
+
+      .section-title p {
+        font-size: 13px;
+      }
+
+      .category-block {
+        margin-bottom: 28px;
+      }
+
+      .category-heading {
+        margin-bottom: 11px;
+      }
+
+      .category-heading .category-emoji {
+        width: 38px;
+        height: 38px;
+        font-size: 21px;
+      }
+
+      .category-heading h3 {
+        font-size: 19px;
+      }
+
+      .category-heading p {
+        font-size: 12px;
+      }
+
+      .options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+      }
+
+      .option {
+        min-height: 310px;
+        border-radius: 13px;
+      }
+
+      .option-image {
+        height: 118px;
+      }
+
+      .option-content {
+        padding: 14px 11px 14px;
+      }
+
+      .option-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+        margin-top: -32px;
+        margin-bottom: 9px;
+        border-radius: 10px;
+      }
+
+      .option h3 {
+        font-size: 15px;
+        line-height: 1.35;
+      }
+
+      .option p {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .arrow {
+        padding-top: 12px;
+        font-size: 12px;
+      }
+
+      .featured {
+        margin-top: 27px;
+      }
+
+      .featured-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+        padding: 22px 16px;
+        text-align: center;
+      }
+
+      .featured-box h2 {
+        font-size: 20px;
+      }
+
+      .featured-box p {
+        font-size: 13px;
+      }
+
+      .green-button {
+        width: 100%;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .services {
+        margin-top: 32px;
+      }
+
+      .service-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .service {
+        min-height: 52px;
+        padding: 10px 7px;
+        font-size: 13px;
+        gap: 5px;
+      }
+
+      .trust {
+        margin-top: 32px;
+        padding: 28px 16px;
+      }
+
+      .trust h2 {
+        font-size: 22px;
+      }
+
+      .trust p {
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .trust-points {
+        gap: 7px;
+      }
+
+      .trust-points span {
+        font-size: 11px;
+        padding: 7px 9px;
+      }
+
+      footer {
+        margin-top: 30px;
+        padding: 24px 14px;
+      }
+
+      .footer-links {
+        gap: 5px 13px;
+        margin-bottom: 14px;
+      }
+
+      .footer-links a {
+        min-height: 40px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .header-inner {
+        padding: 10px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .tagline {
+        font-size: 9px;
+      }
+
+      .join-button {
+        padding: 8px 9px;
+        font-size: 12px;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .hero-link {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+
+      .container {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+
+      .options {
+        gap: 8px;
+      }
+
+      .option {
+        min-height: 315px;
+      }
+
+      .option-image {
+        height: 105px;
+      }
+
+      .option-content {
+        padding: 12px 9px;
+      }
+
+      .option h3 {
+        font-size: 14px;
+      }
+
+      .option p {
+        font-size: 11px;
+      }
+
+      .arrow {
+        font-size: 11px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="topbar">
- <div class="wrap toprow">
-  <a class="brand" href="index.html" aria-label="OGARS Platform home"><span class="brand-mark header-property-mark" aria-hidden="true">⌂</span><span><span class="brand-name">OGARS<small>PLATFORM</small></span></span></a>
-  <form class="head-search" id="search-form"><input id="search-query" type="search" placeholder="Quick search adverts…" aria-label="Quick search adverts"><select id="search-location" aria-label="Choose location"><option value="">All Ghana</option><option>Accra</option><option>Tema</option><option>Kumasi</option><option>Kasoa</option><option>Achimota</option><option>Madina</option><option>Lapaz</option><option>East Legon</option></select><button class="btn btn-orange" type="submit">Search</button></form>
-  <div class="head-actions"><a class="text-btn" href="account.html">Login</a><a class="btn btn-orange post-top" href="advertise.html">＋ Post Ad</a><button id="menu-button" class="mobile-menu" aria-label="Open menu" aria-expanded="false">☰</button></div>
- </div>
- <div class="navrow" id="mobile-nav"><nav class="wrap navlinks" aria-label="Main navigation"><a class="active" href="index.html">⌂ Home</a><a href="discover.html">▦ All Adverts</a><a href="vehicles.html">🚘 Vehicles</a><a href="find-property.html">⌂ Property</a><a href="find-products.html">▣ Products</a><a href="jobs.html">▤ Jobs</a><a href="workers.html">♙ Workers</a><a href="business.html">▣ Businesses</a><a href="advertise.html">＋ Post an Advert</a><a href="my-adverts.html">My Adverts</a></nav></div>
-</header>
-<main class="wrap">
- <section class="vip-screen" id="vip-deal" aria-label="VIP Deals electronic advertising billboard">
-  <div class="vip-panel-heading"><div class="vip-title"><span class="vip-icon">▶</span><div><h2>VIP Deals</h2><p>Electronic billboard · Featured customer adverts</p></div></div><a href="discover.html" class="vip-explore">Explore adverts →</a></div>
-  <div class="vip-stage" id="vip-stage"><div id="vip-empty" aria-hidden="true"></div></div>
-  <div class="vip-progress"><span id="vip-progress-fill"></span></div>
-  <div class="vip-screen-footer"><span id="vip-caption">No approved VIP adverts yet</span><span class="vip-controls"><button type="button" id="vip-mute" aria-label="Turn video sound on or off">Sound off</button> <button type="button" id="vip-prev" aria-label="Previous VIP advert">‹</button> <button type="button" id="vip-next" aria-label="Next VIP advert">›</button></span></div>
- </section>
 
- <section class="section" id="categories"><div class="section-head"><div><h2>Browse Top Categories</h2><p>Find the right category and explore opportunities.</p></div><a class="view-link" href="discover.html">All Adverts →</a></div>
- <div class="category-grid">
-  <a class="category-card" href="vehicles.html"><span class="category-art" aria-hidden="true">🚙</span><div class="category-label">Vehicles<small>Cars, bikes and more</small></div></a>
-  <a class="category-card" href="find-property.html"><span class="category-art" aria-hidden="true">🏡</span><div class="category-label">Property<small>Homes, rooms and land</small></div></a>
-  <a class="category-card" href="phones-tablets.html"><span class="category-art" aria-hidden="true">📱</span><div class="category-label">Phones & Tablets<small>Phones and smart devices</small></div></a>
-  <a class="category-card" href="find-products.html?category=Electronics"><span class="category-art" aria-hidden="true">💻</span><div class="category-label">Electronics<small>Appliances and gadgets</small></div></a>
-  <a class="category-card" href="home-living.html"><span class="category-art" aria-hidden="true">🛋️</span><div class="category-label">Home & Living<small>Furniture and home goods</small></div></a>
-  <a class="category-card" href="jobs.html"><span class="category-art" aria-hidden="true">💼</span><div class="category-label">Jobs & Employment<small>Find work and post jobs</small></div></a>
-  <a class="category-card" href="workers.html"><span class="category-art" aria-hidden="true">🧑‍🔧</span><div class="category-label">Skilled Workers<small>Trades and services</small></div></a>
-  <a class="category-card" href="business.html"><span class="category-art" aria-hidden="true">🏪</span><div class="category-label">Businesses<small>Shops and companies</small></div></a>
-  <a class="category-card" href="products-goods.html"><span class="category-art" aria-hidden="true">🛒</span><div class="category-label">Products & Goods<small>Food and everyday items</small></div></a>
-  <a class="category-card" href="workers.html?category=Services"><span class="category-art" aria-hidden="true">🛠️</span><div class="category-label">Services<small>Professional and home services</small></div></a>
-  <a class="category-card" href="find-products.html?category=Fashion"><span class="category-art" aria-hidden="true">👗</span><div class="category-label">Fashion & Beauty<small>Clothing and accessories</small></div></a>
-  <a class="category-card" href="find-products.html?category=Agriculture"><span class="category-art" aria-hidden="true">🌾</span><div class="category-label">Agriculture & Food<small>Farm products and supplies</small></div></a>
- </div></section>
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="brand" aria-label="OGARS home">
+        <div class="logo">OGARS</div>
+        <div class="tagline">Trusted people. Real opportunities.</div>
+      </a>
 
- <section class="ai-panel" id="ai-search"><div class="ai-head"><div class="ai-brand"><span class="ai-icon">✦</span><div><h2>AI Search</h2><p>Find what you need in Ghana with AI</p></div></div><a class="view-link" href="discover.html" style="color:#ffd76a">Browse adverts →</a></div><form class="ai-form" id="ai-search-form"><textarea id="ai-query" rows="2" placeholder="Ask me anything about what you need…" aria-label="Ask AI Search" required></textarea><button type="submit" aria-label="Search">➤</button></form><div class="ai-examples"><button type="button" data-ai-example="Find a car in Accra">Find a car</button><button type="button" data-ai-example="Find a house for rent in Accra">A house for rent</button><button type="button" data-ai-example="Find a skilled worker near me">A skilled worker</button><button type="button" data-ai-example="Find jobs in Ghana">A job</button><button type="button" data-ai-example="Find a restaurant in Accra">A restaurant</button></div><p id="ai-status" style="font-size:11px;color:#e8edf4;margin:10px 0 0">Ask in your own words. AI matching will be connected to live OGARS listings in the next implementation step.</p></section>
- <section class="section" id="trending"><div class="section-head"><div><h2>Trending Ads</h2><p>Recent active adverts from the OGARS community.</p></div><a class="view-link" href="discover.html">View All →</a></div><div class="ad-tools"><label for="sort-adverts" style="font-size:12px;color:var(--muted)">Sort by</label><select id="sort-adverts"><option value="newest">Latest</option><option value="oldest">Oldest</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div><p class="status" id="adverts-status" aria-live="polite">Loading latest adverts…</p><div class="ad-grid" id="adverts-grid"></div></section>
- <section class="promo"><div><h2>Have Something to Sell, Rent or Promote?</h2><p>Create an advert and connect with people looking for what you offer across Ghana.</p></div><div class="promo-actions"><a class="btn btn-gold" href="advertise.html">＋ Post an Advert</a><a class="btn btn-outline" href="account.html">Create Account</a></div></section>
-</main>
-<footer class="footer"><div class="wrap footer-row"><div><a class="brand" href="index.html"><span class="brand-mark"></span><span><span class="brand-name">OGARS<small>PLATFORM</small></span></span></a><p>Buy, sell, find work, hire, rent and connect — anywhere in Ghana. OGARS PLATFORM brings useful opportunities together in one place.</p><small>© <span id="year"></span> OGARS PLATFORM. All rights reserved.</small></div><div class="footer-links"><a href="discover.html">All Adverts</a><a href="advertise.html">Post an Advert</a><a href="account.html">Account</a><a href="my-adverts.html">My Adverts</a><a href="workers.html">Workers</a><a href="jobs.html">Jobs</a></div></div></footer>
-<nav class="bottom-nav" aria-label="Mobile navigation"><a class="active" href="index.html"><span class="nav-ico">⌂</span>Home</a><a href="discover.html"><span class="nav-ico">▦</span>Explore</a><a class="sell" href="advertise.html"><span class="nav-ico">＋</span>Post Ad</a><a href="discover.html"><span class="nav-ico">⌕</span>Search</a><a href="account.html"><span class="nav-ico">♙</span>Account</a></nav>
-<script>
-const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
-const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const TABLE="discover_listings";
-const FALLBACK_IMAGE="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80";
-let adverts=[];
-const $=id=>document.getElementById(id);
-const val=(o,keys,fallback="")=>{for(const k of keys)if(o&&o[k]!==undefined&&o[k]!==null&&o[k]!=="")return o[k];return fallback};
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const titleOf=a=>String(val(a,["title","name","advert_title","listing_title","product_name"],"Customer Advert"));
-const descOf=a=>String(val(a,["description","details","content","advert_description"],""));
-const categoryOf=a=>String(val(a,["category","listing_type","type","advert_category"],"Advert"));
-const locationOf=a=>String(val(a,["location","town","city","region","address"],"Ghana"));
-const dateOf=a=>val(a,["created_at","createdAt","posted_at","date_created","created_on","inserted_at"],null);
-const priceOf=a=>val(a,["price","amount","advert_price","price_ghs","asking_price","cost"],null);
-function priceNumber(a){const p=priceOf(a);if(p===null||p==="")return null;const n=Number(String(p).replace(/[^\d.-]/g,""));return Number.isFinite(n)?n:null}
-function money(a){const p=priceOf(a);if(p===null||p==="")return "Contact for price";const n=priceNumber(a);return n===null?String(p):"GH₵ "+n.toLocaleString("en-GH",{maximumFractionDigits:2})}
-function imageOf(a){let x=val(a,["image_url","imageUrl","image","photo_url","photo","cover_image","coverImage","thumbnail","main_image","image_urls","images","photos","photo_urls"],"");if(Array.isArray(x))x=x[0]||"";if(typeof x==="string"&&x.includes(",")&&!x.trim().startsWith("["))x=x.split(",").map(v=>v.trim()).filter(Boolean)[0]||"";if(typeof x==="string"&&x.trim().startsWith("[")){try{const j=JSON.parse(x);if(Array.isArray(j))x=j[0]||""}catch(e){}}if(x&&typeof x==="object")x=x.url||x.publicUrl||x.public_url||x.path||"";if(typeof x!=="string"||!x.trim())return FALLBACK_IMAGE;x=x.trim();if(/^https?:\/\//i.test(x))return x;if(!x.startsWith("/"))return SUPABASE_URL+"/storage/v1/object/public/discover-photos/"+x;return FALLBACK_IMAGE}
-function active(a){const s=String(val(a,["status","approval_status","listing_status"],"")).toLowerCase();if(["deleted","rejected","inactive","expired","removed"].includes(s)||a.is_active===false||a.active===false)return false;const e=val(a,["expires_at","expiry_date","expires_on"],null);if(e){const t=new Date(e).getTime();if(Number.isFinite(t)&&t<Date.now())return false}return true}
-function ago(v){if(!v)return "Recently posted";const d=new Date(v);if(Number.isNaN(d.getTime()))return "Recently posted";const m=Math.max(0,Math.floor((Date.now()-d.getTime())/60000));if(m<60)return m<2?"Just now":m+" minutes ago";const h=Math.floor(m/60);if(h<24)return h+" hour"+(h===1?"":"s")+" ago";const days=Math.floor(h/24);if(days<7)return days+" day"+(days===1?"":"s")+" ago";return d.toLocaleDateString("en-GH",{day:"numeric",month:"short"})}
-function advertUrl(a){const id=val(a,["id","advert_id","listing_id"],null);return id===null?"discover.html":"discover-details.html?id="+encodeURIComponent(String(id))}
-function renderAdverts(){let list=[...adverts],sort=$("sort-adverts").value,t=a=>{const n=new Date(dateOf(a)||0).getTime();return Number.isFinite(n)?n:0};if(sort==="newest")list.sort((a,b)=>t(b)-t(a));if(sort==="oldest")list.sort((a,b)=>t(a)-t(b));if(sort==="low")list.sort((a,b)=>(priceNumber(a)??Infinity)-(priceNumber(b)??Infinity));if(sort==="high")list.sort((a,b)=>(priceNumber(b)??-Infinity)-(priceNumber(a)??-Infinity));list=list.slice(0,12);$("adverts-status").textContent=adverts.length?"Showing "+list.length+" recent adverts.":"No active adverts are available right now. Please visit All Adverts to browse.";$("adverts-grid").innerHTML=list.length?list.map(a=>{const title=esc(titleOf(a)),cat=esc(categoryOf(a)),desc=esc(descOf(a)),loc=esc(locationOf(a)),price=esc(money(a)),date=esc(ago(dateOf(a))),img=esc(imageOf(a)),url=esc(advertUrl(a));return `<article class="ad-card"><a href="${url}" aria-label="View ${title}"><div class="ad-photo"><img src="${img}" alt="${title}" loading="lazy" onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}'"></div></a><div class="ad-body"><div class="ad-price">${price}</div><h3 class="ad-title">${title}</h3>${desc?`<p class="ad-desc">${desc}</p>`:""}<div class="ad-meta"><span>📍 ${loc}</span><span>◷ ${date}</span></div></div></article>`}).join(""):`<div class="empty-state">No adverts to show yet. Be among the first to <a href="advertise.html" style="color:#9b5b00;font-weight:800">post an advert</a>.</div>`}
+      <a href="join-ogars.html" class="join-button">
+        👋 Join OGARS
+      </a>
+    </div>
+  </header>
 
-async function loadAdverts() {
-  $("adverts-status").textContent = "Loading latest adverts…";
-  $("adverts-status").classList.add("loading");
+  <section class="hero">
+    <div class="hero-content">
 
-  try {
-    const url = SUPABASE_URL + "/rest/v1/" + TABLE +
-      "?select=*&order=created_at.desc&limit=100";
+      <div class="hero-label">WELCOME TO OGARS</div>
 
-    const r = await fetch(url, {
-      headers: {
-        "apikey": SUPABASE_KEY,
-        "Authorization": "Bearer " + SUPABASE_KEY
+      <h1>
+        Your Opportunities,<br>
+        <span>All in One Place!</span>
+      </h1>
+
+      <p>
+        Whether you're looking for work, searching for a property,
+        hiring a professional, selling products, growing your business
+        or promoting an event, OGARS helps connect you with
+        opportunities and people that matter.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#explore" class="hero-link primary">
+          Explore OGARS ↓
+        </a>
+
+        <a href="join-ogars.html" class="hero-link secondary">
+          Get Started with OGARS →
+        </a>
+      </div>
+
+      <form class="search-box" id="home-search-form">
+        <input
+          type="search"
+          placeholder="What are you looking for today?"
+          id="home-search"
+          aria-label="Search workers, jobs, products, properties and opportunities"
+          autocomplete="off"
+          enterkeyhint="search"
+          required
+        >
+
+        <button type="submit" class="search-button">
+          🔎 Search OGARS
+        </button>
+      </form>
+
+      <div class="search-hint">
+        Try: houses, jobs, tilapia, plumber, rooms for rent or drivers
+      </div>
+
+    </div>
+  </section>
+
+  <div class="welcome-strip">
+    <h2>Find What You Need. Share What You Offer.</h2>
+
+    <p>
+      Welcome! Whether you're here to discover something new,
+      find customers, offer your skills or grow your business,
+      there's a place for you at OGARS.
+    </p>
+  </div>
+
+  <main class="container">
+
+    <section id="explore">
+
+      <div class="section-title">
+        <h2>Explore the OGARS Marketplace</h2>
+        <p>Choose what you need and let's get you started.</p>
+      </div>
+
+      <!-- PROPERTY / ESTATE -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🏠</div>
+
+          <div>
+            <h3>Property / Estate</h3>
+            <p>Buy, rent or advertise properties.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="properties.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
+                alt="House representing property opportunities"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📢</div>
+
+              <h3>Post Property</h3>
+
+              <p>
+                Advertise your house, apartment, land,
+                shop or other property to potential customers.
+              </p>
+
+              <span class="arrow">Post Property →</span>
+            </div>
+          </a>
+
+          <a href="find-property.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                alt="Modern residential house"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>View Property</h3>
+
+              <p>
+                Explore houses, apartments, rooms, land
+                and commercial spaces for rent or sale.
+              </p>
+
+              <span class="arrow">View Property →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- JOBS / EMPLOYMENT -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">💼</div>
+
+          <div>
+            <h3>Jobs / Employment</h3>
+            <p>Post vacancies or find employment opportunities.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="post-job.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80"
+                alt="Colleagues discussing work together"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📢</div>
+
+              <h3>Post a Job</h3>
+
+              <p>
+                Have a vacancy or job opportunity?
+                Connect with people who have the skills you need.
+              </p>
+
+              <span class="arrow">Post a Job →</span>
+            </div>
+          </a>
+
+          <a href="jobs-employment.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80"
+                alt="People meeting about employment"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>Employment Opportunities</h3>
+
+              <p>
+                Explore job openings, employment opportunities
+                and available work.
+              </p>
+
+              <span class="arrow">Find Jobs →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- PRODUCTS / ITEMS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🛍️</div>
+
+          <div>
+            <h3>Products / Items</h3>
+            <p>Sell products or find items from different sellers.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+                alt="Seller displaying products"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">📦</div>
+
+              <h3>Post Product / Item</h3>
+
+              <p>
+                Advertise your products or items and
+                connect with potential customers.
+              </p>
+
+              <span class="arrow">Post Product →</span>
+            </div>
+          </a>
+
+          <a href="find-products.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80"
+                alt="Fresh products displayed in a market"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🔎</div>
+
+              <h3>Find Products / Items</h3>
+
+              <p>
+                Discover products from different businesses
+                and contact sellers directly.
+              </p>
+
+              <span class="arrow">Find Products →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- WORKERS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🔧</div>
+
+          <div>
+            <h3>Workers</h3>
+            <p>Find skilled professionals for your needs.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="workers.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
+                alt="Construction workers working on a building"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">👷</div>
+
+              <h3>Find a Worker</h3>
+
+              <p>
+                Find plumbers, electricians, carpenters,
+                painters, masons and other skilled professionals.
+              </p>
+
+              <span class="arrow">Find Workers →</span>
+            </div>
+          </a>
+
+          <a href="join.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
+                alt="Professional worker"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🛠️</div>
+
+              <h3>Join as a Worker</h3>
+
+              <p>
+                Create your OGARS worker profile,
+                showcase your skills and get discovered by customers.
+              </p>
+
+              <span class="arrow">Create Profile →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      
+
+      <!-- DRIVERS -->
+      <div class="category-block">
+
+        <div class="category-heading">
+          <div class="category-emoji">🚗</div>
+
+          <div>
+            <h3>Drivers & Vehicles</h3>
+            <p>Find drivers, vehicles and driving opportunities.</p>
+          </div>
+        </div>
+
+        <div class="options">
+
+          <a href="vehicles.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80"
+                alt="Car representing vehicle opportunities"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">🚗</div>
+
+              <h3>Drivers & Vehicles</h3>
+
+              <p>
+                Find drivers, vehicles and driving opportunities,
+                or advertise a vehicle you own.
+              </p>
+
+              <span class="arrow">Explore →</span>
+            </div>
+          </a>
+
+          <a href="vehicles.html" class="option">
+            <div class="option-image">
+              <img
+                src="https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=800&q=80"
+                alt="Professional driver"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="option-content">
+              <div class="option-icon" aria-hidden="true">👨‍✈️</div>
+
+              <h3>Find a Driver</h3>
+
+              <p>
+                Connect with drivers looking for driving work
+                or businesses looking for reliable drivers.
+              </p>
+
+              <span class="arrow">Find Drivers →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- BUSINESSES + DISCOVER & ADVERTISE -->
+<div class="category-block">
+
+  <div class="options">
+
+    <!-- BUSINESS -->
+    <a href="business.html" class="option">
+      <div class="option-image">
+        <img
+          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+          alt="Modern business workspace"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="option-content">
+        <div class="option-icon" aria-hidden="true">🏢</div>
+
+        <h3>Businesses</h3>
+
+        <p>
+          Connect with customers, find workers,
+          post jobs and discover business opportunities.
+        </p>
+
+        <span class="arrow">Explore Businesses →</span>
+      </div>
+    </a>
+
+
+    <!-- DISCOVER & ADVERTISE -->
+    <a href="discover.html" class="option">
+      <div class="option-image">
+        <img
+          src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
+          alt="People attending a special event"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="option-content">
+        <div class="option-icon" aria-hidden="true">📣</div>
+
+        <h3>Discover & Advertise</h3>
+
+        <p>
+          Discover or promote schools, churches,
+          events, training, courses and other opportunities.
+        </p>
+
+        <span class="arrow">Discover More →</span>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+
+    <!-- SKILLED WORKER FEATURE -->
+    <section class="featured">
+
+      <div class="featured-box">
+
+        <div>
+          <h2>👷 Are You a Skilled Worker?</h2>
+
+          <p>
+            Create your OGARS profile, showcase your skills
+            and let potential customers discover your services.
+          </p>
+        </div>
+
+        <a href="join.html" class="green-button">
+          Create Worker Profile
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- POPULAR SERVICES -->
+    <section class="services">
+
+      <div class="section-title">
+        <h2>Popular Services</h2>
+        <p>Find professionals for everyday jobs.</p>
+      </div>
+
+      <div class="service-list">
+
+        <div class="service">🔧 Plumbing</div>
+        <div class="service">⚡ Electrical</div>
+        <div class="service">🪚 Carpentry</div>
+        <div class="service">🎨 Painting</div>
+        <div class="service">🧱 Masonry</div>
+        <div class="service">🚿 Tiling</div>
+        <div class="service">🔩 Welding</div>
+        <div class="service">❄️ AC Repair</div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TRUST -->
+    <section class="trust">
+
+      <h2>Why Choose OGARS?</h2>
+
+      <p>
+        OGARS brings together skilled workers, job seekers,
+        product sellers, property owners, drivers and businesses.
+        Our goal is to make it easier for people to discover
+        services, connect with sellers and find opportunities
+        in one convenient place.
+      </p>
+
+      <div class="trust-points">
+        <span>🌍 Discover Opportunities</span>
+        <span>🤝 Connect with People</span>
+        <span>📈 Grow Your Business</span>
+        <span>💚 One Convenient Platform</span>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <nav class="footer-links" aria-label="Main marketplace links">
+
+      <a href="workers.html">Workers</a>
+      <a href="jobs-employment.html">Jobs</a>
+      <a href="find-products.html">Products</a>
+      <a href="find-property.html">Properties</a>
+      <a href="vehicles.html">Vehicles</a>
+      <a href="discover.html">Discover</a>
+      <a href="business.html">Businesses</a>
+      <a href="join-ogars.html">Join OGARS</a>
+
+    </nav>
+
+    <div>© 2026 OGARS Workers Platform</div>
+
+    <div class="footer-note">
+      Trusted people. Real opportunities.
+    </div>
+
+  </footer>
+
+
+  <script>
+
+    function homeSearch() {
+
+      const searchInput =
+        document.getElementById("home-search");
+
+      const search =
+        searchInput.value.trim().toLowerCase();
+
+      if (!search) {
+
+        alert("Please enter what you are looking for.");
+
+        searchInput.focus();
+
+        return;
       }
-    });
 
-    if (!r.ok) throw new Error("Supabase returned " + r.status);
 
-    const rows = await r.json();
-    if (!Array.isArray(rows)) throw new Error("Unexpected response");
+      /* PRODUCTS / FOOD */
 
-    const activeRows = rows.filter(active);
+      if (
+        search.includes("product") ||
+        search.includes("products") ||
+        search.includes("item") ||
+        search.includes("items") ||
+        search.includes("shop") ||
+        search.includes("buy") ||
+        search.includes("seller") ||
+        search.includes("store") ||
+        search.includes("tilapia") ||
+        search.includes("fish") ||
+        search.includes("chicken") ||
+        search.includes("food") ||
+        search.includes("clothes") ||
+        search.includes("electronics") ||
+        search.includes("groceries") ||
+        search.includes("meat") ||
+        search.includes("sausage") ||
+        search.includes("turkey") ||
+        search.includes("beef")
+      ) {
 
-    // Keep VIP Video adverts out of Trending Ads.
-    adverts = activeRows.filter(a =>
-      String(a.listing_type || "").toLowerCase() !== "vip video"
-    );
+        window.location.href =
+          "find-products.html";
 
-    renderAdverts();
-
-    // Show only approved VIP videos, while retaining other eligible VIP adverts.
-    vipItems = activeRows.filter(a => {
-      const type = String(a.listing_type || "").toLowerCase();
-
-      if (type === "vip video") {
-        return String(a.video_status || "").toLowerCase() === "approved"
-          && !!mediaUrl(a);
+        return;
       }
 
-      return vipEligible(a) && !!(imageOf(a) || mediaUrl(a));
-    });
 
-    vipIndex = 0;
-    showVip();
+      /* WORKERS */
 
-  } catch (e) {
-    console.error("OGARS advert feed:", e);
-    $("adverts-status").textContent =
-      "We couldn't load adverts right now. Please try All Adverts.";
-    $("adverts-grid").innerHTML = "";
+      if (
+        search.includes("worker") ||
+        search.includes("plumber") ||
+        search.includes("plumbing") ||
+        search.includes("electrician") ||
+        search.includes("electrical") ||
+        search.includes("carpenter") ||
+        search.includes("carpentry") ||
+        search.includes("painter") ||
+        search.includes("painting") ||
+        search.includes("mason") ||
+        search.includes("welder") ||
+        search.includes("tiler") ||
+        search.includes("welding") ||
+        search.includes("mechanic") ||
+        search.includes("hairdresser") ||
+        search.includes("barber")
+      ) {
 
-  } finally {
-    $("adverts-status").classList.remove("loading");
-  }
-}
+        window.location.href =
+          "workers.html";
 
-$("sort-adverts").addEventListener("change", renderAdverts);
+        return;
+      }
 
-$("menu-button").addEventListener("click", () => {
-  const open = $("mobile-nav").classList.toggle("open");
-  $("menu-button").setAttribute("aria-expanded", String(open));
-  $("menu-button").textContent = open ? "✕" : "☰";
-});
 
-let vipItems = [], vipIndex = 0, vipTimer = null, vipTick = null, vipMuted = true;
+      /* JOBS */
 
-function mediaUrl(a) {
-  let v = val(a, [
-    "video_url", "videoUrl", "video",
-    "video_path", "media_url", "mediaUrl"
-  ], "");
+      if (
+        search.includes("job") ||
+        search.includes("jobs") ||
+        search.includes("work") ||
+        search.includes("employment") ||
+        search.includes("vacancy") ||
+        search.includes("career") ||
+        search.includes("recruit") ||
+        search.includes("hiring")
+      ) {
 
-  if (v && typeof v === "object") {
-    v = v.url || v.publicUrl || v.public_url || v.path || "";
-  }
+        window.location.href =
+          "jobs-employment.html";
 
-  if (typeof v !== "string" || !v.trim()) return "";
+        return;
+      }
 
-  v = v.trim();
 
-  if (/^https?:\/\//i.test(v)) return v;
+      /* PROPERTIES */
 
-  const path = v.replace(/^\/+/, "");
-  const isVipVideo =
-    String(a.listing_type || "").toLowerCase() === "vip video";
+      if (
+        search.includes("house") ||
+        search.includes("houses") ||
+        search.includes("apartment") ||
+        search.includes("apartments") ||
+        search.includes("room") ||
+        search.includes("rooms") ||
+        search.includes("land") ||
+        search.includes("hotel") ||
+        search.includes("property") ||
+        search.includes("properties") ||
+        search.includes("estate") ||
+        search.includes("rent") ||
+        search.includes("rental") ||
+        search.includes("accommodation") ||
+        search.includes("hostel") ||
+        search.includes("shop for rent")
+      ) {
 
-  if (isVipVideo) {
-    // Use the private bucket's object endpoint.
-    // Approved-video access is controlled by Supabase storage policies.
-    return SUPABASE_URL +
-      "/storage/v1/object/vip-videos/" +
-      path.split("/").map(encodeURIComponent).join("/");
-  }
+        window.location.href =
+          "find-property.html";
 
-  return SUPABASE_URL +
-    "/storage/v1/object/public/discover-photos/" +
-    path.split("/").map(encodeURIComponent).join("/");
-}
+        return;
+      }
 
-function vipEligible(a) {
-  const yes = [
-    a.is_vip, a.vip, a.is_featured, a.featured,
-    a.vip_advert, a.is_promoted
-  ].some(v =>
-    v === true ||
-    String(v).toLowerCase() === "true" ||
-    String(v).toLowerCase() === "vip"
-  );
 
-  const tag = String(val(a, [
-    "promotion_type", "advert_type", "listing_badge", "badge", "plan"
-  ], "")).toLowerCase();
+      /* DRIVERS AND VEHICLES */
 
-  return yes || tag.includes("vip") || tag.includes("featured");
-}
+      if (
+        search.includes("driver") ||
+        search.includes("drivers") ||
+        search.includes("vehicle") ||
+        search.includes("vehicles") ||
+        search.includes("car") ||
+        search.includes("cars") ||
+        search.includes("truck") ||
+        search.includes("pickup") ||
+        search.includes("bus")
+      ) {
 
-async function showVip() {
-  const stage = $("vip-stage");
-  const cap = $("vip-caption");
-  const empty = $("vip-empty");
+        window.location.href =
+          "vehicles.html";
 
-  if (!stage) return;
+        return;
+      }
 
-  stage.querySelectorAll("video,img,a").forEach(n => n.remove());
 
-  clearTimeout(vipTimer);
-  clearInterval(vipTick);
+      /* BUSINESSES AND DISCOVER */
 
-  if (!vipItems.length) {
-    if (empty) empty.style.display = "none";
-    cap.textContent = "No approved VIP adverts yet";
-    $("vip-progress-fill").style.width = "0%";
-    return;
-  }
+      if (
+        search.includes("business") ||
+        search.includes("businesses") ||
+        search.includes("advertise") ||
+        search.includes("advertisement") ||
+        search.includes("promotion") ||
+        search.includes("church") ||
+        search.includes("school") ||
+        search.includes("event") ||
+        search.includes("training") ||
+        search.includes("course") ||
+        search.includes("organization") ||
+        search.includes("seminar") ||
+        search.includes("conference")
+      ) {
 
-  if (empty) empty.style.display = "none";
+        window.location.href =
+          "discover.html";
 
-  const a = vipItems[vipIndex % vipItems.length];
-  const isVipVideo =
-    String(a.listing_type || "").toLowerCase() === "vip video";
-  const img = imageOf(a);
-  const url = advertUrl(a);
+        return;
+      }
 
-  cap.textContent = titleOf(a);
 
-  const link = document.createElement("a");
-  link.href = url;
-  link.setAttribute("aria-label", "View VIP advert: " + titleOf(a));
-  stage.appendChild(link);
-
-  function showImage() {
-    const im = document.createElement("img");
-    im.src = img;
-    im.alt = titleOf(a);
-    im.onerror = () => {
-      im.onerror = null;
-      im.src = FALLBACK_IMAGE;
-    };
-    stage.insertBefore(im, link);
-  }
-
-  if (isVipVideo) {
-    try {
-      const response = await fetch(
-        SUPABASE_URL + "/functions/v1/vip-video-url",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY,
-            "Authorization": "Bearer " + SUPABASE_KEY
-          },
-          body: JSON.stringify({
-            listing_id: Number(a.id)
-          })
-        }
+      alert(
+        "We could not identify that category. Try searching for a worker, job, product, property, driver or opportunity."
       );
 
-      if (!response.ok) {
-        throw new Error(
-          "Video URL request failed: " + response.status
-        );
-      }
+    }
 
-      const result = await response.json();
 
-      if (!result.video_url) {
-        throw new Error("No video URL returned");
-      }
+    document
+      .getElementById("home-search-form")
+      .addEventListener("submit", function(event) {
 
-      const el = document.createElement("video");
-      el.src = result.video_url;
-      el.autoplay = true;
-      el.muted = vipMuted;
-      el.playsInline = true;
-      el.controls = true;
-      el.preload = "metadata";
-      el.setAttribute("aria-label", titleOf(a));
+        event.preventDefault();
 
-      el.addEventListener("error", () => {
-        if (el.isConnected) {
-          el.remove();
-          showImage();
-        }
+        homeSearch();
+
       });
 
-      stage.insertBefore(el, link);
-      el.play().catch(() => {});
-    } catch (error) {
-      console.error("VIP video could not load:", error);
-      showImage();
-    }
-  } else {
-    const video = mediaUrl(a);
+  </script>
 
-    if (video) {
-      const el = document.createElement("video");
-      el.src = video;
-      el.autoplay = true;
-      el.muted = vipMuted;
-      el.playsInline = true;
-      el.controls = true;
-      el.preload = "metadata";
-      el.setAttribute("aria-label", titleOf(a));
-
-      el.addEventListener("error", () => {
-        if (el.isConnected) {
-          el.remove();
-          showImage();
-        }
-      });
-
-      stage.insertBefore(el, link);
-      el.play().catch(() => {});
-    } else {
-      showImage();
-    }
-  }
-
-  const started = Date.now();
-
-  vipTick = setInterval(() => {
-    const fill = $("vip-progress-fill");
-    if (fill) {
-      const pct = Math.min(
-        100,
-        ((Date.now() - started) / 10000) * 100
-      );
-      fill.style.width = pct + "%";
-    }
-  }, 150);
-
-  vipTimer = setTimeout(nextVip, 10000);
-}
-
-function nextVip() {
-  if (!vipItems.length) return;
-  vipIndex = (vipIndex + 1) % vipItems.length;
-  showVip();
-}
-
-function prevVip() {
-  if (!vipItems.length) return;
-  vipIndex = (vipIndex - 1 + vipItems.length) % vipItems.length;
-  showVip();
-}
-
-$("vip-next").addEventListener("click", nextVip);
-$("vip-prev").addEventListener("click", prevVip);
-
-$("vip-mute").addEventListener("click", () => {
-  vipMuted = !vipMuted;
-  $("vip-mute").textContent = vipMuted ? "Sound off" : "Sound on";
-
-  const v = $("vip-stage").querySelector("video");
-  if (v) v.muted = vipMuted;
-});
-
-$("ai-search-form").addEventListener("submit", e => {
-  e.preventDefault();
-  const q = $("ai-query").value.trim();
-  if (!q) return;
-
-  $("ai-status").textContent = "Opening relevant OGARS listings…";
-  const query = new URLSearchParams({ search: q });
-  window.location.href = "discover.html?" + query.toString();
-});
-
-document.querySelectorAll("[data-ai-example]").forEach(b => {
-  b.addEventListener("click", () => {
-    $("ai-query").value = b.dataset.aiExample;
-    $("ai-query").focus();
-  });
-});
-
-$("year").textContent = new Date().getFullYear();
-loadAdverts();
-</script>
 </body>
 </html>
