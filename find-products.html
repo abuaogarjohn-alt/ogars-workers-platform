@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Find Products - OGARS Platform</title>
+  <title>OGARS Electronics - OGARS Platform</title>
   <meta name="theme-color" content="#6545c5">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -77,26 +77,23 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #4d32a5, #7655d6);
-      color: #fff;
-      border-bottom: 0;
-      text-align: center;
-      padding: 27px 15px 30px;
+      position: relative; overflow: hidden; display: flex; align-items: center;
+      gap: 13px; min-height: 150px; padding: 23px 18px; text-align: left;
+      color: #fff; background: linear-gradient(110deg, #6423d4 0%, #4d278c 58%, #38206d 100%);
     }
-
-    .hero .icon { font-size: 36px; }
-
-    .hero h1 {
-      margin: 5px 0;
-      font-size: clamp(26px, 5vw, 36px);
+    .hero::after {
+      content: "⌁"; position: absolute; right: 16px; top: -28px;
+      font-size: 170px; line-height: 1; color: rgba(255,255,255,.07); pointer-events: none;
     }
-
-    .hero p {
-      max-width: 600px;
-      margin: 8px auto 0;
-      color: #eee8ff;
-      font-size: 14px;
+    .hero-back { position: relative; z-index: 1; color: #fff; text-decoration: none; font-size: 30px; padding: 2px; line-height: 1; }
+    .hero-icon-box {
+      position: relative; z-index: 1; flex: 0 0 78px; width: 78px; height: 78px;
+      border: 3px solid rgba(255,255,255,.9); border-radius: 20px; display: grid;
+      place-items: center; font-size: 39px;
     }
+    .hero-copy { position: relative; z-index: 1; min-width: 0; }
+    .hero h1 { margin: 0; font-size: clamp(23px, 4.8vw, 31px); line-height: 1.12; text-transform: uppercase; }
+    .hero p { margin: 9px 0 0; color: #f0e8ff; font-size: 14px; line-height: 1.4; }
 
     .container {
       max-width: 1150px;
@@ -105,43 +102,22 @@
     }
 
     .search-panel {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,.06);
+      background: #f1e8ff; border: 1px solid #e9ddfb; border-radius: 28px;
+      padding: 17px; margin: 24px 0 24px; box-shadow: 0 8px 20px rgba(77,39,140,.09);
     }
-
-    .search-title {
-      font-weight: bold;
-      margin-bottom: 10px;
+    .search-title { display: none; }
+    .search-panel input, .search-panel select {
+      width: 100%; min-height: 54px; padding: 12px 15px; border: 1px solid #e7e0f0;
+      border-radius: 19px; background: #fff; color: var(--text); font-size: 16px; margin: 0;
+      outline-color: #6b35b2;
     }
-
-    .search-panel input,
-    .search-panel select {
-      width: 100%;
-      min-height: 47px;
-      padding: 11px 12px;
-      border: 1px solid #ded6f3;
-      border-radius: 9px;
-      background: white;
-      color: var(--text);
-      font-size: 16px;
-      margin-bottom: 9px;
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
+    .search-button-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+    .search-button-row input { min-width: 0; }
+    .search-button { border: 0; border-radius: 18px; background: var(--dark); color: #fff; font-weight: 800; font-size: 16px; padding: 0 16px; min-height: 55px; cursor: pointer; }
+    .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 13px; }
+    .filters > div { min-width: 0; }
     .filters select { min-width: 0; }
-    .search-button-row { display:flex; gap:8px; }
-    .search-button-row input { flex:1; min-width:0; }
-    .search-button { border:0; border-radius:9px; background:var(--dark); color:#fff; font-weight:800; padding:0 16px; min-height:47px; margin-bottom:9px; cursor:pointer; }
-    .filter-label { display:block; color:var(--muted); font-size:11px; font-weight:700; margin:0 0 4px 2px; }
+    .filter-label { display: none; }
 
     .results-summary {
       display: flex;
@@ -370,16 +346,14 @@
       margin: 0 0 18px;
     }
     .shortcut {
-      display: flex; min-width: 0; flex-direction: column; align-items: center;
-      gap: 7px; padding: 10px 5px; border: 1px solid var(--border);
-      border-radius: 14px; background: #fff; color: var(--text);
-      text-align: center; font-size: 11px; font-weight: 700; cursor: pointer;
-      box-shadow: 0 3px 10px rgba(77,50,165,.06);
+      display: flex; min-width: 0; flex-direction: column; align-items: stretch;
+      gap: 9px; padding: 11px; border: 1px solid #e8e0f5; border-radius: 25px;
+      background: #fff; color: var(--text); text-align: left; font-size: 12px;
+      font-weight: 800; cursor: pointer; box-shadow: 0 4px 13px rgba(77,50,165,.07); min-height: 190px;
     }
     .shortcut-icon {
-      display: flex; align-items: center; justify-content: center;
-      width: 100%; height: 58px; border-radius: 10px;
-      background: #f3efff; font-size: 28px;
+      display: flex; align-items: center; justify-content: center; width: 100%;
+      height: 112px; border-radius: 20px; background: linear-gradient(145deg,#eee4ff,#faf7ff); font-size: 49px;
     }
     .shortcut.active { border-color: #8a70e8; background: #f8f5ff; }
     .electronics-note { margin: -5px 0 14px; color: var(--muted); font-size: 12px; }
@@ -409,14 +383,19 @@
       .brand { font-size: 22px; }
       .brand small { font-size: 9px; }
       .post-button { padding: 9px; font-size: 11px; }
-      .hero { padding: 25px 14px; }
-      .hero h1 { font-size: 27px; }
-      .container { padding: 13px 10px 105px; }
-      .search-panel { padding: 12px; }
-      .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-      .search-button-row { display:block; }
-      .search-button-row input { margin-bottom:8px; }
-      .search-button { width:100%; margin-bottom:8px; min-height:43px; }
+      .hero { min-height: 145px; padding: 22px 12px; gap: 9px; }
+      .hero-back { font-size: 25px; padding: 0; }
+      .hero-icon-box { flex-basis: 65px; width: 65px; height: 65px; border-radius: 17px; font-size: 32px; }
+      .hero h1 { font-size: 23px; }
+      .hero p { font-size: 12px; margin-top: 7px; max-width: 230px; }
+      .container { padding: 1px 14px 105px; }
+      .search-panel { padding: 15px; margin: 24px 0 25px; border-radius: 27px; }
+      .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .search-button-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+      .search-button-row input { margin: 0; }
+      .search-button { width: 100%; margin: 0; min-height: 54px; }
+      .shortcut { min-height: 175px; padding: 9px; border-radius: 23px; }
+      .shortcut-icon { height: 96px; font-size: 42px; }
       .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
       .image-wrap { height: 140px; }
       .product-content { padding: 10px; }
@@ -439,52 +418,60 @@
 
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="brand">
-      OGARS
-      <small>Trusted people. Real opportunities.</small>
-    </a>
-
-    <a href="products.html" class="post-button">
-      ➕ Post Product
-    </a>
+<section class="hero" id="page-hero" aria-label="OGARS Electronics">
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box" id="hero-icon" aria-hidden="true">⌁</div>
+  <div class="hero-copy">
+    <h1 id="hero-title">OGARS<br>Electronics</h1>
+    <p id="hero-description">Find all your electronics here</p>
   </div>
-</header>
-
-<section class="hero" id="page-hero">
-  <div class="icon" id="hero-icon">💻</div>
-  <h1 id="hero-title">Find Electronics</h1>
-  <p id="hero-description">
-    Discover electronics from sellers across Ghana and contact them directly on OGARS.
-  </p>
 </section>
 
 <main class="container">
 
-  <section class="search-panel" id="search-panel">
-    <div class="search-title">🔎 What electronics are you looking for?</div>
+  <section class="search-panel" id="search-panel" aria-label="Search electronics">
     <div class="search-button-row">
-      <input type="search" id="product-search" placeholder="Search TVs, laptops, brands..." autocomplete="off" aria-label="Search products">
-      <button type="button" class="search-button" id="search-button">Search</button>
+      <input type="search" id="product-search" placeholder="Search TVs, laptops, brands..." autocomplete="off" aria-label="Search electronics">
+      <button type="button" class="search-button" id="search-button">⌕ &nbsp; Search Electronics</button>
     </div>
     <div class="filters">
-      <div><label class="filter-label" for="location-filter">Location</label><input type="search" id="location-filter" placeholder="e.g. Accra, Lapaz" autocomplete="off" aria-label="Filter by location"></div>
-      <div><label class="filter-label" for="category-filter">Category</label><select id="category-filter">
-        <option value="">All Electronics</option>
-        <option value="Laptops & Computers">Laptops & Computers</option>
-        <option value="TVs & Projectors">TVs & Projectors</option>
-        <option value="Gaming Devices">Gaming Devices</option>
-        <option value="Audio & Headphones">Audio & Headphones</option>
-        <option value="Cameras">Cameras</option>
-        <option value="Printers & Scanners">Printers & Scanners</option>
-        <option value="Home Appliances">Home Appliances</option>
-        <option value="Fans & Cooling">Fans & Cooling</option>
-        <option value="Electronics Accessories">Electronics Accessories</option>
-      </select></div>
-      <div><label class="filter-label" for="min-price">Minimum price (GH₵)</label><input type="number" id="min-price" min="0" step="0.01" placeholder="Min price" inputmode="decimal"></div>
-      <div><label class="filter-label" for="max-price">Maximum price (GH₵)</label><input type="number" id="max-price" min="0" step="0.01" placeholder="Max price" inputmode="decimal"></div>
-      <div><label class="filter-label" for="delivery-filter">Delivery</label><select id="delivery-filter"><option value="">All Delivery Options</option><option value="yes">🚚 Delivery Available</option><option value="no">🚫 No Delivery</option></select></div>
+      <div>
+        <label class="filter-label" for="location-filter">Region</label>
+        <select id="location-filter" aria-label="Choose region">
+          <option value="">📍 All Ghana</option>
+          <option value="Ahafo">Ahafo Region</option>
+          <option value="Ashanti">Ashanti Region</option>
+          <option value="Bono">Bono Region</option>
+          <option value="Bono East">Bono East Region</option>
+          <option value="Central">Central Region</option>
+          <option value="Eastern">Eastern Region</option>
+          <option value="Greater Accra">Greater Accra Region</option>
+          <option value="North East">North East Region</option>
+          <option value="Northern">Northern Region</option>
+          <option value="Oti">Oti Region</option>
+          <option value="Savannah">Savannah Region</option>
+          <option value="Upper East">Upper East Region</option>
+          <option value="Upper West">Upper West Region</option>
+          <option value="Volta">Volta Region</option>
+          <option value="Western">Western Region</option>
+          <option value="Western North">Western North Region</option>
+        </select>
+      </div>
+      <div id="generic-category-wrap" hidden>
+        <label class="filter-label" for="category-filter" style="display:block">Category</label>
+        <select id="category-filter" aria-label="Product category">
+          <option value="">All Categories</option>
+        </select>
+      </div>
+      <div>
+        <label class="filter-label" for="sort-filter">Sort by</label>
+        <select id="sort-filter" aria-label="Sort electronics">
+          <option value="newest">Latest / Newest</option>
+          <option value="verified">Verified sellers first</option>
+          <option value="price-low">Price: lowest to highest</option>
+          <option value="price-high">Price: highest to lowest</option>
+        </select>
+      </div>
     </div>
     <div class="results-summary">
       <span id="results-count">Connecting to OGARS...</span>
@@ -726,7 +713,7 @@ async function loadBusinessInformation() {
     const result = await requestWithTimeout(
       supabaseClient
         .from("businesses")
-        .select("id,business_name,phone,location")
+        .select("*")
         .in("id", ids)
     );
 
@@ -944,30 +931,67 @@ function displayProducts(products) {
 
 function getFilteredProducts() {
   const search = document.getElementById("product-search").value.toLowerCase().trim();
-  const category = document.getElementById("category-filter").value;
-  const delivery = document.getElementById("delivery-filter").value;
+  const categoryElement = document.getElementById("category-filter");
+  const category = categoryElement ? categoryElement.value : "";
   const location = document.getElementById("location-filter").value.toLowerCase().trim();
-  const minValue = document.getElementById("min-price").value;
-  const maxValue = document.getElementById("max-price").value;
-  const minPrice = minValue === "" ? null : Number(minValue);
-  const maxPrice = maxValue === "" ? null : Number(maxValue);
+  const sort = document.getElementById("sort-filter").value;
+
+  const locationAliases = {
+    "greater accra": ["greater accra", "accra", "tema", "madina", "lapaz", "achimota", "dansoman", "tudu", "kasoa"],
+    "ashanti": ["ashanti", "kumasi", "obuasi", "ejisu"],
+    "central": ["central", "cape coast", "winneba", "mankessim"],
+    "eastern": ["eastern", "koforidua", "nkawkaw", "akosombo"],
+    "western": ["western", "sekondi", "takoradi", "tarkwa"],
+    "western north": ["western north", "sefwi", "bibiani"],
+    "volta": ["volta", "ho", "keta", "aflao"],
+    "northern": ["northern", "tamale", "yendi"],
+    "upper east": ["upper east", "bolgatanga", "bawku"],
+    "upper west": ["upper west", "wa"],
+    "bono": ["bono", "sun y", "dormaa"],
+    "bono east": ["bono east", "techiman", "kintampo"],
+    "ahafo": ["ahafo", "goaso"],
+    "oti": ["oti", "dambai", "krachi"],
+    "savannah": ["savannah", "damongo", "salaga"],
+    "north east": ["north east", "nalerigu", "walewale"]
+  };
 
   return allProducts.filter(product => {
     const business = businessMap[String(product.business_id)] || null;
-    const text = [product.product_name, product.category, product.description,
+    const text = [product.product_name, product.category, product.description, product.brand,
       business?.business_name, business?.location].filter(Boolean).join(" ").toLowerCase();
     const productLocation = String(business?.location || "").toLowerCase();
-    const price = Number(product.price);
-    const hasPrice = product.price !== null && product.price !== undefined && product.price !== "" && Number.isFinite(price);
+    const aliases = locationAliases[location] || [location];
     const matchesSearch = !search || text.includes(search);
     const matchesCategory = !category || matchesSubcategory(product, category);
-    const matchesLocation = !location || productLocation.includes(location);
-    const matchesMin = minPrice === null || (hasPrice && price >= minPrice);
-    const matchesMax = maxPrice === null || (hasPrice && price <= maxPrice);
-    const matchesDelivery = !delivery ||
-      (delivery === "yes" && product.delivery_available === true) ||
-      (delivery === "no" && product.delivery_available !== true);
-    return matchesSearch && matchesCategory && matchesLocation && matchesMin && matchesMax && matchesDelivery;
+    const matchesLocation = !location || aliases.some(alias => productLocation.includes(alias));
+    return matchesSearch && matchesCategory && matchesLocation;
+  }).sort((a, b) => {
+    const priceA = Number(a.price), priceB = Number(b.price);
+    const validA = a.price !== null && a.price !== undefined && a.price !== "" && Number.isFinite(priceA);
+    const validB = b.price !== null && b.price !== undefined && b.price !== "" && Number.isFinite(priceB);
+    const dateA = new Date(a.created_at || 0).getTime();
+    const dateB = new Date(b.created_at || 0).getTime();
+    const businessA = businessMap[String(a.business_id)] || {};
+    const businessB = businessMap[String(b.business_id)] || {};
+    const verifiedA = [a.is_verified, a.verified, a.seller_verified, businessA.is_verified, businessA.verified, businessA.is_verified_seller].some(v => v === true || String(v).toLowerCase() === "verified");
+    const verifiedB = [b.is_verified, b.verified, b.seller_verified, businessB.is_verified, businessB.verified, businessB.is_verified_seller].some(v => v === true || String(v).toLowerCase() === "verified");
+    if (sort === "price-low") {
+      if (validA && validB) return priceA - priceB;
+      if (validA) return -1;
+      if (validB) return 1;
+      return 0;
+    }
+    if (sort === "price-high") {
+      if (validA && validB) return priceB - priceA;
+      if (validA) return -1;
+      if (validB) return 1;
+      return 0;
+    }
+    if (sort === "verified") {
+      if (verifiedA !== verifiedB) return verifiedA ? -1 : 1;
+      return dateB - dateA;
+    }
+    return dateB - dateA;
   });
 }
 
@@ -977,11 +1001,10 @@ function filterProducts() {
 
 function clearFilters() {
   document.getElementById("product-search").value = "";
-  document.getElementById("category-filter").value = "";
-  document.getElementById("delivery-filter").value = "";
+  const categoryFilter = document.getElementById("category-filter");
+  if (categoryFilter) categoryFilter.value = "";
   document.getElementById("location-filter").value = "";
-  document.getElementById("min-price").value = "";
-  document.getElementById("max-price").value = "";
+  document.getElementById("sort-filter").value = "newest";
   selectedSubcategory = "";
   document.querySelectorAll(".shortcut").forEach(button => button.classList.remove("active"));
   filterProducts();
@@ -991,22 +1014,20 @@ document
   .getElementById("product-search")
   .addEventListener("input", filterProducts);
 
-document.getElementById("category-filter").addEventListener("change", () => {
-  selectedSubcategory = document.getElementById("category-filter").value;
-  document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
-  filterProducts();
-});
-["location-filter", "min-price", "max-price"].forEach(id => {
-  document.getElementById(id).addEventListener("input", filterProducts);
-});
+const categoryFilterElement = document.getElementById("category-filter");
+if (categoryFilterElement) {
+  categoryFilterElement.addEventListener("change", () => {
+    selectedSubcategory = categoryFilterElement.value;
+    document.querySelectorAll(".shortcut").forEach(item => item.classList.toggle("active", item.dataset.subcategory === selectedSubcategory));
+    filterProducts();
+  });
+}
+document.getElementById("location-filter").addEventListener("change", filterProducts);
+document.getElementById("sort-filter").addEventListener("change", filterProducts);
 document.getElementById("search-button").addEventListener("click", filterProducts);
 document.getElementById("ai-search-nav").addEventListener("click", () => {
   alert("OGARS AI Search is coming soon. We will connect it when the AI Search page is ready.");
 });
-
-document
-  .getElementById("delivery-filter")
-  .addEventListener("change", filterProducts);
 
 document
   .getElementById("clear-filters")
@@ -1022,6 +1043,7 @@ document.querySelectorAll(".shortcut").forEach(button => {
   });
 });
 if (!isElectronicsPage) {
+  document.getElementById("generic-category-wrap").hidden = false;
   document.getElementById("category-filter").innerHTML = `
     <option value="">All Categories</option>
     <option>Food & Groceries</option><option>Frozen Foods</option><option>Fresh Food & Produce</option>
@@ -1032,8 +1054,9 @@ if (!isElectronicsPage) {
     <option>Automotive & Spare Parts</option><option>Tools & Equipment</option><option>Baby & Kids</option>
     <option>Books & Stationery</option><option>Sports & Fitness</option><option>Agriculture & Farming</option>
     <option>Pets & Animals</option><option>Office & Business Supplies</option><option>Services</option><option>Other</option>`;
-  document.getElementById("search-panel").querySelector(".search-title").textContent = "🔎 Search products and items";
   document.getElementById("product-search").placeholder = "Search products, brands or items...";
+  document.getElementById("hero-title").innerHTML = "OGARS<br>Products";
+  document.getElementById("hero-description").textContent = "Find products and everyday items here";
   document.getElementById("electronics-intro").hidden = true;
   document.getElementById("electronics-shortcuts").hidden = true;
   document.getElementById("electronics-note").hidden = true;
