@@ -21,7 +21,7 @@
 <optgroup label="Volta Region"><option>Ho</option><option>Hohoe</option><option>Keta</option><option>Anloga</option><option>Kpando</option></optgroup>
 <optgroup label="Western Region"><option>Sekondi-Takoradi</option><option>Tarkwa</option><option>Prestea</option><option>Agona Nkwanta</option></optgroup>
 <optgroup label="Western North Region"><option>Sefwi Wiawso</option><option>Enchi</option><option>Bibiani</option><option>Juaboso</option></optgroup></select>
-<select id="category" aria-label="Category"><option value="">All Category</option><option>Clothing &amp; Fashion</option><option>Shoes &amp; Footwear</option><option>Bags &amp; Accessories</option><option>Jewellery &amp; Watches</option><option>Makeup &amp; Cosmetics</option><option>Hair &amp; Wigs</option><option>Skincare &amp; Fragrance</option><option>Salons &amp; Beauty Services</option></select></div><button type="submit">⌕ &nbsp; Search</button></form>
+<select id="category" aria-label="Shop by audience"><option value="all">All</option><option value="men">Men</option><option value="women">Women</option><option value="children">Children</option></select></div><button type="submit">⌕ &nbsp; Search</button></form>
 <div class="heading"><h2>Fashion &amp; Beauty Categories</h2><label class="sort"><b>↕</b><select id="sort" aria-label="Sort listings"><option value="latest">Sort: Latest</option><option value="oldest">Sort: Oldest</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></label></div>
 <section class="grid" id="grid" aria-label="Fashion and Beauty categories">
 <a class="card" data-name="Clothing & Fashion" href="find-products.html?category=Clothing%20%26%20Fashion"><div class="art">👗👕🧥</div><div class="name">Clothing &amp; Fashion</div></a>
@@ -36,6 +36,6 @@
 <nav class="nav"><a href="index.html"><span class="ico">⌂</span>Home</a><a href="discover.html"><span class="ico">▦</span>Explore</a><a href="advertise.html"><span class="sell">+</span>Sell</a><a href="discover.html?mode=ai"><span class="ico">✧</span>AI Search</a><a href="account.html"><span class="ico">♙</span>Account</a></nav>
 <script>
 const cards=[...document.querySelectorAll('.card')],q=document.getElementById('query'),cat=document.getElementById('category'),empty=document.getElementById('empty');
-function filter(){let count=0;cards.forEach(c=>{let ok=c.dataset.name.toLowerCase().includes(q.value.trim().toLowerCase())&&(!cat.value||c.dataset.name===cat.value);c.style.display=ok?'flex':'none';if(ok)count++});empty.style.display=count?'none':'block'}
+function filter(){let count=0;cards.forEach(c=>{let ok=c.dataset.name.toLowerCase().includes(q.value.trim().toLowerCase());c.style.display=ok?'flex':'none';if(ok)count++});empty.style.display=count?'none':'block'}
 document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();filter()});q.addEventListener('input',filter);cat.addEventListener('change',filter);
 </script></body></html>
