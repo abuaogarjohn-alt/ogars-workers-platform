@@ -126,6 +126,9 @@ body{background:linear-gradient(180deg,#f0edff 0,#fff 300px,#f8f7ff 100%);color:
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 const TABLE="discover_listings";
+// TEMPORARY DEVELOPMENT SWITCH: keep VIP video playback off while testing.
+// Before launch, change false to true to restore automatic VIP video playback.
+const VIP_VIDEO_ENABLED = false;
 const FALLBACK_IMAGE="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80";
 let adverts=[];
 const $=id=>document.getElementById(id);
@@ -179,11 +182,14 @@ async function loadAdverts() {
       const type = String(a.listing_type || "").toLowerCase();
 
       if (type === "vip video") {
-        return String(a.video_status || "").toLowerCase() === "approved"
+        // Do not request or load VIP video URLs while the temporary switch is off.
+        return VIP_VIDEO_ENABLED
+          && String(a.video_status || "").toLowerCase() === "approved"
           && !!mediaUrl(a);
       }
 
-      return vipEligible(a) && !!(imageOf(a) || mediaUrl(a));
+      // While testing, keep image-based VIP adverts but skip video-based adverts.
+      return vipEligible(a) && !!(imageOf(a) || (VIP_VIDEO_ENABLED && mediaUrl(a)));
     });
 
     vipIndex = 0;
