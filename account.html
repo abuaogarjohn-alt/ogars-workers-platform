@@ -37,6 +37,17 @@
     .remember-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
     .remember { display: flex; align-items: center; gap: 8px; color: #514d62; font-size: 13px; }
     .remember input { width: 16px; height: 16px; accent-color: var(--purple); }
+    .password-wrap { position: relative; }
+    .password-wrap .field { padding-right: 54px; }
+    .toggle-password {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      width: 38px; height: 38px; margin: 0; padding: 8px; border: 0;
+      background: transparent; color: #716b83; border-radius: 8px;
+      display: grid; place-items: center;
+    }
+    .toggle-password:hover { background: var(--lavender); }
+    .toggle-password svg { width: 21px; height: 21px; }
+    .hidden { display: none !important; }
     a { color: var(--purple-dark); text-decoration: none; }
     a:hover { text-decoration: underline; }
     .small-link { font-size: 13px; font-weight: 700; }
@@ -78,8 +89,24 @@
           autocomplete="email" required>
 
         <label class="field-label" for="password">Password</label>
-        <input class="field" type="password" id="password" placeholder="Enter your password"
-          autocomplete="current-password" minlength="6" required>
+        <div class="password-wrap">
+          <input class="field" type="password" id="password" placeholder="Enter your password"
+            autocomplete="new-password" minlength="6" required>
+          <button type="button" class="toggle-password" data-target="password" aria-label="Show password" title="Show password">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+
+        <div id="confirm-password-area">
+          <label class="field-label" for="confirm-password">Confirm password</label>
+          <div class="password-wrap">
+            <input class="field" type="password" id="confirm-password" placeholder="Re-enter your password"
+              autocomplete="new-password" minlength="6">
+            <button type="button" class="toggle-password" data-target="confirm-password" aria-label="Show confirm password" title="Show confirm password">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
 
         <div class="remember-row">
           <label class="remember" for="remember-me">
@@ -90,7 +117,8 @@
         </div>
 
         <button type="button" id="signup-button">Create Account</button>
-        <button type="submit" id="login-button" class="secondary">Sign In</button>
+        <button type="submit" id="login-button" class="secondary">I already have an account — Sign In</button>
+        <button type="button" id="switch-to-signup" class="secondary hidden">Need an account? Create Account</button>
       </form>
 
       <div id="auth-message" class="message" role="status" aria-live="polite"></div>
@@ -106,7 +134,7 @@
       <div id="account-message" class="message" role="status" aria-live="polite"></div>
     </section>
 
-    <a href="index.html" class="back">← Back to OGARS Platform</a>
+    <a href="index.html" class="back">Skip for now — enter as a visitor</a>
   </main>
 
   <footer>© 2026 OGARS Platform</footer>
@@ -121,6 +149,8 @@
     const accountArea = document.getElementById("account-area");
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const confirmPasswordArea = document.getElementById("confirm-password-area");
     const rememberInput = document.getElementById("remember-me");
     const signupButton = document.getElementById("signup-button");
     const loginButton = document.getElementById("login-button");
@@ -131,6 +161,41 @@
     const userEmail = document.getElementById("user-email");
     const authForm = document.getElementById("auth-form");
     const forgotPasswordLink = document.getElementById("forgot-password");
+    const switchToSignupButton = document.getElementById("switch-to-signup");
+    let isSignupMode = true;
+
+    function setAuthMode(signupMode) {
+      isSignupMode = signupMode;
+      confirmPasswordArea.classList.toggle("hidden", !signupMode);
+      confirmPasswordInput.required = signupMode;
+      signupButton.classList.toggle("hidden", !signupMode);
+      loginButton.classList.toggle("hidden", signupMode);
+      switchToSignupButton.classList.toggle("hidden", signupMode);
+      passwordInput.autocomplete = signupMode ? "new-password" : "current-password";
+      document.querySelector("#auth-area h2").textContent = signupMode ? "Create your account" : "Welcome back!";
+      document.querySelector("#auth-area .intro").textContent = signupMode
+        ? "Register with your email address and password to manage your OGARS adverts."
+        : "Sign in to manage your OGARS adverts.";
+      clearMessage(authMessage);
+    }
+
+    document.querySelectorAll(".toggle-password").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const target = document.getElementById(button.dataset.target);
+        const shouldShow = target.type === "password";
+        target.type = shouldShow ? "text" : "password";
+        button.setAttribute("aria-label", shouldShow ? "Hide password" : "Show password");
+        button.setAttribute("title", shouldShow ? "Hide password" : "Show password");
+        button.innerHTML = shouldShow
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3 3.8"/><path d="M6.2 6.2C3.5 8 2 12 2 12s3.5 7 10 7c1.4 0 2.7-.3 3.8-.8"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+      });
+    });
+
+    switchToSignupButton.addEventListener("click", function () {
+      setAuthMode(true);
+    });
+    setAuthMode(true);
 
     // Use local storage only when "Keep me logged in" is checked.
     // Otherwise, keep the session in session storage for this browser tab/session.
@@ -208,6 +273,11 @@
         showMessage(authMessage, "Your password must be at least 6 characters.", "error");
         return;
       }
+      if (password !== confirmPasswordInput.value) {
+        showMessage(authMessage, "The passwords do not match. Please check both fields.", "error");
+        confirmPasswordInput.focus();
+        return;
+      }
 
       signupButton.disabled = true;
       signupButton.textContent = "Creating account...";
@@ -257,7 +327,15 @@
         showMessage(authMessage, error.message || "We could not sign you in. Please check your details.", "error");
       } finally {
         loginButton.disabled = false;
-        loginButton.textContent = "Sign In";
+        loginButton.textContent = "I already have an account — Sign In";
+      }
+    });
+
+    // Switch from registration to login mode when the user chooses Sign In.
+    loginButton.addEventListener("click", function (event) {
+      if (isSignupMode) {
+        event.preventDefault();
+        setAuthMode(false);
       }
     });
 
