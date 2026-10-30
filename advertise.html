@@ -1,124 +1,143 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#542B9A"><title>Post an Advert | OGARS</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#542B9A">
+<title>Post an Advert | OGARS PLATFORM</title>
 <style>
-:root{--purple:#542B9A;--deep:#39206D;--lav:#F0E8FF;--navy:#211735;--muted:#6D6878;--border:#E5DDED;--page:#FAF9FC}*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}.top{background:#fff;border-bottom:1px solid var(--border);padding:14px 16px}.topin{max-width:720px;margin:auto;display:flex;align-items:center;gap:12px}.back{background:var(--lav);color:var(--purple);text-decoration:none;border-radius:12px;padding:4px 12px;font-size:28px}.brand{font-size:24px;font-weight:900;letter-spacing:1px;color:var(--purple)}.sub{font-size:10px;letter-spacing:2px;color:var(--muted)}.hero{background:linear-gradient(135deg,var(--deep),var(--purple));color:white;text-align:center;padding:26px 18px}.hero h1{font-size:30px;margin:0 0 6px}.hero p{margin:0;color:#f0e8ff;font-size:15px}.container{max-width:720px;padding:20px 14px 32px;margin:auto}.card{background:white;border:1px solid var(--border);border-radius:20px;padding:clamp(18px,4vw,28px);box-shadow:0 8px 28px #2f18520f}.intro,.help,.hint{color:var(--muted);font-size:13px}.step{color:var(--purple);font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px}h2{font-size:21px;margin:0 0 5px}label{display:block;font-size:14px;font-weight:700;margin:17px 0 7px}.optional{font-size:12px;font-weight:normal;color:var(--muted)}input,select,textarea{width:100%;padding:13px 14px;border:1.5px solid #d8d0e2;border-radius:12px;background:#fff;color:var(--navy);min-height:48px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px #542b9a1f}textarea{min-height:110px}.category{background:#f8f5ff;border-color:#bda8e6;font-weight:bold}.divider{border-top:1px solid var(--border);margin-top:24px;padding-top:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}.hidden{display:none!important}.small-note{font-size:12px;color:var(--muted);margin:6px 0 0}.field-warning{font-size:12px;color:#9b1c2c;margin-top:5px}.photos{margin-top:8px;padding:17px;border:2px dashed #b9a2e5;border-radius:14px;text-align:center;background:#f8f5ff}.photo-button{display:inline-block;background:var(--purple);color:white;padding:12px 18px;border-radius:11px;cursor:pointer;margin:0}#listing-photos{position:absolute;opacity:0;width:1px;height:1px}#preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.preview{position:relative}.preview img{width:100%;height:100px;object-fit:cover;border-radius:10px}.remove{position:absolute;right:4px;top:4px;background:#b42335;color:white;border:0;border-radius:50%;width:26px;height:26px}.submit{width:100%;border:0;background:var(--purple);color:white;font-weight:bold;padding:15px;border-radius:12px;margin-top:23px;cursor:pointer}.submit:disabled{opacity:.65}.message{display:none;margin-top:14px;padding:12px;border-radius:10px;font-size:14px}.message.show{display:block}.error{background:#fff0f0;color:#9b1c2c}.success{background:#ecfdf3;color:#176b3a}.bottomlink{display:block;text-align:center;margin-top:18px;color:var(--purple);font-weight:bold;text-decoration:none}footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}#preview-grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:26px}}
+:root{--purple:#5b35ed;--deep:#39206d;--lav:#f0edff;--navy:#171b3d;--muted:#686d93;--line:#e6e1fa;--page:#faf9ff}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f0edff 0,#fff 260px,#faf9ff 100%);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+.header{background:linear-gradient(115deg,#6d28d9,#512a91 56%,#38166f);color:#fff;padding:17px 15px;box-shadow:0 3px 12px #28144a20}
+.header-inner{max-width:760px;margin:auto;display:flex;align-items:center;gap:13px}
+.back{font-size:30px;color:#fff;line-height:1;padding:0 5px}
+.brand-icon{width:45px;height:45px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:28px;flex-shrink:0}
+.brand-copy h1{font-size:23px;line-height:1.05;margin:0;font-weight:900;letter-spacing:.2px}
+.brand-copy p{margin:5px 0 0;color:#f0e8ff;font-size:13px}
+.container{max-width:760px;margin:0 auto;padding:22px 14px 40px}
+.intro{text-align:center;margin:0 auto 20px}
+.eyebrow{color:var(--purple);font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 5px}
+h2{font-size:24px;margin:0 0 6px}
+.subtitle{font-size:13px;color:var(--muted);margin:0}
+.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.category-card{min-width:0;min-height:190px;background:linear-gradient(150deg,#fff,#f4f1ff);border:1px solid #e6e1fa;border-radius:18px;box-shadow:0 5px 15px rgba(65,47,147,.055);padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .15s,border-color .15s}
+a.category-card:active{transform:scale(.98)}
+a.category-card:hover{border-color:#b9aaff;box-shadow:0 8px 20px rgba(91,53,237,.12)}
+.category-art{width:100%;height:94px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#f0edff,#fff);font-size:53px;line-height:1;filter:drop-shadow(0 5px 3px rgba(57,43,118,.12))}
+.category-name{font-size:13px;font-weight:800;line-height:1.25;margin-top:10px}
+.category-desc{font-size:10px;color:var(--muted);line-height:1.3;margin-top:5px}
+.choose{font-size:10px;font-weight:800;color:var(--purple);margin-top:auto;padding-top:9px}
+.coming-soon{opacity:.68}
+.coming-label{font-size:9px;color:#77718f;margin-top:auto;padding-top:9px;font-weight:700}
+.notice{margin:18px 0 0;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:11px;text-align:center}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:8px 15px 28px}
+@media(max-width:520px){.container{padding:18px 12px 30px}.category-grid{gap:8px}.category-card{min-height:176px;padding:8px 6px 10px;border-radius:15px}.category-art{height:78px;font-size:45px;border-radius:11px}.category-name{font-size:11px;margin-top:8px}.category-desc{font-size:9px}.choose,.coming-label{font-size:9px}h2{font-size:22px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a class="back" href="index.html" aria-label="Back to homepage">‹</a>
+    <span class="brand-icon" aria-hidden="true">⌂</span>
+    <div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Post an advert in Ghana</p></div>
+  </div>
+</header>
+<main class="container">
+  <section class="intro">
+    <p class="eyebrow">Create your listing</p>
+    <h2>What would you like to post?</h2>
+    <p class="subtitle">Choose one of the 12 categories below to get the right advert form.</p>
+  </section>
+  <section class="category-grid" aria-label="Advert categories">
+    
+        <a class="category-card" href="post-vehicles.html">
+          <span class="category-art" aria-hidden="true">🚙</span>
+          <span class="category-name">Vehicles</span>
+          <span class="category-desc">Cars, bikes and more</span>
+          <span class="choose">Choose category →</span>
+        </a>
 
-/* Clean OGARS Properties-inspired branding and responsive header */
-:root{--purple:#512A91;--deep:#38166f;--lav:#f1eaff;--navy:#171638;--muted:#706b8c;--border:#e5dcf7;--page:#faf9fd}
-body{background:var(--page);color:var(--navy);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
-.ogars-advert-header{background:linear-gradient(115deg,#6d28d9,#512A91 56%,#38166f);color:#fff;padding:18px 16px;display:flex;align-items:center;gap:13px;box-shadow:0 3px 12px #28144a20}
-.ogars-advert-header .back{font-size:30px;width:25px;min-width:25px;color:#fff;background:transparent;padding:0;border-radius:0;text-decoration:none;line-height:1}
-.ogars-advert-header .brand-icon{width:48px;height:48px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:30px;flex-shrink:0;color:#fff;background:transparent}
-.ogars-advert-header .brand-copy h1{font-size:clamp(22px,5vw,30px);line-height:1.05;margin:0;font-weight:800;letter-spacing:.2px}
-.ogars-advert-header .brand-copy p{margin:6px 0 0;color:#f0e8ff;font-size:14px}
-.container{max-width:760px;padding:22px 15px 38px;margin:0 auto}
-.card{background:#fff;border:1px solid #e8ddff;border-radius:21px;padding:clamp(18px,4vw,28px);box-shadow:0 5px 18px rgba(70,39,130,.08)}
-input,select,textarea{border-radius:12px;min-height:48px;border:1px solid #e2d9ef;background:#fff;color:#211735;padding:12px;max-width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:#512A91;box-shadow:0 0 0 3px #512a9118}
-button,.btn,.primary{border-radius:12px}
-@media(max-width:480px){.ogars-advert-header{padding:16px 13px;gap:10px}.ogars-advert-header .brand-icon{width:44px;height:44px;font-size:28px}.container{padding:16px 12px 30px}.card{border-radius:18px}}
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🏡</span>
+          <span class="category-name">Property</span>
+          <span class="category-desc">Homes, rooms and land</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
 
-</style></head><body>
-<header class="ogars-advert-header"><a class="back" href="index.html" aria-label="Back to OGARS homepage">‹</a><div class="brand-icon" aria-hidden="true">⌂</div><div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Post an advert in Ghana</p></div></header>
-<main class="container"><section class="card"><p class="intro">Complete the fields below. The questions change depending on what you're posting, so you only see details relevant to your advert.</p>
-<form id="advertise-form"><p class="step">Step 1 of 3</p><h2>Choose your category</h2><p class="help">Choose the option that best matches your advert.</p>
-<label for="listing-type">Category *</label><select id="listing-type" class="category" required><option value="">Choose a category</option><option>Houses & Property</option><option>Jobs & Employment</option><option>Skilled Workers</option><option>Products & Goods</option><option>Vehicles & Drivers</option><option>Services</option><option>Schools & Training</option><option>Restaurants & Food</option><option>Events & Promotions</option><option>Business & Organizations</option><option>Other</option></select><p class="hint">Not sure? Choose the closest match and explain more in the description.</p>
-<div id="subcategory-wrap" class="hidden"><label for="subcategory">Subcategory *</label><select id="subcategory" required><option value="">Choose a subcategory</option></select></div><div id="phone-category-wrap" class="hidden"><label for="phone-category">Phone / tablet item type *</label><select id="phone-category"><option value="">Choose item type</option><option>Mobile phones</option><option>Tablets & iPads</option><option>Phone accessories</option><option>Tablet accessories</option><option>Smartwatches</option><option>Headphones & earbuds</option><option>Phone parts & repairs</option><option>Other phone gadgets</option></select><p class="small-note">This helps your advert appear in the correct Phones & Tablets section.</p></div>
-<div class="divider"><p class="step">Step 2 of 3</p><h2>Advert details</h2><p class="help">Tell people clearly what you're offering.</p></div>
-<label for="title">Advert title *</label><input id="title" maxlength="100" placeholder="e.g. Toyota Corolla for sale" required><div class="grid" id="ghana-location-fields"><div><label for="region">Region in Ghana *</label><select id="region" required><option value="">Choose a region</option></select></div><div><label for="town">Town / area *</label><select id="town" required disabled><option value="">Choose a region first</option></select></div><div id="other-town-wrap" class="full hidden"><label for="other-town">Enter town / area</label><input id="other-town" placeholder="Enter the town or area"></div></div>
-<div id="dynamic-fields" class="grid"></div><div id="vehicle-extra-fields" class="grid hidden"></div><label for="description">Description</label><textarea id="description" placeholder="Describe what you're offering and include important details..."></textarea>
-<div class="grid"><div><label for="phone">Phone number <span class="optional">(optional)</span></label><input id="phone" type="tel" placeholder="e.g. 0241234567"></div><div><label for="whatsapp">WhatsApp number <span class="optional">(optional)</span></label><input id="whatsapp" type="tel" placeholder="e.g. 0241234567"></div><div class="full"><label for="website">Website / social link <span class="optional">(optional)</span></label><input id="website" type="url" placeholder="https://example.com"></div></div>
-<div id="event-fields" class="grid hidden"><div><label for="event-date">Event date</label><input id="event-date" type="date"></div><div><label for="event-time">Event time</label><input id="event-time" placeholder="e.g. 6:00 PM"></div></div>
-<div class="divider"><p class="step">Step 3 of 3</p><h2>Add photos</h2><p class="help">Clear photos help people understand your advert.</p></div><div class="photos"><label class="photo-button" for="listing-photos">＋ Add photos</label><input id="listing-photos" type="file" accept="image/*" multiple><p class="hint">Multiple photos allowed. Each photo must be 10 MB or smaller.</p><div id="preview-grid"></div></div>
-<div id="message" class="message" role="status" aria-live="polite"></div><button id="submit-button" class="submit" type="submit">Publish advert</button></form><a class="bottomlink" href="discover.html">← Back to adverts</a></section></main><footer>© 2026 OGARS. Trusted people. Real opportunities.</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let selectedPhotos=[];const $=id=>document.getElementById(id),form=$("advertise-form"),type=$("listing-type"),sub=$("subcategory"),subWrap=$("subcategory-wrap"),dynamic=$("dynamic-fields"),eventFields=$("event-fields"),photoInput=$("listing-photos"),preview=$("preview-grid"),submit=$("submit-button"),message=$("message");const phoneCategoryWrap=$("phone-category-wrap"),phoneCategory=$("phone-category");function updatePhoneCategory(){const show=type.value==="Products & Goods"&&sub.value==="Phones & electronics";phoneCategoryWrap.classList.toggle("hidden",!show);phoneCategory.required=show;if(!show)phoneCategory.value="";}
-const subs={"Houses & Property":["House for rent","Apartment for rent","Room for rent","House for sale","Land for sale","Commercial property","Short stay / guest house","Property wanted"],"Jobs & Employment":["Full-time job","Part-time job","Temporary work","Internship","Domestic work","Company hiring","Other job opportunity"],"Skilled Workers":["Plumber","Electrician","Carpenter","Painter","Mason","Tiler","Welder","AC technician","Mechanic","Phone / computer repair","Other skilled worker"],"Products & Goods":["Phones & electronics","Home & furniture","Fashion & clothing","Food & groceries","Frozen foods","Beauty products","Building materials","Other products"],"Vehicles & Drivers":["Cars for sale","SUVs / 4x4 for sale","Pickup trucks for sale","Vans / minibuses for sale","Trucks for sale","Buses for sale","Motorbikes / motorcycles for sale","Tricycles for sale","Vehicle rental / hire","Vehicle wanted","Driver looking for a vehicle","Company looking for a driver","Driver offering services","Vehicle parts & accessories","Vehicle repair / mechanic","Car wash / detailing","Towing / roadside assistance","Other vehicle advert"],"Services":["Cleaning","Moving & delivery","Beauty & hair","IT & web design","Photography","Events services","Repairs & maintenance","Security services","Other service"],"Schools & Training":["School","Training & course","Private tutor","Vocational training","Educational service","Other education advert"],"Restaurants & Food":["Restaurant","Catering","Food delivery","Food product","Bakery","Other food advert"],"Events & Promotions":["Event","Church programme","Promotion / special offer","Concert / entertainment","Community programme","Other event"],"Business & Organizations":["Business advertisement","Shop / store","Company / organization","Church","Non-profit / association","Business opportunity","Other organization"],"Other":["Other advert"]};
-const defs={"Houses & Property":[["Property type","select",["House","Apartment / flat","Single room","Chamber and hall","Land","Shop / office","Guest house","Other"]],["Listing purpose","select",["For rent","For sale","Short stay","Wanted"]],["Price (GH₵)","number"],["Bedrooms","number"],["Bathrooms","number"]],"Jobs & Employment":[["Employment type","select",["Full-time","Part-time","Temporary","Contract","Internship","Daily work"]],["Salary / pay (GH₵)","text"],["Company / employer","text"]],"Skilled Workers":[["Main skill / trade","select",["Plumber","Electrician","Carpenter","Painter","Mason","Tiler","Welder","AC technician","Mechanic","Cleaner","Barber / hairdresser","Makeup artist","IT / web developer","Other"]],["Years of experience","select",["New / trainee","Less than 1 year","1–3 years","4–6 years","7–10 years","More than 10 years"]],["Areas you serve","text"]],"Products & Goods":[["Product condition","select",["New","Used","Refurbished"]],["Price (GH₵)","number"],["Quantity available","number"]],"Vehicles & Drivers":[["Advert purpose","select",["For sale","For rent / hire","Wanted","Service offered"]]],"Services":[["Service type","select",["Cleaning","Delivery","Beauty","IT / web design","Photography","Repairs","Events","Security","Other"]],["Starting price (GH₵)","text"]],"Schools & Training":[["Type","select",["School","Training centre","Course","Tutor","Vocational training","Other"]],["Fees (optional)","text"]],"Restaurants & Food":[["Food business type","select",["Restaurant","Chop bar","Catering","Bakery","Food delivery","Food products","Other"]],["Price range (optional)","text"]],"Events & Promotions":[["Event / promotion type","select",["Event","Church programme","Concert","Training","Special offer","Community event","Other"]]],"Business & Organizations":[["Business / organization type","select",["Shop / store","Company","Church","Association / NGO","Business opportunity","Other"]],["Business name","text"]],"Other":[["What type of advert is this?","text"]]};
-const regionTowns={
-"Ahafo":["Goaso","Kenyasi","Bechem","Hwidiem","Duayaw Nkwanta","Other town / area"],
-"Ashanti":["Kumasi","Obuasi","Ejisu","Mampong","Konongo","Bekwai","Offinso","Ejura","Asante Mampong","Nkawie","Other town / area"],
-"Bono":["Sunyani","Berekum","Dormaa Ahenkro","Wenchi","Sampa","Drobo","Other town / area"],
-"Bono East":["Techiman","Kintampo","Nkoranza","Atebubu","Yeji","Other town / area"],
-"Central":["Cape Coast","Kasoa","Winneba","Mankessim","Swedru","Elmina","Saltpond","Agona Nsaba","Other town / area"],
-"Eastern":["Koforidua","Nsawam","Suhum","Nkawkaw","Mpraeso","Akim Oda","Akim Swedru","Aburi","Akwatia","Other town / area"],
-"Greater Accra":["Accra Central","Achimota","Lapaz","Adenta","Madina","Legon","East Legon","Dansoman","Osu","Cantonments","Spintex","Tema","Ashaiman","Nungua","Teshie","Kasoa","Weija","Ablekuma","Dome","Kwabenya","Amasaman","Ofankor","Pokuase","Dodowa","Prampram","Other town / area"],
-"North East":["Nalerigu","Walewale","Gambaga","Bunkpurugu","Other town / area"],
-"Northern":["Tamale","Yendi","Savelugu","Tolon","Bimbilla","Gushegu","Other town / area"],
-"Oti":["Dambai","Jasikan","Kadjebi","Nkwanta","Kpassa","Other town / area"],
-"Savannah":["Damongo","Bole","Salaga","Sawla","Buipe","Other town / area"],
-"Upper East":["Bolgatanga","Bawku","Navrongo","Zebilla","Paga","Bongo","Other town / area"],
-"Upper West":["Wa","Lawra","Tumu","Jirapa","Nandom","Other town / area"],
-"Volta":["Ho","Hohoe","Keta","Aflao","Anloga","Kpando","Sogakope","Denu","Other town / area"],
-"Western":["Sekondi-Takoradi","Takoradi","Tarkwa","Axim","Bogoso","Prestea","Shama","Other town / area"],
-"Western North":["Sefwi Wiawso","Bibiani","Enchi","Juaboso","Dadieso","Other town / area"]
-};
-const carMakes=[
-"Toyota","Mercedes-Benz","Nissan","Honda","Hyundai","Kia","Volkswagen","BMW","Lexus","Mitsubishi","Mazda","Ford","Chevrolet","Jeep","Land Rover","Range Rover","Audi","Volvo","Subaru","Suzuki","Isuzu","Peugeot","Renault","Skoda","Opel","Chrysler","Dodge","Porsche","Jaguar","Infiniti","Acura","GMC","Cadillac","Tesla","BYD","Changan","Geely","Great Wall","Haval","JAC","MG","Mini","Fiat","Citroen","SsangYong","Tata","Mahindra","Proton","Daewoo","Rover","Smart","Ferrari","Lamborghini","Maserati","Bentley","Rolls-Royce","Aston Martin","Lifan","Foton","Dongfeng","FAW","King Long","Yutong","Hino","MAN","DAF","Scania","Volvo Trucks","Mercedes-Benz Trucks","Sinotruk / HOWO","Shacman","Ashok Leyland","Bajaj","TVS","Yamaha","Honda Motorcycles","Suzuki Motorcycles","Kawasaki","KTM","Royal Enfield","Piaggio","Kymco","SYM","Other make"];
-const carModels={
-"Toyota":["Corolla","Vitz","Yaris","Camry","RAV4","Highlander","Land Cruiser","Prado","Hilux","Hiace","Avensis","Auris","C-HR","Fortuner","Rush","Raize","Yaris Cross","Avalon","4Runner","Tacoma","Tundra","Sienna","Prius","Verso","Probox","TownAce","Coaster","Dyna","Other model"],
-"Mercedes-Benz":["A-Class","B-Class","C-Class","E-Class","S-Class","CLA","CLS","GLA","GLB","GLC","GLE","GLS","G-Class","ML-Class","GLK","V-Class","Sprinter","Actros","Atego","Other model"],
-"Nissan":["Almera","Sunny","Sentra","Altima","Maxima","Note","March / Micra","Juke","Qashqai","X-Trail","Pathfinder","Patrol","Navara","Rogue","Murano","Tiida","Teana","Urvan","Hardbody","Other model"],
-"Honda":["Civic","Accord","Fit / Jazz","CR-V","HR-V","Pilot","Odyssey","City","Stream","BR-V","Ridgeline","Other model"],
-"Hyundai":["Accent","Elantra","Sonata","Tucson","Santa Fe","Kona","Creta","i10","i20","i30","Palisade","Starex / H-1","Porter","Other model"],
-"Kia":["Picanto","Rio","Cerato / Forte","Optima / K5","Sportage","Sorento","Seltos","Soul","Carnival","K2700 / K3000","Other model"],
-"Volkswagen":["Golf","Polo","Passat","Jetta","Tiguan","Touareg","Transporter","Amarok","Caddy","Other model"],
-"BMW":["1 Series","2 Series","3 Series","4 Series","5 Series","6 Series","7 Series","8 Series","X1","X2","X3","X4","X5","X6","X7","Z4","Other model"],
-"Lexus":["IS","ES","GS","LS","NX","RX","GX","LX","UX","CT","Other model"],
-"Mitsubishi":["Lancer","Outlander","Pajero","L200","ASX","Eclipse Cross","Canter","Rosa","Other model"],
-"Mazda":["Mazda2","Mazda3","Mazda6","CX-3","CX-30","CX-5","CX-9","BT-50","Bongo","Other model"],
-"Ford":["Fiesta","Focus","Fusion","Escape","Explorer","Edge","Everest","Ranger","F-150","Transit","Mustang","Other model"],
-"Chevrolet":["Spark","Cruze","Malibu","Equinox","Captiva","Trailblazer","Tahoe","Camaro","Colorado","Other model"],
-"Jeep":["Wrangler","Grand Cherokee","Cherokee","Compass","Renegade","Gladiator","Other model"],
-"Land Rover":["Defender","Discovery","Discovery Sport","Range Rover Evoque","Range Rover Sport","Range Rover Velar","Other model"],
-"Range Rover":["Evoque","Sport","Velar","Vogue","Autobiography","Other model"],
-"Audi":["A1","A3","A4","A5","A6","A7","A8","Q2","Q3","Q5","Q7","Q8","Other model"],
-"Volvo":["S40","S60","S90","V40","V60","XC40","XC60","XC90","Other model"],
-"Subaru":["Impreza","Legacy","Forester","Outback","XV / Crosstrek","WRX","Other model"],
-"Suzuki":["Swift","Alto","Vitara","Grand Vitara","Jimny","Ertiga","S-Presso","Carry","Other model"],
-"Isuzu":["D-Max","MU-X","Trooper","N-Series","F-Series","Other model"],
-"Peugeot":["206","207","208","301","307","308","405","406","508","2008","3008","5008","Partner","Other model"],
-"Renault":["Clio","Logan","Duster","Kwid","Captur","Kangoo","Other model"],
-"Skoda":["Fabia","Octavia","Superb","Kodiaq","Karoq","Other model"],
-"Opel":["Astra","Corsa","Insignia","Mokka","Zafira","Other model"],
-"Chrysler":["300","Pacifica","Voyager","Other model"],"Dodge":["Charger","Challenger","Durango","Journey","Ram","Other model"],
-"Porsche":["Cayenne","Macan","Panamera","911","Taycan","Other model"],"Jaguar":["XE","XF","XJ","F-Pace","E-Pace","Other model"],
-"Infiniti":["Q50","QX50","QX60","QX80","Other model"],"Acura":["TLX","MDX","RDX","Other model"],
-"GMC":["Terrain","Acadia","Yukon","Sierra","Other model"],"Cadillac":["CTS","XT4","XT5","Escalade","Other model"],
-"Tesla":["Model 3","Model S","Model X","Model Y","Cybertruck","Other model"],"BYD":["Atto 3","Dolphin","Seal","Song Plus","Seagull","Other model"],
-"Changan":["CS35","CS55","CS75","Alsvin","Hunter","Other model"],"Geely":["Coolray","Emgrand","Azkarra","Monjaro","Other model"],
-"Great Wall":["Wingle","Poer","Other model"],"Haval":["H2","H6","Jolion","H9","Other model"],"JAC":["S2","S3","S5","T6","N-Series","Other model"],
-"MG":["MG3","MG5","ZS","HS","RX5","Other model"],"Mini":["Cooper","Countryman","Clubman","Other model"],"Fiat":["500","Panda","Tipo","Ducato","Other model"],"Citroen":["C3","C4","C5 Aircross","Berlingo","Other model"],
-"SsangYong":["Rexton","Korando","Tivoli","Musso","Other model"],"Tata":["Nexon","Safari","Indica","Ace","Other model"],"Mahindra":["Scorpio","XUV500","Thar","Bolero","Other model"],"Proton":["Saga","Persona","X50","X70","Other model"],"Daewoo":["Matiz","Lanos","Nubira","Other model"],"Rover":["25","45","75","Other model"],"Smart":["Fortwo","Forfour","Other model"],"Ferrari":["488","F8 Tributo","Roma","Portofino","Other model"],"Lamborghini":["Urus","Huracan","Aventador","Other model"],"Maserati":["Ghibli","Levante","Quattroporte","Other model"],"Bentley":["Bentayga","Continental GT","Flying Spur","Other model"],"Rolls-Royce":["Cullinan","Ghost","Phantom","Wraith","Other model"],"Aston Martin":["DB11","DBX","Vantage","Other model"],"Lifan":["X60","820","Other model"],"Foton":["Tunland","Aumark","Auman","Other model"],"Dongfeng":["Rich","Captain","Other model"],"FAW":["Tiger V","Jiefang","Other model"],"King Long":["Bus","Minibus","Other model"],"Yutong":["Coach bus","City bus","Other model"],"Hino":["300 Series","500 Series","700 Series","Other model"],"MAN":["TGS","TGX","TGM","Other model"],"DAF":["XF","CF","LF","Other model"],"Scania":["P-Series","G-Series","R-Series","Other model"],"Volvo Trucks":["FH","FM","FMX","FE","Other model"],"Mercedes-Benz Trucks":["Actros","Arocs","Atego","Other model"],"Sinotruk / HOWO":["HOWO 371","HOWO TX","HOWO dump truck","Other model"],"Shacman":["F3000","X3000","Other model"],"Ashok Leyland":["Dost","Partner","Viking bus","Other model"],
-"Bajaj":["Boxer","Pulsar","Discover","RE tricycle","Other model"],"TVS":["HLX","Apache","Star","King tricycle","Other model"],"Yamaha":["YBR","FZ","MT-15","NMAX","Other model"],"Honda Motorcycles":["Ace / CG","CB125","CBR","PCX","Other model"],"Suzuki Motorcycles":["AX100","GN125","Gixxer","Other model"],"Kawasaki":["Ninja","KLX","Versys","Other model"],"KTM":["Duke 125","Duke 200","Duke 390","Other model"],"Royal Enfield":["Classic 350","Bullet","Himalayan","Other model"],"Piaggio":["Vespa","Ape","Other model"],"Kymco":["Agility","Like","Other model"],"SYM":["Jet","Symphony","Other model"]
-};
-function fillSelect(select,items,placeholder){select.innerHTML="";const first=document.createElement("option");first.value="";first.textContent=placeholder;select.appendChild(first);items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;select.appendChild(o);});}
-const regionSelect=$("region"),townSelect=$("town"),otherTownWrap=$("other-town-wrap"),otherTownInput=$("other-town"),vehicleExtra=$("vehicle-extra-fields");
-fillSelect(regionSelect,Object.keys(regionTowns),"Choose a region");
-regionSelect.addEventListener("change",()=>{const towns=regionTowns[regionSelect.value]||[];fillSelect(townSelect,towns,"Choose a town / area");townSelect.disabled=!regionSelect.value;otherTownWrap.classList.add("hidden");otherTownInput.required=false;});
-townSelect.addEventListener("change",()=>{const other=townSelect.value==="Other town / area";otherTownWrap.classList.toggle("hidden",!other);otherTownInput.required=other;});
-function addVehicleFields(){vehicleExtra.innerHTML="";const selectedSub=sub.value;const isVehicleListing=["Cars for sale","SUVs / 4x4 for sale","Pickup trucks for sale","Vans / minibuses for sale","Trucks for sale","Buses for sale","Motorbikes / motorcycles for sale","Tricycles for sale","Vehicle rental / hire","Vehicle wanted","Vehicle parts & accessories","Other vehicle advert"].includes(selectedSub);if(!isVehicleListing)return;
-const typeWrap=document.createElement("div");const typeLabel=document.createElement("label");typeLabel.textContent="Vehicle type *";typeLabel.htmlFor="vehicle-kind";const vehicleKind=document.createElement("select");vehicleKind.id="vehicle-kind";vehicleKind.dataset.vehicle="Vehicle type";fillSelect(vehicleKind,["Car / saloon","SUV / 4x4","Pickup truck","Van / minibus","Commercial truck","Bus / coach","Motorbike / motorcycle","Tricycle","Trailer","Special-purpose vehicle","Other"],"Choose vehicle type");
-const preferredType={"Cars for sale":"Car / saloon","SUVs / 4x4 for sale":"SUV / 4x4","Pickup trucks for sale":"Pickup truck","Vans / minibuses for sale":"Van / minibus","Trucks for sale":"Commercial truck","Buses for sale":"Bus / coach","Motorbikes / motorcycles for sale":"Motorbike / motorcycle","Tricycles for sale":"Tricycle"};if(preferredType[selectedSub])vehicleKind.value=preferredType[selectedSub];typeWrap.append(typeLabel,vehicleKind);vehicleExtra.appendChild(typeWrap);
-const makeWrap=document.createElement("div");const makeLabel=document.createElement("label");makeLabel.textContent="Make / manufacturer *";makeLabel.htmlFor="car-make";const make=document.createElement("select");make.id="car-make";make.dataset.vehicle="Make";make.required=true;fillSelect(make,carMakes,"Choose make");makeWrap.append(makeLabel,make);vehicleExtra.appendChild(makeWrap);
-const modelWrap=document.createElement("div");const modelLabel=document.createElement("label");modelLabel.textContent="Model *";modelLabel.htmlFor="car-model";const model=document.createElement("select");model.id="car-model";model.dataset.vehicle="Model";model.required=true;model.disabled=true;fillSelect(model,[],"Choose make first");modelWrap.append(modelLabel,model);vehicleExtra.appendChild(modelWrap);
-const otherMakeWrap=document.createElement("div");otherMakeWrap.className="hidden";const otherMakeLabel=document.createElement("label");otherMakeLabel.textContent="Enter make";otherMakeLabel.htmlFor="other-make";const otherMake=document.createElement("input");otherMake.id="other-make";otherMake.placeholder="Enter manufacturer";otherMake.dataset.vehicle="Other make";otherMakeWrap.append(otherMakeLabel,otherMake);vehicleExtra.appendChild(otherMakeWrap);
-const otherModelWrap=document.createElement("div");otherModelWrap.className="hidden";const otherModelLabel=document.createElement("label");otherModelLabel.textContent="Enter model";otherModelLabel.htmlFor="other-model";const otherModel=document.createElement("input");otherModel.id="other-model";otherModel.placeholder="Enter model name";otherModel.dataset.vehicle="Other model";otherModelWrap.append(otherModelLabel,otherModel);vehicleExtra.appendChild(otherModelWrap);
-make.addEventListener("change",()=>{const isOther=make.value==="Other make";otherMakeWrap.classList.toggle("hidden",!isOther);otherMake.required=isOther;fillSelect(model,carModels[make.value]||["Other model"],"Choose model");model.disabled=!make.value||isOther;model.required=!isOther;otherModelWrap.classList.add("hidden");otherModel.required=false;});
-model.addEventListener("change",()=>{const isOther=model.value==="Other model";otherModelWrap.classList.toggle("hidden",!isOther);otherModel.required=isOther;});
-const vehicleDefs=[["Year of manufacture","number","e.g. 2018"],["Colour","select",["Black","White","Silver","Grey","Blue","Red","Green","Brown","Gold","Yellow","Orange","Other"]],["Condition","select",["Brand new","Foreign used","Locally used","Used / refurbished","For parts"]],["Transmission","select",["Automatic","Manual","CVT","Semi-automatic","Other / not applicable"]],["Fuel type","select",["Petrol","Diesel","Hybrid","Electric","LPG / CNG","Other / not applicable"]],["Mileage (km)","number","e.g. 85000"],["Engine capacity (cc)","number","e.g. 1800"],["Number of doors","select",["2","3","4","5","Other / not applicable"]],["Seating capacity","number","e.g. 5"],["Registration status","select",["Registered in Ghana","Unregistered","Foreign registration","Other"]],["Price (GH₵)","number","Enter asking price"]];
-vehicleDefs.forEach((d,i)=>{const wrap=document.createElement("div"),label=document.createElement("label");const id="vehicle-detail-"+i;label.htmlFor=id;label.textContent=d[0]+([0,1,2,10].includes(i)?" *":"");wrap.appendChild(label);let el;if(d[1]==="select"){el=document.createElement("select");fillSelect(el,d[2],"Choose "+d[0].toLowerCase());}else{el=document.createElement("input");el.type=d[1];el.placeholder=d[2];if(d[1]==="number")el.min="0";}el.id=id;el.dataset.vehicle=d[0];if([0,1,2,10].includes(i))el.required=true;wrap.appendChild(el);vehicleExtra.appendChild(wrap);});
-const note=document.createElement("p");note.className="small-note full";note.textContent="Choose the vehicle type, make and model. The list includes cars, commercial vehicles and motorcycles. If your exact make or model is missing, choose Other make/model and type it in.";vehicleExtra.appendChild(note);vehicleExtra.classList.remove("hidden");}
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">📱</span>
+          <span class="category-name">Phones &amp; Tablets</span>
+          <span class="category-desc">Phones and smart devices</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
 
-function addField(d,i){const wrap=document.createElement("div"),label=document.createElement("label");wrap.className="dynfield";const id="extra-"+i;label.htmlFor=id;label.textContent=d[0];wrap.appendChild(label);let el;if(d[1]==="select"){el=document.createElement("select");const first=document.createElement("option");first.value="";first.textContent="Choose an option";el.appendChild(first);(d[2]||[]).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});}else{el=document.createElement("input");el.type=(/price|salary|pay|fees|amount|cost|budget/i.test(d[0]))?"text":d[1];el.placeholder=d[1]==="number"?"Enter number":"Enter details";if(d[1]==="number")el.min="0";if(/price|salary|pay|fees|amount|cost|budget/i.test(d[0])){el.inputMode="numeric";el.placeholder="Enter amount (e.g. 15,000)";el.addEventListener("input",()=>{const digits=el.value.replace(/[^0-9.]/g,"");const parts=digits.split(".");const whole=(parts.shift()||"").replace(/\B(?=(\d{3})+(?!\d))/g,",");el.value=whole+(parts.length?"."+parts.join(""):"");});}}el.id=id;el.dataset.dynamic="1";el.dataset.label=d[0];wrap.appendChild(el);dynamic.appendChild(wrap);}
-function updateCategory(){const c=type.value;sub.innerHTML='<option value="">Choose a subcategory</option>';dynamic.innerHTML="";eventFields.classList.toggle("hidden",c!=="Events & Promotions");if(!c){subWrap.classList.add("hidden");sub.required=false;updatePhoneCategory();return;}(subs[c]||["Other"]).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;sub.appendChild(o);});subWrap.classList.remove("hidden");sub.required=true;(defs[c]||[]).forEach(addField);vehicleExtra.classList.add("hidden");updatePhoneCategory();}type.addEventListener("change",updateCategory);sub.addEventListener("change",()=>{addVehicleFields();updatePhoneCategory();});
-function attachMoneyFormatting(root){root.querySelectorAll("input").forEach(el=>{const label=(el.dataset.label||el.dataset.vehicle||el.id||"").toLowerCase();if(!/(price|salary|pay|fees|amount|cost|budget|asking price|rental price)/.test(label)||el.dataset.moneyFormat)return;el.dataset.moneyFormat="1";el.type="text";el.inputMode="numeric";el.placeholder=el.placeholder||"Enter amount (e.g. 15,000)";el.addEventListener("input",()=>{const digits=el.value.replace(/[^0-9.]/g,"");const parts=digits.split(".");const whole=(parts.shift()||"").replace(/\B(?=(\d{3})+(?!\d))/g,",");el.value=whole+(parts.length?"."+parts.join(""):"");});});}
-const moneyObserver=new MutationObserver(()=>{attachMoneyFormatting(dynamic);attachMoneyFormatting(vehicleExtra);});moneyObserver.observe(dynamic,{childList:true,subtree:true});moneyObserver.observe(vehicleExtra,{childList:true,subtree:true});
-function say(text,kind){message.textContent=text;message.className="message show "+kind;message.scrollIntoView({behavior:"smooth",block:"center"});}function clearMsg(){message.textContent="";message.className="message";}
-photoInput.addEventListener("change",()=>{const files=Array.from(photoInput.files||[]).filter(f=>f.type.startsWith("image/"));if(files.some(f=>f.size>10*1024*1024)){say("Each photo must be 10 MB or smaller. Please choose a smaller image.","error");photoInput.value="";return;}selectedPhotos=selectedPhotos.concat(files);photoInput.value="";clearMsg();drawPreviews();});
-function drawPreviews(){preview.innerHTML="";selectedPhotos.forEach((file,i)=>{const reader=new FileReader();reader.onload=e=>{const box=document.createElement("div");box.className="preview";const img=document.createElement("img");img.src=e.target.result;img.alt="Photo preview";const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="×";b.setAttribute("aria-label","Remove photo");b.onclick=()=>{selectedPhotos.splice(i,1);drawPreviews();};box.append(img,b);preview.appendChild(box);};reader.readAsDataURL(file);});}
-form.addEventListener("submit",async e=>{e.preventDefault();if(submit.disabled)return;clearMsg();if(!type.value||!sub.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())||(type.value==="Products & Goods"&&sub.value==="Phones & electronics"&&!phoneCategory.value)){say("Please choose a category, subcategory, advert title, Ghana region/town, and phone item type when posting phones or accessories.","error");return;}submit.disabled=true;submit.textContent="Publishing...";try{const {data:userData,error:userError}=await client.auth.getUser();if(userError)throw new Error("We couldn't check your login. Please log in again.");const user=userData.user;if(!user){say("Please log in to publish an advert. Taking you to your OGARS account page...","error");submit.disabled=false;submit.textContent="Publish advert";setTimeout(()=>location.href="account.html",1400);return;}
-const title=$("title").value.trim(),region=regionSelect.value,town=townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value,location=[town,region].filter(Boolean).join(", "),description=$("description").value.trim(),phone=$("phone").value.trim(),whatsapp=$("whatsapp").value.trim(),website=$("website").value.trim(),eventDate=$("event-date").value,eventTime=$("event-time").value.trim();const detailLines=["Category: "+type.value,"Subcategory: "+sub.value,"Region: "+region,"Town / area: "+town];if(type.value==="Products & Goods"&&sub.value==="Phones & electronics"&&phoneCategory.value){detailLines.push("OGARS_PHONE_CATEGORY: "+phoneCategory.value);detailLines.push("Phone / tablet item type: "+phoneCategory.value);}dynamic.querySelectorAll("[data-dynamic='1']").forEach(el=>{if(el.value.trim())detailLines.push(el.dataset.label+": "+el.value.trim());});vehicleExtra.querySelectorAll("[data-vehicle]").forEach(el=>{if(el.value.trim())detailLines.push(el.dataset.vehicle+": "+el.value.trim());});const fullDescription=[description,detailLines.join("\n")].filter(Boolean).join("\n\n");const photoUrls=[];for(const file of selectedPhotos){const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-");const path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;const {error}=await client.storage.from("discover-photos").upload(path,file);if(error)throw new Error("Photo upload failed: "+error.message);const {data}=client.storage.from("discover-photos").getPublicUrl(path);if(data?.publicUrl)photoUrls.push(data.publicUrl);}
-const listing={user_id:user.id,title,listing_type:type.value,location:location||null,description:fullDescription||null,phone:phone||null,whatsapp:whatsapp||null,website:website||null,event_date:eventDate||null,event_time:eventTime||null,photo_urls:photoUrls.length?photoUrls.join(","):null,featured:false,available:true};const {error:insertError}=await client.from("discover_listings").insert([listing]);if(insertError)throw new Error("Advert could not be saved: "+insertError.message);form.reset();selectedPhotos=[];preview.innerHTML="";phoneCategory.value="";updatePhoneCategory();townSelect.disabled=true;fillSelect(townSelect,[],"Choose a region first");otherTownWrap.classList.add("hidden");otherTownInput.required=false;vehicleExtra.innerHTML="";vehicleExtra.classList.add("hidden");updateCategory();say("Your advert has been published successfully!","success");window.scrollTo({top:0,behavior:"smooth"});}catch(err){console.error("OGARS advert error:",err);say("Unable to publish your advert. "+(err.message||"Please try again."),"error");}finally{submit.disabled=false;submit.textContent="Publish advert";}});
-</script></body></html>
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">💻</span>
+          <span class="category-name">Electronics</span>
+          <span class="category-desc">Appliances and gadgets</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🛋️</span>
+          <span class="category-name">Home &amp; Living</span>
+          <span class="category-desc">Furniture and home goods</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">💼</span>
+          <span class="category-name">Jobs &amp; Employment</span>
+          <span class="category-desc">Find work and post jobs</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🧑‍🔧</span>
+          <span class="category-name">Skilled Workers</span>
+          <span class="category-desc">Trades and services</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🏪</span>
+          <span class="category-name">Businesses</span>
+          <span class="category-desc">Shops and companies</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🛒</span>
+          <span class="category-name">Products &amp; Goods</span>
+          <span class="category-desc">Food and everyday items</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🛠️</span>
+          <span class="category-name">Services</span>
+          <span class="category-desc">Professional and home services</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">👗</span>
+          <span class="category-name">Fashion &amp; Beauty</span>
+          <span class="category-desc">Clothing and accessories</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+
+        <div class="category-card coming-soon" aria-disabled="true">
+          <span class="category-art" aria-hidden="true">🌾</span>
+          <span class="category-name">Agriculture &amp; Food</span>
+          <span class="category-desc">Farm products and supplies</span>
+          <span class="coming-label">Form being prepared</span>
+        </div>
+  </section>
+  <p class="notice">Each category will have its own posting form, with questions designed for that type of advert.</p>
+</main>
+<footer>© 2026 OGARS PLATFORM. Trusted people. Real opportunities.</footer>
+</body>
+</html>
