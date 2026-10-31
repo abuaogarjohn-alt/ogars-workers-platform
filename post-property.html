@@ -42,15 +42,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 <p class="intro">Complete the details below to advertise a house, apartment, land, shop or other property in Ghana.</p>
 <form id="advertise-form">
 <p class="step">Step 1 of 3</p><h2>Choose your property advert</h2>
-<p class="help">First choose what kind of property you are advertising, then choose what you want to do with it.</p>
-<label for="listing-type">Category *</label><select id="listing-type" class="category" required><option value="Property" selected>Property</option></select>
-<div class="grid">
-<div class="full"><label for="property-kind">Property type *</label><select id="property-kind" required>
-<option value="">Choose property type</option><option>House</option><option>Apartment / Flat</option><option>Townhouse</option><option>Commercial store / shop</option><option>Office / commercial building</option><option>Land</option><option>Rooms / shared accommodation</option><option>Other property</option>
-</select></div>
-<div class="full"><label for="advert-purpose">Advert purpose *</label><select id="advert-purpose" required><option value="">Choose purpose</option><option>For sale</option><option>For rent</option><option>For lease</option><option>Wanted</option></select></div>
-</div>
-<div class="divider"><p class="step">Step 2 of 3</p><h2>Property details</h2><p class="help">Only details relevant to your selected property type and advert purpose will appear.</p></div>
+<p class="help">Choose the same property category that customers see on the OGARS homepage.</p>
+<label for="property-kind">Property category *</label><select id="property-kind" class="category" required>
+<option value="">Choose property category</option>
+<option>Houses for Rent</option><option>Apartments for Rent</option><option>Rooms for Rent</option><option>Houses for Sale</option><option>Land for Sale</option><option>Commercial Property</option><option>Short Stay / Guest House</option><option>Property Wanted</option>
+</select>
+<div class="divider"><p class="step">Step 2 of 3</p><h2>Property details</h2><p class="help">Only details relevant to your selected property category will appear.</p></div>
 <label for="title">Advert title *</label><input id="title" maxlength="100" placeholder="e.g. 3-bedroom house for rent at Achimota" required>
 <div class="grid" id="ghana-location-fields">
 <div><label for="region">Region in Ghana *</label><select id="region" required><option value="">Choose a region</option></select></div>
@@ -83,7 +80,7 @@ const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
-const form=$("advertise-form"),kind=$("property-kind"),purpose=$("advert-purpose"),dynamic=$("dynamic-fields");
+const form=$("advertise-form"),kind=$("property-kind"),dynamic=$("dynamic-fields");
 const regionSelect=$("region"),townSelect=$("town"),otherTownWrap=$("other-town-wrap"),otherTownInput=$("other-town");
 const photoInput=$("listing-photos"),preview=$("preview-grid"),photoCount=$("photo-count"),submit=$("submit-button"),message=$("message");
 let selectedPhotos=[];
@@ -119,52 +116,72 @@ function addField(label,type="text",options=null,placeholder="",required=false,f
 }
 function addPropertyFields(){
  dynamic.innerHTML="";
- const k=kind.value,p=purpose.value;if(!k||!p)return;
+ const category=kind.value;
+ if(!category)return;
+ let k="",p="";
+ if(category==="Houses for Rent"){k="House";p="For rent";}
+ else if(category==="Apartments for Rent"){k="Apartment / Flat";p="For rent";}
+ else if(category==="Rooms for Rent"){k="Rooms / shared accommodation";p="For rent";}
+ else if(category==="Houses for Sale"){k="House";p="For sale";}
+ else if(category==="Land for Sale"){k="Land";p="For sale";}
+ else if(category==="Commercial Property"){k="Commercial store / shop";p="For rent";}
+ else if(category==="Short Stay / Guest House"){k="Short Stay / Guest House";p="For rent";}
+ else if(category==="Property Wanted"){k="Property Wanted";p="Wanted";}
  const add=(...args)=>addField(...args);
- const priceLabel=p==="For sale"?"Asking price (GH₵)":p==="Wanted"?"Budget / maximum price (GH₵)":"Rent / lease amount (GH₵)";
- if(["House","Apartment / Flat","Townhouse"].includes(k)){
+ if(["House","Apartment / Flat"].includes(k)){
    if(p==="For sale")add("Property condition","select",["Brand new","Newly built","Used / occupied","Renovated","Needs renovation"],"Choose condition",true);
-   else if(p==="For rent"||p==="For lease")add("Property condition","select",["Newly built","Good condition","Renovated","Needs renovation"],"Choose condition");
-   add("Bedrooms","number",null,"e.g. 3",p!=="Wanted");
+   else add("Property condition","select",["Newly built","Good condition","Renovated","Needs renovation"],"Choose condition");
+   add("Bedrooms","number",null,"e.g. 3",true);
    add("Bathrooms","number",null,"e.g. 2");
    add("Toilets","number",null,"e.g. 3");
-   add("Furnishing","select",["Unfurnished","Semi-furnished","Fully furnished","Not applicable"]);
+   add("Furnishing","select",["Unfurnished","Semi-furnished","Fully furnished"]);
    add("Parking spaces","number",null,"e.g. 2");
-   if(p==="For rent"||p==="For lease"){add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","2 years","Negotiable","Other"]);add("Availability","select",["Available now","Available soon","Available from a later date"]);}
+   if(p==="For rent")add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","2 years","Negotiable","Other"]);
+   if(p==="For rent")add("Availability","select",["Available now","Available soon","Available from a later date"]);
    if(p==="For sale")add("Ownership / documentation","select",["Land title","Indenture","Leasehold","Allocation / site plan","Other","Not sure"]);
-   if(p==="Wanted")add("Preferred bedrooms","select",["Any","1","2","3","4","5 or more"]);
  }else if(k==="Land"){
    add("Land size","text",null,"e.g.  plot size, acres or square metres",true);
-   add("Land classification","select",["Virgin land","Undeveloped land","Developed land","Serviced land","Partly developed land"],"Choose land classification",true);
+   add("Land condition","select",["Virgin land","Undeveloped land","Developed land","Serviced land","Partly developed land"],"Choose land condition",true);
    add("Land topography","select",["Flat","Sloping","Mixed","Not sure"]);
    add("Road access","select",["Accessible by tarred road","Accessible by unpaved road","No direct road access","Not sure"]);
    add("Documentation","select",["Land title","Indenture","Site plan","Allocation documents","Family land documents","Other","Not sure"]);
    add("Ownership","select",["Owner","Family / stool land","Agent / representative","Other"]);
-   if(p==="For rent"||p==="For lease")add("Permitted use","select",["Residential","Commercial","Agricultural","Industrial","Mixed use","Other"]);
- }else if(k==="Commercial store / shop"||k==="Office / commercial building"){
+ }else if(k==="Rooms / shared accommodation"){
+   add("Room type","select",["Single room","Chamber and hall","Self-contained room","Shared room","Other"],"Choose room type",true);
+   add("Number of rooms","number",null,"Enter number");
+   add("Bathroom arrangement","select",["Private bathroom","Shared bathroom","Outside bathroom","Other"]);
+   add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","Negotiable","Other"]);
+   add("Furnishing","select",["Unfurnished","Semi-furnished","Fully furnished"]);
+ }else if(k==="Commercial store / shop"){
+   add("Commercial property type","select",["Shop / store","Office space","Warehouse","Business premises","Commercial building","Other"],"Choose property type",true);
    add("Property condition","select",["Brand new","Newly built","Good condition","Used","Needs renovation"],"Choose condition");
    add("Floor area / size","text",null,"e.g. 50 square metres");
    add("Number of rooms / units","number",null,"Enter number");
    add("Floor / storey","select",["Ground floor","First floor","Second floor","Upper floor","Whole building","Other"]);
    add("Facilities","select",["Toilet","Water","Electricity","Parking","Air conditioning","Multiple facilities","Other"]);
-   if(p==="For rent"||p==="For lease")add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","2 years","Negotiable","Other"]);
-   if(p==="For sale")add("Documentation","select",["Land title","Indenture","Leasehold","Other","Not sure"]);
- }else if(k==="Rooms / shared accommodation"){
-   add("Room type","select",["Single room","Chamber and hall","Self-contained room","Shared room","Other"],"Choose room type",true);
-   add("Number of rooms","number",null,"Enter number");
-   add("Bathroom arrangement","select",["Private bathroom","Shared bathroom","Outside bathroom","Other"]);
-   if(p==="For rent"||p==="For lease")add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","Negotiable","Other"]);
-   add("Furnishing","select",["Unfurnished","Semi-furnished","Fully furnished","Not applicable"]);
+   add("Advance payment / duration","select",["1 month","3 months","6 months","1 year","2 years","Negotiable","Other"]);
+ }else if(k==="Short Stay / Guest House"){
+   add("Accommodation type","select",["Guest house","Hotel room","Serviced apartment","Holiday home","Short-stay room","Other"],"Choose accommodation type",true);
+   add("Bedrooms / rooms","number",null,"Enter number");
+   add("Bathrooms","number",null,"Enter number");
+   add("Nightly rate (GH₵)","text",null,"Enter price per night",true);
+   add("Facilities","select",["Wi-Fi","Air conditioning","Swimming pool","Kitchen","Parking","Breakfast","Multiple facilities","Other"]);
+   add("Availability","select",["Available now","Available soon","Contact for availability"]);
  }else{
-   add("Property description / type","text",null,"Explain what kind of property this is",true,true);
-   add("Property condition","select",["Brand new","Good condition","Used","Needs renovation","Not applicable"]);
+   add("Property wanted","select",["House","Apartment / Flat","Room","Land","Commercial property","Short stay / guest house","Other"],"What property are you looking for?",true);
+   add("Preferred bedrooms","select",["Any","1","2","3","4","5 or more"]);
+   add("Budget (GH₵)","text",null,"Enter your budget");
+   add("Preferred location","text",null,"Where are you looking?",true,true);
+   add("When do you need it?","select",["Immediately","Within 1 month","Within 3 months","Flexible"]);
  }
- if(p==="For sale"||p==="For rent"||p==="For lease")add(priceLabel,"text",null,"Enter amount in Ghana cedis",true);
- if(p==="For rent"||p==="For lease")add("Payment period","select",["Per month","Per year","Per week","One-time / total lease","Negotiable"],"Choose payment period",true);
- if(p==="Wanted"){add("Preferred location","text",null,"Where are you looking?",false,true);add("When do you need it?","select",["Immediately","Within 1 month","Within 3 months","Flexible"]);}
+ if(["Houses for Rent","Apartments for Rent","Rooms for Rent","Commercial Property"].includes(category)){
+   add("Rent amount (GH₵)","text",null,"Enter rent amount",true);
+   add("Payment period","select",["Per month","Per year","Negotiable"],"Choose payment period",true);
+ }
+ if(category==="Houses for Sale"||category==="Land for Sale")add("Asking price (GH₵)","text",null,"Enter asking price",true);
  const note=document.createElement("p");note.className="small-note full";note.textContent="Add any extra details, viewing arrangements or conditions in the description below.";dynamic.appendChild(note);
 }
-kind.addEventListener("change",addPropertyFields);purpose.addEventListener("change",addPropertyFields);
+kind.addEventListener("change",addPropertyFields);
 function say(text,kind){message.textContent=text;message.className="message show "+kind;message.scrollIntoView({behavior:"smooth",block:"center"});}
 function clearMsg(){message.textContent="";message.className="message";}
 function canvasBlob(canvas,type,quality){return new Promise(resolve=>canvas.toBlob(resolve,type,quality));}
@@ -195,10 +212,10 @@ function drawPreviews(){
  preview.innerHTML="";photoCount.textContent=selectedPhotos.length?selectedPhotos.length+" photo(s) ready to upload. You can add more or remove any photo.":"No photos selected yet.";
  selectedPhotos.forEach((file,i)=>{const reader=new FileReader();reader.onload=e=>{const box=document.createElement("div");box.className="preview";const img=document.createElement("img");img.src=e.target.result;img.alt="Property photo preview";const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="×";b.setAttribute("aria-label","Remove photo");b.onclick=()=>{selectedPhotos.splice(i,1);drawPreviews();};box.append(img,b);preview.appendChild(box);};reader.readAsDataURL(file);});
 }
-function formatDetails(){const lines=["Property type: "+kind.value,"Advert purpose: "+purpose.value,"Region: "+regionSelect.value,"Town / area: "+(townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value)];const specific=$("specific-location").value.trim();if(specific)lines.push("Specific location: "+specific);dynamic.querySelectorAll("input,select").forEach(el=>{if(el.value.trim())lines.push(el.dataset.label+": "+el.value.trim());});return lines.join("\n");}
+function formatDetails(){const lines=["Property category: "+kind.value,"Region: "+regionSelect.value,"Town / area: "+(townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value)];const specific=$("specific-location").value.trim();if(specific)lines.push("Specific location: "+specific);dynamic.querySelectorAll("input,select").forEach(el=>{if(el.value.trim())lines.push(el.dataset.label+": "+el.value.trim());});return lines.join("\n");}
 form.addEventListener("submit",async e=>{
  e.preventDefault();if(submit.disabled)return;clearMsg();
- if(!kind.value||!purpose.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please choose the property type, advert purpose, advert title and Ghana region/town.","error");return;}
+ if(!kind.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please choose a property category, advert title and Ghana region/town.","error");return;}
  if(!form.reportValidity())return;
  submit.disabled=true;submit.textContent="Publishing...";
  try{
