@@ -1,34 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Post Business | OGARS PLATFORM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#542B9A">
+<title>Post a Business | OGARS PLATFORM</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body{margin:0;background:#f4f7f5;color:#202a24;font:16px Arial,sans-serif}header{background:#0b6b4f;color:white;padding:18px}header a{color:white;text-decoration:none;font-weight:bold}main{max-width:700px;margin:24px auto;padding:0 14px}.card{background:white;border:1px solid #dce5df;border-radius:14px;padding:20px}h1{margin-top:0}label{display:block;font-weight:bold;margin:15px 0 7px}input,select,textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #cbd7cf;border-radius:8px;font:inherit}textarea{min-height:120px}button{width:100%;margin-top:22px;padding:14px;background:#0b6b4f;color:white;border:0;border-radius:8px;font-weight:bold;font-size:16px}#status{margin-top:14px}.hint{font-size:12px;color:#66736b}@media(max-width:500px){.card{padding:16px}}
+:root{--purple:#5b35ed;--deep:#39206d;--ink:#20213c;--muted:#74758e;--line:#e7e5f1;--page:#f7f6fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.45 Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit}
+.topbar{background:linear-gradient(115deg,#6d28d9,#512a91 58%,#38166f);color:#fff;padding:14px 16px}
+.top-inner{max-width:680px;margin:auto;display:flex;align-items:center;gap:12px}
+.back{font-size:27px;line-height:1;color:#fff;padding:2px 5px}
+.brandmark{width:40px;height:40px;border:1.5px solid #ffffffbd;border-radius:12px;display:grid;place-items:center;font-size:24px}
+.brand h2{font-size:18px;line-height:1.05;margin:0;font-weight:900;letter-spacing:.3px}
+.brand p{font-size:11px;color:#eee6ff;margin:4px 0 0}
+main{max-width:680px;margin:0 auto;padding:22px 14px 38px}
+.intro{margin:0 0 16px}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:800;margin:0 0 5px}
+h1{font-size:23px;line-height:1.2;margin:0 0 6px}
+.subtitle{font-size:13px;color:var(--muted);margin:0}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 20px rgba(46,30,100,.045)}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:3px}
+.section-icon{width:35px;height:35px;display:grid;place-items:center;background:#f0edff;border-radius:10px;font-size:19px}
+.section-head h3{font-size:15px;margin:0}
+.section-note{font-size:12px;color:var(--muted);margin:0 0 14px}
+label{display:block;font-weight:700;font-size:13px;margin:14px 0 6px}
+input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #d9d8e6;border-radius:9px;background:#fff;color:var(--ink);font:14px Arial,Helvetica,sans-serif;outline:none}
+input::placeholder,textarea::placeholder{color:#9696a8}
+input:focus,select:focus,textarea:focus{border-color:#8c75f5;box-shadow:0 0 0 3px #5b35ed12}
+textarea{min-height:105px;resize:vertical;line-height:1.5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{min-width:0}
+.hint{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.45}
+.photo-box{border:1px dashed #c9c3e7;border-radius:11px;padding:12px;background:#fbfaff}
+.photo-box input{border:0;padding:3px;background:transparent}
+.submit{width:100%;margin-top:20px;padding:13px 16px;background:linear-gradient(110deg,#6d28d9,#512a91);color:white;border:0;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 5px 12px #5b35ed25}
+.submit:disabled{opacity:.65;cursor:wait}
+#status{margin-top:13px;font-size:13px;line-height:1.5}
+.footer-note{text-align:center;color:var(--muted);font-size:11px;margin:14px 0 0}
+@media(max-width:500px){main{padding:17px 12px 30px}.form-card{padding:16px;border-radius:14px}h1{font-size:21px}.grid{grid-template-columns:1fr;gap:0}.topbar{padding:12px 14px}}
 </style>
 </head>
 <body>
-<header><a href="index.html">OGARS PLATFORM</a></header>
-<main><section class="card">
-<h1>Post Your Business</h1>
-<p>Promote your business and help customers find you on OGARS PLATFORM.</p>
+<header class="topbar"><div class="top-inner">
+<a class="back" href="advertise.html" aria-label="Back to advert categories">‹</a>
+<span class="brandmark" aria-hidden="true">⌂</span>
+<div class="brand"><h2>OGARS<br>PLATFORM</h2><p>Advertise your business in Ghana</p></div>
+</div></header>
+<main>
+<div class="intro"><p class="eyebrow">Create a listing</p><h1>Promote Your Business</h1><p class="subtitle">Help customers discover your business and the services you offer.</p></div>
+<section class="form-card">
+<div class="section-head"><span class="section-icon" aria-hidden="true">🏪</span><h3>Business information</h3></div>
+<p class="section-note">Fill in the required details to create your advert.</p>
 <form id="businessForm">
-<label for="businessName">Business name *</label><input id="businessName" required maxlength="100" placeholder="e.g. Ogar's Cold Store">
+<label for="businessName">Business name *</label>
+<input id="businessName" required maxlength="100" placeholder="e.g. Ogar's Cold Store">
 <label for="businessCategory">Business category *</label>
 <select id="businessCategory" required>
-<option value="">Choose category</option>
+<option value="">Choose a category</option>
 <option>Shops &amp; Retail</option><option>Food &amp; Restaurants</option><option>Supermarkets &amp; Grocery Stores</option><option>Beauty &amp; Wellness Businesses</option><option>Construction &amp; Hardware</option><option>Transport &amp; Logistics</option><option>Technology &amp; Electronics</option><option>Professional Services</option><option>Manufacturing &amp; Wholesale</option><option>Agriculture &amp; Food Businesses</option><option>Hotels &amp; Guest Houses</option><option>Education &amp; Training</option><option>Automotive Businesses</option><option>Real Estate Businesses</option><option>Other Businesses</option>
 </select>
-<label for="region">Region *</label><select id="region" required><option value="">Select region</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Volta</option><option>Oti</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option></select>
-<label for="town">Town / Area *</label><input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra">
-<label for="description">About your business *</label><textarea id="description" required maxlength="3000" placeholder="Describe your products or services, hours, delivery, etc."></textarea>
-<label for="phone">Phone number *</label><input id="phone" required type="tel" maxlength="30" placeholder="024 XXX XXXX">
-<label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" maxlength="30" placeholder="Optional">
+<div class="grid">
+<div class="field"><label for="region">Region *</label><select id="region" required><option value="">Select region</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Volta</option><option>Oti</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option></select></div>
+<div class="field"><label for="town">Town / Area *</label><input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra"></div>
+</div>
+<label for="description">About your business *</label>
+<textarea id="description" required maxlength="3000" placeholder="What do you sell or offer? Include opening hours, delivery, or other useful details."></textarea>
+<div class="grid">
+<div class="field"><label for="phone">Phone number *</label><input id="phone" required type="tel" maxlength="30" placeholder="024 XXX XXXX"></div>
+<div class="field"><label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" maxlength="30" placeholder="Optional"></div>
+</div>
 <label for="website">Website or social media link</label><input id="website" type="url" maxlength="300" placeholder="https://...">
-<label for="photos">Business photos</label><input id="photos" type="file" accept="image/*" multiple><p class="hint">Up to 5 photos; each file should be 5 MB or less.</p>
-<button id="submitButton" type="submit">Publish Business Advert</button><div id="status" role="status"></div>
-</form></section></main>
+<label for="photos">Business photos</label>
+<div class="photo-box"><input id="photos" type="file" accept="image/*" multiple><p class="hint">Add up to 5 clear photos of your shop, products, or services. Maximum 5 MB per photo.</p></div>
+<button class="submit" id="submitButton" type="submit">Publish Business Advert →</button>
+<div id="status" role="status" aria-live="polite"></div>
+</form></section>
+<p class="footer-note">© 2026 OGARS PLATFORM · Trusted people. Real opportunities.</p>
+</main>
 <script>
 // Replace these two placeholders with the same Supabase URL and anon/publishable key
 // already used in your working post-electronics.html.
@@ -61,5 +113,7 @@ form.addEventListener("submit",async e=>{
  }catch(err){statusBox.textContent=err.message||"Something went wrong. Please try again.";statusBox.style.color="#b42318";console.error(err)}
  finally{button.disabled=false;button.textContent="Publish Business Advert"}
 });
+
 </script>
-</body></html>
+</body>
+</html>
