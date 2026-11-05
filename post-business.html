@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Post Business | OGARS PLATFORM</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{margin:0;background:#f4f7f5;color:#202a24;font:16px Arial,sans-serif}header{background:#0b6b4f;color:white;padding:18px}header a{color:white;text-decoration:none;font-weight:bold}main{max-width:700px;margin:24px auto;padding:0 14px}.card{background:white;border:1px solid #dce5df;border-radius:14px;padding:20px}h1{margin-top:0}label{display:block;font-weight:bold;margin:15px 0 7px}input,select,textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #cbd7cf;border-radius:8px;font:inherit}textarea{min-height:120px}button{width:100%;margin-top:22px;padding:14px;background:#0b6b4f;color:white;border:0;border-radius:8px;font-weight:bold;font-size:16px}#status{margin-top:14px}.hint{font-size:12px;color:#66736b}@media(max-width:500px){.card{padding:16px}}
+</style>
+</head>
+<body>
+<header><a href="index.html">OGARS PLATFORM</a></header>
+<main><section class="card">
+<h1>Post Your Business</h1>
+<p>Promote your business and help customers find you on OGARS PLATFORM.</p>
+<form id="businessForm">
+<label for="businessName">Business name *</label><input id="businessName" required maxlength="100" placeholder="e.g. Ogar's Cold Store">
+<label for="businessCategory">Business category *</label>
+<select id="businessCategory" required>
+<option value="">Choose category</option>
+<option>Shops &amp; Retail</option><option>Food &amp; Restaurants</option><option>Supermarkets &amp; Grocery Stores</option><option>Beauty &amp; Wellness Businesses</option><option>Construction &amp; Hardware</option><option>Transport &amp; Logistics</option><option>Technology &amp; Electronics</option><option>Professional Services</option><option>Manufacturing &amp; Wholesale</option><option>Agriculture &amp; Food Businesses</option><option>Hotels &amp; Guest Houses</option><option>Education &amp; Training</option><option>Automotive Businesses</option><option>Real Estate Businesses</option><option>Other Businesses</option>
+</select>
+<label for="region">Region *</label><select id="region" required><option value="">Select region</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Volta</option><option>Oti</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option></select>
+<label for="town">Town / Area *</label><input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra">
+<label for="description">About your business *</label><textarea id="description" required maxlength="3000" placeholder="Describe your products or services, hours, delivery, etc."></textarea>
+<label for="phone">Phone number *</label><input id="phone" required type="tel" maxlength="30" placeholder="024 XXX XXXX">
+<label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" maxlength="30" placeholder="Optional">
+<label for="website">Website or social media link</label><input id="website" type="url" maxlength="300" placeholder="https://...">
+<label for="photos">Business photos</label><input id="photos" type="file" accept="image/*" multiple><p class="hint">Up to 5 photos; each file should be 5 MB or less.</p>
+<button id="submitButton" type="submit">Publish Business Advert</button><div id="status" role="status"></div>
+</form></section></main>
+<script>
+// Replace these two placeholders with the same Supabase URL and anon/publishable key
+// already used in your working post-electronics.html.
+const SUPABASE_URL="PASTE_YOUR_SUPABASE_URL_HERE";
+const SUPABASE_ANON_KEY="PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const BUCKET="discover-photos";
+const form=document.getElementById("businessForm"),statusBox=document.getElementById("status"),button=document.getElementById("submitButton");
+form.addEventListener("submit",async e=>{
+ e.preventDefault();button.disabled=true;button.textContent="Publishing...";statusBox.textContent="";
+ try{
+  if(!window.supabase)throw Error("Supabase library did not load. Check your internet connection.");
+  if(SUPABASE_URL.includes("PASTE_")||SUPABASE_ANON_KEY.includes("PASTE_"))throw Error("Please add your Supabase URL and anon/publishable key from post-electronics.html.");
+  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  const files=Array.from(document.getElementById("photos").files||[]);
+  if(files.length>5)throw Error("Choose no more than 5 photos.");
+  if(files.some(f=>f.size>5*1024*1024))throw Error("Each photo must be 5 MB or smaller.");
+  const {data:{user},error:userError}=await sb.auth.getUser();if(userError)throw userError;if(!user)throw Error("Please sign in before publishing.");
+  const urls=[];
+  for(const file of files){
+   if(!file.type.startsWith("image/"))throw Error("Please select image files only.");
+   const safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
+   const objectPath="business/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;
+   const {error}=await sb.storage.from(BUCKET).upload(objectPath,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+   if(error)throw error;urls.push(sb.storage.from(BUCKET).getPublicUrl(objectPath).data.publicUrl);
+  }
+  const name=document.getElementById("businessName").value.trim(),category=document.getElementById("businessCategory").value,region=document.getElementById("region").value,town=document.getElementById("town").value.trim(),description=document.getElementById("description").value.trim(),phone=document.getElementById("phone").value.trim(),whatsapp=document.getElementById("whatsapp").value.trim(),website=document.getElementById("website").value.trim();
+  const row={user_id:user.id,title:name,listing_type:"Businesses",location:town+", "+region+", Ghana",description:"Business category: "+category+"\n\n"+description,phone,whatsapp:whatsapp||null,website:website||null,photo_urls:urls,featured:false,available:true};
+  const {error}=await sb.from("discover_listings").insert(row);if(error)throw error;
+  form.reset();statusBox.textContent="Your business advert has been published successfully.";statusBox.style.color="#087443";
+ }catch(err){statusBox.textContent=err.message||"Something went wrong. Please try again.";statusBox.style.color="#b42318";console.error(err)}
+ finally{button.disabled=false;button.textContent="Publish Business Advert"}
+});
+</script>
+</body></html>
