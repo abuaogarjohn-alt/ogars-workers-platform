@@ -55,21 +55,22 @@ textarea{min-height:105px;resize:vertical;line-height:1.5}.grid{display:grid;gri
 <div class="progress"><span id="progressBar"></span></div>
 <form id="productForm">
 <section class="step" data-step="1">
-<p class="step-label">Step 1 of 3</p><h2>Product details</h2><p class="step-note">Tell buyers what you are selling and choose the matching homepage category.</p>
-<label>Product category *</label>
-<div class="category-grid" id="categoryGrid">
-<div class="category-option"><input type="radio" name="category" id="cat1" value="Home & Kitchen Goods" required><label for="cat1"><span class="emoji">🍳</span>Home & Kitchen Goods</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat2" value="Phones & Accessories"><label for="cat2"><span class="emoji">📱</span>Phones & Accessories</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat3" value="Electronics & Appliances"><label for="cat3"><span class="emoji">📺</span>Electronics & Appliances</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat4" value="Computers & Office Equipment"><label for="cat4"><span class="emoji">💻</span>Computers & Office Equipment</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat5" value="Baby & Kids Products"><label for="cat5"><span class="emoji">🧸</span>Baby & Kids Products</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat6" value="Health & Personal Care"><label for="cat6"><span class="emoji">🧴</span>Health & Personal Care</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat7" value="Tools & Hardware"><label for="cat7"><span class="emoji">🔧</span>Tools & Hardware</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat8" value="Sports & Outdoor Goods"><label for="cat8"><span class="emoji">⚽</span>Sports & Outdoor Goods</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat9" value="Books, Stationery & Media"><label for="cat9"><span class="emoji">📚</span>Books, Stationery & Media</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat10" value="Industrial & Business Supplies"><label for="cat10"><span class="emoji">🏭</span>Industrial & Business Supplies</label></div>
-<div class="category-option"><input type="radio" name="category" id="cat11" value="Other Products & Goods"><label for="cat11"><span class="emoji">📦</span>Other Products & Goods</label></div>
-</div>
+<p class="step-label">Step 1 of 3</p><h2>Product details</h2><p class="step-note">Tell buyers what you are selling. Choose a category from the same list shown on the OGARS homepage.</p>
+<label for="category">Product category *</label>
+<select id="category" name="category" required>
+<option value="">Choose a category</option>
+<option value="Home & Kitchen Goods">Home & Kitchen Goods</option>
+<option value="Phones & Accessories">Phones & Accessories</option>
+<option value="Electronics & Appliances">Electronics & Appliances</option>
+<option value="Computers & Office Equipment">Computers & Office Equipment</option>
+<option value="Baby & Kids Products">Baby & Kids Products</option>
+<option value="Health & Personal Care">Health & Personal Care</option>
+<option value="Tools & Hardware">Tools & Hardware</option>
+<option value="Sports & Outdoor Goods">Sports & Outdoor Goods</option>
+<option value="Books, Stationery & Media">Books, Stationery & Media</option>
+<option value="Industrial & Business Supplies">Industrial & Business Supplies</option>
+<option value="Other Products & Goods">Other Products & Goods</option>
+</select>
 <label for="productName">Product name *</label><input id="productName" required maxlength="120" placeholder="e.g. Samsung Galaxy A15">
 <div class="grid">
 <div class="field"><label for="price">Price (GH₵) *</label><input id="price" type="number" required min="0" step="0.01" placeholder="e.g. 1500"></div>
@@ -94,8 +95,8 @@ textarea{min-height:105px;resize:vertical;line-height:1.5}.grid{display:grid;gri
 <label for="website">Website / social link (optional)</label><input id="website" type="url" maxlength="300" placeholder="https://example.com">
 </section>
 <section class="step" data-step="3" hidden>
-<p class="step-label">Step 3 of 3</p><h2>Add photos</h2><p class="step-note">Clear photos help customers see your product and its condition.</p>
-<div class="photo-box"><label class="pick" for="photos">＋ Add photos</label><input id="photos" type="file" accept="image/*" multiple><p class="hint">Select several photos at once or add more later. Maximum original size: 10 MB per photo. OGARS resizes and compresses accepted photos before upload.</p><div id="photoNames">No photos selected yet.</div></div>
+<p class="step-label">Step 3 of 3</p><h2>Add photos</h2><p class="step-note">Add clear photos of your product. Photos are optional, but help customers see the item and its condition.</p>
+<div class="photo-box"><label class="pick" for="photos">＋ Add photos</label><input id="photos" type="file" accept="image/*" multiple><p class="hint">Select several photos at once or add more later. Photos are optional. Maximum original size: 10 MB per photo. OGARS resizes and compresses accepted photos before upload.</p><div id="photoNames">No photos selected yet.</div></div>
 </section>
 <div class="actions"><button type="button" class="btn btn-secondary" id="backBtn" hidden>← Back</button><button type="button" class="btn btn-primary" id="nextBtn">Continue →</button><button type="submit" class="btn btn-primary" id="publishBtn" hidden>Publish advert</button></div>
 <div id="status" role="status" aria-live="polite"></div>
@@ -112,7 +113,7 @@ const form=document.getElementById("productForm"),steps=[...document.querySelect
 let currentStep=1;
 const progress=document.getElementById("progressBar"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn"),publishBtn=document.getElementById("publishBtn"),statusBox=document.getElementById("status");
 function showStep(n){currentStep=n;steps.forEach(s=>s.hidden=Number(s.dataset.step)!==n);progress.style.width=(n/3*100)+"%";backBtn.hidden=n===1;nextBtn.hidden=n===3;publishBtn.hidden=n!==3;statusBox.textContent="";window.scrollTo({top:0,behavior:"smooth"});}
-function validateStep(){const section=steps[currentStep-1];for(const el of section.querySelectorAll("input,select,textarea")){if(el.type==="radio"){if(el.required&&!form.querySelector('input[name="category"]:checked')){el.setCustomValidity("Please select a product category.");el.reportValidity();el.setCustomValidity("");return false;}continue;}if(!el.checkValidity()){el.reportValidity();return false;}}return true;}
+function validateStep(){const section=steps[currentStep-1];for(const el of section.querySelectorAll("input,select,textarea")){if(el.type==="file"){continue;}if(!el.checkValidity()){el.reportValidity();return false;}}return true;}
 nextBtn.addEventListener("click",()=>{if(validateStep())showStep(Math.min(3,currentStep+1));});
 backBtn.addEventListener("click",()=>showStep(Math.max(1,currentStep-1)));
 const photoInput=document.getElementById("photos");
@@ -132,7 +133,7 @@ form.addEventListener("submit",async e=>{
   const {data:{user},error:userError}=await sb.auth.getUser();if(userError)throw userError;if(!user)throw Error("Please sign in before publishing.");
   const urls=[];
   for(const file of files){if(!file.type.startsWith("image/"))throw Error("Please select image files only.");const blob=await compressImage(file),safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-").replace(/\.[^.]+$/,"")+".jpg",path="products-goods/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;const {error}=await sb.storage.from(BUCKET).upload(path,blob,{cacheControl:"3600",upsert:false,contentType:"image/jpeg"});if(error)throw error;urls.push(sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl);}
-  const category=form.querySelector('input[name="category"]:checked').value,name=document.getElementById("productName").value.trim(),price=Number(document.getElementById("price").value),condition=document.getElementById("condition").value,quantity=Number(document.getElementById("quantity").value),brand=document.getElementById("brand").value.trim(),description=document.getElementById("description").value.trim(),region=document.getElementById("region").value,town=document.getElementById("town").value.trim(),phone=document.getElementById("phone").value.trim(),whatsapp=document.getElementById("whatsapp").value.trim(),website=document.getElementById("website").value.trim();
+  const category=document.getElementById("category").value,name=document.getElementById("productName").value.trim(),price=Number(document.getElementById("price").value),condition=document.getElementById("condition").value,quantity=Number(document.getElementById("quantity").value),brand=document.getElementById("brand").value.trim(),description=document.getElementById("description").value.trim(),region=document.getElementById("region").value,town=document.getElementById("town").value.trim(),phone=document.getElementById("phone").value.trim(),whatsapp=document.getElementById("whatsapp").value.trim(),website=document.getElementById("website").value.trim();
   const row={user_id:user.id,title:name,listing_type:"Products & Goods",location:town+", "+region+", Ghana",description:"Product category: "+category+"\nCondition: "+condition+"\nPrice: GH₵ "+price.toFixed(2)+"\nQuantity available: "+quantity+(brand?"\nBrand: "+brand:"")+"\n\n"+description,phone,whatsapp:whatsapp||null,website:website||null,photo_urls:urls,featured:false,available:true};
   const {error}=await sb.from("discover_listings").insert(row);if(error)throw error;
   form.reset();document.getElementById("photoNames").textContent="No photos selected yet.";showStep(1);statusBox.textContent="Your product advert has been published successfully.";statusBox.style.color="#087443";
