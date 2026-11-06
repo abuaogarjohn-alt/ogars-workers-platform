@@ -1,131 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#542B9A">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#542B9A">
 <title>Post an Advert | OGARS PLATFORM</title>
 <style>
-:root{--purple:#5b35ed;--deep:#39206d;--lav:#f0edff;--navy:#171b3d;--muted:#686d93;--line:#e6e1fa;--page:#faf9ff}
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(180deg,#f0edff 0,#fff 260px,#faf9ff 100%);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}
-a{color:inherit;text-decoration:none}
-.header{background:linear-gradient(115deg,#6d28d9,#512a91 56%,#38166f);color:#fff;padding:17px 15px;box-shadow:0 3px 12px #28144a20}
-.header-inner{max-width:760px;margin:auto;display:flex;align-items:center;gap:13px}
-.back{font-size:30px;color:#fff;line-height:1;padding:0 5px}
-.brand-icon{width:45px;height:45px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:28px;flex-shrink:0}
-.brand-copy h1{font-size:23px;line-height:1.05;margin:0;font-weight:900;letter-spacing:.2px}
-.brand-copy p{margin:5px 0 0;color:#f0e8ff;font-size:13px}
-.container{max-width:760px;margin:0 auto;padding:22px 14px 40px}
-.intro{text-align:center;margin:0 auto 20px}
-.eyebrow{color:var(--purple);font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 5px}
-h2{font-size:24px;margin:0 0 6px}
-.subtitle{font-size:13px;color:var(--muted);margin:0}
-.category-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-.category-card{min-width:0;min-height:190px;background:linear-gradient(150deg,#fff,#f4f1ff);border:1px solid #e6e1fa;border-radius:18px;box-shadow:0 5px 15px rgba(65,47,147,.055);padding:10px 8px 12px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .15s,border-color .15s}
-a.category-card:active{transform:scale(.98)}
-a.category-card:hover{border-color:#b9aaff;box-shadow:0 8px 20px rgba(91,53,237,.12)}
-.category-art{width:100%;height:94px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(145deg,#f0edff,#fff);font-size:53px;line-height:1;filter:drop-shadow(0 5px 3px rgba(57,43,118,.12))}
-.category-name{font-size:13px;font-weight:800;line-height:1.25;margin-top:10px}
-.category-desc{font-size:10px;color:var(--muted);line-height:1.3;margin-top:5px}
-.choose{font-size:10px;font-weight:800;color:var(--purple);margin-top:auto;padding-top:9px}
-.coming-soon{opacity:.68}
-.coming-label{font-size:9px;color:#77718f;margin-top:auto;padding-top:9px;font-weight:700}
-.notice{margin:18px 0 0;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:11px;text-align:center}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:8px 15px 28px}
-@media(max-width:520px){.container{padding:18px 12px 30px}.category-grid{gap:8px}.category-card{min-height:176px;padding:8px 6px 10px;border-radius:15px}.category-art{height:78px;font-size:45px;border-radius:11px}.category-name{font-size:11px;margin-top:8px}.category-desc{font-size:9px}.choose,.coming-label{font-size:9px}h2{font-size:22px}}
-</style>
-</head>
+:root{--purple:#512A91;--deep:#38166f;--lav:#f1eaff;--navy:#171638;--muted:#706b8c;--border:#e5dcf7;--page:#faf9fd}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}
+.header{background:linear-gradient(115deg,#6d28d9,#512a91 56%,#38166f);color:#fff;padding:18px 16px;display:flex;align-items:center;gap:13px}
+.back{font-size:30px;width:25px;min-width:25px;color:#fff;line-height:1}.brand-icon{width:48px;height:48px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:28px;flex-shrink:0}
+.brand-copy h1{font-size:clamp(22px,5vw,30px);line-height:1.05;margin:0;font-weight:800}.brand-copy p{margin:6px 0 0;color:#f0e8ff;font-size:14px}
+main{max-width:850px;margin:0 auto;padding:20px 14px 35px}.intro{color:var(--muted);font-size:14px;margin:0 0 18px}
+.panel{background:#fff;border:1px solid #e8ddff;border-radius:21px;padding:clamp(16px,4vw,25px);box-shadow:0 5px 18px rgba(70,39,130,.08)}
+.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 17px}.heading h2{font-size:22px;color:var(--purple);margin:0}.heading p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.tile{display:flex;flex-direction:column;align-items:center;text-align:center;min-height:164px;padding:12px 9px 13px;border:1.5px solid #e6d7fb;border-radius:25px;background:#fff;box-shadow:0 4px 12px rgba(87,38,153,.07);transition:transform .15s,border-color .15s}
+.tile:active{transform:scale(.98)}.tile:hover{border-color:#b58be6}.emoji{width:100%;height:92px;border-radius:18px;background:linear-gradient(145deg,#f8f1ff,#fdfbff);display:grid;place-items:center;font-size:43px;line-height:1.15;white-space:pre-line}
+.tile strong{font-size:14px;line-height:1.25;margin-top:9px;color:var(--navy)}.tile .arrow{font-size:12px;color:var(--purple);font-weight:bold;margin-top:5px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 10px}
+@media(max-width:520px){main{padding:15px 11px 28px}.grid{gap:10px}.tile{min-height:153px;padding:9px 6px 11px;border-radius:22px}.emoji{height:88px;font-size:40px}.tile strong{font-size:13px}.header{padding:16px 13px}.brand-icon{width:44px;height:44px;font-size:26px}}
+@media(max-width:350px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head>
 <body>
-<header class="header">
-  <div class="header-inner">
-    <a class="back" href="index.html" aria-label="Back to homepage">‹</a>
-    <span class="brand-icon" aria-hidden="true">⌂</span>
-    <div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Post an advert in Ghana</p></div>
-  </div>
-</header>
-<main class="container">
-  <section class="intro">
-    <p class="eyebrow">Create your listing</p>
-    <h2>What would you like to post?</h2>
-    <p class="subtitle">Choose one of the 12 categories below to get the right advert form.</p>
-  </section>
-  <section class="category-grid" aria-label="Advert categories">
-        <a class="category-card" href="post-vehicle.html">
-          <span class="category-art" aria-hidden="true">🚙</span>
-          <span class="category-name">Vehicles</span>
-          <span class="category-desc">Cars, bikes and more</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-property.html">
-          <span class="category-art" aria-hidden="true">🏡</span>
-          <span class="category-name">Property</span>
-          <span class="category-desc">Homes, rooms and land</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-phones.html">
-          <span class="category-art" aria-hidden="true">📱</span>
-          <span class="category-name">Phones &amp; Tablets</span>
-          <span class="category-desc">Phones and smart devices</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-electronics.html">
-          <span class="category-art" aria-hidden="true">💻</span>
-          <span class="category-name">Electronics</span>
-          <span class="category-desc">Appliances and gadgets</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-home-living.html">
-          <span class="category-art" aria-hidden="true">🛋️</span>
-          <span class="category-name">Home &amp; Living</span>
-          <span class="category-desc">Furniture and home goods</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-jobs.html">
-          <span class="category-art" aria-hidden="true">💼</span>
-          <span class="category-name">Jobs &amp; Employment</span>
-          <span class="category-desc">Find work and post jobs</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-skilled-workers.html">
-          <span class="category-art" aria-hidden="true">🧑‍🔧</span>
-          <span class="category-name">Skilled Workers</span>
-          <span class="category-desc">Trades and services</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-business.html">
-          <span class="category-art" aria-hidden="true">🏪</span>
-          <span class="category-name">Businesses</span>
-          <span class="category-desc">Shops and companies</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <a class="category-card" href="post-products-goods.html">
-          <span class="category-art" aria-hidden="true">🛒</span>
-          <span class="category-name">Products &amp; Goods</span>
-          <span class="category-desc">Food and everyday items</span>
-          <span class="choose">Choose category →</span>
-        </a>
-        <div class="category-card coming-soon" aria-disabled="true">
-          <span class="category-art" aria-hidden="true">🛠️</span>
-          <span class="category-name">Services</span>
-          <span class="category-desc">Professional and home services</span>
-          <span class="coming-label">Form being prepared</span>
-        </div>
-        <div class="category-card coming-soon" aria-disabled="true">
-          <span class="category-art" aria-hidden="true">👗</span>
-          <span class="category-name">Fashion &amp; Beauty</span>
-          <span class="category-desc">Clothing and accessories</span>
-          <span class="coming-label">Form being prepared</span>
-        </div>
-        <div class="category-card coming-soon" aria-disabled="true">
-          <span class="category-art" aria-hidden="true">🌾</span>
-          <span class="category-name">Agriculture &amp; Food</span>
-          <span class="category-desc">Farm products and supplies</span>
-          <span class="coming-label">Form being prepared</span>
-        </div>
-  </section>
-  <p class="notice">Each category will have its own posting form, with questions designed for that type of advert.</p>
-</main>
-<footer>© 2026 OGARS PLATFORM. Trusted people. Real opportunities.</footer>
-</body>
-</html>
+<header class="header"><a class="back" href="index.html" aria-label="Back to homepage">‹</a><div class="brand-icon" aria-hidden="true">＋</div><div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Choose a category to post your advert</p></div></header>
+<main><section class="panel"><p class="intro">Select the category that best matches your advert. Your category will open its dedicated posting form.</p>
+<div class="heading"><div><h2>Advert Categories</h2><p>What would you like to advertise?</p></div></div>
+<div class="grid" id="category-grid">
+<a class="tile" href="post-vehicles.html"><span class="emoji">🚗<br>🚚</span><strong>Vehicles</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-property.html"><span class="emoji">🏠<br>🏢</span><strong>Property</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-phones-tablets.html"><span class="emoji">📱<br>💻</span><strong>Phones & Tablets</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-electronics.html"><span class="emoji">💻<br>📺</span><strong>Electronics</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-home-living.html"><span class="emoji">🛋️<br>🪑</span><strong>Home & Living</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-jobs.html"><span class="emoji">💼<br>👷</span><strong>Jobs & Employment</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-skilled-workers.html"><span class="emoji">🧰<br>🛠️</span><strong>Skilled Workers</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-business.html"><span class="emoji">🏪<br>🏢</span><strong>Businesses</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-products-goods.html"><span class="emoji">📦<br>🛍️</span><strong>Products & Goods</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-services.html"><span class="emoji">🧹<br>🔧</span><strong>Services</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-fashion-beauty.html"><span class="emoji">👗<br>💄</span><strong>Fashion & Beauty</strong><span class="arrow">Post advert →</span></a>
+<a class="tile" href="post-agriculture-food.html"><span class="emoji">🌽<br>🐟</span><strong>Agriculture & Food</strong><span class="arrow">Post advert →</span></a>
+</div></section></main><footer>© 2026 OGARS Platform · Trusted people. Real opportunities.</footer>
+</body></html>
