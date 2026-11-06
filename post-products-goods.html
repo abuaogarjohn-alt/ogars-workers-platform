@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#542B9A">
+<title>Post Products & Goods | OGARS PLATFORM</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--purple:#542b9a;--deep:#39206d;--ink:#20213c;--muted:#74758e;--line:#e7e1f1;--page:#f7f5fc;--soft:#f8f4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font:15px/1.5 Arial,Helvetica,sans-serif}
+.topbar{background:linear-gradient(115deg,#6d28d9,#512a91 58%,#38166f);color:#fff;padding:14px 16px}
+.top-inner{max-width:680px;margin:auto;display:flex;align-items:center;gap:12px}
+.back{font-size:27px;line-height:1;color:#fff;text-decoration:none;padding:2px 5px}
+.brandmark{width:40px;height:40px;border:1.5px solid #ffffffbd;border-radius:12px;display:grid;place-items:center;font-size:24px}
+.brand h2{font-size:18px;line-height:1.05;margin:0;font-weight:900;letter-spacing:.3px}
+.brand p{font-size:11px;color:#eee6ff;margin:4px 0 0}
+main{max-width:680px;margin:0 auto;padding:22px 14px 38px}
+.intro{margin:0 0 16px}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--purple);font-weight:800;margin:0 0 5px}
+h1{font-size:24px;line-height:1.2;margin:0 0 6px}.subtitle{font-size:13px;color:var(--muted);margin:0}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 20px rgba(46,30,100,.045)}
+.step-label{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--purple);font-weight:800;margin:0 0 5px}
+h2{font-size:23px;margin:0 0 7px;line-height:1.2}.step-note{color:var(--muted);font-size:13px;margin:0 0 18px}
+.progress{height:5px;background:#eee9f8;border-radius:20px;overflow:hidden;margin:0 0 22px}.progress span{display:block;height:100%;width:33.33%;background:var(--purple);transition:width .2s}
+label{display:block;font-weight:700;font-size:13px;margin:14px 0 6px}
+input,select,textarea{display:block;width:100%;padding:12px;border:1px solid #d9d5e5;border-radius:10px;background:#fff;color:var(--ink);font:14px Arial,Helvetica,sans-serif;outline:none}
+input::placeholder,textarea::placeholder{color:#9693a6}input:focus,select:focus,textarea:focus{border-color:#8c75f5;box-shadow:0 0 0 3px #5b35ed12}
+textarea{min-height:105px;resize:vertical;line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}
+.hint{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.45}
+.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.category-option{position:relative}.category-option input{position:absolute;opacity:0;width:1px;height:1px}
+.category-option label{margin:0;padding:12px 11px;border:1px solid var(--line);border-radius:11px;background:#fff;display:flex;align-items:center;gap:9px;min-height:60px;font-size:12px;cursor:pointer}
+.category-option input:checked+label{border:2px solid var(--purple);background:var(--soft);padding:11px 10px;box-shadow:0 3px 10px #542b9a12}
+.category-option .emoji{font-size:23px;flex:0 0 28px;text-align:center}
+.photo-box{border:1px dashed #bba9df;border-radius:13px;padding:18px 14px;background:var(--soft);text-align:center}
+.photo-box input{border:0;padding:5px;background:transparent}
+.photo-box .pick{display:inline-block;background:var(--purple);color:white;border-radius:11px;padding:12px 18px;font-weight:800;margin:3px 0 10px}
+#photoNames{font-size:12px;color:var(--muted);margin-top:12px;white-space:pre-wrap}
+.actions{display:flex;gap:10px;margin-top:22px}.btn{border:0;border-radius:10px;padding:13px 16px;font-weight:800;font-size:14px;cursor:pointer}
+.btn-primary{flex:1;background:linear-gradient(110deg,#6d28d9,#512a91);color:#fff;box-shadow:0 5px 12px #5b35ed25}
+.btn-secondary{background:#f0ebfa;color:var(--deep);min-width:100px}.btn:disabled{opacity:.6;cursor:wait}
+#status{margin-top:13px;font-size:13px;line-height:1.5}.footer-note{text-align:center;color:var(--muted);font-size:11px;margin:14px 0 0}
+@media(max-width:500px){main{padding:17px 12px 30px}.form-card{padding:16px;border-radius:14px}h1{font-size:21px}.grid{grid-template-columns:1fr;gap:0}.topbar{padding:12px 14px}.category-grid{grid-template-columns:1fr 1fr}.category-option label{padding:10px 8px;min-height:64px;font-size:11px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="top-inner">
+<a class="back" href="advertise.html" aria-label="Back">←</a><div class="brandmark">🛍️</div>
+<div class="brand"><h2>OGARS PLATFORM</h2><p>Trusted people. Real opportunities.</p></div>
+</div></header>
+<main>
+<div class="intro"><p class="eyebrow">Sell on OGARS</p><h1>Post Products & Goods</h1><p class="subtitle">Create an advert for the product you want to sell.</p></div>
+<section class="form-card">
+<div class="progress"><span id="progressBar"></span></div>
+<form id="productForm">
+<section class="step" data-step="1">
+<p class="step-label">Step 1 of 3</p><h2>Product details</h2><p class="step-note">Tell buyers what you are selling and choose the matching homepage category.</p>
+<label>Product category *</label>
+<div class="category-grid" id="categoryGrid">
+<div class="category-option"><input type="radio" name="category" id="cat1" value="Home & Kitchen Goods" required><label for="cat1"><span class="emoji">🍳</span>Home & Kitchen Goods</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat2" value="Phones & Accessories"><label for="cat2"><span class="emoji">📱</span>Phones & Accessories</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat3" value="Electronics & Appliances"><label for="cat3"><span class="emoji">📺</span>Electronics & Appliances</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat4" value="Computers & Office Equipment"><label for="cat4"><span class="emoji">💻</span>Computers & Office Equipment</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat5" value="Baby & Kids Products"><label for="cat5"><span class="emoji">🧸</span>Baby & Kids Products</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat6" value="Health & Personal Care"><label for="cat6"><span class="emoji">🧴</span>Health & Personal Care</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat7" value="Tools & Hardware"><label for="cat7"><span class="emoji">🔧</span>Tools & Hardware</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat8" value="Sports & Outdoor Goods"><label for="cat8"><span class="emoji">⚽</span>Sports & Outdoor Goods</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat9" value="Books, Stationery & Media"><label for="cat9"><span class="emoji">📚</span>Books, Stationery & Media</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat10" value="Industrial & Business Supplies"><label for="cat10"><span class="emoji">🏭</span>Industrial & Business Supplies</label></div>
+<div class="category-option"><input type="radio" name="category" id="cat11" value="Other Products & Goods"><label for="cat11"><span class="emoji">📦</span>Other Products & Goods</label></div>
+</div>
+<label for="productName">Product name *</label><input id="productName" required maxlength="120" placeholder="e.g. Samsung Galaxy A15">
+<div class="grid">
+<div class="field"><label for="price">Price (GH₵) *</label><input id="price" type="number" required min="0" step="0.01" placeholder="e.g. 1500"></div>
+<div class="field"><label for="condition">Condition *</label><select id="condition" required><option value="">Choose condition</option><option>New</option><option>Used - Like New</option><option>Used - Good</option><option>Used - Fair</option></select></div>
+</div>
+<div class="grid">
+<div class="field"><label for="quantity">Quantity available *</label><input id="quantity" type="number" min="1" step="1" required placeholder="e.g. 5"></div>
+<div class="field"><label for="brand">Brand (optional)</label><input id="brand" maxlength="80" placeholder="e.g. Samsung"></div>
+</div>
+<label for="description">Product description *</label><textarea id="description" required maxlength="3000" placeholder="Describe the item, features, size, model, and any important details."></textarea>
+</section>
+<section class="step" data-step="2" hidden>
+<p class="step-label">Step 2 of 3</p><h2>Location & seller details</h2><p class="step-note">Help buyers know where the item is and how to contact you.</p>
+<div class="grid">
+<div class="field"><label for="region">Region *</label><select id="region" required><option value="">Select region</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Volta</option><option>Oti</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option></select></div>
+<div class="field"><label for="town">Town / Area *</label><input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra"></div>
+</div>
+<div class="grid">
+<div class="field"><label for="phone">Phone number *</label><input id="phone" required type="tel" maxlength="30" placeholder="e.g. 024 XXX XXXX"></div>
+<div class="field"><label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" maxlength="30" placeholder="Optional"></div>
+</div>
+<label for="website">Website / social link (optional)</label><input id="website" type="url" maxlength="300" placeholder="https://example.com">
+</section>
+<section class="step" data-step="3" hidden>
+<p class="step-label">Step 3 of 3</p><h2>Add photos</h2><p class="step-note">Clear photos help customers see your product and its condition.</p>
+<div class="photo-box"><label class="pick" for="photos">＋ Add photos</label><input id="photos" type="file" accept="image/*" multiple><p class="hint">Select several photos at once or add more later. Maximum original size: 10 MB per photo. OGARS resizes and compresses accepted photos before upload.</p><div id="photoNames">No photos selected yet.</div></div>
+</section>
+<div class="actions"><button type="button" class="btn btn-secondary" id="backBtn" hidden>← Back</button><button type="button" class="btn btn-primary" id="nextBtn">Continue →</button><button type="submit" class="btn btn-primary" id="publishBtn" hidden>Publish advert</button></div>
+<div id="status" role="status" aria-live="polite"></div>
+</form>
+</section>
+<p class="footer-note">© 2026 OGARS PLATFORM · Trusted people. Real opportunities.</p>
+</main>
+<script>
+// Use the same Supabase project URL and anon/publishable key as your working post-electronics.html.
+const SUPABASE_URL="PASTE_YOUR_SUPABASE_URL_HERE";
+const SUPABASE_ANON_KEY="PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+const BUCKET="discover-photos";
+const form=document.getElementById("productForm"),steps=[...document.querySelectorAll(".step")];
+let currentStep=1;
+const progress=document.getElementById("progressBar"),backBtn=document.getElementById("backBtn"),nextBtn=document.getElementById("nextBtn"),publishBtn=document.getElementById("publishBtn"),statusBox=document.getElementById("status");
+function showStep(n){currentStep=n;steps.forEach(s=>s.hidden=Number(s.dataset.step)!==n);progress.style.width=(n/3*100)+"%";backBtn.hidden=n===1;nextBtn.hidden=n===3;publishBtn.hidden=n!==3;statusBox.textContent="";window.scrollTo({top:0,behavior:"smooth"});}
+function validateStep(){const section=steps[currentStep-1];for(const el of section.querySelectorAll("input,select,textarea")){if(el.type==="radio"){if(el.required&&!form.querySelector('input[name="category"]:checked')){el.setCustomValidity("Please select a product category.");el.reportValidity();el.setCustomValidity("");return false;}continue;}if(!el.checkValidity()){el.reportValidity();return false;}}return true;}
+nextBtn.addEventListener("click",()=>{if(validateStep())showStep(Math.min(3,currentStep+1));});
+backBtn.addEventListener("click",()=>showStep(Math.max(1,currentStep-1)));
+const photoInput=document.getElementById("photos");
+photoInput.addEventListener("change",()=>{const files=[...photoInput.files];document.getElementById("photoNames").textContent=files.length?files.map(f=>`${f.name} (${(f.size/1024/1024).toFixed(1)} MB)`).join("\n"):"No photos selected yet.";});
+async function compressImage(file){
+ return new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);const max=1600,scale=Math.min(1,max/Math.max(img.width,img.height)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext("2d");ctx.drawImage(img,0,0,canvas.width,canvas.height);canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Could not compress a photo.")),"image/jpeg",.82);};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("One selected photo could not be opened."));};img.src=url;});
+}
+form.addEventListener("submit",async e=>{
+ e.preventDefault();if(currentStep!==3||!validateStep())return;
+ const button=publishBtn;button.disabled=true;button.textContent="Publishing...";statusBox.textContent="";
+ try{
+  if(!window.supabase)throw Error("Supabase library did not load. Check your internet connection.");
+  if(SUPABASE_URL.includes("PASTE_")||SUPABASE_ANON_KEY.includes("PASTE_"))throw Error("Please add your Supabase URL and anon/publishable key from post-electronics.html.");
+  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY),files=[...photoInput.files];
+  if(files.length>8)throw Error("Choose no more than 8 photos.");
+  if(files.some(f=>f.size>10*1024*1024))throw Error("Each original photo must be 10 MB or smaller.");
+  const {data:{user},error:userError}=await sb.auth.getUser();if(userError)throw userError;if(!user)throw Error("Please sign in before publishing.");
+  const urls=[];
+  for(const file of files){if(!file.type.startsWith("image/"))throw Error("Please select image files only.");const blob=await compressImage(file),safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-").replace(/\.[^.]+$/,"")+".jpg",path="products-goods/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;const {error}=await sb.storage.from(BUCKET).upload(path,blob,{cacheControl:"3600",upsert:false,contentType:"image/jpeg"});if(error)throw error;urls.push(sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl);}
+  const category=form.querySelector('input[name="category"]:checked').value,name=document.getElementById("productName").value.trim(),price=Number(document.getElementById("price").value),condition=document.getElementById("condition").value,quantity=Number(document.getElementById("quantity").value),brand=document.getElementById("brand").value.trim(),description=document.getElementById("description").value.trim(),region=document.getElementById("region").value,town=document.getElementById("town").value.trim(),phone=document.getElementById("phone").value.trim(),whatsapp=document.getElementById("whatsapp").value.trim(),website=document.getElementById("website").value.trim();
+  const row={user_id:user.id,title:name,listing_type:"Products & Goods",location:town+", "+region+", Ghana",description:"Product category: "+category+"\nCondition: "+condition+"\nPrice: GH₵ "+price.toFixed(2)+"\nQuantity available: "+quantity+(brand?"\nBrand: "+brand:"")+"\n\n"+description,phone,whatsapp:whatsapp||null,website:website||null,photo_urls:urls,featured:false,available:true};
+  const {error}=await sb.from("discover_listings").insert(row);if(error)throw error;
+  form.reset();document.getElementById("photoNames").textContent="No photos selected yet.";showStep(1);statusBox.textContent="Your product advert has been published successfully.";statusBox.style.color="#087443";
+ }catch(err){statusBox.textContent=err.message||"Something went wrong. Please try again.";statusBox.style.color="#b42318";console.error(err)}
+ finally{button.disabled=false;button.textContent="Publish advert";}
+});
+showStep(1);
+</script>
+</body>
+</html>
