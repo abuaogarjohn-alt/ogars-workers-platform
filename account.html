@@ -283,7 +283,7 @@
         const { error } = await supabaseClient.auth.signInWithOAuth({
           provider: "google",
           options: {
-            redirectTo: "https://ogarsmarket.com/account.html"
+            redirectTo: "https://ogarsmarket.com/index.html"
           }
         });
         if (error) throw error;
@@ -336,7 +336,7 @@
           showMessage(authMessage, "Your account has been created and you are signed in.", "success");
           await updateAccountDisplay();
         } else {
-          showMessage(authMessage, "Registration started. Check your email for the confirmation message, then return here to sign in.", "success");
+          showMessage(authMessage, "Account created successfully. Please check your email and confirm your address. After confirmation, return here and log in with your email and password.", "success");
         }
       } catch (error) {
         showMessage(authMessage, error.message || "We could not create your account. Please try again.", "error");
@@ -362,8 +362,8 @@
       try {
         const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        showMessage(authMessage, "Sign-in successful.", "success");
-        await updateAccountDisplay();
+        showMessage(authMessage, "Sign-in successful. Opening OGARS Platform...", "success");
+        window.location.href = "index.html";
       } catch (error) {
         showMessage(authMessage, error.message || "We could not sign you in. Please check your details.", "error");
       } finally {
