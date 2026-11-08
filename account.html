@@ -141,6 +141,7 @@
     const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
     const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
     const AUTH_STORAGE_KEY = "sb-pawqsmcswoypuiihfbrr-auth-token";
+    const isEmailConfirmationReturn = new URLSearchParams(window.location.search).get("confirmed") === "1";
 
     const authArea = document.getElementById("auth-area");
     const accountArea = document.getElementById("account-area");
@@ -323,7 +324,7 @@
           email,
           password,
           options: {
-            emailRedirectTo: window.location.origin + window.location.pathname,
+            emailRedirectTo: "https://ogarsmarket.com/account.html?confirmed=1",
             data: {
               full_name: fullName,
               phone_number: phoneNumber,
