@@ -959,8 +959,7 @@ document.getElementById("auth-form").addEventListener("submit",async function(ev
 
   if(error) throw error;
 
-  await updateAccountDisplay();
-
+  window.location.href = "index.html";
  } catch(error) {
 
   showMessage(
