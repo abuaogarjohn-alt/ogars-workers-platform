@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7655d9">
+<meta name="description" content="Your OGARS Platform customer dashboard.">
+<title>OGARS Platform | Customer Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--purple:#7655d9;--purple-dark:#5634b0;--lavender:#f0eaff;--navy:#252342;--muted:#77748b;--line:#ece7f7;--white:#fff}
+body{font-family:Arial,Helvetica,sans-serif;background:#f8f6ff;color:var(--navy);min-height:100vh;padding-bottom:82px}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.topbar{min-height:68px;background:linear-gradient(110deg,#7655d9,#5634b0);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:10px max(16px,calc((100% - 1050px)/2))}
+.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:40px;height:40px;border-radius:13px;background:#fff;color:var(--purple-dark);display:grid;place-items:center;font-size:23px;font-weight:900}.brand-title{font-size:20px;font-weight:900;letter-spacing:.5px}.brand-sub{font-size:10px;letter-spacing:2px}
+.header-actions{display:flex;align-items:center;gap:9px}.header-button{border:1px solid #ffffff70;background:#ffffff18;color:white;padding:9px 12px;border-radius:9px;font-size:12px;font-weight:700}
+.page{max-width:1050px;margin:auto;padding:19px 14px 30px}
+.welcome{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}.welcome h1{font-size:23px;color:#30245f}.welcome p{font-size:13px;color:var(--muted);margin-top:5px}
+.profile-banner{background:linear-gradient(120deg,#eee5ff,#d9c8ff);border:1px solid #dfd2ff;border-radius:22px;padding:19px 17px;display:flex;align-items:center;gap:15px;box-shadow:0 7px 22px rgba(64,42,125,.09);margin-bottom:22px}
+.avatar{width:76px;height:76px;border-radius:50%;border:4px solid white;background:linear-gradient(135deg,#7655d9,#b9a3f5);display:grid;place-items:center;color:white;font-size:27px;font-weight:800;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}
+.profile-info{min-width:0}.profile-info h2{font-size:21px;overflow-wrap:anywhere}.profile-info p{font-size:13px;color:#514575;margin-top:5px}.account-pill{display:inline-block;margin-top:8px;background:white;color:var(--purple-dark);padding:6px 11px;border-radius:30px;font-size:11px;font-weight:800}
+.section-title{font-size:18px;font-weight:800;margin:0 2px 12px}.tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{min-height:94px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 4px 13px rgba(44,31,89,.055);display:flex;align-items:center;gap:11px;padding:13px 12px;text-align:left;color:var(--navy);transition:transform .15s,border-color .15s;width:100%}.tile:active{transform:scale(.985)}.tile:hover{border-color:#cbb9f6}
+.tile-icon{width:43px;height:43px;border-radius:13px;background:var(--lavender);color:var(--purple-dark);display:grid;place-items:center;flex-shrink:0;font-size:21px}.tile-label{font-size:13px;font-weight:800;line-height:1.3}.tile-arrow{margin-left:auto;color:#8c7bb8;font-size:22px}.tile.promotions{background:linear-gradient(120deg,#eee5ff,#fff);border-color:#dfd2ff}.tile.settings{grid-column:1/-1;min-height:78px}
+.notice{margin-top:16px;padding:13px 14px;border-radius:13px;background:var(--lavender);color:#55418c;font-size:12px;line-height:1.6}
+.panel{display:none;margin-top:17px;padding:18px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px rgba(64,42,125,.06)}.panel.open{display:block}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.panel h3{font-size:18px;color:#30245f}.close-panel{border:0;background:var(--lavender);color:var(--purple-dark);border-radius:8px;padding:8px 11px;font-weight:700;font-size:12px}
+.detail-line{padding:11px 0;border-bottom:1px solid #f0edf7;font-size:13px;overflow-wrap:anywhere}.panel-note{font-size:13px;line-height:1.6;color:var(--muted)}.panel-link{display:inline-block;margin-top:13px;background:var(--purple);color:#fff;padding:11px 15px;border-radius:9px;font-size:13px;font-weight:800}
+.logout-button{width:100%;border:1px solid #f4d6dc;border-radius:10px;padding:13px;font-weight:800;margin-top:14px;background:#fff0f1;color:#a92338}
+.bottom-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e8e2f4;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 5px max(8px,env(safe-area-inset-bottom));box-shadow:0 -5px 18px rgba(44,31,89,.06)}
+.nav-item{border:0;background:transparent;color:#77748b;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 1px}.nav-icon{font-size:22px;line-height:1.2}.nav-item.active{color:var(--purple-dark)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#252044;color:#fff;padding:12px 17px;border-radius:12px;font-size:13px;display:none;z-index:40;max-width:90%;text-align:center;box-shadow:0 5px 18px #0002}
+.loading{max-width:480px;margin:65px auto;padding:20px;text-align:center;color:var(--muted);font-size:14px}
+footer{text-align:center;color:#89859a;font-size:11px;padding:15px}
+@media(min-width:700px){.tile-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.tile.settings{grid-column:auto}}
+@media(max-width:420px){.page{padding:14px 10px 24px}.profile-banner{padding:15px 11px;gap:10px}.avatar{width:66px;height:66px}.profile-info h2{font-size:18px}.tile{padding:11px 8px;gap:8px;min-height:88px}.tile-label{font-size:12px}.tile-icon{width:38px;height:38px}.welcome h1{font-size:20px}.header-button{padding:8px 9px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <a class="brand" href="index.html" aria-label="OGARS Platform home"><span class="brand-mark">O</span><span><span class="brand-title">OGARS</span><br><span class="brand-sub">PLATFORM</span></span></a>
+ <div class="header-actions"><a class="header-button" href="index.html">⌂ Homepage</a><button class="header-button" id="signout-top" type="button">Sign Out</button></div>
+</header>
+
+<main class="page" id="dashboard-content" hidden>
+ <div class="welcome"><div><h1>My Account</h1><p>Manage your OGARS activities in one place.</p></div></div>
+ <section class="profile-banner">
+  <div class="avatar" id="profile-avatar">O</div>
+  <div class="profile-info"><h2 id="profile-name">OGARS Customer</h2><p id="profile-subtitle">Your customer account</p><span class="account-pill">● Verified account session</span></div>
+ </section>
+
+ <h2 class="section-title">Your Dashboard</h2>
+ <section class="tile-grid" aria-label="Customer dashboard features">
+  <button class="tile" type="button" data-panel="adverts"><span class="tile-icon">📢</span><span class="tile-label">My Adverts</span><span class="tile-arrow">›</span></button>
+  <button class="tile" type="button" data-panel="saved"><span class="tile-icon">🔖</span><span class="tile-label">Saved Adverts</span><span class="tile-arrow">›</span></button>
+  <button class="tile" type="button" data-panel="notifications"><span class="tile-icon">🔔</span><span class="tile-label">Notifications</span><span class="tile-arrow">›</span></button>
+  <button class="tile promotions" type="button" data-panel="promotions"><span class="tile-icon">✨</span><span class="tile-label">My Promotions</span><span class="tile-arrow">›</span></button>
+  <button class="tile" type="button" data-panel="account"><span class="tile-icon">👤</span><span class="tile-label">My Account</span><span class="tile-arrow">›</span></button>
+  <button class="tile" type="button" data-panel="feedback"><span class="tile-icon">💬</span><span class="tile-label">Give Feedback</span><span class="tile-arrow">›</span></button>
+  <button class="tile" type="button" data-panel="help"><span class="tile-icon">❔</span><span class="tile-label">Help &amp; FAQ</span><span class="tile-arrow">›</span></button>
+  <button class="tile settings" type="button" data-panel="settings"><span class="tile-icon">⚙️</span><span class="tile-label">Account Settings</span><span class="tile-arrow">›</span></button>
+ </section>
+ <div class="notice">Welcome to OGARS Platform. Your account gives you a place to manage adverts and other activities. Some dashboard features will be connected in upcoming development stages.</div>
+
+ <section class="panel" id="panel-adverts"><div class="panel-head"><h3>My Adverts</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">View and manage adverts you have posted on OGARS Platform.</p><a class="panel-link" href="my-adverts.html">Open My Adverts →</a><a class="panel-link" href="advertise.html" style="margin-left:6px">＋ Post an Advert</a></section>
+ <section class="panel" id="panel-saved"><div class="panel-head"><h3>Saved Adverts</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Your saved adverts section will appear here when the save-advert feature is connected.</p></section>
+ <section class="panel" id="panel-notifications"><div class="panel-head"><h3>Notifications</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Important updates about your adverts and OGARS account will appear here when notifications are connected.</p></section>
+ <section class="panel" id="panel-promotions"><div class="panel-head"><h3>My Promotions</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Manage your promoted adverts here. Promotion management will be connected in a later stage.</p></section>
+ <section class="panel" id="panel-account"><div class="panel-head"><h3>My Account Details</h3><button class="close-panel" type="button">Close</button></div><div class="detail-line" id="detail-name"></div><div class="detail-line" id="detail-email"></div><div class="detail-line" id="detail-phone"></div><div class="detail-line" id="detail-whatsapp"></div></section>
+ <section class="panel" id="panel-feedback"><div class="panel-head"><h3>Give Feedback</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">We will add a feedback form here so customers can share suggestions about OGARS Platform.</p></section>
+ <section class="panel" id="panel-help"><div class="panel-head"><h3>Help &amp; FAQ</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Help articles and answers to common questions will be added here as the platform develops.</p></section>
+ <section class="panel" id="panel-settings"><div class="panel-head"><h3>Account Settings</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Your account information is shown in My Account. Additional settings will be added here in a future update.</p><button class="logout-button" id="signout-panel" type="button">Sign Out of OGARS</button></section>
+</main>
+
+<div class="loading" id="loading-message">Checking your OGARS account…</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<footer>© <span id="year"></span> OGARS Platform</footer>
+<nav class="bottom-nav" aria-label="Dashboard navigation">
+ <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+ <a class="nav-item" href="discover.html"><span class="nav-icon">▦</span><span>Explore</span></a>
+ <a class="nav-item" href="advertise.html"><span class="nav-icon">＋</span><span>Post Ad</span></a>
+ <button class="nav-item active" type="button" id="nav-profile"><span class="nav-icon">♙</span><span>Account</span></button>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
+const authStorage={
+ getItem(key){return window.localStorage.getItem(key)??window.sessionStorage.getItem(key)},
+ setItem(key,value){
+  if(window.localStorage.getItem(AUTH_STORAGE_KEY)){
+   window.localStorage.setItem(key,value);window.sessionStorage.removeItem(key);
+  }else{
+   window.sessionStorage.setItem(key,value);window.localStorage.removeItem(key);
+  }
+ },
+ removeItem(key){window.localStorage.removeItem(key);window.sessionStorage.removeItem(key)}
+};
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:authStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const $=id=>document.getElementById(id);
+function toast(message){$("toast").textContent=message;$("toast").style.display="block";clearTimeout(window.ogarsToastTimer);window.ogarsToastTimer=setTimeout(()=>$("toast").style.display="none",2800)}
+function showPanel(name){
+ document.querySelectorAll(".panel").forEach(panel=>panel.classList.remove("open"));
+ const panel=$("panel-"+name);
+ if(panel){panel.classList.add("open");panel.scrollIntoView({behavior:"smooth",block:"nearest"})}
+}
+document.querySelectorAll("[data-panel]").forEach(button=>button.addEventListener("click",()=>showPanel(button.dataset.panel)));
+document.querySelectorAll(".close-panel").forEach(button=>button.addEventListener("click",()=>button.closest(".panel").classList.remove("open")));
+$("nav-profile").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+$("year").textContent=new Date().getFullYear();
+
+async function loadCustomerDashboard(){
+ try{
+  const {data,error}=await supabaseClient.auth.getUser();
+  if(error||!data.user){
+   window.location.replace("account.html");
+   return;
+  }
+  const user=data.user,meta=user.user_metadata||{};
+  const name=meta.full_name||meta.name||(user.email?user.email.split("@")[0]:"OGARS Customer");
+  $("profile-name").textContent=name;
+  $("profile-subtitle").textContent=meta.location||"OGARS Customer Account";
+  $("detail-name").textContent="Name: "+name;
+  $("detail-email").textContent="Email: "+(user.email||"Not provided");
+  $("detail-phone").textContent="Phone: "+(meta.phone_number||"Not added");
+  $("detail-whatsapp").textContent="WhatsApp: "+(meta.whatsapp_number||"Not added");
+  const avatarUrl=meta.avatar_url||meta.picture||"";
+  if(avatarUrl){
+   const img=document.createElement("img");img.src=avatarUrl;img.alt="Customer profile picture";
+   img.onerror=()=>{img.remove();$("profile-avatar").textContent=initials(name)};
+   $("profile-avatar").replaceChildren(img);
+  }else{$("profile-avatar").textContent=initials(name)}
+  $("loading-message").hidden=true;
+  $("dashboard-content").hidden=false;
+ }catch(error){
+  console.error("OGARS dashboard authentication:",error);
+  $("loading-message").textContent="We couldn't verify your account. Please sign in again.";
+  setTimeout(()=>window.location.replace("account.html"),1800);
+ }
+}
+function initials(name){return String(name||"O").trim().split(/\s+/).slice(0,2).map(part=>part.charAt(0)).join("").toUpperCase()||"O"}
+async function signOut(){
+ try{
+  const {error}=await supabaseClient.auth.signOut();
+  if(error)throw error;
+  window.location.replace("account.html");
+ }catch(error){toast(error.message||"Sign out failed. Please try again.")}
+}
+$("signout-top").addEventListener("click",signOut);
+$("signout-panel").addEventListener("click",signOut);
+loadCustomerDashboard();
+</script>
+</body>
+</html>
