@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,1279 +5,198 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#7655d9">
 <title>OGARS Platform | My Account</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-:root{
- --purple:#7655d9;
- --purple-dark:#5634b0;
- --lavender:#f0eaff;
- --lavender-light:#f8f6ff;
- --navy:#252342;
- --muted:#77748b;
- --white:#fff;
- --line:#ece7f7;
-}
-
-body{
- font-family:Arial,Helvetica,sans-serif;
- background:#f8f6ff;
- color:var(--navy);
- min-height:100vh;
- padding-bottom:90px;
-}
-
-button,input{font:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-
-.topbar{
- height:68px;
- background:linear-gradient(110deg,#7655d9,#5634b0);
- color:white;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 17px;
-}
-
-.brand{
- display:flex;
- align-items:center;
- gap:11px;
-}
-
-.brand-mark{
- width:40px;
- height:40px;
- border-radius:13px;
- background:white;
- color:var(--purple-dark);
- display:grid;
- place-items:center;
- font-size:23px;
- font-weight:900;
-}
-
-.brand-title{
- font-size:20px;
- font-weight:900;
- letter-spacing:.5px;
-}
-
-.brand-sub{
- font-size:10px;
- letter-spacing:2px;
-}
-
-.icon-button{
- border:0;
- background:transparent;
- color:white;
- font-size:25px;
- padding:8px;
-}
-
-.page{
- max-width:720px;
- margin:auto;
- padding:17px 14px 30px;
-}
-
-/* PROFILE HEADER */
-
-.profile-banner{
- background:linear-gradient(120deg,#eee5ff,#d9c8ff);
- border:1px solid #dfd2ff;
- border-radius:22px;
- padding:19px 16px;
- display:flex;
- align-items:center;
- gap:15px;
- box-shadow:0 7px 22px rgba(64,42,125,.09);
- margin-bottom:22px;
-}
-
-.avatar{
- width:80px;
- height:80px;
- border-radius:50%;
- border:4px solid white;
- background:linear-gradient(135deg,#7655d9,#b9a3f5);
- display:grid;
- place-items:center;
- color:white;
- font-size:28px;
- font-weight:800;
- overflow:hidden;
- flex-shrink:0;
-}
-
-.avatar img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
-.profile-info{
- min-width:0;
-}
-
-.profile-info h1{
- font-size:22px;
- overflow-wrap:anywhere;
-}
-
-.profile-info p{
- font-size:13px;
- color:#514575;
- margin-top:5px;
-}
-
-.account-pill{
- display:inline-block;
- margin-top:9px;
- background:white;
- color:var(--purple-dark);
- padding:6px 12px;
- border-radius:30px;
- font-size:12px;
- font-weight:800;
-}
-
-/* DASHBOARD TILES */
-
-.section-title{
- font-size:18px;
- font-weight:800;
- margin:0 2px 13px;
-}
-
-.tile-grid{
- display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:11px;
-}
-
-.tile{
- min-height:94px;
- border:1px solid var(--line);
- border-radius:16px;
- background:white;
- box-shadow:0 4px 13px rgba(44,31,89,.055);
- display:flex;
- align-items:center;
- gap:10px;
- padding:12px 10px;
- text-align:left;
- color:var(--navy);
- transition:.15s;
-}
-
-.tile:active{
- transform:scale(.98);
-}
-
-.tile:hover{
- border-color:#cbb9f6;
-}
-
-.tile-icon{
- width:42px;
- height:42px;
- border-radius:13px;
- background:var(--lavender);
- color:var(--purple-dark);
- display:grid;
- place-items:center;
- flex-shrink:0;
- font-size:21px;
-}
-
-.tile-label{
- font-size:13px;
- font-weight:800;
- line-height:1.3;
-}
-
-.tile-arrow{
- margin-left:auto;
- color:#8c7bb8;
- font-size:22px;
-}
-
-.tile.promotions{
- background:linear-gradient(120deg,#eee5ff,#fff);
- border-color:#dfd2ff;
-}
-
-.tile.settings{
- grid-column:1/-1;
- min-height:76px;
-}
-
-.notice{
- margin-top:16px;
- padding:13px;
- border-radius:13px;
- background:var(--lavender);
- color:#55418c;
- font-size:12px;
- line-height:1.6;
-}
-
-/* ACCOUNT DETAILS */
-
-.account-details{
- display:none;
- margin-top:16px;
- padding:18px;
- background:white;
- border:1px solid var(--line);
- border-radius:16px;
- box-shadow:0 5px 18px rgba(64,42,125,.07);
-}
-
-.account-details h2{
- font-size:18px;
- margin-bottom:10px;
-}
-
-.detail-line{
- padding:10px 0;
- border-bottom:1px solid #f0edf7;
- font-size:13px;
- overflow-wrap:anywhere;
-}
-
-.action-button{
- width:100%;
- border:0;
- border-radius:11px;
- padding:13px;
- font-weight:800;
- margin-top:12px;
-}
-
-.secondary-button{
- background:var(--lavender);
- color:var(--purple-dark);
-}
-
-.logout-button{
- background:#fff0f1;
- color:#a92338;
- border:1px solid #f4d6dc;
-}
-
-/* BOTTOM NAVIGATION */
-
-.bottom-nav{
- position:fixed;
- z-index:20;
- bottom:0;
- left:0;
- right:0;
- background:white;
- border-top:1px solid #e8e2f4;
- display:grid;
- grid-template-columns:repeat(5,1fr);
- padding:9px 5px max(9px,env(safe-area-inset-bottom));
- box-shadow:0 -5px 18px rgba(44,31,89,.06);
-}
-
-.nav-item{
- border:0;
- background:transparent;
- color:#77748b;
- display:flex;
- flex-direction:column;
- align-items:center;
- gap:4px;
- font-size:10px;
- font-weight:700;
- padding:3px 1px;
-}
-
-.nav-icon{
- font-size:23px;
- line-height:1.2;
-}
-
-.nav-item.active{
- color:var(--purple-dark);
-}
-
-.nav-item.sell .nav-icon{
- width:39px;
- height:39px;
- border-radius:14px;
- background:linear-gradient(135deg,#8c6bea,#5d3eb8);
- color:white;
- display:grid;
- place-items:center;
- margin-top:-13px;
- font-size:25px;
- box-shadow:0 4px 10px #7655d944;
-}
-
-/* LOGIN AND REGISTRATION */
-
-#auth-area{
- max-width:460px;
- margin:25px auto;
- padding:22px;
- background:white;
- border:1px solid var(--line);
- border-radius:19px;
- box-shadow:0 7px 22px rgba(64,42,125,.08);
-}
-
-#auth-area h1{
- font-size:24px;
- margin-bottom:5px;
- color:var(--purple-dark);
-}
-
-.intro{
- font-size:13px;
- color:var(--muted);
- margin-bottom:16px;
- line-height:1.5;
-}
-
-.field-label{
- display:block;
- font-size:13px;
- font-weight:700;
- margin:13px 0 6px;
-}
-
-.field{
- width:100%;
- padding:13px;
- border:1px solid #ded9ea;
- border-radius:10px;
- font-size:15px;
- outline:none;
- background:white;
- color:var(--navy);
-}
-
-.field:focus{
- border-color:var(--purple);
- box-shadow:0 0 0 3px #7655d91c;
-}
-
-.remember-row{
- display:flex;
- justify-content:space-between;
- gap:8px;
- align-items:center;
- margin-top:14px;
- font-size:12px;
-}
-
-.remember-row label{
- display:flex;
- align-items:center;
- gap:6px;
-}
-
-.auth-link{
- color:var(--purple-dark);
- font-weight:700;
- text-decoration:none;
-}
-
-.auth-button{
- width:100%;
- border:0;
- background:var(--purple);
- color:white;
- border-radius:10px;
- padding:13px;
- margin-top:12px;
- font-weight:800;
-}
-
-.auth-button.secondary{
- background:white;
- color:var(--purple-dark);
- border:1px solid #d9cff8;
-}
-
-.auth-button:disabled{
- opacity:.6;
-}
-
-.auth-prompt{
- text-align:center;
- font-size:13px;
- color:var(--muted);
- margin-top:15px;
-}
-
-.message{
- display:none;
- margin-top:13px;
- padding:12px;
- border-radius:10px;
- font-size:13px;
- overflow-wrap:anywhere;
-}
-
-.success{
- background:#eaf8ef;
- color:#176b38;
-}
-
-.error{
- background:#fff0f0;
- color:#a51d2d;
-}
-
-.toast{
- position:fixed;
- left:50%;
- bottom:95px;
- transform:translateX(-50%);
- background:#252044;
- color:white;
- padding:12px 17px;
- border-radius:12px;
- font-size:13px;
- display:none;
- z-index:40;
- max-width:90%;
- text-align:center;
- box-shadow:0 5px 18px #0002;
-}
-
-footer{
- text-align:center;
- color:#89859a;
- font-size:11px;
- padding:15px;
-}
-
-@media(max-width:380px){
- .profile-banner{
-  padding:15px 11px;
-  gap:10px;
- }
- .avatar{
-  width:68px;
-  height:68px;
- }
- .profile-info h1{
-  font-size:19px;
- }
- .tile{
-  padding:11px 8px;
-  gap:7px;
-  min-height:87px;
- }
- .tile-label{
-  font-size:12px;
- }
- .tile-icon{
-  width:37px;
-  height:37px;
- }
-}
+:root{--purple:#7655d9;--purple-dark:#5634b0;--lavender:#f0eaff;--navy:#252342;--muted:#77748b;--line:#ece7f7}
+body{font-family:Arial,Helvetica,sans-serif;background:#f8f6ff;color:var(--navy);min-height:100vh;padding-bottom:90px}
+button,input{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.topbar{height:68px;background:linear-gradient(110deg,#7655d9,#5634b0);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 17px}
+.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:40px;height:40px;border-radius:13px;background:white;color:var(--purple-dark);display:grid;place-items:center;font-size:23px;font-weight:900}.brand-title{font-size:20px;font-weight:900;letter-spacing:.5px}.brand-sub{font-size:10px;letter-spacing:2px}
+.icon-button{border:0;background:transparent;color:white;font-size:25px;padding:8px}.page{max-width:720px;margin:auto;padding:17px 14px 30px}
+.profile-banner{background:linear-gradient(120deg,#eee5ff,#d9c8ff);border:1px solid #dfd2ff;border-radius:22px;padding:19px 16px;display:flex;align-items:center;gap:15px;box-shadow:0 7px 22px rgba(64,42,125,.09);margin-bottom:22px}
+.avatar{width:80px;height:80px;border-radius:50%;border:4px solid white;background:linear-gradient(135deg,#7655d9,#b9a3f5);display:grid;place-items:center;color:white;font-size:28px;font-weight:800;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}.profile-info{min-width:0}.profile-info h1{font-size:22px;overflow-wrap:anywhere}.profile-info p{font-size:13px;color:#514575;margin-top:5px}.account-pill{display:inline-block;margin-top:9px;background:white;color:var(--purple-dark);padding:6px 12px;border-radius:30px;font-size:12px;font-weight:800}
+.section-title{font-size:18px;font-weight:800;margin:0 2px 13px}.tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.tile{min-height:94px;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:0 4px 13px rgba(44,31,89,.055);display:flex;align-items:center;gap:10px;padding:12px 10px;text-align:left;color:var(--navy);transition:.15s}.tile:active{transform:scale(.98)}.tile:hover{border-color:#cbb9f6}
+.tile-icon{width:42px;height:42px;border-radius:13px;background:var(--lavender);color:var(--purple-dark);display:grid;place-items:center;flex-shrink:0;font-size:21px}.tile-label{font-size:13px;font-weight:800;line-height:1.3}.tile-arrow{margin-left:auto;color:#8c7bb8;font-size:22px}.tile.promotions{background:linear-gradient(120deg,#eee5ff,#fff);border-color:#dfd2ff}.tile.settings{grid-column:1/-1;min-height:76px}
+.notice{margin-top:16px;padding:13px;border-radius:13px;background:var(--lavender);color:#55418c;font-size:12px;line-height:1.6}
+.account-details{display:none;margin-top:16px;padding:18px;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 18px rgba(64,42,125,.07)}.account-details h2{font-size:18px;margin-bottom:10px}.detail-line{padding:10px 0;border-bottom:1px solid #f0edf7;font-size:13px;overflow-wrap:anywhere}.action-button{width:100%;border:0;border-radius:11px;padding:13px;font-weight:800;margin-top:12px}.secondary-button{background:var(--lavender);color:var(--purple-dark)}.logout-button{background:#fff0f1;color:#a92338;border:1px solid #f4d6dc}
+.bottom-nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:white;border-top:1px solid #e8e2f4;display:grid;grid-template-columns:repeat(5,1fr);padding:9px 5px max(9px,env(safe-area-inset-bottom));box-shadow:0 -5px 18px rgba(44,31,89,.06)}
+.nav-item{border:0;background:transparent;color:#77748b;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 1px}.nav-icon{font-size:23px;line-height:1.2}.nav-item.active{color:var(--purple-dark)}.nav-item.sell .nav-icon{width:39px;height:39px;border-radius:14px;background:linear-gradient(135deg,#8c6bea,#5d3eb8);color:white;display:grid;place-items:center;margin-top:-13px;font-size:25px;box-shadow:0 4px 10px #7655d944}
+#auth-area{max-width:460px;margin:25px auto;padding:22px;background:white;border:1px solid var(--line);border-radius:19px;box-shadow:0 7px 22px rgba(64,42,125,.08)}
+#auth-area h1{font-size:24px;margin-bottom:5px;color:var(--purple-dark)}.intro{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}.field-label{display:block;font-size:13px;font-weight:700;margin:13px 0 6px}
+.field{width:100%;padding:13px;border:1px solid #ded9ea;border-radius:10px;font-size:15px;outline:none;background:white;color:var(--navy)}.field:focus{border-color:var(--purple);box-shadow:0 0 0 3px #7655d91c}
+.password-wrap{position:relative;width:100%}.password-wrap .field{padding-right:54px}.password-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:var(--purple-dark);font-size:20px;line-height:1;padding:7px;border-radius:7px;cursor:pointer}.password-toggle:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.remember-row{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:14px;font-size:12px}.remember-row label{display:flex;align-items:center;gap:6px}.auth-link{color:var(--purple-dark);font-weight:700;text-decoration:none}
+.auth-button{width:100%;border:0;background:var(--purple);color:white;border-radius:10px;padding:13px;margin-top:12px;font-weight:800}.auth-button.secondary{background:white;color:var(--purple-dark);border:1px solid #d9cff8}.auth-button:disabled{opacity:.6}.auth-prompt{text-align:center;font-size:13px;color:var(--muted);margin-top:15px}
+.message{display:none;margin-top:13px;padding:12px;border-radius:10px;font-size:13px;overflow-wrap:anywhere}.success{background:#eaf8ef;color:#176b38}.error{background:#fff0f0;color:#a51d2d}
+.toast{position:fixed;left:50%;bottom:95px;transform:translateX(-50%);background:#252044;color:white;padding:12px 17px;border-radius:12px;font-size:13px;display:none;z-index:40;max-width:90%;text-align:center;box-shadow:0 5px 18px #0002}
+footer{text-align:center;color:#89859a;font-size:11px;padding:15px}
+@media(max-width:380px){.profile-banner{padding:15px 11px;gap:10px}.avatar{width:68px;height:68px}.profile-info h1{font-size:19px}.tile{padding:11px 8px;gap:7px;min-height:87px}.tile-label{font-size:12px}.tile-icon{width:37px;height:37px}}
 </style>
 </head>
-
 <body>
-
-<!-- TOP BRAND HEADER -->
-
-<header class="topbar">
- <div class="brand">
-  <div class="brand-mark">O</div>
-  <div>
-   <div class="brand-title">OGARS</div>
-   <div class="brand-sub">PLATFORM</div>
-  </div>
- </div>
-
- <button class="icon-button" id="top-settings" type="button" aria-label="Settings">⚙</button>
-</header>
-
+<header class="topbar"><div class="brand"><div class="brand-mark">O</div><div><div class="brand-title">OGARS</div><div class="brand-sub">PLATFORM</div></div></div><button class="icon-button" id="top-settings" type="button" aria-label="Settings">⚙</button></header>
 <main>
-
-<!-- LOGIN AND REGISTRATION -->
-
 <section id="auth-area" class="hidden">
-
- <h1 id="auth-title">Welcome back!</h1>
- <p class="intro" id="auth-intro">Sign in to manage your OGARS account.</p>
-
- <form id="auth-form">
-
-  <div id="signup-details" class="hidden">
-
-   <label class="field-label" for="full-name">Full name</label>
-   <input class="field" type="text" id="full-name" autocomplete="name" maxlength="120">
-
-   <label class="field-label" for="phone-number">Phone number</label>
-   <input class="field" type="tel" id="phone-number" autocomplete="tel">
-
-   <label class="field-label" for="whatsapp-number">WhatsApp number</label>
-   <input class="field" type="tel" id="whatsapp-number">
-
-  </div>
-
-  <label class="field-label" for="email">Email address</label>
-  <input class="field" type="email" id="email" autocomplete="email" required>
-
-  <label class="field-label" for="password">Password</label>
-  <input class="field" type="password" id="password" minlength="6" autocomplete="current-password" required>
-
-  <div id="confirm-area" class="hidden">
-   <label class="field-label" for="confirm-password">Confirm password</label>
-   <input class="field" type="password" id="confirm-password" minlength="6">
-  </div>
-
-  <div class="remember-row">
-   <label>
-    <input type="checkbox" id="remember-me">
-    Keep me logged in
-   </label>
-
-   <a href="#" class="auth-link" id="forgot-password">Forgot password?</a>
-  </div>
-
-  <button class="auth-button" type="submit" id="login-button">Login</button>
-
-  <button class="auth-button secondary" type="button" id="signup-button">
-   Create Account
-  </button>
-
-  <button class="auth-button secondary" type="button" id="google-button">
-   Continue with Google
-  </button>
-
-  <p class="auth-prompt" id="mode-prompt">
-   Don't have an account?
-   <a href="#" class="auth-link" id="mode-link">Create account</a>
-  </p>
-
- </form>
-
- <div id="auth-message" class="message" role="status" aria-live="polite"></div>
-
- <p class="auth-prompt">
-  <a href="index.html" class="auth-link">Skip for now — enter as a visitor</a>
- </p>
-
+<h1 id="auth-title">Welcome back!</h1><p class="intro" id="auth-intro">Sign in to manage your OGARS account.</p>
+<form id="auth-form">
+<div id="signup-details" class="hidden">
+<label class="field-label" for="full-name">Full name</label><input class="field" type="text" id="full-name" autocomplete="name" maxlength="120">
+<label class="field-label" for="phone-number">Phone number</label><input class="field" type="tel" id="phone-number" autocomplete="tel">
+<label class="field-label" for="whatsapp-number">WhatsApp number</label><input class="field" type="tel" id="whatsapp-number">
+</div>
+<label class="field-label" for="email">Email address</label><input class="field" type="email" id="email" autocomplete="email" required>
+<label class="field-label" for="password">Password</label>
+<div class="password-wrap"><input class="field" type="password" id="password" minlength="6" autocomplete="current-password" required><button class="password-toggle" type="button" data-password="password" aria-label="Show password" title="Show password">👁</button></div>
+<div id="confirm-area" class="hidden"><label class="field-label" for="confirm-password">Confirm password</label><div class="password-wrap"><input class="field" type="password" id="confirm-password" minlength="6"><button class="password-toggle" type="button" data-password="confirm-password" aria-label="Show password" title="Show password">👁</button></div></div>
+<div class="remember-row"><label><input type="checkbox" id="remember-me"> Keep me logged in</label><a href="#" class="auth-link" id="forgot-password">Forgot password?</a></div>
+<button class="auth-button" type="submit" id="login-button">Login</button><button class="auth-button secondary" type="button" id="signup-button">Create Account</button><button class="auth-button secondary" type="button" id="google-button">Continue with Google</button>
+<p class="auth-prompt" id="mode-prompt">Don't have an account? <a href="#" class="auth-link" id="mode-link">Create account</a></p>
+</form>
+<div id="auth-message" class="message" role="status" aria-live="polite"></div>
+<p class="auth-prompt"><a href="index.html" class="auth-link">Skip for now — enter as a visitor</a></p>
 </section>
-
-
-<!-- CUSTOMER DASHBOARD -->
-
 <section id="dashboard" class="hidden">
-
- <div class="page">
-
-  <!-- CUSTOMER PROFILE BANNER -->
-
-  <section class="profile-banner">
-
-   <div class="avatar" id="profile-avatar">
-    <span id="avatar-initials">O</span>
-   </div>
-
-   <div class="profile-info">
-    <h1 id="profile-name">My Account</h1>
-    <p id="profile-subtitle">OGARS Customer Account</p>
-    <span class="account-pill">● My Account</span>
-   </div>
-
-  </section>
-
-  <h2 class="section-title">Your Dashboard</h2>
-
-  <!-- DASHBOARD TILES -->
-
-  <section class="tile-grid">
-
-   <button class="tile" id="my-adverts-button" type="button">
-    <span class="tile-icon">📢</span>
-    <span class="tile-label">My Adverts</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile" data-coming="Saved Adverts" type="button">
-    <span class="tile-icon">🔖</span>
-    <span class="tile-label">Saved Adverts</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile" data-coming="Notifications" type="button">
-    <span class="tile-icon">🔔</span>
-    <span class="tile-label">Notifications</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile promotions" data-coming="My Promotions" type="button">
-    <span class="tile-icon">✨</span>
-    <span class="tile-label">My Promotions</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile" id="my-account-button" type="button">
-    <span class="tile-icon">👤</span>
-    <span class="tile-label">My Account</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile" data-coming="Give Feedback" type="button">
-    <span class="tile-icon">💬</span>
-    <span class="tile-label">Give Feedback</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile" data-coming="Help & FAQ" type="button">
-    <span class="tile-icon">❔</span>
-    <span class="tile-label">Help &amp; FAQ</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-   <button class="tile settings" id="account-settings-button" type="button">
-    <span class="tile-icon">⚙️</span>
-    <span class="tile-label">Account Settings</span>
-    <span class="tile-arrow">›</span>
-   </button>
-
-  </section>
-
-  <div class="notice">
-   Welcome to OGARS Platform. Manage your adverts and account from one convenient place.
-  </div>
-
-  <!-- ACCOUNT DETAILS PANEL -->
-
-  <section class="account-details" id="account-details">
-
-   <h2>My Account Details</h2>
-
-   <div class="detail-line" id="detail-name"></div>
-   <div class="detail-line" id="detail-email"></div>
-   <div class="detail-line" id="detail-phone"></div>
-   <div class="detail-line" id="detail-whatsapp"></div>
-
-   <button class="action-button secondary-button" id="close-details" type="button">
-    Close Account Details
-   </button>
-
-   <button class="action-button logout-button" id="logout-button" type="button">
-    Sign Out
-   </button>
-
-   <div id="account-message" class="message"></div>
-
-  </section>
-
- </div>
-
- <!-- BOTTOM NAVIGATION -->
-
- <nav class="bottom-nav" aria-label="Main navigation">
-
-  <button class="nav-item" id="nav-home" type="button">
-   <span class="nav-icon">⌂</span>
-   <span>Home</span>
-  </button>
-
-  <button class="nav-item" data-coming="Saved Adverts" type="button">
-   <span class="nav-icon">♡</span>
-   <span>Saved</span>
-  </button>
-
-  <button class="nav-item sell" data-coming="Sell" type="button">
-   <span class="nav-icon">＋</span>
-   <span>Sell</span>
-  </button>
-
-  <button class="nav-item" data-coming="Notifications" type="button">
-   <span class="nav-icon">♧</span>
-   <span>Notifications</span>
-  </button>
-
-  <button class="nav-item active" type="button">
-   <span class="nav-icon">♙</span>
-   <span>Profile</span>
-  </button>
-
- </nav>
-
+<div class="page">
+<section class="profile-banner"><div class="avatar" id="profile-avatar"><span id="avatar-initials">O</span></div><div class="profile-info"><h1 id="profile-name">My Account</h1><p id="profile-subtitle">OGARS Customer Account</p><span class="account-pill">● My Account</span></div></section>
+<h2 class="section-title">Your Dashboard</h2>
+<section class="tile-grid">
+<button class="tile" id="my-adverts-button" type="button"><span class="tile-icon">📢</span><span class="tile-label">My Adverts</span><span class="tile-arrow">›</span></button>
+<button class="tile" data-coming="Saved Adverts" type="button"><span class="tile-icon">🔖</span><span class="tile-label">Saved Adverts</span><span class="tile-arrow">›</span></button>
+<button class="tile" data-coming="Notifications" type="button"><span class="tile-icon">🔔</span><span class="tile-label">Notifications</span><span class="tile-arrow">›</span></button>
+<button class="tile promotions" data-coming="My Promotions" type="button"><span class="tile-icon">✨</span><span class="tile-label">My Promotions</span><span class="tile-arrow">›</span></button>
+<button class="tile" id="my-account-button" type="button"><span class="tile-icon">👤</span><span class="tile-label">My Account</span><span class="tile-arrow">›</span></button>
+<button class="tile" data-coming="Give Feedback" type="button"><span class="tile-icon">💬</span><span class="tile-label">Give Feedback</span><span class="tile-arrow">›</span></button>
+<button class="tile" data-coming="Help & FAQ" type="button"><span class="tile-icon">❔</span><span class="tile-label">Help &amp; FAQ</span><span class="tile-arrow">›</span></button>
+<button class="tile settings" id="account-settings-button" type="button"><span class="tile-icon">⚙️</span><span class="tile-label">Account Settings</span><span class="tile-arrow">›</span></button>
 </section>
-
+<div class="notice">Welcome to OGARS Platform. Manage your adverts and account from one convenient place.</div>
+<section class="account-details" id="account-details"><h2>My Account Details</h2><div class="detail-line" id="detail-name"></div><div class="detail-line" id="detail-email"></div><div class="detail-line" id="detail-phone"></div><div class="detail-line" id="detail-whatsapp"></div><button class="action-button secondary-button" id="close-details" type="button">Close Account Details</button><button class="action-button logout-button" id="logout-button" type="button">Sign Out</button><div id="account-message" class="message"></div></section>
+</div>
+<nav class="bottom-nav" aria-label="Main navigation">
+<button class="nav-item" id="nav-home" type="button"><span class="nav-icon">⌂</span><span>Home</span></button>
+<button class="nav-item" data-coming="Saved Adverts" type="button"><span class="nav-icon">♡</span><span>Saved</span></button>
+<button class="nav-item sell" data-coming="Sell" type="button"><span class="nav-icon">＋</span><span>Sell</span></button>
+<button class="nav-item" data-coming="Notifications" type="button"><span class="nav-icon">♧</span><span>Notifications</span></button>
+<button class="nav-item active" type="button"><span class="nav-icon">♙</span><span>Profile</span></button>
+</nav>
+</section>
 </main>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<footer id="footer">© 2026 OGARS Platform</footer>
-
-
-<!-- SUPABASE -->
-
+<div class="toast" id="toast" role="status" aria-live="polite"></div><footer id="footer">© 2026 OGARS Platform</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-
-const AUTH_STORAGE_KEY = "sb-pawqsmcswoypuiihfbrr-auth-token";
-
-const rememberInput = document.getElementById("remember-me");
-
-const authStorage = {
-
- getItem(key) {
-  return window.localStorage.getItem(key) ??
-         window.sessionStorage.getItem(key);
- },
-
- setItem(key,value) {
-  if(rememberInput.checked) {
-   window.localStorage.setItem(key,value);
-   window.sessionStorage.removeItem(key);
-  } else {
-   window.sessionStorage.setItem(key,value);
-   window.localStorage.removeItem(key);
-  }
- },
-
- removeItem(key) {
-  window.localStorage.removeItem(key);
-  window.sessionStorage.removeItem(key);
- }
-
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
+const rememberInput=document.getElementById("remember-me");
+const authStorage={
+ getItem(key){return window.localStorage.getItem(key)??window.sessionStorage.getItem(key)},
+ setItem(key,value){if(rememberInput.checked){window.localStorage.setItem(key,value);window.sessionStorage.removeItem(key)}else{window.sessionStorage.setItem(key,value);window.localStorage.removeItem(key)}},
+ removeItem(key){window.localStorage.removeItem(key);window.sessionStorage.removeItem(key)}
 };
-
-if(window.localStorage.getItem(AUTH_STORAGE_KEY)) {
- rememberInput.checked = true;
-}
-
-const supabaseClient = supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY,
- {
-  auth:{
-   storage:authStorage,
-   persistSession:true,
-   autoRefreshToken:true,
-   detectSessionInUrl:true
-  }
- }
-);
-
-const authArea = document.getElementById("auth-area");
-const dashboard = document.getElementById("dashboard");
-const authMessage = document.getElementById("auth-message");
-
-let isSignupMode = false;
-
-
-/* MESSAGES */
-
-function showMessage(element,message,type) {
- element.textContent = message;
- element.className = "message " + type;
- element.style.display = "block";
-}
-
-function clearMessage(element) {
- element.textContent = "";
- element.style.display = "none";
- element.className = "message";
-}
-
-function showToast(message) {
- const toast = document.getElementById("toast");
- toast.textContent = message;
- toast.style.display = "block";
-
- clearTimeout(window.ogarsToastTimer);
-
- window.ogarsToastTimer = setTimeout(function(){
-  toast.style.display = "none";
- },2800);
-}
-
-
-/* LOGIN AND REGISTRATION MODE */
-
-function setAuthMode(signupMode) {
-
- isSignupMode = signupMode;
-
- document.getElementById("signup-details")
-  .classList.toggle("hidden",!signupMode);
-
- document.getElementById("confirm-area")
-  .classList.toggle("hidden",!signupMode);
-
- document.getElementById("full-name").required = signupMode;
- document.getElementById("phone-number").required = signupMode;
- document.getElementById("whatsapp-number").required = signupMode;
- document.getElementById("confirm-password").required = signupMode;
-
- document.getElementById("signup-button")
-  .classList.toggle("hidden",!signupMode);
-
- document.getElementById("login-button")
-  .classList.toggle("hidden",signupMode);
-
- document.getElementById("auth-title").textContent =
-  signupMode ? "Create your account" : "Welcome back!";
-
- document.getElementById("auth-intro").textContent =
-  signupMode
-  ? "Register to manage your OGARS adverts."
-  : "Sign in to manage your OGARS account.";
-
- document.getElementById("mode-prompt").innerHTML =
-  signupMode
-  ? 'Already have an account? <a href="#" class="auth-link" id="mode-link">Login</a>'
-  : 'Don\'t have an account? <a href="#" class="auth-link" id="mode-link">Create account</a>';
-
- document.getElementById("mode-link").onclick = function(event){
-  event.preventDefault();
-  setAuthMode(!isSignupMode);
- };
-
- clearMessage(authMessage);
-}
-
-
-/* CUSTOMER DASHBOARD DISPLAY */
-
-async function updateAccountDisplay() {
-
- const {data,error} = await supabaseClient.auth.getUser();
-
- if(error || !data.user) {
-
-  dashboard.classList.add("hidden");
-  authArea.classList.remove("hidden");
-
-  document.getElementById("footer").style.display = "block";
-
-  return;
- }
-
- const user = data.user;
- const profile = user.user_metadata || {};
-
- const name =
-  profile.full_name ||
-  profile.name ||
-  user.email?.split("@")[0] ||
-  "OGARS Customer";
-
- document.getElementById("profile-name").textContent = name;
-
- document.getElementById("profile-subtitle").textContent =
-  profile.location || "OGARS Customer Account";
-
- const avatarUrl = profile.avatar_url || profile.picture || "";
-
- const avatarBox = document.getElementById("profile-avatar");
-
- if(avatarUrl) {
-
-  const image = document.createElement("img");
-
-  image.src = avatarUrl;
-  image.alt = "Customer profile picture";
-
-  avatarBox.replaceChildren(image);
-
- } else {
-
-  avatarBox.textContent = name
-   .trim()
-   .split(/\s+/)
-   .slice(0,2)
-   .map(part => part[0])
-   .join("")
-   .toUpperCase();
-
- }
-
- document.getElementById("detail-name").textContent =
-  "Name: " + name;
-
- document.getElementById("detail-email").textContent =
-  "Email: " + (user.email || "Not provided");
-
- document.getElementById("detail-phone").textContent =
-  "Phone: " + (profile.phone_number || "Not added");
-
- document.getElementById("detail-whatsapp").textContent =
-  "WhatsApp: " + (profile.whatsapp_number || "Not added");
-
- authArea.classList.add("hidden");
- dashboard.classList.remove("hidden");
-
- document.getElementById("footer").style.display = "none";
-
-}
-
-
-/* LOGIN */
-
-document.getElementById("auth-form").addEventListener("submit",async function(event){
-
- event.preventDefault();
-
- if(isSignupMode) return;
-
- clearMessage(authMessage);
-
- const email = document.getElementById("email").value.trim();
- const password = document.getElementById("password").value;
-
- const button = document.getElementById("login-button");
-
- button.disabled = true;
- button.textContent = "Signing in...";
-
- try {
-
-  const {error} = await supabaseClient.auth.signInWithPassword({
-   email:email,
-   password:password
-  });
-
-  if(error) throw error;
-
-  window.location.href = "index.html";
- } catch(error) {
-
-  showMessage(
-   authMessage,
-   error.message || "Login failed. Please check your details.",
-   "error"
-  );
-
- } finally {
-
-  button.disabled = false;
-  button.textContent = "Login";
-
- }
-
-});
-
-
-/* CREATE ACCOUNT */
-
-document.getElementById("signup-button").addEventListener("click",async function(){
-
- clearMessage(authMessage);
-
- const fullName = document.getElementById("full-name").value.trim();
- const phoneNumber = document.getElementById("phone-number").value.trim();
- const whatsappNumber = document.getElementById("whatsapp-number").value.trim();
- const email = document.getElementById("email").value.trim();
- const password = document.getElementById("password").value;
- const confirmPassword = document.getElementById("confirm-password").value;
-
- if(!fullName || !phoneNumber || !whatsappNumber || !email || !password) {
-
-  showMessage(authMessage,"Please complete all registration fields.","error");
-  return;
-
- }
-
- if(password.length < 6) {
-
-  showMessage(authMessage,"Your password must be at least 6 characters.","error");
-  return;
-
- }
-
- if(password !== confirmPassword) {
-
-  showMessage(authMessage,"Your passwords do not match.","error");
-  return;
-
- }
-
- const button = document.getElementById("signup-button");
-
- button.disabled = true;
- button.textContent = "Creating account...";
-
- try {
-
-  const {data,error} = await supabaseClient.auth.signUp({
-
-   email:email,
-   password:password,
-
-   options:{
-
-    emailRedirectTo:"https://ogarsmarket.com/account.html?confirmed=1",
-
-    data:{
-     full_name:fullName,
-     phone_number:phoneNumber,
-     whatsapp_number:whatsappNumber
-    }
-
-   }
-
-  });
-
-  if(error) throw error;
-
-  if(data.session) {
-
-   await updateAccountDisplay();
-   showToast("Your account has been created.");
-
-  } else {
-
-   showMessage(
-    authMessage,
-    "Account created successfully. Please check your email and confirm your address. Then return here and log in.",
-    "success"
-   );
-
-  }
-
- } catch(error) {
-
-  showMessage(
-   authMessage,
-   error.message || "We could not create your account. Please try again.",
-   "error"
-  );
-
- } finally {
-
-  button.disabled = false;
-  button.textContent = "Create Account";
-
- }
-
-});
-
-
-/* GOOGLE SIGN IN */
-
-document.getElementById("google-button").addEventListener("click",async function(){
-
- const button = document.getElementById("google-button");
-
- button.disabled = true;
- button.textContent = "Connecting to Google...";
-
- try {
-
-  const {error} = await supabaseClient.auth.signInWithOAuth({
-
-   provider:"google",
-
-   options:{
-    redirectTo:"https://ogarsmarket.com/account.html"
-   }
-
-  });
-
-  if(error) throw error;
-
- } catch(error) {
-
-  showMessage(
-   authMessage,
-   error.message || "Google sign-in could not start. Please try again.",
-   "error"
-  );
-
-  button.disabled = false;
-  button.textContent = "Continue with Google";
-
- }
-
-});
-
-
-/* FORGOT PASSWORD */
-
-document.getElementById("forgot-password").addEventListener("click",async function(event){
-
- event.preventDefault();
-
- const email = document.getElementById("email").value.trim();
-
- if(!email) {
-
-  showMessage(
-   authMessage,
-   "Enter your email address first, then tap Forgot password again.",
-   "error"
-  );
-
-  return;
-
- }
-
- try {
-
-  const {error} = await supabaseClient.auth.resetPasswordForEmail(
-   email,
-   {
-    redirectTo:window.location.origin + window.location.pathname
-   }
-  );
-
-  if(error) throw error;
-
-  showMessage(
-   authMessage,
-   "If an account exists for that email, a password-reset email will be sent. Check your inbox.",
-   "success"
-  );
-
- } catch(error) {
-
-  showMessage(
-   authMessage,
-   error.message || "We could not request a password reset.",
-   "error"
-  );
-
- }
-
-});
-
-
-/* MY ADVERTS */
-
-document.getElementById("my-adverts-button").addEventListener("click",function(){
-
- window.location.href = "my-adverts.html";
-
-});
-
-
-/* MY ACCOUNT AND SETTINGS */
-
-function openAccountDetails(){
-
- const details = document.getElementById("account-details");
-
- details.style.display = "block";
-
- details.scrollIntoView({
-  behavior:"smooth",
-  block:"nearest"
+if(window.localStorage.getItem(AUTH_STORAGE_KEY))rememberInput.checked=true;
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:authStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const authArea=document.getElementById("auth-area"),dashboard=document.getElementById("dashboard"),authMessage=document.getElementById("auth-message");
+let isSignupMode=false;
+function showMessage(element,message,type){element.textContent=message;element.className="message "+type;element.style.display="block"}
+function clearMessage(element){element.textContent="";element.style.display="none";element.className="message"}
+function showToast(message){const toast=document.getElementById("toast");toast.textContent=message;toast.style.display="block";clearTimeout(window.ogarsToastTimer);window.ogarsToastTimer=setTimeout(()=>toast.style.display="none",2800)}
+
+/* SHOW / HIDE PASSWORD */
+document.querySelectorAll(".password-toggle").forEach(button=>{
+ button.addEventListener("click",()=>{
+  const input=document.getElementById(button.dataset.password);
+  const showing=input.type==="password";
+  input.type=showing?"text":"password";
+  button.textContent=showing?"🙈":"👁";
+  button.setAttribute("aria-label",showing?"Hide password":"Show password");
+  button.title=showing?"Hide password":"Show password";
  });
+});
 
+function setAuthMode(signupMode){
+ isSignupMode=signupMode;
+ document.getElementById("signup-details").classList.toggle("hidden",!signupMode);
+ document.getElementById("confirm-area").classList.toggle("hidden",!signupMode);
+ document.getElementById("full-name").required=signupMode;
+ document.getElementById("phone-number").required=signupMode;
+ document.getElementById("whatsapp-number").required=signupMode;
+ document.getElementById("confirm-password").required=signupMode;
+ document.getElementById("signup-button").classList.toggle("hidden",!signupMode);
+ document.getElementById("login-button").classList.toggle("hidden",signupMode);
+ document.getElementById("auth-title").textContent=signupMode?"Create your account":"Welcome back!";
+ document.getElementById("auth-intro").textContent=signupMode?"Register to manage your OGARS adverts.":"Sign in to manage your OGARS account.";
+ document.getElementById("mode-prompt").innerHTML=signupMode?'Already have an account? <a href="#" class="auth-link" id="mode-link">Login</a>':'Don\'t have an account? <a href="#" class="auth-link" id="mode-link">Create account</a>';
+ document.getElementById("mode-link").onclick=event=>{event.preventDefault();setAuthMode(!isSignupMode)};
+ clearMessage(authMessage);
 }
-
+async function updateAccountDisplay(){
+ const {data,error}=await supabaseClient.auth.getUser();
+ if(error||!data.user){dashboard.classList.add("hidden");authArea.classList.remove("hidden");document.getElementById("footer").style.display="block";return}
+ const user=data.user,profile=user.user_metadata||{};
+ const name=profile.full_name||profile.name||user.email?.split("@")[0]||"OGARS Customer";
+ document.getElementById("profile-name").textContent=name;
+ document.getElementById("profile-subtitle").textContent=profile.location||"OGARS Customer Account";
+ const avatarUrl=profile.avatar_url||profile.picture||"",avatarBox=document.getElementById("profile-avatar");
+ if(avatarUrl){const image=document.createElement("img");image.src=avatarUrl;image.alt="Customer profile picture";avatarBox.replaceChildren(image)}
+ else{avatarBox.textContent=name.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join("").toUpperCase()}
+ document.getElementById("detail-name").textContent="Name: "+name;
+ document.getElementById("detail-email").textContent="Email: "+(user.email||"Not provided");
+ document.getElementById("detail-phone").textContent="Phone: "+(profile.phone_number||"Not added");
+ document.getElementById("detail-whatsapp").textContent="WhatsApp: "+(profile.whatsapp_number||"Not added");
+ authArea.classList.add("hidden");dashboard.classList.remove("hidden");document.getElementById("footer").style.display="none";
+}
+document.getElementById("auth-form").addEventListener("submit",async event=>{
+ event.preventDefault();if(isSignupMode)return;clearMessage(authMessage);
+ const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value,button=document.getElementById("login-button");
+ button.disabled=true;button.textContent="Signing in...";
+ try{const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;window.location.href="index.html"}
+ catch(error){showMessage(authMessage,error.message||"Login failed. Please check your details.","error")}
+ finally{button.disabled=false;button.textContent="Login"}
+});
+document.getElementById("signup-button").addEventListener("click",async()=>{
+ clearMessage(authMessage);
+ const fullName=document.getElementById("full-name").value.trim(),phoneNumber=document.getElementById("phone-number").value.trim(),whatsappNumber=document.getElementById("whatsapp-number").value.trim(),email=document.getElementById("email").value.trim(),password=document.getElementById("password").value,confirmPassword=document.getElementById("confirm-password").value;
+ if(!fullName||!phoneNumber||!whatsappNumber||!email||!password){showMessage(authMessage,"Please complete all registration fields.","error");return}
+ if(password.length<6){showMessage(authMessage,"Your password must be at least 6 characters.","error");return}
+ if(password!==confirmPassword){showMessage(authMessage,"Your passwords do not match.","error");return}
+ const button=document.getElementById("signup-button");button.disabled=true;button.textContent="Creating account...";
+ try{
+  const {data,error}=await supabaseClient.auth.signUp({email,password,options:{emailRedirectTo:"https://ogarsmarket.com/account.html?confirmed=1",data:{full_name:fullName,phone_number:phoneNumber,whatsapp_number:whatsappNumber}}});
+  if(error)throw error;
+  if(data.session){await updateAccountDisplay();showToast("Your account has been created.")}
+  else{showMessage(authMessage,"Account created successfully. Please check your email and confirm your address. Then return here and log in.","success")}
+ }catch(error){showMessage(authMessage,error.message||"We could not create your account. Please try again.","error")}
+ finally{button.disabled=false;button.textContent="Create Account"}
+});
+document.getElementById("google-button").addEventListener("click",async()=>{
+ const button=document.getElementById("google-button");button.disabled=true;button.textContent="Connecting to Google...";
+ try{const {error}=await supabaseClient.auth.signInWithOAuth({provider:"google",options:{redirectTo:"https://ogarsmarket.com/account.html"}});if(error)throw error}
+ catch(error){showMessage(authMessage,error.message||"Google sign-in could not start. Please try again.","error");button.disabled=false;button.textContent="Continue with Google"}
+});
+document.getElementById("forgot-password").addEventListener("click",async event=>{
+ event.preventDefault();const email=document.getElementById("email").value.trim();
+ if(!email){showMessage(authMessage,"Enter your email address first, then tap Forgot password again.","error");return}
+ try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});if(error)throw error;showMessage(authMessage,"If an account exists for that email, a password-reset email will be sent. Check your inbox.","success")}
+ catch(error){showMessage(authMessage,error.message||"We could not request a password reset.","error")}
+});
+document.getElementById("my-adverts-button").addEventListener("click",()=>window.location.href="my-adverts.html");
+function openAccountDetails(){const details=document.getElementById("account-details");details.style.display="block";details.scrollIntoView({behavior:"smooth",block:"nearest"})}
 document.getElementById("my-account-button").addEventListener("click",openAccountDetails);
-
 document.getElementById("account-settings-button").addEventListener("click",openAccountDetails);
-
 document.getElementById("top-settings").addEventListener("click",openAccountDetails);
-
-document.getElementById("close-details").addEventListener("click",function(){
-
- document.getElementById("account-details").style.display = "none";
-
+document.getElementById("close-details").addEventListener("click",()=>document.getElementById("account-details").style.display="none");
+document.getElementById("logout-button").addEventListener("click",async()=>{
+ const button=document.getElementById("logout-button");button.disabled=true;button.textContent="Signing out...";
+ try{const {error}=await supabaseClient.auth.signOut();if(error)throw error;dashboard.classList.add("hidden");authArea.classList.remove("hidden");document.getElementById("account-details").style.display="none";setAuthMode(false);showToast("You have signed out.")}
+ catch(error){showMessage(document.getElementById("account-message"),error.message||"Sign out failed. Please try again.","error")}
+ finally{button.disabled=false;button.textContent="Sign Out"}
 });
-
-
-/* SIGN OUT */
-
-document.getElementById("logout-button").addEventListener("click",async function(){
-
- const button = document.getElementById("logout-button");
-
- button.disabled = true;
- button.textContent = "Signing out...";
-
- try {
-
-  const {error} = await supabaseClient.auth.signOut();
-
-  if(error) throw error;
-
-  dashboard.classList.add("hidden");
-  authArea.classList.remove("hidden");
-
-  document.getElementById("account-details").style.display = "none";
-
-  setAuthMode(false);
-
-  showToast("You have signed out.");
-
- } catch(error) {
-
-  showMessage(
-   document.getElementById("account-message"),
-   error.message || "Sign out failed. Please try again.",
-   "error"
-  );
-
- } finally {
-
-  button.disabled = false;
-  button.textContent = "Sign Out";
-
- }
-
-});
-
-
-/* FUTURE DASHBOARD FEATURES */
-
-document.querySelectorAll("[data-coming]").forEach(function(button){
-
- button.addEventListener("click",function(){
-
-  showToast(
-   button.dataset.coming +
-   " will be available soon on OGARS Platform."
-  );
-
- });
-
-});
-
-
-/* HOME NAVIGATION */
-
-document.getElementById("nav-home").addEventListener("click",function(){
-
- window.location.href = "index.html";
-
-});
-
-
-/* INITIALISE ACCOUNT */
-
+document.querySelectorAll("[data-coming]").forEach(button=>button.addEventListener("click",()=>showToast(button.dataset.coming+" will be available soon on OGARS Platform.")));
+document.getElementById("nav-home").addEventListener("click",()=>window.location.href="index.html");
 setAuthMode(false);
-
-supabaseClient.auth.onAuthStateChange(function(){
-
- setTimeout(updateAccountDisplay,0);
-
-});
-
+supabaseClient.auth.onAuthStateChange(()=>setTimeout(updateAccountDisplay,0));
 updateAccountDisplay();
-
 </script>
-
 </body>
 </html>
