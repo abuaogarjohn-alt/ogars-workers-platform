@@ -51,9 +51,47 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);
 </section></main><footer>© 2026 OGARS. Trusted people. Real opportunities.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
+
+const authStorage={
+  getItem(key){
+    return window.localStorage.getItem(key) ??
+           window.sessionStorage.getItem(key);
+  },
+
+  setItem(key,value){
+    if(window.localStorage.getItem(AUTH_STORAGE_KEY)!==null){
+      window.localStorage.setItem(key,value);
+      window.sessionStorage.removeItem(key);
+    }else{
+      window.sessionStorage.setItem(key,value);
+      window.localStorage.removeItem(key);
+    }
+  },
+
+  removeItem(key){
+    window.localStorage.removeItem(key);
+    window.sessionStorage.removeItem(key);
+  }
+};
+
+const client=supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY,
+  {
+    auth:{
+      storage:authStorage,
+      persistSession:true,
+      autoRefreshToken:true,
+      detectSessionInUrl:true
+    }
+  }
+);
+
 const $=id=>document.getElementById(id),form=$("advertise-form"),category=$("listing-type"),purpose=$("advert-purpose"),dynamic=$("dynamic-fields");
 const regionSelect=$("region"),townSelect=$("town"),otherTownWrap=$("other-town-wrap"),otherTownInput=$("other-town");
 const photoInput=$("listing-photos"),preview=$("preview-grid"),photoCount=$("photo-count"),submit=$("submit-button"),message=$("message");
