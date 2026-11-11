@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#542B9A">
-<title>Post Agriculture &amp; Food Advert | OGARS PLATFORM</title>
+<title>Post Agriculture &amp; Food Advert | OGARS MARKET</title>
 <style>
 :root{--purple:#512A91;--deep:#38166f;--lav:#f1eaff;--navy:#171638;--muted:#706b8c;--border:#e5dcf7;--page:#faf9fd}
 *{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}
@@ -25,7 +25,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);
 .bottomlink{display:block;text-align:center;margin-top:18px;color:var(--purple);font-weight:bold;text-decoration:none}footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
 @media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}#preview-grid{grid-template-columns:repeat(2,1fr)}.header{padding:16px 13px}.brand-icon{width:44px;height:44px;font-size:28px}.container{padding:16px 12px 30px}.card{border-radius:18px}}
 </style></head><body>
-<header class="header"><a class="back" href="advertise.html" aria-label="Back to categories">‹</a><div class="brand-icon" aria-hidden="true">🌾</div><div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Post an Agriculture &amp; Food advert in Ghana</p></div></header>
+<header class="header"><a class="back" href="advertise.html" aria-label="Back to categories">‹</a><div class="brand-icon" aria-hidden="true">🌾</div><div class="brand-copy"><h1>OGARS<br>MARKET</h1><p>Post an Agriculture &amp; Food advert in Ghana</p></div></header>
 <main class="container"><section class="card">
 <p class="intro">Advertise farm produce, grains and foodstuff, farm inputs, poultry, fish and seafood, livestock, processed foods, farm equipment and agricultural services.</p>
 <form id="advertise-form">
@@ -48,12 +48,24 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);
 <p id="photo-count" class="small-note" aria-live="polite">No photos selected yet.</p><div id="preview-grid"></div></div>
 <div id="message" class="message" role="status" aria-live="polite"></div><button id="submit-button" class="submit" type="submit">Publish advert</button>
 </form><a class="bottomlink" href="advertise.html">← Back to all categories</a>
-</section></main><footer>© 2026 OGARS. Trusted people. Real opportunities.</footer>
+</section></main><footer>© 2026 OGARS MARKET. Trusted people. Real opportunities.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
+const authStorage={
+ getItem(key){return window.localStorage.getItem(key) ?? window.sessionStorage.getItem(key);},
+ setItem(key,value){
+  if(window.localStorage.getItem(AUTH_STORAGE_KEY)!==null){
+   window.localStorage.setItem(key,value);window.sessionStorage.removeItem(key);
+  }else{
+   window.sessionStorage.setItem(key,value);window.localStorage.removeItem(key);
+  }
+ },
+ removeItem(key){window.localStorage.removeItem(key);window.sessionStorage.removeItem(key);}
+};
+const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:authStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id),form=$("advertise-form"),category=$("listing-type"),purpose=$("advert-purpose"),dynamic=$("dynamic-fields");
 const regionSelect=$("region"),townSelect=$("town"),otherTownWrap=$("other-town-wrap"),otherTownInput=$("other-town");
 const photoInput=$("listing-photos"),preview=$("preview-grid"),photoCount=$("photo-count"),submit=$("submit-button"),message=$("message");
@@ -68,7 +80,7 @@ function addCategoryFields(){dynamic.innerHTML="";const c=category.value,p=purpo
 const choices={"Farm Produce & Vegetables":["Vegetables","Fruits","Root & tuber crops","Fresh herbs","Other produce"],"Grains & Foodstuff":["Maize","Rice","Beans & legumes","Millet / sorghum","Cassava / gari","Yam","Other foodstuff"],"Farm Inputs & Equipment":["Seeds & seedlings","Fertilizer","Pesticides / agrochemicals","Farm tools","Irrigation equipment","Other farm input"],"Poultry & Eggs":["Live chicken","Broiler","Layer","Eggs","Day-old chicks","Poultry feed","Other poultry product"],"Fish & Seafood":["Fresh fish","Frozen fish","Smoked fish","Dried fish","Seafood","Fish feed","Other"],"Livestock & Animal Products":["Cattle","Goats","Sheep","Pigs","Rabbits","Animal feed","Meat / animal products","Other"],"Processed Foods & Ingredients":["Cooking oil","Spices & seasonings","Flour","Canned / packaged foods","Beverages","Food ingredients","Other"],"Farms & Agricultural Services":["Farm management","Land preparation","Ploughing / tractor service","Planting / harvesting","Irrigation service","Agro transport","Other agricultural service"]};
 add("Product / service type","select",choices[c],"Choose type",true);
 if(service){add("Service name","text",null,"e.g. Tractor ploughing service",true);add("Service rate (GH₵)","number",null,"Enter rate or starting price",true);add("Service coverage","text",null,"Areas you serve",true);}
-else {add("Product name","text",null,"e.g. Fresh tomatoes, maize, eggs",true);if(sale)add("Price (GH₵)","number",null,"Enter selling price",true);else add("Maximum budget (GH₵)","number",null,"Enter your budget",true);add("Unit / package","select",["Per kg","Per bag","Per crate","Per basket","Per bunch","Per piece","Per bird / animal","Per box","Bulk / wholesale","Other"],"Choose unit",true);add("Quantity available","number",null,"e.g. 10",!wanted);if(["Farm Produce & Vegetables","Fish & Seafood","Poultry & Eggs","Livestock & Animal Products"].includes(c))add("Freshness / product state","select",["Fresh","Frozen","Live","Smoked","Dried","Processed","Not applicable","Other"],"Choose state");}
+else{add("Product name","text",null,"e.g. Fresh tomatoes, maize, eggs",true);if(sale)add("Price (GH₵)","number",null,"Enter selling price",true);else add("Maximum budget (GH₵)","number",null,"Enter your budget",true);add("Unit / package","select",["Per kg","Per bag","Per crate","Per basket","Per bunch","Per piece","Per bird / animal","Per box","Bulk / wholesale","Other"],"Choose unit",true);add("Quantity available","number",null,"e.g. 10",!wanted);if(["Farm Produce & Vegetables","Fish & Seafood","Poultry & Eggs","Livestock & Animal Products"].includes(c))add("Freshness / product state","select",["Fresh","Frozen","Live","Smoked","Dried","Processed","Not applicable","Other"],"Choose state");}
 if(c==="Farm Inputs & Equipment"||c==="Farms & Agricultural Services")add("Brand / equipment details","text",null,"Brand, model or other details");
 add("Harvest / expiry date","date",null,"",false);
 const note=document.createElement("p");note.className="small-note full";note.textContent="Only relevant fields are shown. Add further details in the description below.";dynamic.appendChild(note);}
@@ -78,5 +90,40 @@ function canvasBlob(canvas,type,quality){return new Promise(resolve=>canvas.toBl
 async function compressPhoto(file){try{let bitmap;if("createImageBitmap"in window)bitmap=await createImageBitmap(file);else bitmap=await new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("This image format could not be opened."));};img.src=url;});const maxSide=1600,scale=Math.min(1,maxSide/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);if(bitmap.close)bitmap.close();let blob=await canvasBlob(canvas,"image/jpeg",.82);if(!blob)return file;if(blob.size>2.5*1024*1024){const smaller=await canvasBlob(canvas,"image/jpeg",.68);if(smaller&&smaller.size<blob.size)blob=smaller;}return new File([blob],file.name.replace(/\.[^.]+$/,"")+".jpg",{type:"image/jpeg",lastModified:Date.now()});}catch(err){console.warn("Photo compression skipped:",err);return file;}}
 photoInput.addEventListener("change",async()=>{const picked=Array.from(photoInput.files||[]);photoInput.value="";if(!picked.length)return;const accepted=picked.filter(f=>f.type.startsWith("image/")&&f.size<=10*1024*1024),rejected=picked.filter(f=>!f.type.startsWith("image/")||f.size>10*1024*1024);if(rejected.length)say(rejected.length+" file(s) skipped. Choose image files no larger than 10 MB each.","error");if(!accepted.length)return;photoCount.textContent="Optimizing "+accepted.length+" photo(s)...";for(const file of accepted)selectedPhotos.push(await compressPhoto(file));if(!rejected.length)clearMsg();drawPreviews();});
 function drawPreviews(){preview.innerHTML="";photoCount.textContent=selectedPhotos.length?selectedPhotos.length+" photo(s) ready to upload. You can add more or remove any photo.":"No photos selected yet.";selectedPhotos.forEach((file,i)=>{const reader=new FileReader();reader.onload=e=>{const box=document.createElement("div");box.className="preview";const img=document.createElement("img");img.src=e.target.result;img.alt="Photo preview";const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="×";b.setAttribute("aria-label","Remove photo");b.onclick=()=>{selectedPhotos.splice(i,1);drawPreviews();};box.append(img,b);preview.appendChild(box);};reader.readAsDataURL(file);});}
-form.addEventListener("submit",async e=>{e.preventDefault();if(submit.disabled)return;clearMsg();if(!category.value||!purpose.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please select a category, advert purpose, title and Ghana region/town.","error");return;}if(!form.reportValidity())return;submit.disabled=true;submit.textContent="Publishing...";try{const {data:userData,error:userError}=await client.auth.getUser();if(userError)throw new Error("We couldn't check your login. Please log in again.");const user=userData.user;if(!user){say("Please log in to publish an advert. Taking you to your OGARS account page...","error");submit.disabled=false;submit.textContent="Publish advert";setTimeout(()=>location.href="account.html",1400);return;}const title=$("title").value.trim(),region=regionSelect.value,town=townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value,specific=$("specific-location").value.trim(),location=[town,region,specific].filter(Boolean).join(", "),details=["Agriculture & Food category: "+category.value,"Advert purpose: "+purpose.value,"Region: "+region,"Town / area: "+town];if(specific)details.push("Specific location: "+specific);dynamic.querySelectorAll("input,select").forEach(el=>{if(el.value.trim())details.push(el.dataset.label+": "+el.value.trim());});const description=[$("description").value.trim(),details.join("\n\n")].filter(Boolean).join("\n\n"),phone=$("phone").value.trim(),whatsapp=$("whatsapp").value.trim(),website=$("website").value.trim(),photoUrls=[];for(const file of selectedPhotos){const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-"),path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe,{error}=await client.storage.from("discover-photos").upload(path,file);if(error)throw new Error("Photo upload failed: "+error.message);const {data}=client.storage.from("discover-photos").getPublicUrl(path);if(data?.publicUrl)photoUrls.push(data.publicUrl);}const listing={user_id:user.id,title,listing_type:"Agriculture & Food",location:location||null,description:description||null,phone:phone||null,whatsapp:whatsapp||null,website:website||null,event_date:null,event_time:null,photo_urls:photoUrls.length?photoUrls.join(","):null,featured:false,available:true};const {error:insertError}=await client.from("discover_listings").insert([listing]);if(insertError)throw new Error("Advert could not be saved: "+insertError.message);form.reset();selectedPhotos=[];preview.innerHTML="";photoCount.textContent="No photos selected yet.";townSelect.disabled=true;fillSelect(townSelect,[],"Choose a region first");otherTownWrap.classList.add("hidden");otherTownInput.required=false;dynamic.innerHTML="";say("Your Agriculture & Food advert has been published successfully!","success");window.scrollTo({top:0,behavior:"smooth"});}catch(err){console.error("OGARS Agriculture & Food advert error:",err);say("Unable to publish your advert. "+(err.message||"Please try again."),"error");}finally{submit.disabled=false;submit.textContent="Publish advert";}});
+
+form.addEventListener("submit",async e=>{
+ e.preventDefault();if(submit.disabled)return;clearMsg();
+ if(!category.value||!purpose.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please select a category, advert purpose, title and Ghana region/town.","error");return;}
+ if(!form.reportValidity())return;
+ submit.disabled=true;submit.textContent="Publishing...";
+ try{
+  const {data:sessionData,error:sessionError}=await client.auth.getSession();
+  if(sessionError)throw new Error("We couldn't read your login session: "+sessionError.message);
+  let user=sessionData.session?.user||null;
+  if(!user){
+   const {data:userData,error:userError}=await client.auth.getUser();
+   if(userError)throw new Error("We couldn't verify your login: "+userError.message);
+   user=userData.user||null;
+  }
+  if(!user){say("Please log in to publish an advert. Taking you to your OGARS account page...","error");submit.disabled=false;submit.textContent="Publish advert";setTimeout(()=>location.href="account.html",1400);return;}
+  const title=$("title").value.trim(),region=regionSelect.value,town=townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value,specific=$("specific-location").value.trim(),location=[town,region,specific].filter(Boolean).join(", ");
+  const details=["Agriculture & Food category: "+category.value,"Advert purpose: "+purpose.value,"Region: "+region,"Town / area: "+town];
+  if(specific)details.push("Specific location: "+specific);
+  dynamic.querySelectorAll("input,select").forEach(el=>{if(el.value.trim())details.push(el.dataset.label+": "+el.value.trim());});
+  const description=[$("description").value.trim(),details.join("\n\n")].filter(Boolean).join("\n\n"),phone=$("phone").value.trim(),whatsapp=$("whatsapp").value.trim(),website=$("website").value.trim(),photoUrls=[];
+  for(const file of selectedPhotos){
+   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-"),path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;
+   const {error}=await client.storage.from("discover-photos").upload(path,file);
+   if(error)throw new Error("Photo upload failed: "+error.message);
+   const {data}=client.storage.from("discover-photos").getPublicUrl(path);
+   if(data?.publicUrl)photoUrls.push(data.publicUrl);
+  }
+  const listing={user_id:user.id,title,listing_type:"Agriculture & Food",location:location||null,description:description||null,phone:phone||null,whatsapp:whatsapp||null,website:website||null,event_date:null,event_time:null,photo_urls:photoUrls.length?photoUrls.join(","):null,featured:false,available:true};
+  const {error:insertError}=await client.from("discover_listings").insert([listing]);
+  if(insertError)throw new Error("Advert could not be saved: "+insertError.message);
+  form.reset();selectedPhotos=[];preview.innerHTML="";photoCount.textContent="No photos selected yet.";townSelect.disabled=true;fillSelect(townSelect,[],"Choose a region first");otherTownWrap.classList.add("hidden");otherTownInput.required=false;dynamic.innerHTML="";
+  say("Your Agriculture & Food advert has been published successfully!","success");window.scrollTo({top:0,behavior:"smooth"});
+ }catch(err){console.error("OGARS Agriculture & Food advert error:",err);say("Unable to publish your advert. "+(err.message||"Please try again."),"error");}
+ finally{submit.disabled=false;submit.textContent="Publish advert";}
+});
 </script></body></html>
