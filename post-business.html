@@ -385,10 +385,9 @@ async function uploadBusinessPhotos(user){
   for(const file of selectedPhotos){
    const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-");
 
-   const objectPath=
-    user.id+"/business/"+Date.now()+"-"+
-    Math.random().toString(36).slice(2,10)+"-"+safe;
-
+    const objectPath=
+ user.id+"/"+Date.now()+"-"+
+ Math.random().toString(36).slice(2,10)+"-"+safe;
    const {error:uploadError}=await sb.storage
     .from(BUCKET)
     .upload(objectPath,file,{
