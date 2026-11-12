@@ -1,64 +1,247 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#542B9A">
-<title>Post Skilled Workers Advert | OGARS PLATFORM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#542B9A">
+<title>Post Skilled Workers Advert | OGARS MARKET</title>
+
 <style>
 :root{--purple:#512A91;--deep:#38166f;--lav:#f1eaff;--navy:#171638;--muted:#706b8c;--border:#e5dcf7;--page:#faf9fd}
-*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}
-button,input,select,textarea{font:inherit}.header{background:linear-gradient(115deg,#6d28d9,#512A91 56%,#38166f);color:#fff;padding:18px 16px;display:flex;align-items:center;gap:13px}
-.back{font-size:30px;width:25px;min-width:25px;color:#fff;text-decoration:none;line-height:1}.brand-icon{width:48px;height:48px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:30px;flex-shrink:0}
-.brand-copy h1{font-size:clamp(22px,5vw,30px);line-height:1.05;margin:0;font-weight:800}.brand-copy p{margin:6px 0 0;color:#f0e8ff;font-size:14px}
-.container{max-width:760px;padding:22px 15px 38px;margin:0 auto}.card{background:#fff;border:1px solid #e8ddff;border-radius:21px;padding:clamp(18px,4vw,28px);box-shadow:0 5px 18px rgba(70,39,130,.08)}
-.intro,.help,.hint,.small-note{color:var(--muted);font-size:13px}.step{color:var(--purple);font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px}
-h2{font-size:21px;margin:0 0 5px}label{display:block;font-size:14px;font-weight:700;margin:17px 0 7px}
-.optional{font-size:12px;font-weight:normal;color:var(--muted)}input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid #d8d0e2;border-radius:12px;background:#fff;color:var(--navy);min-height:48px;max-width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px #542b9a1f}textarea{min-height:110px}
-.category{background:#f8f5ff;border-color:#bda8e6;font-weight:bold}.divider{border-top:1px solid var(--border);margin-top:24px;padding-top:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.full{grid-column:1/-1}.hidden{display:none!important}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--navy);font:16px/1.5 Arial,Helvetica,sans-serif}
+button,input,select,textarea{font:inherit}
+.header{background:linear-gradient(115deg,#6d28d9,#512A91 56%,#38166f);color:#fff;padding:18px 16px;display:flex;align-items:center;gap:13px}
+.back{font-size:30px;width:25px;min-width:25px;color:#fff;text-decoration:none;line-height:1}
+.brand-icon{width:48px;height:48px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:30px;flex-shrink:0}
+.brand-copy h1{font-size:clamp(22px,5vw,30px);line-height:1.05;margin:0;font-weight:800}
+.brand-copy p{margin:6px 0 0;color:#f0e8ff;font-size:14px}
+.container{max-width:760px;padding:22px 15px 38px;margin:0 auto}
+.card{background:#fff;border:1px solid #e8ddff;border-radius:21px;padding:clamp(18px,4vw,28px);box-shadow:0 5px 18px rgba(70,39,130,.08)}
+.intro,.help,.hint,.small-note{color:var(--muted);font-size:13px}
+.step{color:var(--purple);font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;margin:0 0 4px}
+h2{font-size:21px;margin:0 0 5px}
+label{display:block;font-size:14px;font-weight:700;margin:17px 0 7px}
+.optional{font-size:12px;font-weight:normal;color:var(--muted)}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid #d8d0e2;border-radius:12px;background:#fff;color:var(--navy);min-height:48px;max-width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px #542b9a1f}
+textarea{min-height:110px}
+.category{background:#f8f5ff;border-color:#bda8e6;font-weight:bold}
+.divider{border-top:1px solid var(--border);margin-top:24px;padding-top:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.full{grid-column:1/-1}
+.hidden{display:none!important}
 .photos{margin-top:8px;padding:17px;border:2px dashed #b9a2e5;border-radius:14px;text-align:center;background:#f8f5ff}
 .photo-button{display:inline-block;background:var(--purple);color:white;padding:12px 18px;border-radius:11px;cursor:pointer;margin:0}
-#listing-photos{position:absolute;opacity:0;width:1px;height:1px}#preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
-.preview{position:relative}.preview img{width:100%;height:100px;object-fit:cover;border-radius:10px}.remove{position:absolute;right:4px;top:4px;background:#b42335;color:white;border:0;border-radius:50%;width:26px;height:26px;cursor:pointer}
-.submit{width:100%;border:0;background:var(--purple);color:white;font-weight:bold;padding:15px;border-radius:12px;margin-top:23px;cursor:pointer}.submit:disabled{opacity:.65}
-.message{display:none;margin-top:14px;padding:12px;border-radius:10px;font-size:14px}.message.show{display:block}.error{background:#fff0f0;color:#9b1c2c}.success{background:#ecfdf3;color:#176b3a}
-.bottomlink{display:block;text-align:center;margin-top:18px;color:var(--purple);font-weight:bold;text-decoration:none}footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.full{grid-column:auto}#preview-grid{grid-template-columns:repeat(2,1fr)}.header{padding:16px 13px}.brand-icon{width:44px;height:44px;font-size:28px}.container{padding:16px 12px 30px}.card{border-radius:18px}}
-</style></head><body>
-<header class="header"><a class="back" href="advertise.html" aria-label="Back to categories">‹</a><div class="brand-icon" aria-hidden="true">🧰</div><div class="brand-copy"><h1>OGARS<br>PLATFORM</h1><p>Post a Skilled Workers advert in Ghana</p></div></header>
-<main class="container"><section class="card">
+#listing-photos{position:absolute;opacity:0;width:1px;height:1px}
+#preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.preview{position:relative}
+.preview img{width:100%;height:100px;object-fit:cover;border-radius:10px}
+.remove{position:absolute;right:4px;top:4px;background:#b42335;color:white;border:0;border-radius:50%;width:26px;height:26px;cursor:pointer}
+.submit{width:100%;border:0;background:var(--purple);color:white;font-weight:bold;padding:15px;border-radius:12px;margin-top:23px;cursor:pointer}
+.submit:disabled{opacity:.65;cursor:wait}
+.message{display:none;margin-top:14px;padding:12px;border-radius:10px;font-size:14px;overflow-wrap:anywhere}
+.message.show{display:block}
+.error{background:#fff0f0;color:#9b1c2c}
+.success{background:#ecfdf3;color:#176b3a}
+.bottomlink{display:block;text-align:center;margin-top:18px;color:var(--purple);font-weight:bold;text-decoration:none}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}
+@media(max-width:520px){
+.grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+#preview-grid{grid-template-columns:repeat(2,1fr)}
+.header{padding:16px 13px}
+.brand-icon{width:44px;height:44px;font-size:28px}
+.container{padding:16px 12px 30px}
+.card{border-radius:18px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<a class="back" href="advertise.html" aria-label="Back to categories">‹</a>
+<div class="brand-icon" aria-hidden="true">🧰</div>
+<div class="brand-copy">
+<h1>OGARS<br>MARKET</h1>
+<p>Post a Skilled Workers advert in Ghana</p>
+</div>
+</header>
+
+<main class="container">
+<section class="card">
+
 <p class="intro">Find skilled professionals or advertise your trade and services across Ghana.</p>
+
 <form id="advertise-form">
-<p class="step">Step 1 of 3</p><h2>Choose your category</h2><p class="help">Select the same Skilled Workers categories customers see on the OGARS homepage.</p>
-<label for="listing-type">Category *</label><select id="listing-type" class="category" required>
+
+<p class="step">Step 1 of 3</p>
+<h2>Choose your category</h2>
+<p class="help">Select the same Skilled Workers categories customers see on the OGARS homepage.</p>
+
+<label for="listing-type">Category *</label>
+<select id="listing-type" class="category" required>
 <option value="">Choose a category</option>
-<option>Makeup Artists</option><option>Refrigeration & AC Technicians</option><option>Appliance Repairers</option><option>Phone & Computer Repairers</option><option>IT & Web Developers</option><option>Drivers</option><option>Security Personnel</option><option>Gardeners & Landscapers</option><option>Writers & Graphic Designers</option><option>Photographers & Videographers</option><option>Other Skilled Workers</option><option>Plumbers</option><option>Electricians</option><option>Carpenters</option><option>Masons & Bricklayers</option><option>Painters</option><option>Welders & Metal Fabricators</option><option>Mechanics & Auto Technicians</option><option>Tailors & Fashion Designers</option><option>Hairdressers & Barbers</option>
+<option>Makeup Artists</option>
+<option>Refrigeration &amp; AC Technicians</option>
+<option>Appliance Repairers</option>
+<option>Phone &amp; Computer Repairers</option>
+<option>IT &amp; Web Developers</option>
+<option>Drivers</option>
+<option>Security Personnel</option>
+<option>Gardeners &amp; Landscapers</option>
+<option>Writers &amp; Graphic Designers</option>
+<option>Photographers &amp; Videographers</option>
+<option>Other Skilled Workers</option>
+<option>Plumbers</option>
+<option>Electricians</option>
+<option>Carpenters</option>
+<option>Masons &amp; Bricklayers</option>
+<option>Painters</option>
+<option>Welders &amp; Metal Fabricators</option>
+<option>Mechanics &amp; Auto Technicians</option>
+<option>Tailors &amp; Fashion Designers</option>
+<option>Hairdressers &amp; Barbers</option>
 </select>
-<div class="grid"><div class="full"><label for="advert-purpose">Advert purpose *</label><select id="advert-purpose" required><option value="">Choose purpose</option><option>Offering services</option><option>Looking for work</option></select></div></div>
-<div class="divider"><p class="step">Step 2 of 3</p><h2>Advert details</h2><p class="help">Tell customers what you are offering.</p></div>
-<label for="title">Advert title *</label><input id="title" maxlength="100" placeholder="e.g. Experienced plumber available in Accra" required>
-<div class="grid" id="ghana-location-fields"><div><label for="region">Region in Ghana *</label><select id="region" required><option value="">Choose a region</option></select></div><div><label for="town">Town / area *</label><select id="town" required disabled><option value="">Choose a region first</option></select></div>
-<div id="other-town-wrap" class="full hidden"><label for="other-town">Enter town / area *</label><input id="other-town" placeholder="Enter town or area"></div>
-<div class="full"><label for="specific-location">Specific location / landmark <span class="optional">(optional)</span></label><input id="specific-location" placeholder="e.g. Near Achimota Mall"></div></div>
+
+<label for="advert-purpose">Advert purpose *</label>
+<select id="advert-purpose" required>
+<option value="">Choose purpose</option>
+<option>Offering services</option>
+<option>Looking for work</option>
+</select>
+
+<div class="divider">
+<p class="step">Step 2 of 3</p>
+<h2>Advert details</h2>
+<p class="help">Tell customers what you are offering.</p>
+</div>
+
+<label for="title">Advert title *</label>
+<input id="title" maxlength="100" placeholder="e.g. Experienced plumber available in Accra" required>
+
+<div class="grid" id="ghana-location-fields">
+<div>
+<label for="region">Region in Ghana *</label>
+<select id="region" required>
+<option value="">Choose a region</option>
+</select>
+</div>
+
+<div>
+<label for="town">Town / area *</label>
+<select id="town" required disabled>
+<option value="">Choose a region first</option>
+</select>
+</div>
+
+<div id="other-town-wrap" class="full hidden">
+<label for="other-town">Enter town / area *</label>
+<input id="other-town" placeholder="Enter town or area">
+</div>
+
+<div class="full">
+<label for="specific-location">Specific location / landmark <span class="optional">(optional)</span></label>
+<input id="specific-location" placeholder="e.g. Near Achimota Mall">
+</div>
+</div>
+
 <div id="dynamic-fields" class="grid"></div>
-<label for="description">Description <span class="optional">(optional)</span></label><textarea id="description" placeholder="Describe your skills, experience, services offered, service area, availability and other important details..."></textarea>
-<div class="grid"><div><label for="phone">Phone number <span class="optional">(optional)</span></label><input id="phone" type="tel" placeholder="e.g. 0241234567"></div><div><label for="whatsapp">WhatsApp number <span class="optional">(optional)</span></label><input id="whatsapp" type="tel" placeholder="e.g. 0241234567"></div><div class="full"><label for="website">Website / social link <span class="optional">(optional)</span></label><input id="website" type="url" placeholder="https://example.com"></div></div>
-<div class="divider"><p class="step">Step 3 of 3</p><h2>Add photos</h2><p class="help">Add photos of your work, completed projects, tools or professional portfolio.</p></div>
-<div class="photos"><label class="photo-button" for="listing-photos">＋ Add photos</label><input id="listing-photos" type="file" accept="image/*" multiple>
-<p class="hint"><strong>Select several photos at once</strong> or tap Add photos again to add more. Maximum original size: <strong>10 MB per photo</strong>. Larger photos will be rejected. OGARS automatically resizes and compresses accepted photos.</p>
-<p id="photo-count" class="small-note" aria-live="polite">No photos selected yet.</p><div id="preview-grid"></div></div>
-<div id="message" class="message" role="status" aria-live="polite"></div><button id="submit-button" class="submit" type="submit">Publish advert</button>
-</form><a class="bottomlink" href="advertise.html">← Back to all categories</a>
-</section></main><footer>© 2026 OGARS. Trusted people. Real opportunities.</footer>
+
+<label for="description">Description <span class="optional">(optional)</span></label>
+<textarea id="description" maxlength="5000" placeholder="Describe your skills, experience, services offered, service area, availability and other important details..."></textarea>
+
+<div class="grid">
+<div>
+<label for="phone">Phone number <span class="optional">(optional)</span></label>
+<input id="phone" type="tel" maxlength="30" placeholder="e.g. 0241234567">
+</div>
+
+<div>
+<label for="whatsapp">WhatsApp number <span class="optional">(optional)</span></label>
+<input id="whatsapp" type="tel" maxlength="30" placeholder="e.g. 0241234567">
+</div>
+
+<div class="full">
+<label for="website">Website / social link <span class="optional">(optional)</span></label>
+<input id="website" type="url" maxlength="500" placeholder="https://example.com">
+</div>
+</div>
+
+<div class="divider">
+<p class="step">Step 3 of 3</p>
+<h2>Add photos</h2>
+<p class="help">Add photos of your work, completed projects, tools or professional portfolio.</p>
+</div>
+
+<div class="photos">
+<label class="photo-button" for="listing-photos">＋ Add photos</label>
+<input id="listing-photos" type="file" accept="image/*" multiple>
+
+<p class="hint">
+<strong>Select several photos at once</strong> or tap Add photos again.
+Maximum 5 photos, 10 MB per original photo.
+OGARS automatically resizes and compresses accepted photos.
+</p>
+
+<p id="photo-count" class="small-note" aria-live="polite">No photos selected yet.</p>
+<div id="preview-grid"></div>
+</div>
+
+<div id="message" class="message" role="status" aria-live="polite"></div>
+
+<button id="submit-button" class="submit" type="submit">Publish advert</button>
+
+</form>
+
+<a class="bottomlink" href="advertise.html">← Back to all categories</a>
+
+</section>
+</main>
+
+<footer>© 2026 OGARS MARKET. Trusted people. Real opportunities.</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+"use strict";
+
+/* EXISTING OGARS SUPABASE PROJECT */
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const $=id=>document.getElementById(id),form=$("advertise-form"),category=$("listing-type"),purpose=$("advert-purpose"),dynamic=$("dynamic-fields");
-const regionSelect=$("region"),townSelect=$("town"),otherTownWrap=$("other-town-wrap"),otherTownInput=$("other-town");
-const photoInput=$("listing-photos"),preview=$("preview-grid"),photoCount=$("photo-count"),submit=$("submit-button"),message=$("message");
+
+const BUCKET="discover-photos";
+const MAX_PHOTOS=5;
+const MAX_ORIGINAL_SIZE=10*1024*1024;
+const MAX_IMAGE_SIDE=1600;
+
+const client=window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
+
+const $=id=>document.getElementById(id);
+const form=$("advertise-form");
+const category=$("listing-type");
+const purpose=$("advert-purpose");
+const dynamic=$("dynamic-fields");
+const regionSelect=$("region");
+const townSelect=$("town");
+const otherTownWrap=$("other-town-wrap");
+const otherTownInput=$("other-town");
+const photoInput=$("listing-photos");
+const preview=$("preview-grid");
+const photoCount=$("photo-count");
+const submit=$("submit-button");
+const message=$("message");
+
 let selectedPhotos=[];
+let publishing=false;
+
+/* GHANA REGIONS AND TOWNS */
+
 const regionTowns={
 "Ahafo":["Goaso","Kenyasi","Bechem","Hwidiem","Duayaw Nkwanta","Other town / area"],
 "Ashanti":["Kumasi","Obuasi","Ejisu","Mampong","Konongo","Bekwai","Offinso","Ejura","Nkawie","Other town / area"],
@@ -77,81 +260,669 @@ const regionTowns={
 "Western":["Sekondi-Takoradi","Takoradi","Tarkwa","Axim","Bogoso","Prestea","Shama","Other town / area"],
 "Western North":["Sefwi Wiawso","Bibiani","Enchi","Juaboso","Dadieso","Other town / area"]
 };
-function fillSelect(select,items,placeholder){select.innerHTML="";const first=document.createElement("option");first.value="";first.textContent=placeholder;select.appendChild(first);items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;select.appendChild(o);});}
-fillSelect(regionSelect,Object.keys(regionTowns),"Choose a region");
-regionSelect.addEventListener("change",()=>{fillSelect(townSelect,regionTowns[regionSelect.value]||[],"Choose a town / area");townSelect.disabled=!regionSelect.value;otherTownWrap.classList.add("hidden");otherTownInput.required=false;});
-townSelect.addEventListener("change",()=>{const other=townSelect.value==="Other town / area";otherTownWrap.classList.toggle("hidden",!other);otherTownInput.required=other;});
-function addField(label,type="text",options=null,placeholder="",required=false,full=false){
- const wrap=document.createElement("div");if(full)wrap.className="full";const lab=document.createElement("label"),id="electronics-"+Math.random().toString(36).slice(2,10);lab.htmlFor=id;lab.textContent=label+(required?" *":"");wrap.appendChild(lab);let el;
- if(type==="select"){el=document.createElement("select");fillSelect(el,options||[],placeholder||"Choose an option");}
- else{el=document.createElement("input");el.type=type;el.placeholder=placeholder||"Enter "+label.toLowerCase();if(type==="number"){el.min="0";el.step="any";}}
- el.id=id;el.dataset.label=label;el.required=required;wrap.appendChild(el);dynamic.appendChild(wrap);return el;
+
+function fillSelect(select,items,placeholder){
+ select.innerHTML="";
+ const first=document.createElement("option");
+ first.value="";
+ first.textContent=placeholder;
+ select.appendChild(first);
+
+ items.forEach(value=>{
+  const option=document.createElement("option");
+  option.value=value;
+  option.textContent=value;
+  select.appendChild(option);
+ });
 }
-function addCategoryFields(){
- dynamic.innerHTML="";const c=category.value,p=purpose.value;if(!c||!p)return;const add=(...args)=>addField(...args);
- const offering=p==="Offering services",seeking=p==="Looking for work";
- const skills={
- "Makeup Artists":["Bridal makeup","Traditional / engagement makeup","Photoshoot makeup","Event makeup","Everyday makeup","Other"],
- "Refrigeration & AC Technicians":["Air conditioner installation","AC repair","AC servicing / maintenance","Refrigerator repair","Freezer repair","Cold-room installation / repair","Other"],
- "Appliance Repairers":["Washing machine repair","Cooker / oven repair","Microwave repair","Blender repair","Water dispenser repair","General appliance repair","Other"],
- "Phone & Computer Repairers":["Mobile phone repair","Tablet repair","Laptop repair","Desktop computer repair","Software troubleshooting","Data recovery","Other"],
- "IT & Web Developers":["Website design","Web development","Mobile app development","Software development","IT support","Networking","Database services","Other"],
- "Drivers":["Personal driver","Commercial driver","Delivery driver","Truck driver","Bus driver","Chauffeur","Other"],
- "Security Personnel":["Security guard","Event security","CCTV monitoring","Security supervisor","Bodyguard","Other"],
- "Gardeners & Landscapers":["Gardening","Lawn mowing","Landscape design","Tree trimming","Garden maintenance","Irrigation","Other"],
- "Writers & Graphic Designers":["Graphic design","Logo design","Content writing","Copywriting","Editing / proofreading","Illustration","Other"],
- "Photographers & Videographers":["Event photography","Wedding photography","Portrait photography","Product photography","Video shooting","Video editing","Drone filming","Other"],
- "Other Skilled Workers":["Describe your trade or skill","General skilled labour","Other"],
- "Plumbers":["Pipe installation","Leak repairs","Bathroom / kitchen plumbing","Drain cleaning","Water tank installation","Other"],
- "Electricians":["House wiring","Electrical repairs","Lighting installation","Generator installation / repair","Solar electrical work","Other"],
- "Carpenters":["Furniture making","Door / window fitting","Roof carpentry","Cabinet making","Furniture repair","Other"],
- "Masons & Bricklayers":["Block laying","Plastering","Tiling","Concrete work","Foundation work","Other"],
- "Painters":["Interior painting","Exterior painting","Spray painting","Wall preparation","Decorative painting","Other"],
- "Welders & Metal Fabricators":["Gate fabrication","Burglar-proof fabrication","Metal doors / windows","Welding repairs","Steel structures","Other"],
- "Mechanics & Auto Technicians":["Vehicle diagnostics","Engine repair","Electrical / wiring repair","Brake and suspension repair","General servicing","Other"],
- "Tailors & Fashion Designers":["Custom clothing","Alterations","Traditional wear","Bridal / occasion wear","Fashion design","Other"],
- "Hairdressers & Barbers":["Haircut / barbering","Hair braiding","Wig installation","Hair treatment","Hair styling","Other"]
- };
- if(offering){
-  add("Specific service","select",skills[c]||["General service","Other"],"Choose your service",true);
-  add("Years of experience","select",["New / trainee","Less than 1 year","1–2 years","3–5 years","6–10 years","More than 10 years"],"Choose experience");
-  add("Service arrangement","select",["At customer location","At my shop / workplace","Both","Remote / online"],"Choose arrangement",true);
-  add("Service area","text",null,"e.g. Accra, Tema, Kasoa",true);
-  add("Availability","select",["Available now","Weekdays","Weekends","By appointment","Flexible"],"Choose availability");
-  add("Starting price / service fee (GH₵)","text",null,"e.g. From GH₵150, negotiable");
+
+fillSelect(regionSelect,Object.keys(regionTowns),"Choose a region");
+
+regionSelect.addEventListener("change",()=>{
+ fillSelect(townSelect,regionTowns[regionSelect.value]||[],"Choose a town / area");
+ townSelect.disabled=!regionSelect.value;
+ otherTownWrap.classList.add("hidden");
+ otherTownInput.required=false;
+ otherTownInput.value="";
+});
+
+townSelect.addEventListener("change",()=>{
+ const other=townSelect.value==="Other town / area";
+ otherTownWrap.classList.toggle("hidden",!other);
+ otherTownInput.required=other;
+});
+
+/* DYNAMIC CATEGORY FIELDS */
+
+function addField(label,type="text",options=null,placeholder="",required=false,full=false){
+
+ const wrap=document.createElement("div");
+ if(full)wrap.className="full";
+
+ const lab=document.createElement("label");
+ const id="skilled-"+Math.random().toString(36).slice(2,11);
+
+ lab.htmlFor=id;
+ lab.textContent=label+(required?" *":"");
+ wrap.appendChild(lab);
+
+ let el;
+
+ if(type==="select"){
+  el=document.createElement("select");
+  fillSelect(el,options||[],placeholder||"Choose an option");
  }else{
+  el=document.createElement("input");
+  el.type=type;
+  el.placeholder=placeholder||"Enter "+label.toLowerCase();
+
+  if(type==="number"){
+   el.min="0";
+   el.step="any";
+  }
+ }
+
+ el.id=id;
+ el.dataset.label=label;
+ el.required=required;
+
+ wrap.appendChild(el);
+ dynamic.appendChild(wrap);
+
+ return el;
+}
+
+const skills={
+
+"Makeup Artists":["Bridal makeup","Traditional / engagement makeup","Photoshoot makeup","Event makeup","Everyday makeup","Other"],
+
+"Refrigeration & AC Technicians":["Air conditioner installation","AC repair","AC servicing / maintenance","Refrigerator repair","Freezer repair","Cold-room installation / repair","Other"],
+
+"Appliance Repairers":["Washing machine repair","Cooker / oven repair","Microwave repair","Blender repair","Water dispenser repair","General appliance repair","Other"],
+
+"Phone & Computer Repairers":["Mobile phone repair","Tablet repair","Laptop repair","Desktop computer repair","Software troubleshooting","Data recovery","Other"],
+
+"IT & Web Developers":["Website design","Web development","Mobile app development","Software development","IT support","Networking","Database services","Other"],
+
+"Drivers":["Personal driver","Commercial driver","Delivery driver","Truck driver","Bus driver","Chauffeur","Other"],
+
+"Security Personnel":["Security guard","Event security","CCTV monitoring","Security supervisor","Bodyguard","Other"],
+
+"Gardeners & Landscapers":["Gardening","Lawn mowing","Landscape design","Tree trimming","Garden maintenance","Irrigation","Other"],
+
+"Writers & Graphic Designers":["Graphic design","Logo design","Content writing","Copywriting","Editing / proofreading","Illustration","Other"],
+
+"Photographers & Videographers":["Event photography","Wedding photography","Portrait photography","Product photography","Video shooting","Video editing","Drone filming","Other"],
+
+"Other Skilled Workers":["Describe your trade or skill","General skilled labour","Other"],
+
+"Plumbers":["Pipe installation","Leak repairs","Bathroom / kitchen plumbing","Drain cleaning","Water tank installation","Other"],
+
+"Electricians":["House wiring","Electrical repairs","Lighting installation","Generator installation / repair","Solar electrical work","Other"],
+
+"Carpenters":["Furniture making","Door / window fitting","Roof carpentry","Cabinet making","Furniture repair","Other"],
+
+"Masons & Bricklayers":["Block laying","Plastering","Tiling","Concrete work","Foundation work","Other"],
+
+"Painters":["Interior painting","Exterior painting","Spray painting","Wall preparation","Decorative painting","Other"],
+
+"Welders & Metal Fabricators":["Gate fabrication","Burglar-proof fabrication","Metal doors / windows","Welding repairs","Steel structures","Other"],
+
+"Mechanics & Auto Technicians":["Vehicle diagnostics","Engine repair","Electrical / wiring repair","Brake and suspension repair","General servicing","Other"],
+
+"Tailors & Fashion Designers":["Custom clothing","Alterations","Traditional wear","Bridal / occasion wear","Fashion design","Other"],
+
+"Hairdressers & Barbers":["Haircut / barbering","Hair braiding","Wig installation","Hair treatment","Hair styling","Other"]
+
+};
+
+function addCategoryFields(){
+
+ dynamic.innerHTML="";
+
+ const c=category.value;
+ const p=purpose.value;
+
+ if(!c||!p)return;
+
+ const add=(...args)=>addField(...args);
+
+ const offering=p==="Offering services";
+ const seeking=p==="Looking for work";
+
+ if(offering){
+
+  add("Specific service","select",skills[c]||["General service","Other"],"Choose your service",true);
+
+  add("Years of experience","select",["New / trainee","Less than 1 year","1–2 years","3–5 years","6–10 years","More than 10 years"],"Choose experience");
+
+  add("Service arrangement","select",["At customer location","At my shop / workplace","Both","Remote / online"],"Choose arrangement",true);
+
+  add("Service area","text",null,"e.g. Accra, Tema, Kasoa",true);
+
+  add("Availability","select",["Available now","Weekdays","Weekends","By appointment","Flexible"],"Choose availability");
+
+  add("Starting price / service fee (GH₵)","text",null,"e.g. From GH₵150, negotiable");
+
+ }else if(seeking){
+
   add("Specific skill / job sought","select",skills[c]||["General work","Other"],"Choose your skill",true);
+
   add("Years of experience","select",["No experience","Less than 1 year","1–2 years","3–5 years","6–10 years","More than 10 years"],"Choose experience");
+
   add("Employment preference","select",["Full-time","Part-time","Contract","Temporary","Casual / daily work","Apprenticeship"],"Choose preference");
+
   add("Expected pay (GH₵)","text",null,"e.g. Daily, weekly or monthly amount");
+
   add("Availability","select",["Immediately","Within 1 week","Within 2 weeks","Within 1 month","Negotiable"],"Choose availability");
  }
+
  add("Qualifications / certificates","text",null,"List relevant certificates or training");
+
  add("Tools / equipment","text",null,"Tools you have or need, if relevant");
+
  add("Portfolio / work samples link","url",null,"Optional link to photos or previous work");
- const note=document.createElement("p");note.className="small-note full";note.textContent="Share genuine work experience and clear contact details. Do not post passwords, bank details or sensitive personal information.";dynamic.appendChild(note);
+
+ const note=document.createElement("p");
+ note.className="small-note full";
+ note.textContent="Share genuine work experience and clear contact details. Do not post passwords, bank details or sensitive personal information.";
+ dynamic.appendChild(note);
 }
-category.addEventListener("change",addCategoryFields);purpose.addEventListener("change",addCategoryFields);
-function say(text,kind){message.textContent=text;message.className="message show "+kind;message.scrollIntoView({behavior:"smooth",block:"center"});}function clearMsg(){message.textContent="";message.className="message";}
-function canvasBlob(canvas,type,quality){return new Promise(resolve=>canvas.toBlob(resolve,type,quality));}
+
+category.addEventListener("change",addCategoryFields);
+purpose.addEventListener("change",addCategoryFields);
+
+/* MESSAGES */
+
+function say(text,kind){
+ message.textContent=text;
+ message.className="message show "+kind;
+ message.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function clearMsg(){
+ message.textContent="";
+ message.className="message";
+}
+
+/* PHOTO COMPRESSION */
+
+function canvasBlob(canvas,type,quality){
+ return new Promise(resolve=>canvas.toBlob(resolve,type,quality));
+}
+
 async function compressPhoto(file){
- try{let bitmap;if("createImageBitmap" in window)bitmap=await createImageBitmap(file);else bitmap=await new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("This image format could not be opened."));};img.src=url;});
- const maxSide=1600,scale=Math.min(1,maxSide/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);if(bitmap.close)bitmap.close();let blob=await canvasBlob(canvas,"image/jpeg",0.82);if(!blob)return file;if(blob.size>2.5*1024*1024){const smaller=await canvasBlob(canvas,"image/jpeg",0.68);if(smaller&&smaller.size<blob.size)blob=smaller;}return new File([blob],file.name.replace(/\.[^.]+$/,"")+".jpg",{type:"image/jpeg",lastModified:Date.now()});
- }catch(err){console.warn("Photo compression skipped:",err);return file;}
+
+ let bitmap=null;
+
+ try{
+
+  if("createImageBitmap" in window){
+   bitmap=await createImageBitmap(file);
+  }else{
+
+   bitmap=await new Promise((resolve,reject)=>{
+
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+
+    img.onload=()=>{
+     URL.revokeObjectURL(url);
+     resolve(img);
+    };
+
+    img.onerror=()=>{
+     URL.revokeObjectURL(url);
+     reject(new Error("This image format could not be opened."));
+    };
+
+    img.src=url;
+   });
+  }
+
+  const scale=Math.min(
+   1,
+   MAX_IMAGE_SIDE/Math.max(bitmap.width,bitmap.height)
+  );
+
+  const canvas=document.createElement("canvas");
+
+  canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+  canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+
+  const ctx=canvas.getContext("2d");
+
+  if(!ctx)throw new Error("Image processing unavailable.");
+
+  ctx.fillStyle="#fff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+
+  if(bitmap.close)bitmap.close();
+  bitmap=null;
+
+  let blob=await canvasBlob(canvas,"image/jpeg",0.82);
+
+  if(!blob)throw new Error("Photo compression failed.");
+
+  if(blob.size>2.5*1024*1024){
+
+   const smaller=await canvasBlob(canvas,"image/jpeg",0.68);
+
+   if(smaller&&smaller.size<blob.size){
+    blob=smaller;
+   }
+  }
+
+  return new File(
+   [blob],
+   file.name.replace(/\.[^.]+$/,"")+".jpg",
+   {type:"image/jpeg",lastModified:Date.now()}
+  );
+
+ }catch(err){
+
+  if(bitmap&&bitmap.close)bitmap.close();
+
+  console.warn("Photo compression skipped:",err);
+
+  return file;
+ }
 }
-photoInput.addEventListener("change",async()=>{const picked=Array.from(photoInput.files||[]);photoInput.value="";if(!picked.length)return;const accepted=picked.filter(f=>f.type.startsWith("image/")&&f.size<=10*1024*1024),rejected=picked.filter(f=>!f.type.startsWith("image/")||f.size>10*1024*1024);if(rejected.length)say(rejected.length+" file(s) skipped. Choose image files no larger than 10 MB each.","error");if(!accepted.length)return;photoCount.textContent="Optimizing "+accepted.length+" photo(s)...";for(const file of accepted)selectedPhotos.push(await compressPhoto(file));if(!rejected.length)clearMsg();drawPreviews();});
-function drawPreviews(){preview.innerHTML="";photoCount.textContent=selectedPhotos.length?selectedPhotos.length+" photo(s) ready to upload. You can add more or remove any photo.":"No photos selected yet.";selectedPhotos.forEach((file,i)=>{const reader=new FileReader();reader.onload=e=>{const box=document.createElement("div");box.className="preview";const img=document.createElement("img");img.src=e.target.result;img.alt="Photo preview";const b=document.createElement("button");b.type="button";b.className="remove";b.textContent="×";b.setAttribute("aria-label","Remove photo");b.onclick=()=>{selectedPhotos.splice(i,1);drawPreviews();};box.append(img,b);preview.appendChild(box);};reader.readAsDataURL(file);});}
-form.addEventListener("submit",async e=>{
- e.preventDefault();if(submit.disabled)return;clearMsg();if(!category.value||!purpose.value||!$("title").value.trim()||!regionSelect.value||!townSelect.value||(townSelect.value==="Other town / area"&&!otherTownInput.value.trim())){say("Please select a category, advert purpose, title and Ghana region/town.","error");return;}if(!form.reportValidity())return;
- submit.disabled=true;submit.textContent="Publishing...";
- try{const {data:userData,error:userError}=await client.auth.getUser();if(userError)throw new Error("We couldn't check your login. Please log in again.");const user=userData.user;if(!user){say("Please log in to publish an advert. Taking you to your OGARS account page...","error");submit.disabled=false;submit.textContent="Publish advert";setTimeout(()=>location.href="account.html",1400);return;}
- const title=$("title").value.trim(),region=regionSelect.value,town=townSelect.value==="Other town / area"?otherTownInput.value.trim():townSelect.value,specific=$("specific-location").value.trim();const location=[town,region,specific].filter(Boolean).join(", ");
- const details=["Skilled Workers category: "+category.value,"Advert purpose: "+purpose.value,"Region: "+region,"Town / area: "+town];if(specific)details.push("Specific location: "+specific);dynamic.querySelectorAll("input,select").forEach(el=>{if(el.value.trim())details.push(el.dataset.label+": "+el.value.trim());});
- const description=[$("description").value.trim(),details.join("\n")].filter(Boolean).join("\n\n"),phone=$("phone").value.trim(),whatsapp=$("whatsapp").value.trim(),website=$("website").value.trim(),photoUrls=[];
- for(const file of selectedPhotos){const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-"),path=user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;const {error}=await client.storage.from("discover-photos").upload(path,file);if(error)throw new Error("Photo upload failed: "+error.message);const {data}=client.storage.from("discover-photos").getPublicUrl(path);if(data?.publicUrl)photoUrls.push(data.publicUrl);}
- const listing={user_id:user.id,title,listing_type:"Skilled Workers",location:location||null,description:description||null,phone:phone||null,whatsapp:whatsapp||null,website:website||null,event_date:null,event_time:null,photo_urls:photoUrls.length?photoUrls.join(","):null,featured:false,available:true};
- const {error:insertError}=await client.from("discover_listings").insert([listing]);if(insertError)throw new Error("Advert could not be saved: "+insertError.message);
- form.reset();selectedPhotos=[];preview.innerHTML="";photoCount.textContent="No photos selected yet.";townSelect.disabled=true;fillSelect(townSelect,[],"Choose a region first");otherTownWrap.classList.add("hidden");otherTownInput.required=false;dynamic.innerHTML="";say("Your Skilled Workers advert has been published successfully!","success");window.scrollTo({top:0,behavior:"smooth"});
- }catch(err){console.error("OGARS Skilled Workers advert error:",err);say("Unable to publish your advert. "+(err.message||"Please try again."),"error");}finally{submit.disabled=false;submit.textContent="Publish advert";}
+
+/* PHOTO PREVIEWS */
+
+function drawPreviews(){
+
+ preview.innerHTML="";
+
+ photoCount.textContent=selectedPhotos.length
+  ?selectedPhotos.length+" of "+MAX_PHOTOS+" photos ready. You can add more or remove any photo."
+  :"No photos selected yet.";
+
+ selectedPhotos.forEach((file,index)=>{
+
+  const box=document.createElement("div");
+  box.className="preview";
+
+  const img=document.createElement("img");
+  img.alt="Photo preview";
+
+  const url=URL.createObjectURL(file);
+  img.src=url;
+  img.onload=()=>URL.revokeObjectURL(url);
+
+  const button=document.createElement("button");
+  button.type="button";
+  button.className="remove";
+  button.textContent="×";
+  button.setAttribute("aria-label","Remove photo");
+
+  button.addEventListener("click",()=>{
+   selectedPhotos.splice(index,1);
+   drawPreviews();
+  });
+
+  box.append(img,button);
+  preview.appendChild(box);
+ });
+}
+
+photoInput.addEventListener("change",async()=>{
+
+ const picked=Array.from(photoInput.files||[]);
+ photoInput.value="";
+
+ if(!picked.length)return;
+
+ const remaining=MAX_PHOTOS-selectedPhotos.length;
+
+ if(remaining<=0){
+  say("You can upload a maximum of 5 photos.","error");
+  return;
+ }
+
+ const accepted=picked.filter(file=>
+  file.type.startsWith("image/")&&file.size<=MAX_ORIGINAL_SIZE
+ );
+
+ const rejected=picked.length-accepted.length;
+
+ if(rejected){
+  say(rejected+" file(s) skipped. Choose image files no larger than 10 MB each.","error");
+ }
+
+ if(accepted.length>remaining){
+  say("Only "+remaining+" more photo(s) can be added. Maximum is 5.","error");
+ }
+
+ const toProcess=accepted.slice(0,remaining);
+
+ if(!toProcess.length)return;
+
+ photoInput.disabled=true;
+ photoCount.textContent="Optimizing photos...";
+
+ try{
+
+  for(const file of toProcess){
+   selectedPhotos.push(await compressPhoto(file));
+  }
+
+  drawPreviews();
+
+  if(!rejected&&accepted.length<=remaining){
+   clearMsg();
+  }
+
+ }catch(error){
+
+  say("Some photos could not be processed. Please try again.","error");
+
+ }finally{
+
+  photoInput.disabled=false;
+ }
 });
-</script></body></html>
+
+/* FORM VALIDATION */
+
+function validateAdvert(){
+
+ if(!category.value||!purpose.value){
+  say("Please select a category and advert purpose.","error");
+  return false;
+ }
+
+ if(!$("title").value.trim()){
+  say("Please enter an advert title.","error");
+  $("title").focus();
+  return false;
+ }
+
+ if(!regionSelect.value||!townSelect.value){
+  say("Please select your Ghana region and town.","error");
+  return false;
+ }
+
+ if(townSelect.value==="Other town / area"&&!otherTownInput.value.trim()){
+  say("Please enter your town or area.","error");
+  otherTownInput.focus();
+  return false;
+ }
+
+ if(!form.reportValidity())return false;
+
+ return true;
+}
+
+/* CLEANUP OF FAILED PHOTO UPLOADS */
+
+async function removeUploadedFiles(paths){
+
+ if(!paths.length)return;
+
+ try{
+
+  const {error}=await client.storage
+   .from("discover-photos")
+   .remove(paths);
+
+  if(error){
+   console.warn("Storage cleanup warning:",error.message);
+  }
+
+ }catch(error){
+
+  console.warn("Storage cleanup failed:",error);
+ }
+}
+
+/* UPLOAD PHOTOS USING EXISTING OGARS STORAGE BUCKET */
+
+async function uploadPhotos(user){
+
+ const urls=[];
+ const paths=[];
+
+ try{
+
+  for(const file of selectedPhotos){
+
+   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-");
+
+   const path=
+    user.id+"/"+Date.now()+"-"+
+    Math.random().toString(36).slice(2,10)+"-"+safe;
+
+   const {error:uploadError}=await client.storage
+    .from("discover-photos")
+    .upload(path,file,{
+     cacheControl:"3600",
+     upsert:false,
+     contentType:file.type||"image/jpeg"
+    });
+
+   if(uploadError){
+    throw new Error(uploadError.message);
+   }
+
+   paths.push(path);
+
+   const {data}=client.storage
+    .from("discover-photos")
+    .getPublicUrl(path);
+
+   if(!data||!data.publicUrl){
+    throw new Error("Could not obtain the public photo link.");
+   }
+
+   urls.push(data.publicUrl);
+  }
+
+  return {urls,paths};
+
+ }catch(error){
+
+  await removeUploadedFiles(paths);
+
+  throw new Error("Photo upload failed: "+error.message);
+ }
+}
+
+/* PUBLISH ADVERT */
+
+form.addEventListener("submit",async event=>{
+
+ event.preventDefault();
+
+ if(publishing)return;
+
+ clearMsg();
+
+ if(!validateAdvert())return;
+
+ publishing=true;
+ submit.disabled=true;
+ photoInput.disabled=true;
+ submit.textContent="Checking account...";
+
+ let uploadedPaths=[];
+ let saved=false;
+
+ try{
+
+  const {data:userData,error:userError}=await client.auth.getUser();
+
+  if(userError){
+   console.error("OGARS Skilled Workers authentication error:",userError);
+   throw new Error("Login verification failed: "+userError.message);
+  }
+
+  const user=userData?.user;
+
+  if(!user){
+
+   say("Please log in to publish an advert. Taking you to your OGARS account page...","error");
+
+   setTimeout(()=>location.href="account.html",1500);
+
+   return;
+  }
+
+  const title=$("title").value.trim();
+
+  const region=regionSelect.value;
+
+  const town=townSelect.value==="Other town / area"
+   ?otherTownInput.value.trim()
+   :townSelect.value;
+
+  const specific=$("specific-location").value.trim();
+
+  const location=[
+   town,
+   region,
+   specific
+  ].filter(Boolean).join(", ");
+
+  const details=[
+   "Skilled Workers category: "+category.value,
+   "Advert purpose: "+purpose.value,
+   "Region: "+region,
+   "Town / area: "+town
+  ];
+
+  if(specific){
+   details.push("Specific location: "+specific);
+  }
+
+  dynamic.querySelectorAll("input,select").forEach(el=>{
+
+   const value=String(el.value||"").trim();
+
+   if(value){
+    details.push(el.dataset.label+": "+value);
+   }
+  });
+
+  const description=[
+   $("description").value.trim(),
+   details.join("\n")
+  ].filter(Boolean).join("\n\n");
+
+  const phone=$("phone").value.trim();
+  const whatsapp=$("whatsapp").value.trim();
+  const website=$("website").value.trim();
+
+  let photoUrls=[];
+
+  if(selectedPhotos.length){
+
+   submit.textContent="Uploading photos...";
+
+   const result=await uploadPhotos(user);
+
+   photoUrls=result.urls;
+   uploadedPaths=result.paths;
+  }
+
+  const listing={
+
+   user_id:user.id,
+
+   title:title,
+
+   listing_type:"Skilled Workers",
+
+   location:location||null,
+
+   description:description||null,
+
+   phone:phone||null,
+
+   whatsapp:whatsapp||null,
+
+   website:website||null,
+
+   event_date:null,
+
+   event_time:null,
+
+   photo_urls:photoUrls.length?photoUrls.join(","):null,
+
+   featured:false,
+
+   available:true
+  };
+
+  submit.textContent="Saving advert...";
+
+  const {error:insertError}=await client
+   .from("discover_listings")
+   .insert([listing]);
+
+  if(insertError){
+
+   console.error("OGARS Skilled Workers database error:",insertError);
+
+   throw new Error("Advert could not be saved: "+insertError.message);
+  }
+
+  saved=true;
+
+  form.reset();
+
+  selectedPhotos=[];
+
+  preview.innerHTML="";
+
+  photoCount.textContent="No photos selected yet.";
+
+  townSelect.disabled=true;
+
+  fillSelect(townSelect,[],"Choose a region first");
+
+  otherTownWrap.classList.add("hidden");
+
+  otherTownInput.required=false;
+
+  dynamic.innerHTML="";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  say(
+   "Your Skilled Workers advert has been published successfully!",
+   "success"
+  );
+
+ }catch(error){
+
+  console.error("OGARS Skilled Workers advert error:",error);
+
+  if(!saved&&uploadedPaths.length){
+   await removeUploadedFiles(uploadedPaths);
+  }
+
+  say(
+   "Unable to publish your advert. "+
+   (error.message||"Please try again."),
+   "error"
+  );
+
+ }finally{
+
+  publishing=false;
+
+  submit.disabled=false;
+
+  photoInput.disabled=false;
+
+  submit.textContent="Publish advert";
+ }
+});
+</script>
+
+</body>
+</html>
