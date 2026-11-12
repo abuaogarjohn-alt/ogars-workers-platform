@@ -1,13 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#542B9A">
-<title>Post a Business | OGARS PLATFORM</title>
+<title>Post a Business | OGARS MARKET</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--purple:#5b35ed;--deep:#39206d;--ink:#20213c;--muted:#74758e;--line:#e7e5f1;--page:#f7f6fc}
+:root{--purple:#512A91;--deep:#38166f;--ink:#20213c;--muted:#74758e;--line:#e7e5f1;--page:#f7f6fc}
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font:15px/1.45 Arial,Helvetica,sans-serif}
 a{text-decoration:none;color:inherit}
@@ -28,7 +29,7 @@ h1{font-size:23px;line-height:1.2;margin:0 0 6px}
 .section-head h3{font-size:15px;margin:0}
 .section-note{font-size:12px;color:var(--muted);margin:0 0 14px}
 label{display:block;font-weight:700;font-size:13px;margin:14px 0 6px}
-input,select,textarea{display:block;width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #d9d8e6;border-radius:9px;background:#fff;color:var(--ink);font:14px Arial,Helvetica,sans-serif;outline:none}
+input,select,textarea{display:block;width:100%;padding:11px 12px;border:1px solid #d9d8e6;border-radius:9px;background:#fff;color:var(--ink);font:14px Arial,Helvetica,sans-serif;outline:none;min-height:44px}
 input::placeholder,textarea::placeholder{color:#9696a8}
 input:focus,select:focus,textarea:focus{border-color:#8c75f5;box-shadow:0 0 0 3px #5b35ed12}
 textarea{min-height:105px;resize:vertical;line-height:1.5}
@@ -37,83 +38,507 @@ textarea{min-height:105px;resize:vertical;line-height:1.5}
 .hint{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.45}
 .photo-box{border:1px dashed #c9c3e7;border-radius:11px;padding:12px;background:#fbfaff}
 .photo-box input{border:0;padding:3px;background:transparent}
+#photo-count{font-size:12px;color:var(--muted);margin:8px 0 0}
+#preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.preview{position:relative}
+.preview img{width:100%;height:100px;object-fit:cover;border-radius:9px}
+.remove{position:absolute;right:4px;top:4px;background:#b42335;color:white;border:0;border-radius:50%;width:26px;height:26px;cursor:pointer}
 .submit{width:100%;margin-top:20px;padding:13px 16px;background:linear-gradient(110deg,#6d28d9,#512a91);color:white;border:0;border-radius:10px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 5px 12px #5b35ed25}
 .submit:disabled{opacity:.65;cursor:wait}
-#status{margin-top:13px;font-size:13px;line-height:1.5}
+#status{margin-top:13px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.status-error{color:#b42318}
+.status-success{color:#087443}
 .footer-note{text-align:center;color:var(--muted);font-size:11px;margin:14px 0 0}
-@media(max-width:500px){main{padding:17px 12px 30px}.form-card{padding:16px;border-radius:14px}h1{font-size:21px}.grid{grid-template-columns:1fr;gap:0}.topbar{padding:12px 14px}}
+@media(max-width:500px){
+main{padding:17px 12px 30px}
+.form-card{padding:16px;border-radius:14px}
+h1{font-size:21px}
+.grid{grid-template-columns:1fr;gap:0}
+.topbar{padding:12px 14px}
+#preview-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
-<header class="topbar"><div class="top-inner">
+
+<header class="topbar">
+<div class="top-inner">
 <a class="back" href="advertise.html" aria-label="Back to advert categories">‹</a>
 <span class="brandmark" aria-hidden="true">⌂</span>
-<div class="brand"><h2>OGARS<br>PLATFORM</h2><p>Advertise your business in Ghana</p></div>
-</div></header>
+<div class="brand">
+<h2>OGARS<br>MARKET</h2>
+<p>Advertise your business in Ghana</p>
+</div>
+</div>
+</header>
+
 <main>
-<div class="intro"><p class="eyebrow">Create a listing</p><h1>Promote Your Business</h1><p class="subtitle">Help customers discover your business and the services you offer.</p></div>
+<div class="intro">
+<p class="eyebrow">Create a listing</p>
+<h1>Promote Your Business</h1>
+<p class="subtitle">Help customers discover your business and the services you offer.</p>
+</div>
+
 <section class="form-card">
-<div class="section-head"><span class="section-icon" aria-hidden="true">🏪</span><h3>Business information</h3></div>
+<div class="section-head">
+<span class="section-icon" aria-hidden="true">🏪</span>
+<h3>Business information</h3>
+</div>
 <p class="section-note">Fill in the required details to create your advert.</p>
+
 <form id="businessForm">
+
 <label for="businessName">Business name *</label>
 <input id="businessName" required maxlength="100" placeholder="e.g. Ogar's Cold Store">
+
 <label for="businessCategory">Business category *</label>
 <select id="businessCategory" required>
 <option value="">Choose a category</option>
-<option>Shops &amp; Retail</option><option>Food &amp; Restaurants</option><option>Supermarkets &amp; Grocery Stores</option><option>Beauty &amp; Wellness Businesses</option><option>Construction &amp; Hardware</option><option>Transport &amp; Logistics</option><option>Technology &amp; Electronics</option><option>Professional Services</option><option>Manufacturing &amp; Wholesale</option><option>Agriculture &amp; Food Businesses</option><option>Hotels &amp; Guest Houses</option><option>Education &amp; Training</option><option>Automotive Businesses</option><option>Real Estate Businesses</option><option>Other Businesses</option>
+<option>Shops &amp; Retail</option>
+<option>Food &amp; Restaurants</option>
+<option>Supermarkets &amp; Grocery Stores</option>
+<option>Beauty &amp; Wellness Businesses</option>
+<option>Construction &amp; Hardware</option>
+<option>Transport &amp; Logistics</option>
+<option>Technology &amp; Electronics</option>
+<option>Professional Services</option>
+<option>Manufacturing &amp; Wholesale</option>
+<option>Agriculture &amp; Food Businesses</option>
+<option>Hotels &amp; Guest Houses</option>
+<option>Education &amp; Training</option>
+<option>Automotive Businesses</option>
+<option>Real Estate Businesses</option>
+<option>Other Businesses</option>
 </select>
+
 <div class="grid">
-<div class="field"><label for="region">Region *</label><select id="region" required><option value="">Select region</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Western North</option><option>Volta</option><option>Oti</option><option>Northern</option><option>Savannah</option><option>North East</option><option>Upper East</option><option>Upper West</option><option>Bono</option><option>Bono East</option><option>Ahafo</option></select></div>
-<div class="field"><label for="town">Town / Area *</label><input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra"></div>
+<div class="field">
+<label for="region">Region *</label>
+<select id="region" required>
+<option value="">Select region</option>
+<option>Greater Accra</option>
+<option>Ashanti</option>
+<option>Central</option>
+<option>Eastern</option>
+<option>Western</option>
+<option>Western North</option>
+<option>Volta</option>
+<option>Oti</option>
+<option>Northern</option>
+<option>Savannah</option>
+<option>North East</option>
+<option>Upper East</option>
+<option>Upper West</option>
+<option>Bono</option>
+<option>Bono East</option>
+<option>Ahafo</option>
+</select>
 </div>
+
+<div class="field">
+<label for="town">Town / Area *</label>
+<input id="town" required maxlength="100" placeholder="e.g. Lapaz, Accra">
+</div>
+</div>
+
 <label for="description">About your business *</label>
 <textarea id="description" required maxlength="3000" placeholder="What do you sell or offer? Include opening hours, delivery, or other useful details."></textarea>
+
 <div class="grid">
-<div class="field"><label for="phone">Phone number *</label><input id="phone" required type="tel" maxlength="30" placeholder="024 XXX XXXX"></div>
-<div class="field"><label for="whatsapp">WhatsApp number</label><input id="whatsapp" type="tel" maxlength="30" placeholder="Optional"></div>
+<div class="field">
+<label for="phone">Phone number *</label>
+<input id="phone" required type="tel" maxlength="30" placeholder="024 XXX XXXX">
 </div>
-<label for="website">Website or social media link</label><input id="website" type="url" maxlength="300" placeholder="https://...">
+<div class="field">
+<label for="whatsapp">WhatsApp number</label>
+<input id="whatsapp" type="tel" maxlength="30" placeholder="Optional">
+</div>
+</div>
+
+<label for="website">Website or social media link</label>
+<input id="website" type="url" maxlength="500" placeholder="https://...">
+
 <label for="photos">Business photos</label>
-<div class="photo-box"><input id="photos" type="file" accept="image/*" multiple><p class="hint">Add up to 5 clear photos of your shop, products, or services. Maximum 5 MB per photo.</p></div>
+<div class="photo-box">
+<input id="photos" type="file" accept="image/*" multiple>
+<p class="hint">Add up to 5 clear photos of your shop, products, or services. Maximum 5 MB per original photo. Photos are automatically resized and compressed.</p>
+<p id="photo-count" aria-live="polite">No photos selected yet.</p>
+<div id="preview-grid"></div>
+</div>
+
 <button class="submit" id="submitButton" type="submit">Publish Business Advert →</button>
 <div id="status" role="status" aria-live="polite"></div>
-</form></section>
-<p class="footer-note">© 2026 OGARS PLATFORM · Trusted people. Real opportunities.</p>
+</form>
+</section>
+
+<p class="footer-note">© 2026 OGARS MARKET · Trusted people. Real opportunities.</p>
 </main>
+
 <script>
-// Replace these two placeholders with the same Supabase URL and anon/publishable key
-// already used in your working post-electronics.html.
-const SUPABASE_URL="PASTE_YOUR_SUPABASE_URL_HERE";
-const SUPABASE_ANON_KEY="PASTE_YOUR_SUPABASE_ANON_KEY_HERE";
+"use strict";
+
+// Existing OGARS Supabase project credentials
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
 const BUCKET="discover-photos";
-const form=document.getElementById("businessForm"),statusBox=document.getElementById("status"),button=document.getElementById("submitButton");
-form.addEventListener("submit",async e=>{
- e.preventDefault();button.disabled=true;button.textContent="Publishing...";statusBox.textContent="";
+const MAX_PHOTOS=5;
+const MAX_ORIGINAL_SIZE=5*1024*1024;
+const MAX_IMAGE_SIDE=1600;
+
+const sb=window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_ANON_KEY
+);
+
+const $=id=>document.getElementById(id);
+const form=$("businessForm");
+const statusBox=$("status");
+const button=$("submitButton");
+const photoInput=$("photos");
+const photoCount=$("photo-count");
+const preview=$("preview-grid");
+
+let selectedPhotos=[];
+let publishing=false;
+
+function showStatus(text,type){
+ statusBox.textContent=text;
+ statusBox.className=type==="success"?"status-success":"status-error";
+ statusBox.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function clearStatus(){
+ statusBox.textContent="";
+ statusBox.className="";
+}
+
+function canvasBlob(canvas,type,quality){
+ return new Promise(resolve=>canvas.toBlob(resolve,type,quality));
+}
+
+async function compressPhoto(file){
+ let bitmap=null;
+
  try{
-  if(!window.supabase)throw Error("Supabase library did not load. Check your internet connection.");
-  if(SUPABASE_URL.includes("PASTE_")||SUPABASE_ANON_KEY.includes("PASTE_"))throw Error("Please add your Supabase URL and anon/publishable key from post-electronics.html.");
-  const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-  const files=Array.from(document.getElementById("photos").files||[]);
-  if(files.length>5)throw Error("Choose no more than 5 photos.");
-  if(files.some(f=>f.size>5*1024*1024))throw Error("Each photo must be 5 MB or smaller.");
-  const {data:{user},error:userError}=await sb.auth.getUser();if(userError)throw userError;if(!user)throw Error("Please sign in before publishing.");
-  const urls=[];
-  for(const file of files){
-   if(!file.type.startsWith("image/"))throw Error("Please select image files only.");
-   const safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,"-");
-   const objectPath="business/"+Date.now()+"-"+Math.random().toString(36).slice(2,9)+"-"+safe;
-   const {error}=await sb.storage.from(BUCKET).upload(objectPath,file,{cacheControl:"3600",upsert:false,contentType:file.type});
-   if(error)throw error;urls.push(sb.storage.from(BUCKET).getPublicUrl(objectPath).data.publicUrl);
+  if("createImageBitmap" in window){
+   bitmap=await createImageBitmap(file);
+  }else{
+   bitmap=await new Promise((resolve,reject)=>{
+    const img=new Image();
+    const url=URL.createObjectURL(file);
+
+    img.onload=()=>{
+     URL.revokeObjectURL(url);
+     resolve(img);
+    };
+
+    img.onerror=()=>{
+     URL.revokeObjectURL(url);
+     reject(new Error("Unable to read image."));
+    };
+
+    img.src=url;
+   });
   }
-  const name=document.getElementById("businessName").value.trim(),category=document.getElementById("businessCategory").value,region=document.getElementById("region").value,town=document.getElementById("town").value.trim(),description=document.getElementById("description").value.trim(),phone=document.getElementById("phone").value.trim(),whatsapp=document.getElementById("whatsapp").value.trim(),website=document.getElementById("website").value.trim();
-  const row={user_id:user.id,title:name,listing_type:"Businesses",location:town+", "+region+", Ghana",description:"Business category: "+category+"\n\n"+description,phone,whatsapp:whatsapp||null,website:website||null,photo_urls:urls,featured:false,available:true};
-  const {error}=await sb.from("discover_listings").insert(row);if(error)throw error;
-  form.reset();statusBox.textContent="Your business advert has been published successfully.";statusBox.style.color="#087443";
- }catch(err){statusBox.textContent=err.message||"Something went wrong. Please try again.";statusBox.style.color="#b42318";console.error(err)}
- finally{button.disabled=false;button.textContent="Publish Business Advert"}
+
+  const scale=Math.min(
+   1,
+   MAX_IMAGE_SIDE/Math.max(bitmap.width,bitmap.height)
+  );
+
+  const canvas=document.createElement("canvas");
+  canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+  canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+
+  const ctx=canvas.getContext("2d");
+  if(!ctx)throw new Error("Image processing unavailable.");
+
+  ctx.fillStyle="#fff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+
+  if(bitmap.close)bitmap.close();
+  bitmap=null;
+
+  let blob=await canvasBlob(canvas,"image/jpeg",0.82);
+  if(!blob)throw new Error("Photo compression failed.");
+
+  if(blob.size>2.5*1024*1024){
+   const smaller=await canvasBlob(canvas,"image/jpeg",0.68);
+   if(smaller&&smaller.size<blob.size)blob=smaller;
+  }
+
+  return new File(
+   [blob],
+   file.name.replace(/\.[^.]+$/,"")+".jpg",
+   {type:"image/jpeg",lastModified:Date.now()}
+  );
+
+ }catch(error){
+  if(bitmap&&bitmap.close)bitmap.close();
+  console.warn("Compression fallback:",error);
+  return file;
+ }
+}
+
+function drawPreviews(){
+ preview.innerHTML="";
+
+ photoCount.textContent=selectedPhotos.length
+  ?selectedPhotos.length+" of "+MAX_PHOTOS+" photos ready."
+  :"No photos selected yet.";
+
+ selectedPhotos.forEach((file,index)=>{
+  const box=document.createElement("div");
+  box.className="preview";
+
+  const img=document.createElement("img");
+  img.alt="Business photo preview";
+  const url=URL.createObjectURL(file);
+  img.src=url;
+  img.onload=()=>URL.revokeObjectURL(url);
+
+  const remove=document.createElement("button");
+  remove.type="button";
+  remove.className="remove";
+  remove.textContent="×";
+  remove.setAttribute("aria-label","Remove photo");
+
+  remove.addEventListener("click",()=>{
+   selectedPhotos.splice(index,1);
+   drawPreviews();
+  });
+
+  box.append(img,remove);
+  preview.appendChild(box);
+ });
+}
+
+photoInput.addEventListener("change",async()=>{
+ const files=Array.from(photoInput.files||[]);
+ photoInput.value="";
+
+ if(!files.length)return;
+
+ const remaining=MAX_PHOTOS-selectedPhotos.length;
+
+ if(remaining<=0){
+  showStatus("You can upload a maximum of 5 photos.","error");
+  return;
+ }
+
+ const accepted=files.filter(file=>
+  file.type.startsWith("image/")&&
+  file.size<=MAX_ORIGINAL_SIZE
+ );
+
+ if(accepted.length>remaining){
+  showStatus("Only "+remaining+" more photo(s) can be added. Maximum is 5.","error");
+ }
+
+ const rejected=files.length-accepted.length;
+
+ if(rejected){
+  showStatus(rejected+" file(s) skipped. Select image files no larger than 5 MB each.","error");
+ }
+
+ const toProcess=accepted.slice(0,remaining);
+ if(!toProcess.length)return;
+
+ photoInput.disabled=true;
+ photoCount.textContent="Optimizing photos...";
+
+ try{
+  for(const file of toProcess){
+   selectedPhotos.push(await compressPhoto(file));
+  }
+
+  drawPreviews();
+
+  if(!rejected&&accepted.length<=remaining){
+   clearStatus();
+  }
+ }catch(error){
+  showStatus("Unable to process some photos. Please try again.","error");
+ }finally{
+  photoInput.disabled=false;
+ }
 });
 
+async function cleanupPhotos(paths){
+ if(!paths.length)return;
+
+ try{
+  const {error}=await sb.storage.from(BUCKET).remove(paths);
+  if(error)console.warn("Photo cleanup warning:",error.message);
+ }catch(error){
+  console.warn("Photo cleanup error:",error);
+ }
+}
+
+async function uploadBusinessPhotos(user){
+ const urls=[];
+ const paths=[];
+
+ try{
+  for(const file of selectedPhotos){
+   const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-");
+
+   const objectPath=
+    user.id+"/business/"+Date.now()+"-"+
+    Math.random().toString(36).slice(2,10)+"-"+safe;
+
+   const {error:uploadError}=await sb.storage
+    .from(BUCKET)
+    .upload(objectPath,file,{
+     cacheControl:"3600",
+     upsert:false,
+     contentType:file.type||"image/jpeg"
+    });
+
+   if(uploadError)throw uploadError;
+
+   paths.push(objectPath);
+
+   const {data}=sb.storage.from(BUCKET).getPublicUrl(objectPath);
+
+   if(!data||!data.publicUrl){
+    throw new Error("Could not obtain a public photo link.");
+   }
+
+   urls.push(data.publicUrl);
+  }
+
+  return {urls,paths};
+
+ }catch(error){
+  await cleanupPhotos(paths);
+  throw new Error("Business photo upload failed: "+error.message);
+ }
+}
+
+function validateForm(){
+ if(!form.reportValidity())return false;
+
+ if(selectedPhotos.length>MAX_PHOTOS){
+  showStatus("A maximum of 5 photos is allowed.","error");
+  return false;
+ }
+
+ return true;
+}
+
+form.addEventListener("submit",async event=>{
+ event.preventDefault();
+
+ if(publishing)return;
+ clearStatus();
+
+ if(!validateForm())return;
+
+ publishing=true;
+ button.disabled=true;
+ photoInput.disabled=true;
+ button.textContent="Checking account...";
+
+ let uploadedPaths=[];
+ let saved=false;
+
+ try{
+  const {data:userData,error:userError}=await sb.auth.getUser();
+
+  if(userError){
+   throw new Error("Unable to verify your account. Please log in again.");
+  }
+
+  const user=userData?.user;
+
+  if(!user){
+   showStatus("Please sign in to your OGARS account before publishing.","error");
+   setTimeout(()=>location.href="account.html",1600);
+   return;
+  }
+
+  const name=$("businessName").value.trim();
+  const category=$("businessCategory").value;
+  const region=$("region").value;
+  const town=$("town").value.trim();
+  const description=$("description").value.trim();
+  const phone=$("phone").value.trim();
+  const whatsapp=$("whatsapp").value.trim();
+  const website=$("website").value.trim();
+
+  let photoUrls=[];
+
+  if(selectedPhotos.length){
+   button.textContent="Uploading business photos...";
+
+   const result=await uploadBusinessPhotos(user);
+   photoUrls=result.urls;
+   uploadedPaths=result.paths;
+  }
+
+  const row={
+   user_id:user.id,
+   title:name,
+   listing_type:"Businesses",
+   location:town+", "+region+", Ghana",
+   description:"Business category: "+category+"\n\n"+description,
+   phone:phone,
+   whatsapp:whatsapp||null,
+   website:website||null,
+   event_date:null,
+   event_time:null,
+   photo_urls:photoUrls.length?photoUrls.join(","):null,
+   featured:false,
+   available:true
+  };
+
+  button.textContent="Publishing business...";
+
+  const {error:insertError}=await sb
+   .from("discover_listings")
+   .insert([row]);
+
+  if(insertError){
+   throw new Error("Business advert could not be saved: "+insertError.message);
+  }
+
+  saved=true;
+
+  form.reset();
+  selectedPhotos=[];
+  preview.innerHTML="";
+  photoCount.textContent="No photos selected yet.";
+
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  showStatus(
+   "Your business advert has been published successfully!",
+   "success"
+  );
+
+ }catch(error){
+  console.error("OGARS Businesses publishing error:",error);
+
+  if(!saved&&uploadedPaths.length){
+   await cleanupPhotos(uploadedPaths);
+  }
+
+  showStatus(
+   "Unable to publish your business advert. "+
+   (error.message||"Please try again."),
+   "error"
+  );
+
+ }finally{
+  publishing=false;
+  button.disabled=false;
+  photoInput.disabled=false;
+  button.textContent="Publish Business Advert →";
+ }
+});
 </script>
 </body>
 </html>
