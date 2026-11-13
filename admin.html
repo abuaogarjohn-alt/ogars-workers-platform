@@ -146,7 +146,42 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
+
+const adminAuthStorage={
+ getItem(key){
+  return window.localStorage.getItem(key) ??
+         window.sessionStorage.getItem(key);
+ },
+ setItem(key,value){
+  if(window.localStorage.getItem(AUTH_STORAGE_KEY)){
+   window.localStorage.setItem(key,value);
+   window.sessionStorage.removeItem(key);
+  }else{
+   window.sessionStorage.setItem(key,value);
+   window.localStorage.removeItem(key);
+  }
+ },
+ removeItem(key){
+  window.localStorage.removeItem(key);
+  window.sessionStorage.removeItem(key);
+ }
+};
+
+const db=supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY,
+ {
+  auth:{
+   storage:adminAuthStorage,
+   persistSession:true,
+   autoRefreshToken:true,
+   detectSessionInUrl:true
+  }
+ }
+);
+
 const $=id=>document.getElementById(id);
 let currentUser=null;
 let allAdverts=[];
