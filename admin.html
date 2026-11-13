@@ -3,61 +3,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#542B9A">
 <title>OGARS Market | Admin Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--purple:#542B9A;--dark:#38166f;--light:#f1eaff;--bg:#f8f6ff;--ink:#292443;--muted:#77748b;--line:#e9e3f3}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:35px}
-header{background:linear-gradient(110deg,#7655d9,#38166f);color:white;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-.brand{font-size:20px;font-weight:900;letter-spacing:.5px}
-.brand small{display:block;font-size:10px;letter-spacing:3px;margin-top:3px}
-button,a{font:inherit}
-button{cursor:pointer}
-.header-btn{border:1px solid #ffffff80;background:#ffffff18;color:white;padding:10px 12px;border-radius:9px;font-weight:bold;font-size:12px}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:30px}
+button,a,input,select{font:inherit}button{cursor:pointer}
+header{background:linear-gradient(110deg,#7655d9,#38166f);color:white;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-size:20px;font-weight:900}.brand small{display:block;font-size:10px;letter-spacing:3px;margin-top:3px}
+.header-btn{border:1px solid #ffffff80;background:#ffffff18;color:white;padding:10px;border-radius:9px;font-weight:bold;font-size:12px}
 main{max-width:1100px;margin:auto;padding:20px 14px}
-h1{font-size:25px;margin-bottom:6px}
-.subtitle{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:20px}
+h1{font-size:25px;margin-bottom:6px}.subtitle{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:20px}
 .admin-banner{background:linear-gradient(120deg,#eee5ff,#d9c8ff);padding:17px;border-radius:17px;margin-bottom:20px;border:1px solid #dfd2ff}
-.admin-banner strong{display:block;font-size:17px;margin-bottom:5px}
-.admin-banner span{font-size:12px;color:#59458b}
+.admin-banner strong{display:block;font-size:17px;margin-bottom:5px}.admin-banner span{font-size:12px;color:#59458b}
 .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:22px}
 .stat{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 3px 12px #30205b0b}
-.stat label{font-size:12px;color:var(--muted)}
-.stat strong{display:block;font-size:26px;margin-top:8px;color:var(--purple)}
+.stat label{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:26px;margin-top:8px;color:var(--purple)}
 .section{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 3px 12px #30205b08}
 .section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
-h2{font-size:17px}
-.small{font-size:12px;color:var(--muted);line-height:1.5}
+h2{font-size:17px}.small{font-size:12px;color:var(--muted);line-height:1.5}
 .btn{border:0;background:var(--purple);color:white;padding:10px 13px;border-radius:9px;font-weight:bold;font-size:12px}
-.btn.secondary{background:var(--light);color:var(--dark)}
-.btn.danger{background:#fff0f0;color:#a92338}
-.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.secondary{background:var(--light);color:var(--dark)}.btn.danger{background:#fff0f0;color:#a92338}
+.btn:disabled{opacity:.45;cursor:not-allowed}
 .tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:17px}
 .tab{border:1px solid var(--line);background:white;color:var(--ink);padding:12px 7px;border-radius:10px;font-size:12px;font-weight:bold}
 .tab.active{background:var(--purple);color:white;border-color:var(--purple)}
 .panel{display:none}.panel.active{display:block}
-.search{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;margin:10px 0 13px;font-size:14px;outline:none}
-.search:focus{border-color:var(--purple)}
+.search,.filter{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;font-size:13px;outline:none;background:white;color:var(--ink);min-width:0}
+.search:focus,.filter:focus{border-color:var(--purple)}
+.filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}
+.filter-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .item{border:1px solid var(--line);border-radius:12px;padding:13px;margin-bottom:10px;overflow-wrap:anywhere}
 .item h3{font-size:14px;margin-bottom:6px}
 .meta{font-size:12px;color:var(--muted);line-height:1.7}
 .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
-.status{display:inline-block;font-size:10px;font-weight:bold;padding:5px 9px;border-radius:20px;background:#eee9fb;color:var(--dark);margin-top:7px}
-.status.good{background:#e8f8ed;color:#176b38}
-.status.off{background:#fff0f0;color:#a92338}
-.empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}
+.status{display:inline-block;font-size:10px;font-weight:bold;padding:5px 9px;border-radius:20px;background:#eee9fb;color:var(--dark);margin-top:7px;margin-right:4px}
+.status.good{background:#e8f8ed;color:#176b38}.status.off{background:#fff0f0;color:#a92338}
+.empty,.loading{padding:22px 10px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}
 .notice{padding:13px;border-radius:11px;background:var(--light);color:#55418c;font-size:12px;line-height:1.6}
-.error{background:#fff0f0;color:#a92338;padding:12px;border-radius:9px;font-size:12px;margin:12px 0;display:none}
-.loading{padding:25px;text-align:center;color:var(--muted);font-size:13px}
+.error{background:#fff0f0;color:#a92338;padding:12px;border-radius:9px;font-size:12px;margin:12px 0;display:none;overflow-wrap:anywhere}
+.pagination{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:15px;flex-wrap:wrap}
+.page-info{font-size:12px;color:var(--muted)}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
-@media(min-width:650px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(min-width:650px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-
 <header>
  <div class="brand">OGARS <small>MARKET ADMIN</small></div>
  <div>
@@ -68,13 +62,12 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 
 <main id="admin-app" hidden>
  <h1>Admin Dashboard</h1>
- <p class="subtitle">Manage and monitor your OGARS Market marketplace.</p>
+ <p class="subtitle">Manage and monitor OGARS Market.</p>
 
  <div class="admin-banner">
   <strong>🛡️ Welcome, Super Administrator</strong>
   <span id="admin-email">Checking administrator account...</span>
  </div>
-
  <div id="error-box" class="error"></div>
 
  <section class="stats">
@@ -93,12 +86,55 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 
  <section class="panel active section" id="panel-adverts">
   <div class="section-head">
-   <h2>Manage Adverts</h2>
+   <h2>Manage All Adverts</h2>
    <button class="btn secondary" id="refresh-adverts">Refresh</button>
   </div>
-  <p class="small">Review adverts posted on OGARS Market. You can feature, deactivate or delete adverts.</p>
-  <input class="search" id="advert-search" placeholder="Search adverts by title, location or category">
+  <p class="small">Search the database directly. Only one page of results is loaded at a time.</p>
+
+  <input class="search" id="advert-search" placeholder="Search title, location or category">
+
+  <div class="filter-grid">
+   <select class="filter" id="category-filter">
+    <option value="">All categories</option>
+    <option>Vehicles &amp; Drivers</option>
+    <option>Products &amp; Goods</option>
+    <option>Houses &amp; Property</option>
+    <option>Jobs &amp; Employment</option>
+    <option>Skilled Workers</option>
+    <option>Businesses</option>
+    <option>Services</option>
+    <option>Agriculture &amp; Food</option>
+    <option>Electronics</option>
+    <option>Phones &amp; Tablets</option>
+    <option>VIP Video</option>
+   </select>
+   <input class="filter" id="region-filter" placeholder="Region or town">
+   <select class="filter" id="status-filter">
+    <option value="">All advert statuses</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+    <option value="expired">Expired</option>
+    <option value="featured">Featured</option>
+    <option value="notfeatured">Not featured</option>
+   </select>
+   <input class="filter" id="seller-id-filter" placeholder="Seller user ID (optional)">
+   <select class="filter" id="page-size">
+    <option value="20">20 per page</option>
+    <option value="50">50 per page</option>
+    <option value="100">100 per page</option>
+   </select>
+  </div>
+  <div class="filter-actions">
+   <button class="btn" id="apply-filters">Search / Apply filters</button>
+   <button class="btn secondary" id="clear-filters">Clear filters</button>
+  </div>
+
   <div id="advert-list" class="loading">Loading adverts...</div>
+  <div class="pagination">
+   <button class="btn secondary" id="advert-prev">← Previous</button>
+   <span class="page-info" id="advert-page-info">Page 1</span>
+   <button class="btn secondary" id="advert-next">Next →</button>
+  </div>
  </section>
 
  <section class="panel section" id="panel-sellers">
@@ -106,35 +142,43 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
    <h2>Verify Sellers</h2>
    <button class="btn secondary" id="refresh-sellers">Refresh</button>
   </div>
-  <p class="small">Award the OGARS Trusted Seller status only after you have checked the seller's identity and business details.</p>
-  <input class="search" id="seller-search" placeholder="Search sellers by name or phone">
+  <p class="small">Search seller profiles in the database. Verify identity and business details before awarding trust status.</p>
+  <input class="search" id="seller-search" placeholder="Search seller name, phone or WhatsApp">
   <div id="seller-list" class="loading">Loading seller profiles...</div>
+  <div class="pagination">
+   <button class="btn secondary" id="seller-prev">← Previous</button>
+   <span class="page-info" id="seller-page-info">Page 1</span>
+   <button class="btn secondary" id="seller-next">Next →</button>
+  </div>
  </section>
 
  <section class="panel section" id="panel-trending">
   <div class="section-head">
-   <h2>Trending Adverts</h2>
+   <h2>Featured / Trending Adverts</h2>
    <button class="btn secondary" id="refresh-trending">Refresh</button>
   </div>
-  <p class="small">Choose which adverts should receive featured placement on OGARS Market. Featured adverts use the existing featured field.</p>
-  <input class="search" id="trending-search" placeholder="Search adverts">
-  <div id="trending-list" class="loading">Loading adverts...</div>
+  <p class="small">Search adverts and manage their featured placement.</p>
+  <input class="search" id="trending-search" placeholder="Search featured adverts by title, location or category">
+  <div id="trending-list" class="loading">Loading featured adverts...</div>
+  <div class="pagination">
+   <button class="btn secondary" id="trending-prev">← Previous</button>
+   <span class="page-info" id="trending-page-info">Page 1</span>
+   <button class="btn secondary" id="trending-next">Next →</button>
+  </div>
  </section>
 
  <section class="panel section" id="panel-vip">
-  <div class="section-head"><h2>VIP Billboard Videos</h2></div>
+  <h2 style="margin-bottom:12px">VIP Billboard Videos</h2>
   <div class="notice">
    This section is reserved for VIP electronic billboard advertisements displayed on the OGARS homepage.
    <br><br>
-   Your administrator team should review customer submissions, approve videos and arrange their display on the electronic billboard.
-   <br><br>
-   <strong>Connection pending:</strong> We need to identify your existing VIP video table and its columns before connecting controls here. Your existing VIP system will not be changed by this dashboard.
+   Connection pending: we need to identify the existing VIP video table and its columns before connecting controls here. No existing VIP data will be changed.
   </div>
  </section>
 
  <section class="section">
   <h2 style="margin-bottom:10px">Administrator Controls</h2>
-  <p class="small">Your administrator privileges are checked against the OGARS database. Ordinary customer accounts cannot enter this dashboard simply by knowing its web address.</p>
+  <p class="small">Administrator access is checked against the OGARS database. Ordinary customer accounts cannot enter this dashboard.</p>
   <div class="notice" style="margin-top:12px">Keep your Google account secure. Never share your login details or Supabase service-role key.</div>
  </section>
 </main>
@@ -145,67 +189,44 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 <script>
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-
-
 const AUTH_STORAGE_KEY="sb-pawqsmcswoypuiihfbrr-auth-token";
 
 const adminAuthStorage={
- getItem(key){
-  return window.localStorage.getItem(key) ??
-         window.sessionStorage.getItem(key);
- },
+ getItem(key){return localStorage.getItem(key)??sessionStorage.getItem(key)},
  setItem(key,value){
-  if(window.localStorage.getItem(AUTH_STORAGE_KEY)){
-   window.localStorage.setItem(key,value);
-   window.sessionStorage.removeItem(key);
+  if(localStorage.getItem(AUTH_STORAGE_KEY)){
+   localStorage.setItem(key,value);sessionStorage.removeItem(key);
   }else{
-   window.sessionStorage.setItem(key,value);
-   window.localStorage.removeItem(key);
+   sessionStorage.setItem(key,value);localStorage.removeItem(key);
   }
  },
- removeItem(key){
-  window.localStorage.removeItem(key);
-  window.sessionStorage.removeItem(key);
- }
+ removeItem(key){localStorage.removeItem(key);sessionStorage.removeItem(key)}
 };
 
-const db=supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY,
- {
-  auth:{
-   storage:adminAuthStorage,
-   persistSession:true,
-   autoRefreshToken:true,
-   detectSessionInUrl:true
-  }
- }
-);
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+ auth:{storage:adminAuthStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+});
 
 const $=id=>document.getElementById(id);
+const PAGE_SIZE=20;
 let currentUser=null;
-let allAdverts=[];
-let allSellers=[];
+let advertPage=0,sellerPage=0,trendingPage=0;
+let advertCount=0,sellerCount=0,trendingCount=0;
+let searchTimer=null;
 
 function showError(message){
- const box=$("error-box");
- box.textContent=message;
- box.style.display="block";
+ const box=$("error-box");box.textContent=message;box.style.display="block";
 }
-function clearError(){
- $("error-box").style.display="none";
-}
-function safe(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[c]));
-}
-function active(ad){
- return ad.available!==false&&(!ad.expires_at||new Date(ad.expires_at).getTime()>=Date.now());
-}
+function clearError(){$("error-box").style.display="none"}
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function active(a){return a.available!==false&&(!a.expires_at||new Date(a.expires_at).getTime()>=Date.now())}
+function formatDate(v){return v?new Date(v).toLocaleDateString():"Unknown"}
+function uuidValid(v){return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)}
 function tab(name){
  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));
  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+name));
+ if(name==="sellers")loadSellers();
+ if(name==="trending")loadTrending();
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
 
@@ -213,65 +234,120 @@ async function checkAdmin(){
  try{
   const {data,error}=await db.auth.getUser();
   if(error)throw error;
-  if(!data.user){
-   location.replace("account.html");
-   return;
-  }
+  if(!data.user){location.replace("account.html");return}
   currentUser=data.user;
-
   const {data:isAdmin,error:adminError}=await db.rpc("is_ogars_admin");
   if(adminError)throw adminError;
   if(isAdmin!==true){
-   document.body.innerHTML="<main style='padding:35px;text-align:center;font-family:Arial'><h2>Access denied</h2><p style='margin:15px'>This account does not have OGARS administrator permission.</p><a href='index.html'>Return to homepage</a></main>";
+   $("loading").textContent="Access denied. This account does not have OGARS administrator permission.";
    return;
   }
-
   $("admin-email").textContent=currentUser.email||"Administrator";
   $("loading").hidden=true;
   $("admin-app").hidden=false;
-  await Promise.all([loadAdverts(),loadSellers()]);
- }catch(error){
-  console.error(error);
-  $("loading").textContent="We could not verify administrator access: "+(error.message||"Please try again.");
+  await Promise.all([loadStats(),loadAdverts()]);
+ }catch(e){
+  console.error(e);
+  $("loading").textContent="We could not verify administrator access: "+(e.message||"Please sign in again.");
  }
 }
 
-async function loadAdverts(){
- $("advert-list").innerHTML='<div class="loading">Loading adverts...</div>';
+/* Database-wide counts: these requests return counts, not every advert. */
+async function countRows(builder){
+ const {count,error}=await builder;
+ if(error)throw error;
+ return count??0;
+}
+async function loadStats(){
  try{
-  const {data,error}=await db.from("discover_listings")
-   .select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at")
-   .order("created_at",{ascending:false}).limit(500);
-  if(error)throw error;
-  allAdverts=data||[];
-  $("total-adverts").textContent=allAdverts.length;
-  $("active-adverts").textContent=allAdverts.filter(active).length;
-  $("featured-adverts").textContent=allAdverts.filter(a=>a.featured===true).length;
-  renderAdverts();
-  renderTrending();
- }catch(error){
-  $("advert-list").innerHTML='<div class="empty">Could not load adverts: '+safe(error.message)+'</div>';
-  $("trending-list").innerHTML='<div class="empty">Could not load adverts.</div>';
+  const now=new Date().toISOString();
+  const [total,activeCount,featured,trusted]=await Promise.all([
+   countRows(db.from("discover_listings").select("id",{count:"exact",head:true})),
+   countRows(db.from("discover_listings").select("id",{count:"exact",head:true}).eq("available",true).or("expires_at.is.null,expires_at.gte."+now)),
+   countRows(db.from("discover_listings").select("id",{count:"exact",head:true}).eq("featured",true)),
+   countRows(db.from("user_profiles").select("id",{count:"exact",head:true}).eq("is_trusted",true))
+  ]);
+  $("total-adverts").textContent=total.toLocaleString();
+  $("active-adverts").textContent=activeCount.toLocaleString();
+  $("featured-adverts").textContent=featured.toLocaleString();
+  $("trusted-sellers").textContent=trusted.toLocaleString();
+ }catch(e){
+  console.error("Stats:",e);
+  showError("Some dashboard totals could not be loaded: "+e.message);
  }
 }
 
-function renderAdverts(){
- const q=$("advert-search").value.toLowerCase();
- const rows=allAdverts.filter(a=>(a.title+" "+a.location+" "+a.listing_type).toLowerCase().includes(q));
- if(!rows.length){$("advert-list").innerHTML='<div class="empty">No adverts found.</div>';return}
- $("advert-list").innerHTML=rows.map(a=>`
- <article class="item">
+/* Build a database-side advert search. */
+function advertQuery({trending=false}={}){
+ const q=(trending?$("trending-search").value:$("advert-search").value).trim().replace(/[,%()]/g," ");
+ let query=db.from("discover_listings")
+  .select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"});
+
+ if(q){
+  const pattern="%"+q+"%";
+  query=query.or("title.ilike."+pattern+",location.ilike."+pattern+",listing_type.ilike."+pattern);
+ }
+ if(!trending){
+  const category=$("category-filter").value;
+  const region=$("region-filter").value.trim();
+  const status=$("status-filter").value;
+  const sellerId=$("seller-id-filter").value.trim();
+  if(category)query=query.ilike("listing_type","%"+category+"%");
+  if(region)query=query.ilike("location","%"+region.replace(/[,%()]/g," ")+"%");
+  if(sellerId){
+   if(!uuidValid(sellerId))throw new Error("Enter a valid seller user ID (UUID), or clear that filter.");
+   query=query.eq("user_id",sellerId);
+  }
+  if(status==="active")query=query.eq("available",true).or("expires_at.is.null,expires_at.gte."+new Date().toISOString());
+  if(status==="inactive")query=query.eq("available",false);
+  if(status==="expired")query=query.not("expires_at","is",null).lt("expires_at",new Date().toISOString());
+  if(status==="featured")query=query.eq("featured",true);
+  if(status==="notfeatured")query=query.eq("featured",false);
+ }
+ return query;
+}
+
+function advertCard(a){
+ return `<article class="item">
   <h3>${safe(a.title||"Untitled advert")}</h3>
   <div class="meta">${safe(a.listing_type||"Advert")} · ${safe(a.location||"Location not provided")}</div>
-  <div class="meta">Posted: ${a.created_at?safe(new Date(a.created_at).toLocaleDateString()):"Unknown"}</div>
+  <div class="meta">Seller ID: ${safe(a.user_id||"Unavailable")}</div>
+  <div class="meta">Advert ID: ${safe(a.id)}</div>
+  <div class="meta">Posted: ${safe(formatDate(a.created_at))}</div>
   <span class="status ${active(a)?"good":"off"}">${active(a)?"Active":"Inactive / Expired"}</span>
   <span class="status">${a.featured?"Featured":"Not featured"}</span>
   <div class="actions">
    <button class="btn secondary" onclick="toggleFeatured('${safe(a.id)}')">${a.featured?"Remove Featured":"Feature Advert"}</button>
-   <button class="btn ${active(a)?"danger":"secondary"}" onclick="toggleAvailable('${safe(a.id)}',${a.available!==false})">${a.available===false?"Reactivate":"Deactivate"}</button>
+   <button class="btn ${a.available!==false?"danger":"secondary"}" onclick="toggleAvailable('${safe(a.id)}',${a.available!==false})">${a.available===false?"Reactivate":"Deactivate"}</button>
    <button class="btn danger" onclick="deleteAdvert('${safe(a.id)}')">Delete</button>
   </div>
- </article>`).join("");
+ </article>`;
+}
+
+function updateAdvertPagination(){
+ const size=Number($("page-size").value);
+ const pages=Math.max(1,Math.ceil(advertCount/size));
+ $("advert-page-info").textContent=`Page ${advertPage+1} of ${pages} · ${advertCount.toLocaleString()} results`;
+ $("advert-prev").disabled=advertPage===0;
+ $("advert-next").disabled=advertPage>=pages-1;
+}
+
+async function loadAdverts(){
+ clearError();
+ const list=$("advert-list");
+ list.innerHTML='<div class="loading">Searching the database...</div>';
+ try{
+  const size=Number($("page-size").value);
+  const from=advertPage*size,to=from+size-1;
+  const {data,error,count}=await advertQuery().order("created_at",{ascending:false}).range(from,to);
+  if(error)throw error;
+  advertCount=count||0;
+  list.innerHTML=data?.length?data.map(advertCard).join(""):'<div class="empty">No matching adverts found.</div>';
+  updateAdvertPagination();
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load adverts: '+safe(e.message)+'</div>';
+  showError("Advert search failed: "+e.message);
+ }
 }
 
 async function updateAdvert(id,changes){
@@ -280,61 +356,72 @@ async function updateAdvert(id,changes){
 }
 async function toggleFeatured(id){
  try{
-  const a=allAdverts.find(x=>String(x.id)===String(id));
-  if(!a)return;
-  await updateAdvert(id,{featured:!a.featured});
-  await loadAdverts();
- }catch(error){showError("Could not update featured advert: "+error.message)}
+  const {data,error}=await db.from("discover_listings").select("featured").eq("id",id).single();
+  if(error)throw error;
+  await updateAdvert(id,{featured:!data.featured});
+  await loadStats();await loadAdverts();
+  if($("panel-trending").classList.contains("active"))await loadTrending();
+ }catch(e){showError("Could not update featured advert: "+e.message)}
 }
 async function toggleAvailable(id,isAvailable){
- const action=isAvailable?"deactivate":"reactivate";
- if(!confirm("Are you sure you want to "+action+" this advert?"))return;
+ if(!confirm("Are you sure you want to "+(isAvailable?"deactivate":"reactivate")+" this advert?"))return;
  try{
   await updateAdvert(id,{available:!isAvailable});
-  await loadAdverts();
- }catch(error){showError("Could not update advert: "+error.message)}
+  await loadStats();await loadAdverts();
+ }catch(e){showError("Could not update advert: "+e.message)}
 }
 async function deleteAdvert(id){
  if(!confirm("Permanently delete this advert? This cannot be undone."))return;
  try{
   const {error}=await db.from("discover_listings").delete().eq("id",id);
   if(error)throw error;
-  await loadAdverts();
- }catch(error){showError("Could not delete advert: "+error.message)}
+  await loadStats();await loadAdverts();
+ }catch(e){showError("Could not delete advert: "+e.message)}
 }
 
-async function loadSellers(){
- $("seller-list").innerHTML='<div class="loading">Loading seller profiles...</div>';
- try{
-  const {data,error}=await db.from("user_profiles")
-   .select("id,full_name,phone_number,whatsapp_number,is_trusted,trusted_at")
-   .order("created_at",{ascending:false}).limit(500);
-  if(error)throw error;
-  allSellers=data||[];
-  $("trusted-sellers").textContent=allSellers.filter(s=>s.is_trusted===true).length;
-  renderSellers();
- }catch(error){
-  $("seller-list").innerHTML='<div class="empty">Could not load sellers: '+safe(error.message)+'</div>';
+/* Seller search and pagination are also performed by Supabase. */
+function sellerQuery(){
+ const q=$("seller-search").value.trim().replace(/[,%()]/g," ");
+ let query=db.from("user_profiles")
+  .select("id,full_name,phone_number,whatsapp_number,is_trusted,trusted_at",{count:"exact"});
+ if(q){
+  const p="%"+q+"%";
+  query=query.or("full_name.ilike."+p+",phone_number.ilike."+p+",whatsapp_number.ilike."+p);
  }
+ return query;
 }
-function renderSellers(){
- const q=$("seller-search").value.toLowerCase();
- const rows=allSellers.filter(s=>(s.full_name+" "+s.phone_number+" "+s.whatsapp_number).toLowerCase().includes(q));
- if(!rows.length){$("seller-list").innerHTML='<div class="empty">No seller profiles found.</div>';return}
- $("seller-list").innerHTML=rows.map(s=>`
- <article class="item">
+function renderSeller(s){
+ return `<article class="item">
   <h3>${safe(s.full_name||"Seller name not added")}</h3>
   <div class="meta">Phone: ${safe(s.phone_number||"Not provided")}</div>
   <div class="meta">WhatsApp: ${safe(s.whatsapp_number||"Not provided")}</div>
+  <div class="meta">Seller ID: ${safe(s.id)}</div>
   <span class="status ${s.is_trusted?"good":"off"}">${s.is_trusted?"✓ OGARS Trusted Seller":"Not verified"}</span>
   <div class="actions">
    <button class="btn ${s.is_trusted?"danger":"secondary"}" onclick="setTrusted('${safe(s.id)}',${!!s.is_trusted})">${s.is_trusted?"Remove Trust Status":"Verify Seller"}</button>
   </div>
- </article>`).join("");
+ </article>`;
+}
+async function loadSellers(){
+ const list=$("seller-list");
+ list.innerHTML='<div class="loading">Searching seller profiles...</div>';
+ try{
+  const from=sellerPage*PAGE_SIZE,to=from+PAGE_SIZE-1;
+  const {data,error,count}=await sellerQuery().order("created_at",{ascending:false}).range(from,to);
+  if(error)throw error;
+  sellerCount=count||0;
+  list.innerHTML=data?.length?data.map(renderSeller).join(""):'<div class="empty">No matching sellers found.</div>';
+  const pages=Math.max(1,Math.ceil(sellerCount/PAGE_SIZE));
+  $("seller-page-info").textContent=`Page ${sellerPage+1} of ${pages} · ${sellerCount.toLocaleString()} results`;
+  $("seller-prev").disabled=sellerPage===0;
+  $("seller-next").disabled=sellerPage>=pages-1;
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load sellers: '+safe(e.message)+'</div>';
+  showError("Seller search failed: "+e.message);
+ }
 }
 async function setTrusted(id,isTrusted){
- const action=isTrusted?"remove the Trusted Seller status from":"verify";
- if(!confirm("Are you sure you want to "+action+" this seller?"))return;
+ if(!confirm("Are you sure you want to "+(isTrusted?"remove the Trusted Seller status from":"verify")+" this seller?"))return;
  try{
   const {error}=await db.from("user_profiles").update({
    is_trusted:!isTrusted,
@@ -342,31 +429,69 @@ async function setTrusted(id,isTrusted){
    trusted_by:!isTrusted?currentUser.id:null
   }).eq("id",id);
   if(error)throw error;
-  await loadSellers();
- }catch(error){showError("Could not update seller verification: "+error.message)}
+  await loadStats();await loadSellers();
+ }catch(e){showError("Could not update seller verification: "+e.message)}
 }
 
-function renderTrending(){
- const q=$("trending-search").value.toLowerCase();
- const rows=allAdverts.filter(a=>(a.title+" "+a.location).toLowerCase().includes(q));
- if(!rows.length){$("trending-list").innerHTML='<div class="empty">No adverts found.</div>';return}
- $("trending-list").innerHTML=rows.map(a=>`
- <article class="item">
-  <h3>${safe(a.title||"Untitled advert")}</h3>
-  <div class="meta">${safe(a.location||"Location not provided")}</div>
-  <span class="status ${a.featured?"good":"off"}">${a.featured?"Featured advert":"Not featured"}</span>
-  <div class="actions">
-   <button class="btn ${a.featured?"danger":"secondary"}" onclick="toggleFeatured('${safe(a.id)}')">${a.featured?"Remove from Featured":"Add to Featured"}</button>
-  </div>
- </article>`).join("");
+/* Trending uses database-side search and pagination too. */
+async function loadTrending(){
+ const list=$("trending-list");
+ list.innerHTML='<div class="loading">Searching featured adverts...</div>';
+ try{
+  const q=$("trending-search").value.trim().replace(/[,%()]/g," ");
+  let query=db.from("discover_listings")
+   .select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"})
+   .eq("featured",true);
+  if(q){
+   const p="%"+q+"%";
+   query=query.or("title.ilike."+p+",location.ilike."+p+",listing_type.ilike."+p);
+  }
+  const from=trendingPage*PAGE_SIZE,to=from+PAGE_SIZE-1;
+  const {data,error,count}=await query.order("created_at",{ascending:false}).range(from,to);
+  if(error)throw error;
+  trendingCount=count||0;
+  list.innerHTML=data?.length?data.map(advertCard).join(""):'<div class="empty">No featured adverts found.</div>';
+  const pages=Math.max(1,Math.ceil(trendingCount/PAGE_SIZE));
+  $("trending-page-info").textContent=`Page ${trendingPage+1} of ${pages} · ${trendingCount.toLocaleString()} featured`;
+  $("trending-prev").disabled=trendingPage===0;
+  $("trending-next").disabled=trendingPage>=pages-1;
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load featured adverts: '+safe(e.message)+'</div>';
+  showError("Trending search failed: "+e.message);
+ }
 }
 
-$("advert-search").addEventListener("input",renderAdverts);
-$("seller-search").addEventListener("input",renderSellers);
-$("trending-search").addEventListener("input",renderTrending);
-$("refresh-adverts").addEventListener("click",loadAdverts);
-$("refresh-trending").addEventListener("click",loadAdverts);
-$("refresh-sellers").addEventListener("click",loadSellers);
+/* Search after the user pauses typing. */
+$("advert-search").addEventListener("input",()=>{
+ clearTimeout(searchTimer);searchTimer=setTimeout(()=>{advertPage=0;loadAdverts()},450);
+});
+["category-filter","region-filter","status-filter","seller-id-filter","page-size"].forEach(id=>{
+ $(id).addEventListener("change",()=>{advertPage=0;loadAdverts()});
+});
+$("apply-filters").addEventListener("click",()=>{advertPage=0;loadAdverts()});
+$("clear-filters").addEventListener("click",()=>{
+ ["advert-search","region-filter","seller-id-filter"].forEach(id=>$(id).value="");
+ ["category-filter","status-filter"].forEach(id=>$(id).value="");
+ advertPage=0;loadAdverts();
+});
+$("advert-prev").addEventListener("click",()=>{if(advertPage>0){advertPage--;loadAdverts()}});
+$("advert-next").addEventListener("click",()=>{if((advertPage+1)*Number($("page-size").value)<advertCount){advertPage++;loadAdverts()}});
+$("refresh-adverts").addEventListener("click",async()=>{advertPage=0;await loadStats();await loadAdverts()});
+
+$("seller-search").addEventListener("input",()=>{
+ clearTimeout(searchTimer);searchTimer=setTimeout(()=>{sellerPage=0;loadSellers()},450);
+});
+$("seller-prev").addEventListener("click",()=>{if(sellerPage>0){sellerPage--;loadSellers()}});
+$("seller-next").addEventListener("click",()=>{if((sellerPage+1)*PAGE_SIZE<sellerCount){sellerPage++;loadSellers()}});
+$("refresh-sellers").addEventListener("click",()=>{sellerPage=0;loadSellers()});
+
+$("trending-search").addEventListener("input",()=>{
+ clearTimeout(searchTimer);searchTimer=setTimeout(()=>{trendingPage=0;loadTrending()},450);
+});
+$("trending-prev").addEventListener("click",()=>{if(trendingPage>0){trendingPage--;loadTrending()}});
+$("trending-next").addEventListener("click",()=>{if((trendingPage+1)*PAGE_SIZE<trendingCount){trendingPage++;loadTrending()}});
+$("refresh-trending").addEventListener("click",()=>{trendingPage=0;loadTrending()});
+
 $("signout").addEventListener("click",async()=>{
  const {error}=await db.auth.signOut();
  if(error){showError(error.message);return}
