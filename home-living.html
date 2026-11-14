@@ -11,42 +11,14 @@
 
 <style>
 :root{
-  --purple:#6545c5;
-  --dark:#4d32a5;
-  --light:#f0ebff;
-  --bg:#fbfaff;
-  --text:#211b36;
-  --muted:#716b83;
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;
   --border:#e6e0f5;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);color:var(--text);line-height:1.45
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
 
-/* COMPACT HEADER */
-header{
-  background:linear-gradient(120deg,#4d32a5,#7655d6);
-  color:#fff;padding:7px 12px;position:sticky;top:0;z-index:20;
-  box-shadow:0 3px 10px rgba(48,30,100,.15)
-}
-.header-inner{
-  max-width:1150px;margin:auto;display:flex;
-  align-items:center;justify-content:space-between;gap:8px
-}
-.brand{
-  color:#fff;text-decoration:none;font-size:19px;
-  font-weight:900;letter-spacing:.4px;line-height:1.1
-}
-.brand small{display:block;font-size:9px;font-weight:normal;margin-top:3px}
-.post-button{
-  background:#fff;color:var(--dark);text-decoration:none;
-  padding:7px 10px;border-radius:8px;font-size:11px;font-weight:bold;
-  white-space:nowrap
-}
-
-/* COMPACT HERO */
+/* HOME & LIVING HERO — TOP HEADER REMOVED */
 .hero{
   display:flex;align-items:center;gap:9px;min-height:82px;
   padding:9px 12px;
@@ -57,10 +29,7 @@ header{
   content:"⌂";position:absolute;right:10px;top:-35px;
   font-size:120px;color:rgba(255,255,255,.07);pointer-events:none
 }
-.hero-back{
-  color:#fff;text-decoration:none;font-size:24px;
-  position:relative;z-index:1
-}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
 .hero-icon-box{
   width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
   border-radius:12px;display:grid;place-items:center;
@@ -77,9 +46,7 @@ header{
   background:#f1e8ff;border:1px solid #e9ddfb;
   border-radius:14px;padding:9px;margin:8px 0 12px
 }
-.search-button-row{
-  display:grid;grid-template-columns:1fr auto;gap:6px
-}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
 .search-panel input,.search-panel select{
   width:100%;min-width:0;min-height:38px;padding:8px 10px;
   border:1px solid #e7e0f0;border-radius:9px;background:#fff;
@@ -96,8 +63,7 @@ header{
 }
 .clear-button{
   background:#fff;border:1px solid var(--border);color:var(--dark);
-  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;
-  cursor:pointer
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
 }
 
 /* CATEGORY CARDS */
@@ -120,20 +86,14 @@ header{
   background:linear-gradient(145deg,#eee4ff,#faf7ff);
   display:grid;place-items:center;font-size:24px
 }
-.shortcut.active{
-  border:2px solid var(--purple);
-  background:#f3edff;color:var(--dark);padding:4px
-}
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
 .electronics-note{font-size:10px;color:var(--muted);margin:7px 0}
 
 /* ADVERT CARDS */
-.products{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px
-}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 .product-card{
   min-width:0;background:#fff;border:1px solid var(--border);
-  border-radius:10px;overflow:hidden;
-  box-shadow:0 2px 7px rgba(0,0,0,.05)
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
 }
 .image-wrap{height:125px;background:#f2edff;position:relative}
 .product-image{width:100%;height:100%;object-fit:cover;display:block}
@@ -142,10 +102,9 @@ header{
   justify-content:center;font-size:34px;color:#7b68b8
 }
 .category-badge{
-  position:absolute;bottom:5px;left:5px;background:#fff;
-  color:var(--dark);padding:3px 6px;border-radius:10px;
-  font-size:8px;font-weight:bold;max-width:calc(100% - 10px);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
 .product-content{padding:7px}
 .product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
@@ -156,22 +115,23 @@ header{
   overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
   -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
 }
-.business{
-  border-top:1px solid var(--border);margin-top:6px;
-  padding-top:5px;font-size:9px;overflow-wrap:anywhere
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+
+/* CONTACT AND SHARE BUTTONS */
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
 }
-.delivery{
-  margin-top:5px;padding:5px;border-radius:5px;
-  background:#f6f2ff;color:#55427f;font-size:9px
-}
-.button-row{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}
 .button{
-  display:flex;justify-content:center;align-items:center;min-height:30px;
-  padding:4px 3px;border-radius:6px;text-align:center;
-  text-decoration:none;font-size:9px;font-weight:bold
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
 }
 .whatsapp{background:var(--purple);color:#fff}
 .call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
 .details-button{
   display:flex;justify-content:center;align-items:center;width:100%;
   min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
@@ -190,9 +150,8 @@ header{
 }
 .back-area{text-align:center;margin-top:16px}
 .back{
-  display:inline-block;padding:8px 12px;background:#fff;
-  border:1px solid var(--border);color:var(--dark);
-  border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
 }
 
 /* FOOTER */
@@ -210,16 +169,14 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 }
 .bottom-nav a,.bottom-nav button{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:2px;min-width:0;color:#777187;text-decoration:none;
-  background:none;border:0;font:inherit;font-size:9px;
-  font-weight:700;padding:3px 0;cursor:pointer
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
 }
 .bottom-nav .nav-icon{font-size:18px;line-height:1.2}
 .bottom-nav .active{color:var(--dark)}
 .bottom-nav .sell-icon{
   width:33px;height:26px;display:grid;place-items:center;
-  background:var(--dark);color:#fff;border-radius:8px;
-  font-size:20px;margin-top:-8px
+  background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
 }
 
 @media(min-width:851px){
@@ -232,7 +189,8 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
   .product-content{padding:6px}
   .product-name{font-size:11px}
   .price{font-size:13px}
-  .button-row{grid-template-columns:1fr}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
   .shortcut-icon{height:42px;font-size:23px}
   .shortcut{font-size:9px}
   .search-button-row{grid-template-columns:1fr}
@@ -242,16 +200,6 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 </head>
 
 <body>
-
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="brand">
-      OGARS MARKET
-      <small>Ghana's online marketplace</small>
-    </a>
-    <a href="post-home-living.html" class="post-button">＋ Post Advert</a>
-  </div>
-</header>
 
 <section class="hero">
   <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
@@ -266,9 +214,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 <section class="search-panel">
   <div class="search-button-row">
-    <input type="search" id="product-search"
-      placeholder="Search sofas, beds, kitchen items..."
-      autocomplete="off">
+    <input type="search" id="product-search" placeholder="Search sofas, beds, kitchen items..." autocomplete="off">
     <button type="button" class="search-button" id="search-button">⌕ Search</button>
   </div>
 
@@ -313,70 +259,41 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 </section>
 
 <section class="electronics-shortcuts" aria-label="Home and Living categories">
-  <button class="shortcut" type="button" data-subcategory="Sofas & Chairs">
-    <span class="shortcut-icon">🛋️</span><span>Sofas &amp; Chairs</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Beds & Mattresses">
-    <span class="shortcut-icon">🛏️</span><span>Beds &amp; Mattresses</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Tables & Chairs">
-    <span class="shortcut-icon">🪑</span><span>Tables &amp; Chairs</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Kitchen Items">
-    <span class="shortcut-icon">🍳</span><span>Kitchen Items</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Home Decor">
-    <span class="shortcut-icon">🪴</span><span>Home Decor</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Wardrobes & Storage">
-    <span class="shortcut-icon">🗄️</span><span>Wardrobes &amp; Storage</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Lighting">
-    <span class="shortcut-icon">💡</span><span>Lighting</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Cleaning Supplies">
-    <span class="shortcut-icon">🧹</span><span>Cleaning Supplies</span>
-  </button>
-  <button class="shortcut" type="button" data-subcategory="Household Essentials">
-    <span class="shortcut-icon">🏠</span><span>Household Essentials</span>
-  </button>
+  <button class="shortcut" type="button" data-subcategory="Sofas & Chairs"><span class="shortcut-icon">🛋️</span><span>Sofas &amp; Chairs</span></button>
+  <button class="shortcut" type="button" data-subcategory="Beds & Mattresses"><span class="shortcut-icon">🛏️</span><span>Beds &amp; Mattresses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Tables & Chairs"><span class="shortcut-icon">🪑</span><span>Tables &amp; Chairs</span></button>
+  <button class="shortcut" type="button" data-subcategory="Kitchen Items"><span class="shortcut-icon">🍳</span><span>Kitchen Items</span></button>
+  <button class="shortcut" type="button" data-subcategory="Home Decor"><span class="shortcut-icon">🪴</span><span>Home Decor</span></button>
+  <button class="shortcut" type="button" data-subcategory="Wardrobes & Storage"><span class="shortcut-icon">🗄️</span><span>Wardrobes &amp; Storage</span></button>
+  <button class="shortcut" type="button" data-subcategory="Lighting"><span class="shortcut-icon">💡</span><span>Lighting</span></button>
+  <button class="shortcut" type="button" data-subcategory="Cleaning Supplies"><span class="shortcut-icon">🧹</span><span>Cleaning Supplies</span></button>
+  <button class="shortcut" type="button" data-subcategory="Household Essentials"><span class="shortcut-icon">🏠</span><span>Household Essentials</span></button>
 </section>
 
-<p class="electronics-note" id="electronics-note">
-  Showing all Home &amp; Living adverts.
-</p>
+<p class="electronics-note" id="electronics-note">Showing all Home &amp; Living adverts.</p>
 
 <section id="products" class="products" aria-live="polite">
-  <div class="message">
-    <strong>Loading Home &amp; Living adverts...</strong>
-    Please wait while we connect to OGARS MARKET.
-  </div>
+  <div class="message"><strong>Loading Home &amp; Living adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
 </section>
 
 <div class="back-area">
   <a href="index.html" class="back">← Back to OGARS MARKET</a>
 </div>
-
 </main>
 
 <nav class="bottom-nav" aria-label="Main navigation">
   <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
   <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
   <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
-  <button type="button" id="ai-search-nav">
-    <span class="nav-icon">✦</span><span>AI Search</span>
-  </button>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
   <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
 </nav>
 
 <footer>
   <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="workers.html">Workers</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="find-property.html">Properties</a>
-    <a href="vehicles.html">Vehicles</a>
-    <a href="business.html">Businesses</a>
+    <a href="index.html">Home</a><a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
+    <a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
     <a href="discover.html">Discover</a>
   </nav>
   <div>© 2026 OGARS MARKET</div>
@@ -386,322 +303,305 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 <script>
 "use strict";
 
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
 
-const $ = id => document.getElementById(id);
-
-const categories = [
-  "Sofas & Chairs",
-  "Beds & Mattresses",
-  "Tables & Chairs",
-  "Kitchen Items",
-  "Home Decor",
-  "Wardrobes & Storage",
-  "Lighting",
-  "Cleaning Supplies",
+const categories=[
+  "Sofas & Chairs","Beds & Mattresses","Tables & Chairs","Kitchen Items",
+  "Home Decor","Wardrobes & Storage","Lighting","Cleaning Supplies",
   "Household Essentials"
 ];
 
-let allProducts = [];
-let sellerMap = {};
+let allProducts=[];
+let sellerMap={};
 
-const params = new URLSearchParams(location.search);
-let selectedSubcategory = params.get("subcategory") || "";
+const params=new URLSearchParams(location.search);
+let selectedSubcategory=params.get("subcategory")||"";
 
 /* PARSE DETAILS SAVED IN DESCRIPTION */
+function parseAdvert(advert){
+  const lines=String(advert.description||"").split(/\r?\n/);
+  const details={};
+  const publicLines=[];
 
-function parseAdvert(advert) {
-  const lines = String(advert.description || "").split(/\r?\n/);
-  const details = {};
-  const publicLines = [];
-
-  const automaticFields = [
-    "Furniture type","Material","Number of seats / pieces",
-    "Number of pieces","Condition","Colour","Product type",
-    "Bed size","Material / mattress type","Dimensions","Item type",
-    "Brand","Quantity / set size","Decor item type","Colour / style",
-    "Storage type","Number of doors / drawers","Lighting type",
-    "Power type","Brand / model","Colour / wattage",
-    "Cleaning product type","Pack size / quantity","Product condition",
-    "Service offered","Furniture service","Kitchen service",
-    "Service location / coverage","Warranty","Quantity available",
+  const automaticFields=[
+    "Furniture type","Material","Number of seats / pieces","Number of pieces",
+    "Condition","Colour","Product type","Bed size","Material / mattress type",
+    "Dimensions","Item type","Brand","Quantity / set size","Decor item type",
+    "Colour / style","Storage type","Number of doors / drawers","Lighting type",
+    "Power type","Brand / model","Colour / wattage","Cleaning product type",
+    "Pack size / quantity","Product condition","Service offered","Furniture service",
+    "Kitchen service","Service location / coverage","Warranty","Quantity available",
     "Price (GH₵)","Maximum budget (GH₵)"
   ];
 
-  for (const line of lines) {
-    const text = line.trim();
-    if (!text) continue;
+  for(const line of lines){
+    const text=line.trim();
+    if(!text)continue;
 
-    const colon = text.indexOf(":");
-
-    if (colon > 0) {
-      const label = text.slice(0, colon).trim();
-      const value = text.slice(colon + 1).trim();
-      if (value) details[label.toLowerCase()] = value;
+    const colon=text.indexOf(":");
+    if(colon>0){
+      const label=text.slice(0,colon).trim();
+      const value=text.slice(colon+1).trim();
+      if(value)details[label.toLowerCase()]=value;
     }
 
-    if (
-      /^Home & Living category:/i.test(text) ||
-      /^Advert purpose:/i.test(text) ||
-      /^Region:/i.test(text) ||
-      /^Town \/ area:/i.test(text) ||
+    if(
+      /^Home & Living category:/i.test(text)||
+      /^Advert purpose:/i.test(text)||
+      /^Region:/i.test(text)||
+      /^Town \/ area:/i.test(text)||
       /^Specific location:/i.test(text)
-    ) continue;
+    )continue;
 
-    if (automaticFields.some(field =>
-      text.toLowerCase().startsWith(field.toLowerCase() + ":")
-    )) continue;
+    if(automaticFields.some(field=>
+      text.toLowerCase().startsWith(field.toLowerCase()+":")
+    ))continue;
 
     publicLines.push(text);
   }
 
-  const priceValue =
-    details["price (gh₵)"] ||
-    details["maximum budget (gh₵)"] || "";
+  const priceValue=details["price (gh₵)"]||details["maximum budget (gh₵)"]||"";
+  const numericPrice=Number(String(priceValue).replace(/,/g,""));
 
-  const numericPrice = Number(String(priceValue).replace(/,/g, ""));
-
-  return {
-    category: details["home & living category"] || "",
-    purpose: details["advert purpose"] || "",
-    price: priceValue && Number.isFinite(numericPrice) ? numericPrice : null,
-    publicDescription: publicLines.join("\n").trim()
+  return{
+    category:details["home & living category"]||"",
+    purpose:details["advert purpose"]||"",
+    price:priceValue&&Number.isFinite(numericPrice)?numericPrice:null,
+    publicDescription:publicLines.join("\n").trim()
   };
 }
 
 /* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
 
-function isAdvertActive(advert) {
-  if (advert.available === false) return false;
-  if (advert.is_active === false) return false;
-  if (advert.active === false) return false;
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
 
-  const status = String(advert.status || "").toLowerCase();
-
-  if (["inactive","expired","deactivated","removed","sold","closed"].includes(status)) {
-    return false;
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
   }
-
-  if (advert.expires_at) {
-    const expiry = new Date(advert.expires_at).getTime();
-    if (Number.isFinite(expiry) && expiry <= Date.now()) return false;
-  }
-
   return true;
 }
 
 /* SAFE HTML */
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
 /* PHONE NUMBER */
-
-function cleanPhoneNumber(phone) {
-  let value = String(phone || "").replace(/[^\d+]/g, "");
-  if (value.startsWith("+")) value = value.substring(1);
-  if (value.startsWith("0")) value = "233" + value.substring(1);
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
   return value;
 }
 
 /* LOAD ADVERTS */
+async function loadProducts(){
+  $("products").innerHTML=`<div class="message"><strong>🛋️ Loading Home & Living adverts...</strong>Connecting to OGARS MARKET.</div>`;
+  $("results-count").textContent="Connecting to OGARS MARKET...";
 
-async function loadProducts() {
-  $("products").innerHTML = `
-    <div class="message">
-      <strong>🛋️ Loading Home & Living adverts...</strong>
-      Connecting to OGARS MARKET.
-    </div>`;
-
-  $("results-count").textContent = "Connecting to OGARS MARKET...";
-
-  try {
-    const { data, error } = await db
-      .from("discover_listings")
+  try{
+    const {data,error}=await db.from("discover_listings")
       .select("*")
-      .eq("listing_type", "Home & Living")
-      .order("created_at", { ascending: false })
+      .eq("listing_type","Home & Living")
+      .order("created_at",{ascending:false})
       .limit(500);
 
-    if (error) throw error;
+    if(error)throw error;
 
-    allProducts = (data || [])
+    allProducts=(data||[])
       .filter(isAdvertActive)
-      .map(advert => {
-        const parsed = parseAdvert(advert);
-        return {
-          ...advert,
-          parsed,
-          category: parsed.category,
-          purpose: parsed.purpose,
-          price: parsed.price
-        };
+      .map(advert=>{
+        const parsed=parseAdvert(advert);
+        return{...advert,parsed,category:parsed.category,purpose:parsed.purpose,price:parsed.price};
       })
-      .filter(advert => categories.includes(advert.category));
+      .filter(advert=>categories.includes(advert.category));
 
     displayProducts(getFilteredProducts());
     loadSellerInformation();
-
-  } catch (error) {
-    console.error("OGARS Home & Living error:", error);
-    showMessage("Unable to load adverts", error.message || "Please try again.", true);
+  }catch(error){
+    console.error("OGARS Home & Living error:",error);
+    showMessage("Unable to load adverts",error.message||"Please try again.",true);
   }
 }
 
 /* SELLER TRUST INFORMATION */
+async function loadSellerInformation(){
+  const ids=[...new Set(allProducts.map(item=>item.user_id).filter(Boolean))];
+  if(!ids.length)return;
 
-async function loadSellerInformation() {
-  const ids = [...new Set(allProducts.map(item => item.user_id).filter(Boolean))];
-  if (!ids.length) return;
+  try{
+    const {data,error}=await db.from("user_profiles")
+      .select("id,is_trusted").in("id",ids);
 
-  try {
-    const { data, error } = await db
-      .from("user_profiles")
-      .select("id,is_trusted")
-      .in("id", ids);
+    if(error)throw error;
 
-    if (error) throw error;
-
-    sellerMap = {};
-    (data || []).forEach(seller => {
-      sellerMap[String(seller.id)] = seller;
-    });
-
+    sellerMap={};
+    (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
     filterProducts();
-  } catch (error) {
-    console.warn("Seller verification lookup unavailable:", error.message);
+  }catch(error){
+    console.warn("Seller verification lookup unavailable:",error.message);
   }
 }
 
 /* ERROR AND EMPTY MESSAGES */
-
-function showMessage(title, detail, isError = false) {
-  $("products").innerHTML = `
+function showMessage(title,detail,isError=false){
+  $("products").innerHTML=`
     <div class="message">
       <strong>${escapeHtml(title)}</strong>
       <div>${escapeHtml(detail)}</div>
       <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
     </div>`;
-  $("results-count").textContent = isError ? "Could not load adverts" : "0 adverts found";
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
 }
 
 /* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"").split(",")
+    .map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
 
-function getPhotos(advert) {
-  return String(advert.photo_urls || "")
-    .split(",")
-    .map(url => url.trim())
-    .filter(url => /^https?:\/\//i.test(url));
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Home & Living advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
+
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else{
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
+
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }
 }
 
 /* ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
 
-function createProductCard(advert) {
-  const card = document.createElement("article");
-  card.className = "product-card";
+  const parsed=advert.parsed;
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
 
-  const parsed = advert.parsed;
-  const photos = getPhotos(advert);
-  const photo = photos[0] || "";
-
-  const phone = advert.phone || "";
-  const whatsapp = advert.whatsapp || phone;
-  const trusted = sellerMap[String(advert.user_id)]?.is_trusted === true;
-
-  let priceText = "Price on request";
-
-  if (parsed.price !== null) {
-    priceText = "GH₵" + parsed.price.toLocaleString("en-GH", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+  let priceText="Price on request";
+  if(parsed.price!==null){
+    priceText="GH₵"+parsed.price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,maximumFractionDigits:2
     });
   }
 
-  let imageHtml = '<div class="no-image">🛋️</div>';
-
-  if (photo) {
-    imageHtml = `
+  let imageHtml='<div class="no-image">🛋️</div>';
+  if(photo){
+    imageHtml=`
       <img class="product-image"
         src="${escapeHtml(photo)}"
-        alt="${escapeHtml(advert.title || "Home & Living advert")}"
+        alt="${escapeHtml(advert.title||"Home & Living advert")}"
         loading="lazy"
         onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛋️</div>'">
     `;
   }
 
-  let buttons = "";
+  const detailsUrl=new URL("discover-details.html",location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+  const shareUrl=detailsUrl.href;
 
-  if (whatsapp) {
-    const number = cleanPhoneNumber(whatsapp);
-    if (number) {
-      const message = encodeURIComponent(
-        'Hello, I saw your "' + (advert.title || "Home & Living advert") +
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Home & Living advert")+
         '" on OGARS MARKET. Is it still available?'
       );
-
-      buttons += `
+      buttons+=`
         <a class="button whatsapp"
           href="https://wa.me/${escapeHtml(number)}?text=${message}"
           target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
     }
   }
 
-  if (phone) {
-    buttons += `
-      <a class="button call" href="tel:${escapeHtml(phone)}">📞 Call Seller</a>`;
+  if(phone){
+    buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
   }
 
-  const detailsUrl = "discover-details.html?id=" + encodeURIComponent(advert.id);
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
 
-  card.innerHTML = `
+  card.innerHTML=`
     <div class="image-wrap">
       ${imageHtml}
       <div class="category-badge">${escapeHtml(parsed.category)}</div>
     </div>
 
     <div class="product-content">
-      <h2 class="product-name">${escapeHtml(advert.title || "Home & Living advert")}</h2>
+      <h2 class="product-name">${escapeHtml(advert.title||"Home & Living advert")}</h2>
       <div class="price">${escapeHtml(priceText)}</div>
-      <div class="purpose">${escapeHtml(parsed.purpose || "For sale")}</div>
+      <div class="purpose">${escapeHtml(parsed.purpose||"For sale")}</div>
 
       ${parsed.publicDescription
-        ? `<div class="description">${escapeHtml(parsed.publicDescription)}</div>`
-        : ""}
+        ?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
 
       <div class="business">
-        ${trusted ? '<strong style="color:#16834b">✓ Trusted seller</strong><br>' : ""}
-        📍 ${escapeHtml(advert.location || "Ghana")}
+        ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+        📍 ${escapeHtml(advert.location||"Ghana")}
       </div>
 
       <div class="delivery">
-        ${photos.length ? "📷 " + photos.length + " photo(s)" : "📷 No photo uploaded"}
+        ${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}
       </div>
 
-      <a class="details-button" href="${escapeHtml(detailsUrl)}">View Advert</a>
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
 
-      ${buttons ? `<div class="button-row">${buttons}</div>` : ""}
+      ${buttons?`<div class="button-row">${buttons}</div>`:""}
     </div>
   `;
+
+  const shareButton=card.querySelector(".share-button");
+  shareButton.addEventListener("click",()=>{
+    shareAdvert(advert.title,shareUrl);
+  });
 
   return card;
 }
 
 /* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=products.length+(products.length===1?" advert found":" adverts found");
 
-function displayProducts(products) {
-  $("results-count").textContent =
-    products.length + (products.length === 1 ? " advert found" : " adverts found");
-
-  if (!products.length) {
-    $("products").innerHTML = `
+  if(!products.length){
+    $("products").innerHTML=`
       <div class="message">
         <strong>🔍 No adverts found in this category</strong>
         Try another category or clear your filters.
@@ -709,20 +609,19 @@ function displayProducts(products) {
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  products.forEach(advert => fragment.appendChild(createProductCard(advert)));
+  const fragment=document.createDocumentFragment();
+  products.forEach(advert=>fragment.appendChild(createProductCard(advert)));
   $("products").replaceChildren(fragment);
 }
 
 /* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
 
-function matchesRegion(location, region) {
-  if (!region) return true;
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
 
-  const text = String(location || "").toLowerCase();
-  const selected = region.toLowerCase();
-
-  const aliases = {
+  const aliases={
     "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
     "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
     "central":["central","cape coast","winneba","mankessim","swedru"],
@@ -741,147 +640,112 @@ function matchesRegion(location, region) {
     "north east":["north east","nalerigu","walewale"]
   };
 
-  return (aliases[selected] || [selected]).some(term => text.includes(term));
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
 }
 
 /* SEARCH, CATEGORY AND SORTING */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
 
-function getFilteredProducts() {
-  const search = $("product-search").value.toLowerCase().trim();
-  const region = $("location-filter").value;
-  const sort = $("sort-filter").value;
-
-  return allProducts.filter(advert => {
-    const text = [
-      advert.title,
-      advert.location,
-      advert.description,
-      advert.category,
-      advert.purpose
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,advert.location,advert.description,
+      advert.category,advert.purpose
     ].filter(Boolean).join(" ").toLowerCase();
 
-    const matchesSearch = !search || text.includes(search);
-    const matchesCategory =
-      !selectedSubcategory || advert.category === selectedSubcategory;
-    const matchesLocation = matchesRegion(advert.location, region);
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedSubcategory||advert.category===selectedSubcategory;
+    const matchesLocation=matchesRegion(advert.location,region);
 
-    return matchesSearch && matchesCategory && matchesLocation;
+    return matchesSearch&&matchesCategory&&matchesLocation;
+  }).sort((a,b)=>{
+    const priceA=a.price,priceB=b.price;
+    const validA=priceA!==null&&Number.isFinite(priceA);
+    const validB=priceB!==null&&Number.isFinite(priceB);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+    const trustedA=sellerMap[String(a.user_id)]?.is_trusted===true;
+    const trustedB=sellerMap[String(b.user_id)]?.is_trusted===true;
 
-  }).sort((a, b) => {
-    const priceA = a.price;
-    const priceB = b.price;
-    const validA = priceA !== null && Number.isFinite(priceA);
-    const validB = priceB !== null && Number.isFinite(priceB);
-
-    const dateA = new Date(a.created_at || 0).getTime();
-    const dateB = new Date(b.created_at || 0).getTime();
-
-    const trustedA = sellerMap[String(a.user_id)]?.is_trusted === true;
-    const trustedB = sellerMap[String(b.user_id)]?.is_trusted === true;
-
-    if (sort === "price-low") {
-      if (validA && validB) return priceA - priceB;
-      if (validA) return -1;
-      if (validB) return 1;
-      return dateB - dateA;
+    if(sort==="price-low"){
+      if(validA&&validB)return priceA-priceB;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
     }
-
-    if (sort === "price-high") {
-      if (validA && validB) return priceB - priceA;
-      if (validA) return -1;
-      if (validB) return 1;
-      return dateB - dateA;
+    if(sort==="price-high"){
+      if(validA&&validB)return priceB-priceA;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
     }
-
-    if (sort === "verified") {
-      if (trustedA !== trustedB) return trustedA ? -1 : 1;
-      return dateB - dateA;
+    if(sort==="verified"){
+      if(trustedA!==trustedB)return trustedA?-1:1;
+      return dateB-dateA;
     }
-
-    return dateB - dateA;
+    return dateB-dateA;
   });
 }
 
-function filterProducts() {
+function filterProducts(){
   displayProducts(getFilteredProducts());
 }
 
 /* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.subcategory;
+    selectedSubcategory=selectedSubcategory===category?"":category;
 
-document.querySelectorAll(".shortcut").forEach(button => {
-  button.addEventListener("click", () => {
-    const category = button.dataset.subcategory;
-
-    selectedSubcategory =
-      selectedSubcategory === category ? "" : category;
-
-    document.querySelectorAll(".shortcut").forEach(item => {
-      item.classList.toggle(
-        "active",
-        item.dataset.subcategory === selectedSubcategory
-      );
+    document.querySelectorAll(".shortcut").forEach(item=>{
+      item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory);
     });
 
-    $("electronics-note").textContent = selectedSubcategory
-      ? "Showing adverts in " + selectedSubcategory + "."
-      : "Showing all Home & Living adverts.";
+    $("electronics-note").textContent=selectedSubcategory
+      ?"Showing adverts in "+selectedSubcategory+"."
+      :"Showing all Home & Living adverts.";
 
     filterProducts();
-
-    $("products").scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
+    $("products").scrollIntoView({behavior:"smooth",block:"start"});
   });
 });
 
 /* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+  selectedSubcategory="";
 
-function clearFilters() {
-  $("product-search").value = "";
-  $("location-filter").value = "";
-  $("sort-filter").value = "newest";
+  document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
 
-  selectedSubcategory = "";
-
-  document.querySelectorAll(".shortcut").forEach(button => {
-    button.classList.remove("active");
-  });
-
-  $("electronics-note").textContent = "Showing all Home & Living adverts.";
+  $("electronics-note").textContent="Showing all Home & Living adverts.";
   filterProducts();
 }
 
 /* EVENT LISTENERS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
 
-$("product-search").addEventListener("input", filterProducts);
-$("location-filter").addEventListener("change", filterProducts);
-$("sort-filter").addEventListener("change", filterProducts);
-$("search-button").addEventListener("click", filterProducts);
-$("clear-filters").addEventListener("click", clearFilters);
-
-$("ai-search-nav").addEventListener("click", () => {
+$("ai-search-nav").addEventListener("click",()=>{
   alert("OGARS MARKET AI Search is coming soon.");
 });
 
 /* CATEGORY FROM URL */
-
-if (selectedSubcategory) {
-  document.querySelectorAll(".shortcut").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.subcategory === selectedSubcategory
-    );
+if(selectedSubcategory){
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.toggle("active",button.dataset.subcategory===selectedSubcategory);
   });
-
-  $("electronics-note").textContent =
-    "Showing adverts in " + selectedSubcategory + ".";
+  $("electronics-note").textContent="Showing adverts in "+selectedSubcategory+".";
 }
 
 /* START */
-
 loadProducts();
-
 </script>
 </body>
 </html>
