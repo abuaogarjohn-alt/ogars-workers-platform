@@ -1,541 +1,468 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#512A91">
+<title>Advert Details | OGARS MARKET</title>
 
-  <title>Advert Details | OGARS</title>
+<style>
+:root{
+  --purple:#512A91;
+  --deep:#38166f;
+  --light:#f1eaff;
+  --bg:#faf9fd;
+  --text:#211b36;
+  --muted:#716b83;
+  --border:#e6e0f5;
+  --white:#fff;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+*{box-sizing:border-box;margin:0;padding:0}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f4f7f5;
-      color: #1f2937;
-      line-height: 1.5;
-    }
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
 
-    header {
-      background: linear-gradient(135deg, #006b00, #008f00);
-      color: white;
-      padding: 20px 16px 25px;
-      text-align: center;
-    }
+header{
+  background:linear-gradient(120deg,#4d32a5,#7655d6);
+  color:white;
+  padding:12px 16px;
+  text-align:center;
+}
 
-    .logo {
-      font-size: 17px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      margin-bottom: 9px;
-    }
+.logo{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:1px;
+}
 
-    header h1 {
-      font-size: 25px;
-    }
+header h1{
+  font-size:17px;
+  font-weight:600;
+  margin-top:2px;
+}
 
-    .container {
-      width: 100%;
-      max-width: 760px;
-      margin: auto;
-      padding: 15px 14px 35px;
-    }
+.container{
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  padding:12px 12px 30px;
+}
 
-    .back-button {
-      display: inline-block;
-      margin: 4px 0 15px;
-      color: #008000;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-    }
+.back-button{
+  display:inline-block;
+  margin:4px 0 12px;
+  color:var(--purple);
+  text-decoration:none;
+  font-weight:800;
+  font-size:13px;
+}
 
-    .advert-card {
-      background: white;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-    }
+.advert-card{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 4px 16px rgba(40,20,80,.07);
+}
 
-    .photo-area {
-      width: 100%;
-      background: #edf4ed;
-      position: relative;
-      overflow: hidden;
-    }
+.photo-area{
+  width:100%;
+  background:#f1eaff;
+  position:relative;
+  overflow:hidden;
+}
 
-    .main-photo-wrapper {
-      position: relative;
-      width: 100%;
-      height: 300px;
-      touch-action: pan-y;
-      overflow: hidden;
-      background: #edf4ed;
-    }
+.main-photo-wrapper{
+  position:relative;
+  width:100%;
+  height:250px;
+  touch-action:pan-y;
+  overflow:hidden;
+  background:#f1eaff;
+}
 
-    .main-photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
+.main-photo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-drag:none;
+}
 
-    .photo-count {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0,0,0,0.65);
-      color: white;
-      border-radius: 20px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 5;
-    }
+.photo-count{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:rgba(30,20,50,.75);
+  color:white;
+  border-radius:20px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:bold;
+  z-index:5;
+}
 
-    .photo-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 38px;
-      height: 38px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.52);
-      color: white;
-      font-size: 22px;
-      cursor: pointer;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.photo-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:rgba(30,20,50,.65);
+  color:white;
+  font-size:22px;
+  cursor:pointer;
+  z-index:5;
+}
 
-    .photo-arrow:hover {
-      background: rgba(0,0,0,0.72);
-    }
+.photo-prev{left:9px}
+.photo-next{right:9px}
 
-    .photo-prev {
-      left: 10px;
-    }
+.no-photo{
+  height:190px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--purple);
+  font-weight:bold;
+}
 
-    .photo-next {
-      right: 10px;
-    }
+.photo-thumbnails{
+  display:flex;
+  gap:7px;
+  padding:8px;
+  overflow-x:auto;
+  background:white;
+}
 
-    .no-photo {
-      height: 230px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #008000;
-      font-weight: bold;
-    }
+.photo-thumb{
+  width:58px;
+  height:48px;
+  object-fit:cover;
+  border-radius:7px;
+  cursor:pointer;
+  border:2px solid transparent;
+  flex-shrink:0;
+}
 
-    .photo-thumbnails {
-      display: flex;
-      gap: 8px;
-      padding: 10px;
-      overflow-x: auto;
-      background: white;
-      scrollbar-width: thin;
-    }
+.photo-thumb.selected{
+  border-color:var(--purple);
+}
 
-    .photo-thumb {
-      width: 65px;
-      height: 55px;
-      object-fit: cover;
-      border-radius: 7px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      flex-shrink: 0;
-      user-select: none;
-    }
+.content{padding:15px}
 
-    .photo-thumb.selected {
-      border-color: #008000;
-    }
+.listing-type{
+  color:var(--purple);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
 
-    .content {
-      padding: 20px;
-    }
+.title{
+  font-size:22px;
+  line-height:1.25;
+  color:#171326;
+  font-weight:900;
+  margin-bottom:7px;
+  overflow-wrap:anywhere;
+}
 
-    .listing-type {
-      color: #008000;
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
+.location{
+  color:#625b70;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:12px;
+}
 
-    .title {
-      font-size: 25px;
-      line-height: 1.25;
-      color: #111827;
-      margin-bottom: 12px;
-    }
+.price-display{
+  color:var(--purple);
+  font-size:23px;
+  font-weight:900;
+  margin:5px 0 12px;
+}
 
-    .location {
-      color: #555;
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
+.description-box{
+  background:#f7f4fc;
+  border:1px solid #ece5f8;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:14px;
+}
 
-    .description-box {
-      background: #f7f9f7;
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 18px;
-    }
+.description-box h3{
+  color:var(--deep);
+  font-size:16px;
+  font-weight:900;
+  margin-bottom:11px;
+}
 
-    .description-box h3 {
-      color: #222;
-      font-size: 16px;
-      margin-bottom: 7px;
-    }
+.description{
+  color:#373044;
+  font-size:14px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
 
-    .description {
-      color: #555;
-      font-size: 14px;
-      white-space: pre-wrap;
-    }
+.feature-row{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:9px 0;
+  border-bottom:1px solid #e9e2f3;
+}
 
-    .details-box {
-      border-top: 1px solid #e5e7eb;
-      padding-top: 16px;
-      margin-top: 5px;
-    }
+.feature-row:last-child{border-bottom:0}
 
-    .detail-row {
-      display: flex;
-      gap: 10px;
-      padding: 9px 0;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 14px;
-    }
+.feature-label{
+  color:#4b2b80;
+  font-size:12px;
+  font-weight:900;
+  text-transform:none;
+}
 
-    .detail-label {
-      font-weight: bold;
-      min-width: 105px;
-      color: #333;
-    }
+.feature-value{
+  color:#211b36;
+  font-size:14px;
+  font-weight:800;
+  overflow-wrap:anywhere;
+}
 
-    .detail-value {
-      color: #555;
-      word-break: break-word;
-    }
+.description-paragraph{
+  padding:5px 0;
+  font-weight:600;
+  color:#40394e;
+}
 
-    .contact-section {
-      margin-top: 20px;
-      display: grid;
-      gap: 10px;
-    }
+.details-box{
+  border-top:1px solid var(--border);
+  padding-top:12px;
+  margin-top:5px;
+}
 
-    .contact-button {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 10px;
-      padding: 13px;
-      font-weight: bold;
-      font-size: 14px;
-    }
+.detail-row{
+  display:flex;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid #eeeaf4;
+  font-size:13px;
+}
 
-    .call-button {
-      background: #008000;
-      color: white;
-    }
+.detail-label{
+  font-weight:900;
+  min-width:100px;
+  color:#4b2b80;
+}
 
-    .whatsapp-button {
-      background: #e9f7e9;
-      color: #087408;
-    }
+.detail-value{
+  color:#292238;
+  font-weight:700;
+  word-break:break-word;
+}
 
-    .website-button {
-      background: #f1f3f2;
-      color: #333;
-      border: 1px solid #ddd;
-    }
+.contact-section{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
 
-    .expiry-box {
-      margin-top: 20px;
-      background: #f7f9f7;
-      border-radius: 10px;
-      padding: 11px 13px;
-      font-size: 13px;
-      color: #555;
-    }
+.contact-button{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  text-decoration:none;
+  border-radius:9px;
+  padding:11px 7px;
+  min-height:43px;
+  font-weight:900;
+  font-size:12px;
+}
 
-    .status-active {
-      color: #087408;
-      font-weight: bold;
-    }
+.call-button{
+  background:var(--purple);
+  color:white;
+}
 
-    .status-expired {
-      color: #a00000;
-      font-weight: bold;
-    }
+.whatsapp-button{
+  background:#eee7fb;
+  color:var(--deep);
+  border:1px solid #dfd2f5;
+}
 
-    /* FULLSCREEN PHOTO VIEWER */
+.website-button{
+  grid-column:1/-1;
+  background:#f7f4fc;
+  color:var(--purple);
+  border:1px solid var(--border);
+}
 
-    .photo-viewer {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.94);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      touch-action: pan-y;
-    }
+.expiry-box{
+  margin-top:15px;
+  background:#f7f4fc;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:12px;
+  color:#5c536d;
+  font-weight:600;
+}
 
-    .photo-viewer.show {
-      display: flex;
-    }
+.status-active{
+  color:#16803c;
+  font-weight:900;
+}
 
-    .viewer-image {
-      max-width: 94vw;
-      max-height: 86vh;
-      object-fit: contain;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
+.status-expired{
+  color:#b42318;
+  font-weight:900;
+}
 
-    .viewer-close {
-      position: absolute;
-      top: 15px;
-      right: 17px;
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      color: white;
-      font-size: 25px;
-      cursor: pointer;
-      z-index: 10;
-    }
+.photo-viewer{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.95);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
 
-    .viewer-count {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      background: rgba(0,0,0,0.5);
-      padding: 5px 11px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
+.photo-viewer.show{display:flex}
 
-    .viewer-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.16);
-      color: white;
-      font-size: 27px;
-      cursor: pointer;
-      z-index: 10;
-    }
+.viewer-image{
+  max-width:94vw;
+  max-height:86vh;
+  object-fit:contain;
+}
 
-    .viewer-prev {
-      left: 15px;
-    }
+.viewer-close{
+  position:absolute;
+  top:15px;
+  right:17px;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.15);
+  color:white;
+  font-size:25px;
+  cursor:pointer;
+}
 
-    .viewer-next {
-      right: 15px;
-    }
+.viewer-count{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  color:white;
+  background:rgba(0,0,0,.5);
+  padding:5px 11px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+}
 
-    .message {
-      background: white;
-      border-radius: 16px;
-      padding: 35px 20px;
-      text-align: center;
-      color: #666;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-    }
+.viewer-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.16);
+  color:white;
+  font-size:27px;
+  cursor:pointer;
+}
 
-    .message-icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+.viewer-prev{left:12px}
+.viewer-next{right:12px}
 
-    .message h2 {
-      color: #222;
-      margin-bottom: 8px;
-      font-size: 20px;
-    }
+.message{
+  background:white;
+  border-radius:14px;
+  padding:30px 18px;
+  text-align:center;
+  color:#716b83;
+  border:1px solid var(--border);
+}
 
-    .message p {
-      font-size: 14px;
-    }
+.message-icon{font-size:35px;margin-bottom:8px}
+.message h2{color:var(--text);margin-bottom:7px;font-size:19px}
 
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      color: #777;
-      font-size: 13px;
-    }
+footer{
+  text-align:center;
+  padding:22px 15px;
+  color:#716b83;
+  font-size:12px;
+}
 
-    @media (max-width: 480px) {
-
-      .main-photo-wrapper {
-        height: 240px;
-      }
-
-      .title {
-        font-size: 21px;
-      }
-
-      .content {
-        padding: 17px;
-      }
-
-      .photo-arrow {
-        width: 34px;
-        height: 34px;
-        font-size: 19px;
-      }
-
-      .viewer-arrow {
-        width: 38px;
-        height: 38px;
-        font-size: 23px;
-      }
-
-      .viewer-prev {
-        left: 8px;
-      }
-
-      .viewer-next {
-        right: 8px;
-      }
-    }
-  </style>
+@media(max-width:480px){
+  .logo{font-size:18px}
+  header h1{font-size:15px}
+  .main-photo-wrapper{height:220px}
+  .title{font-size:20px}
+  .content{padding:13px}
+  .price-display{font-size:21px}
+  .contact-button{font-size:11px;padding:10px 5px}
+  .photo-arrow{width:32px;height:32px}
+  .viewer-arrow{width:37px;height:37px}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-
-  <div class="logo">
-    OGAR'S WORKERS PLATFORM
-  </div>
-
+  <div class="logo">OGARS MARKET</div>
   <h1>Advert Details</h1>
-
 </header>
-
 
 <div class="container">
 
-  <a
-    href="my-adverts.html"
-    class="back-button"
-  >
+  <a href="my-adverts.html" class="back-button">
     ← Back to My Adverts
   </a>
 
-
   <div id="content">
-
     <div class="message">
-
-      <div class="message-icon">
-        ⏳
-      </div>
-
-      <h2>
-        Loading advert
-      </h2>
-
-      <p>
-        Please wait...
-      </p>
-
+      <div class="message-icon">⏳</div>
+      <h2>Loading advert</h2>
+      <p>Please wait...</p>
     </div>
-
   </div>
 
 </div>
-
 
 <footer>
-  © 2026 OGARS Workers Platform
+  © 2026 OGARS MARKET. Ghana's Online Marketplace.
 </footer>
 
-
-<!-- FULLSCREEN PHOTO VIEWER -->
-
-<div
-  id="photo-viewer"
-  class="photo-viewer"
->
-
-  <button
-    type="button"
-    class="viewer-close"
-    onclick="closePhotoViewer()"
-  >
-    ×
-  </button>
-
-
-  <div
-    id="viewer-count"
-    class="viewer-count"
-  >
-    1 / 1
-  </div>
-
-
-  <button
-    type="button"
-    class="viewer-arrow viewer-prev"
-    onclick="previousPhoto()"
-  >
-    ‹
-  </button>
-
-
-  <img
-    id="viewer-image"
-    class="viewer-image"
-    src=""
-    alt="Advert photo"
-    decoding="async"
-  >
-
-
-  <button
-    type="button"
-    class="viewer-arrow viewer-next"
-    onclick="nextPhoto()"
-  >
-    ›
-  </button>
-
+<div id="photo-viewer" class="photo-viewer">
+  <button type="button" class="viewer-close" onclick="closePhotoViewer()">×</button>
+  <div id="viewer-count" class="viewer-count">1 / 1</div>
+  <button type="button" class="viewer-arrow viewer-prev" onclick="previousPhoto()">‹</button>
+  <img id="viewer-image" class="viewer-image" src="" alt="Advert photo">
+  <button type="button" class="viewer-arrow viewer-next" onclick="nextPhoto()">›</button>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+"use strict";
 
 const SUPABASE_URL =
   "https://pawqsmcswoypuiihfbrr.supabase.co";
@@ -543,1267 +470,466 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
 
-const supabaseClient =
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-const content =
-  document.getElementById(
-    "content"
-  );
-
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-
-const listingId =
-  params.get("id");
-
-
-let photos = [];
-
-let currentPhotoIndex = 0;
-
-let touchStartX = 0;
-
-let touchEndX = 0;
-
-
-/* --------------------------------
-   LOAD ADVERT
--------------------------------- */
-
-async function loadAdvert() {
-
-  if (!listingId) {
-
-    showMessage(
-      "⚠️",
-      "Advert Not Found",
-      "No advert ID was provided."
-    );
-
-    return;
-  }
-
-
-  const result =
-    await supabaseClient
-      .from("discover_listings")
-      .select("*")
-      .eq("id", listingId)
-      .maybeSingle();
-
-
-  if (result.error) {
-
-    showMessage(
-      "⚠️",
-      "Unable to Load Advert",
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  const listing =
-    result.data;
-
-
-  if (!listing) {
-
-    showMessage(
-      "🔎",
-      "Advert Not Found",
-      "This advert may have been removed or is no longer available."
-    );
-
-    return;
-  }
-
-
-  /* PHOTOS */
-
-  photos = [];
-
-  if (
-    listing.photo_urls &&
-    String(listing.photo_urls).trim() !== ""
-  ) {
-
-    photos =
-      String(listing.photo_urls)
-        .split(",")
-        .map(
-          function(url) {
-            return url.trim();
-          }
-        )
-        .filter(
-          function(url) {
-            return url !== "";
-          }
-        );
-
-  }
-
-
-  currentPhotoIndex = 0;
-
-
-  let photoHtml = "";
-
-
-  if (photos.length > 0) {
-
-    photoHtml = `
-
-      <div class="photo-area">
-
-        <div
-          class="main-photo-wrapper"
-          id="main-photo-wrapper"
-        >
-
-          <img
-            id="main-photo"
-            class="main-photo"
-            src="${escapeAttribute(photos[0])}"
-            alt="Advert photo"
-            fetchpriority="high"
-            decoding="async"
-            onclick="openPhotoViewer()"
-          >
-
-
-          ${
-            photos.length > 1
-              ? `
-
-                <div
-                  id="photo-count"
-                  class="photo-count"
-                >
-                  1 / ${photos.length}
-                </div>
-
-
-                <button
-                  type="button"
-                  class="photo-arrow photo-prev"
-                  onclick="previousPhoto()"
-                  aria-label="Previous photo"
-                >
-                  ‹
-                </button>
-
-
-                <button
-                  type="button"
-                  class="photo-arrow photo-next"
-                  onclick="nextPhoto()"
-                  aria-label="Next photo"
-                >
-                  ›
-                </button>
-
-              `
-              : ""
-          }
-
-        </div>
-
-
-        ${
-          photos.length > 1
-            ? `
-
-              <div
-                class="photo-thumbnails"
-                id="photo-thumbnails"
-              >
-
-                ${photos.map(
-                  function(photo, index) {
-
-                    return `
-
-                      <img
-                        src="${escapeAttribute(photo)}"
-                        class="photo-thumb ${
-                          index === 0
-                            ? "selected"
-                            : ""
-                        }"
-                        onclick="showPhoto(${index})"
-                        alt="Photo ${index + 1}"
-                        loading="lazy"
-                        decoding="async"
-                      >
-
-                    `;
-
-                  }
-                ).join("")}
-
-              </div>
-
-            `
-            : ""
-        }
-
-      </div>
-
-    `;
-
-  } else {
-
-    photoHtml = `
-
-      <div class="photo-area">
-
-        <div class="no-photo">
-          📷 No Photo Available
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* EXPIRY */
-
-  const expiryDate =
-    listing.expires_at
-      ? new Date(
-          listing.expires_at
-        )
-      : null;
-
-
-  const isExpired =
-    !expiryDate ||
-    expiryDate <= new Date();
-
-
-  let expiryHtml = "";
-
-
-  if (expiryDate) {
-
-    expiryHtml = `
-
-      <div class="expiry-box">
-
-        ${
-          isExpired
-            ? `
-              <span class="status-expired">
-                🔴 Advert Expired
-              </span>
-            `
-            : `
-              <span class="status-active">
-                🟢 Advert Active
-              </span>
-            `
-        }
-
-        <br>
-
-        ${
-          isExpired
-            ? "Expired on: "
-            : "Expires on: "
-        }
-
-        ${escapeHtml(
-          expiryDate.toLocaleString()
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* CONTACT BUTTONS */
-
-  let contactHtml = "";
-
-
-  if (
-    listing.phone &&
-    listing.phone.trim() !== ""
-  ) {
-
-    const phone =
-      listing.phone.trim();
-
-
-    contactHtml += `
-
-      <a
-        class="contact-button call-button"
-        href="tel:${escapeAttribute(phone)}"
-      >
-        📞 Call Advertiser
-      </a>
-
-    `;
-
-  }
-
-
-  if (
-    listing.whatsapp &&
-    listing.whatsapp.trim() !== ""
-  ) {
-
-    let whatsapp =
-      listing.whatsapp
-        .replace(
-          /\D/g,
-          ""
-        );
-
-
-    if (
-      whatsapp.startsWith("0")
-    ) {
-
-      whatsapp =
-        "233" +
-        whatsapp.substring(1);
-
-    }
-
-
-    /* CUSTOMIZED WHATSAPP MESSAGE */
-
-    const advertTitle =
-      listing.title ||
-      "this advert";
-
-
-    const whatsappMessage =
-      "Hello, I saw your advert for \"" +
-      advertTitle +
-      "\" on OGAR'S Platform. " +
-      "I would like to make an enquiry. " +
-      "Please, can you give me more information?";
-
-
-    const whatsappUrl =
-      "https://wa.me/" +
-      whatsapp +
-      "?text=" +
-      encodeURIComponent(
-        whatsappMessage
-      );
-
-
-    contactHtml += `
-
-      <a
-        class="contact-button whatsapp-button"
-        href="${escapeAttribute(whatsappUrl)}"
-        target="_blank"
-        rel="noopener"
-      >
-        💬 Contact on WhatsApp
-      </a>
-
-    `;
-
-  }
-
-
-  if (
-    listing.website &&
-    listing.website.trim() !== ""
-  ) {
-
-    let website =
-      listing.website.trim();
-
-
-    if (
-      !/^https?:\/\//i.test(
-        website
-      )
-    ) {
-
-      website =
-        "https://" +
-        website;
-
-    }
-
-
-    contactHtml += `
-
-      <a
-        class="contact-button website-button"
-        href="${escapeAttribute(website)}"
-        target="_blank"
-        rel="noopener"
-      >
-        🌐 Visit Website
-      </a>
-
-    `;
-
-  }
-
-
-  /* OTHER DETAILS */
-
-  let detailsHtml = "";
-
-
-  if (
-    listing.location &&
-    listing.location.trim() !== ""
-  ) {
-
-    detailsHtml += `
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          📍 Location
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            listing.location
-          )}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  if (
-    listing.event_date &&
-    String(listing.event_date).trim() !== ""
-  ) {
-
-    detailsHtml += `
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          📅 Event Date
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            listing.event_date
-          )}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  if (
-    listing.event_time &&
-    String(listing.event_time).trim() !== ""
-  ) {
-
-    detailsHtml += `
-
-      <div class="detail-row">
-
-        <div class="detail-label">
-          🕐 Event Time
-        </div>
-
-        <div class="detail-value">
-          ${escapeHtml(
-            listing.event_time
-          )}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  content.innerHTML = `
-
-    <div class="advert-card">
-
-      ${photoHtml}
-
-
-      <div class="content">
-
-        <div class="listing-type">
-
-          ${escapeHtml(
-            listing.listing_type ||
-            "Advertisement"
-          )}
-
-        </div>
-
-
-        <h2 class="title">
-
-          ${escapeHtml(
-            listing.title ||
-            "Untitled Advert"
-          )}
-
-        </h2>
-
-
-        ${
-          listing.location
-            ? `
-              <div class="location">
-                📍 ${escapeHtml(
-                  listing.location
-                )}
-              </div>
-            `
-            : ""
-        }
-
-
-        <div class="description-box">
-
-          <h3>
-            About This Advert
-          </h3>
-
-          <div class="description">
-
-            ${escapeHtml(
-              listing.description ||
-              "No description provided."
-            )}
-
-          </div>
-
-        </div>
-
-
-        ${
-          detailsHtml
-            ? `
-              <div class="details-box">
-
-                ${detailsHtml}
-
-              </div>
-            `
-            : ""
-        }
-
-
-        ${
-          contactHtml
-            ? `
-              <div class="contact-section">
-
-                ${contactHtml}
-
-              </div>
-            `
-            : ""
-        }
-
-
-        ${expiryHtml}
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  /*
-    IMPORTANT PERFORMANCE CHANGE:
-
-    We no longer preload every photo.
-
-    Only the nearby photos are prepared.
-  */
-
-  preloadNearbyPhotos();
-
-  setupSwipe();
-
-}
-
-
-/* --------------------------------
-   PRELOAD NEARBY PHOTOS ONLY
--------------------------------- */
-
-function preloadNearbyPhotos() {
-
-  if (!photos.length) {
-    return;
-  }
-
-
-  const indexes = [
-    currentPhotoIndex + 1,
-    currentPhotoIndex - 1
-  ];
-
-
-  indexes.forEach(
-    function(index) {
-
-      if (
-        index < 0 ||
-        index >= photos.length
-      ) {
-
-        return;
-
-      }
-
-
-      const image =
-        new Image();
-
-
-      image.decoding =
-        "async";
-
-
-      image.src =
-        photos[index];
-
-    }
-  );
-
-}
-
-
-/* --------------------------------
-   SHOW PHOTO
--------------------------------- */
-
-function showPhoto(index) {
-
-  if (!photos.length) {
-    return;
-  }
-
-
-  if (index < 0) {
-
-    index =
-      photos.length - 1;
-
-  }
-
-
-  if (
-    index >= photos.length
-  ) {
-
-    index = 0;
-
-  }
-
-
-  currentPhotoIndex =
-    index;
-
-
-  const mainPhoto =
-    document.getElementById(
-      "main-photo"
-    );
-
-
-  if (mainPhoto) {
-
-    mainPhoto.src =
-      photos[index];
-
-    mainPhoto.fetchPriority =
-      "high";
-
-    mainPhoto.decoding =
-      "async";
-
-  }
-
-
-  const count =
-    document.getElementById(
-      "photo-count"
-    );
-
-
-  if (count) {
-
-    count.textContent =
-      (index + 1) +
-      " / " +
-      photos.length;
-
-  }
-
-
-  document
-    .querySelectorAll(
-      ".photo-thumb"
-    )
-    .forEach(
-      function(thumb, thumbIndex) {
-
-        thumb.classList.toggle(
-          "selected",
-          thumbIndex === index
-        );
-
-      }
-    );
-
-
-  const thumbnail =
-    document.querySelectorAll(
-      ".photo-thumb"
-    )[index];
-
-
-  if (thumbnail) {
-
-    thumbnail.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center"
-    });
-
-  }
-
-
-  /*
-    Prepare only the next and
-    previous images.
-  */
-
-  preloadNearbyPhotos();
-
-}
-
-
-/* --------------------------------
-   NEXT PHOTO
--------------------------------- */
-
-function nextPhoto() {
-
-  if (photos.length <= 1) {
-    return;
-  }
-
-
-  showPhoto(
-    currentPhotoIndex + 1
-  );
-
-
-  const viewer =
-    document.getElementById(
-      "photo-viewer"
-    );
-
-
-  if (
-    viewer &&
-    viewer.classList.contains("show")
-  ) {
-
-    updateViewer();
-
-  }
-
-}
-
-
-/* --------------------------------
-   PREVIOUS PHOTO
--------------------------------- */
-
-function previousPhoto() {
-
-  if (photos.length <= 1) {
-    return;
-  }
-
-
-  showPhoto(
-    currentPhotoIndex - 1
-  );
-
-
-  const viewer =
-    document.getElementById(
-      "photo-viewer"
-    );
-
-
-  if (
-    viewer &&
-    viewer.classList.contains("show")
-  ) {
-
-    updateViewer();
-
-  }
-
-}
-
-
-/* --------------------------------
-   OPEN FULLSCREEN VIEWER
--------------------------------- */
-
-function openPhotoViewer() {
-
-  if (!photos.length) {
-    return;
-  }
-
-
-  const viewer =
-    document.getElementById(
-      "photo-viewer"
-    );
-
-
-  if (!viewer) {
-    return;
-  }
-
-
-  viewer.classList.add(
-    "show"
-  );
-
-
-  document.body.style.overflow =
-    "hidden";
-
-
-  updateViewer();
-
-}
-
-
-/* --------------------------------
-   CLOSE FULLSCREEN VIEWER
--------------------------------- */
-
-function closePhotoViewer() {
-
-  const viewer =
-    document.getElementById(
-      "photo-viewer"
-    );
-
-
-  if (!viewer) {
-    return;
-  }
-
-
-  viewer.classList.remove(
-    "show"
-  );
-
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* --------------------------------
-   UPDATE FULLSCREEN VIEWER
--------------------------------- */
-
-function updateViewer() {
-
-  const image =
-    document.getElementById(
-      "viewer-image"
-    );
-
-
-  const count =
-    document.getElementById(
-      "viewer-count"
-    );
-
-
-  if (!image || !count) {
-    return;
-  }
-
-
-  image.src =
-    photos[currentPhotoIndex];
-
-
-  image.decoding =
-    "async";
-
-
-  count.textContent =
-    (currentPhotoIndex + 1) +
-    " / " +
-    photos.length;
-
-
-  preloadNearbyPhotos();
-
-}
-
-
-/* --------------------------------
-   SETUP SWIPE
--------------------------------- */
-
-function setupSwipe() {
-
-  const wrapper =
-    document.getElementById(
-      "main-photo-wrapper"
-    );
-
-
-  if (!wrapper) {
-    return;
-  }
-
-
-  wrapper.addEventListener(
-    "touchstart",
-    function(event) {
-
-      touchStartX =
-        event.changedTouches[0].screenX;
-
-    },
-    {
-      passive: true
-    }
-  );
-
-
-  wrapper.addEventListener(
-    "touchend",
-    function(event) {
-
-      touchEndX =
-        event.changedTouches[0].screenX;
-
-
-      handleSwipe();
-
-    },
-    {
-      passive: true
-    }
-  );
-
-
-  const viewer =
-    document.getElementById(
-      "photo-viewer"
-    );
-
-
-  if (viewer) {
-
-    viewer.addEventListener(
-      "touchstart",
-      function(event) {
-
-        touchStartX =
-          event.changedTouches[0].screenX;
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    viewer.addEventListener(
-      "touchend",
-      function(event) {
-
-        touchEndX =
-          event.changedTouches[0].screenX;
-
-
-        handleViewerSwipe();
-
-      },
-      {
-        passive: true
-      }
-    );
-
-  }
-
-}
-
-
-/* --------------------------------
-   HANDLE MAIN PHOTO SWIPE
--------------------------------- */
-
-function handleSwipe() {
-
-  const difference =
-    touchStartX -
-    touchEndX;
-
-
-  if (
-    Math.abs(difference) <
-    50
-  ) {
-
-    return;
-
-  }
-
-
-  if (difference > 0) {
-
-    nextPhoto();
-
-  } else {
-
-    previousPhoto();
-
-  }
-
-}
-
-
-/* --------------------------------
-   HANDLE FULLSCREEN SWIPE
--------------------------------- */
-
-function handleViewerSwipe() {
-
-  const difference =
-    touchStartX -
-    touchEndX;
-
-
-  if (
-    Math.abs(difference) <
-    50
-  ) {
-
-    return;
-
-  }
-
-
-  if (difference > 0) {
-
-    nextPhoto();
-
-  } else {
-
-    previousPhoto();
-
-  }
-
-}
-
-
-/* --------------------------------
-   KEYBOARD CONTROLS
--------------------------------- */
-
-document.addEventListener(
-  "keydown",
-  function(event) {
-
-    const viewer =
-      document.getElementById(
-        "photo-viewer"
-      );
-
-
-    if (
-      !viewer ||
-      !viewer.classList.contains(
-        "show"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      event.key ===
-      "ArrowRight"
-    ) {
-
-      nextPhoto();
-
-    }
-
-
-    if (
-      event.key ===
-      "ArrowLeft"
-    ) {
-
-      previousPhoto();
-
-    }
-
-
-    if (
-      event.key ===
-      "Escape"
-    ) {
-
-      closePhotoViewer();
-
-    }
-
-  }
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
+const content = document.getElementById("content");
+const params = new URLSearchParams(window.location.search);
+const listingId = params.get("id");
 
-/* --------------------------------
-   MESSAGE
--------------------------------- */
+let photos = [];
+let currentPhotoIndex = 0;
+let touchStartX = 0;
+let swipeListenersAdded = false;
 
-function showMessage(
-  icon,
-  title,
-  message
-) {
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+function cleanPhone(value) {
+  let phone = String(value || "").replace(/\D/g,"");
+
+  if(phone.startsWith("0")) {
+    phone = "233" + phone.substring(1);
+  }
+
+  return phone;
+}
+
+function showMessage(icon,title,message) {
   content.innerHTML = `
-
     <div class="message">
-
-      <div class="message-icon">
-        ${icon}
-      </div>
-
-      <h2>
-        ${escapeHtml(title)}
-      </h2>
-
-      <p>
-        ${escapeHtml(message)}
-      </p>
-
+      <div class="message-icon">${icon}</div>
+      <h2>${escapeHtml(title)}</h2>
+      <p>${escapeHtml(message)}</p>
     </div>
-
   `;
-
 }
 
+/* TURN DESCRIPTION INTO CLEAR FEATURE ROWS */
 
-/* --------------------------------
-   SECURITY HELPERS
--------------------------------- */
+function renderDescription(description) {
+  if(!description || !String(description).trim()) {
+    return `<div class="description-paragraph">No description provided.</div>`;
+  }
 
-function escapeHtml(
-  value
-) {
+  const lines = String(description).split(/\r?\n/);
+  let html = "";
+  let price = "";
 
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  lines.forEach(line => {
+    const cleanLine = line.trim();
+    if(!cleanLine) return;
 
+    const match = cleanLine.match(/^([^:]{1,100}):\s*(.*)$/);
+
+    if(match) {
+      const label = match[1].trim();
+      const value = match[2].trim();
+
+      if(/^price\s*\(?(gh[₵¢]|g(h)?c|cedis?)?\)?$/i.test(label)) {
+        price = value;
+        return;
+      }
+
+      html += `
+        <div class="feature-row">
+          <div class="feature-label">${escapeHtml(label)}</div>
+          <div class="feature-value">${escapeHtml(value || "Not specified")}</div>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="description-paragraph">${escapeHtml(cleanLine)}</div>
+      `;
+    }
+  });
+
+  return {html: html || `<div class="description-paragraph">No description provided.</div>`, price};
 }
 
+/* LOAD ADVERT */
 
-function escapeAttribute(
-  value
-) {
+async function loadAdvert() {
+  if(!listingId) {
+    showMessage("⚠️","Advert Not Found","No advert ID was provided.");
+    return;
+  }
 
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    );
+  try {
+    const result = await supabaseClient
+      .from("discover_listings")
+      .select("*")
+      .eq("id",listingId)
+      .maybeSingle();
 
+    if(result.error) throw result.error;
+
+    const listing = result.data;
+
+    if(!listing) {
+      showMessage("🔎","Advert Not Found","This advert may have been removed or is no longer available.");
+      return;
+    }
+
+    /* PHOTOS */
+
+    photos = [];
+
+    if(listing.photo_urls) {
+      if(Array.isArray(listing.photo_urls)) {
+        photos = listing.photo_urls.filter(Boolean);
+      } else {
+        photos = String(listing.photo_urls)
+          .split(",")
+          .map(url => url.trim())
+          .filter(Boolean);
+      }
+    }
+
+    currentPhotoIndex = 0;
+
+    let photoHtml = "";
+
+    if(photos.length) {
+      photoHtml = `
+        <div class="photo-area">
+          <div class="main-photo-wrapper" id="main-photo-wrapper">
+            <img
+              id="main-photo"
+              class="main-photo"
+              src="${escapeAttribute(photos[0])}"
+              alt="${escapeAttribute(listing.title || "Advert photo")}"
+              fetchpriority="high"
+              onclick="openPhotoViewer()"
+            >
+
+            ${photos.length > 1 ? `
+              <div id="photo-count" class="photo-count">1 / ${photos.length}</div>
+              <button type="button" class="photo-arrow photo-prev" onclick="previousPhoto()">‹</button>
+              <button type="button" class="photo-arrow photo-next" onclick="nextPhoto()">›</button>
+            ` : ""}
+          </div>
+
+          ${photos.length > 1 ? `
+            <div class="photo-thumbnails">
+              ${photos.map((photo,index) => `
+                <img
+                  src="${escapeAttribute(photo)}"
+                  class="photo-thumb ${index === 0 ? "selected" : ""}"
+                  onclick="showPhoto(${index})"
+                  alt="Photo ${index + 1}"
+                  loading="lazy"
+                >
+              `).join("")}
+            </div>
+          ` : ""}
+        </div>
+      `;
+    } else {
+      photoHtml = `
+        <div class="photo-area">
+          <div class="no-photo">📷 No Photo Available</div>
+        </div>
+      `;
+    }
+
+    /* DESCRIPTION AND PRICE */
+
+    const descriptionData = renderDescription(listing.description);
+    const descriptionHtml = descriptionData.html;
+    let price = descriptionData.price;
+
+    if(!price && listing.price !== undefined && listing.price !== null && listing.price !== "") {
+      price = String(listing.price);
+    }
+
+    const priceHtml = price ? `
+      <div class="price-display">GH₵ ${escapeHtml(price)}</div>
+    ` : "";
+
+    /* LOCATION */
+
+    const locationHtml = listing.location ? `
+      <div class="location">📍 ${escapeHtml(listing.location)}</div>
+    ` : "";
+
+    /* CONTACT BUTTONS */
+
+    let contactHtml = "";
+
+    if(listing.phone && String(listing.phone).trim()) {
+      contactHtml += `
+        <a class="contact-button call-button"
+           href="tel:${escapeAttribute(listing.phone)}">
+          📞 Call
+        </a>
+      `;
+    }
+
+    if(listing.whatsapp && String(listing.whatsapp).trim()) {
+      const whatsapp = cleanPhone(listing.whatsapp);
+      const message = "Hello, I saw your advert for \"" +
+        (listing.title || "this advert") +
+        "\" on OGARS MARKET. I would like to make an enquiry.";
+
+      const whatsappUrl = "https://wa.me/" + whatsapp +
+        "?text=" + encodeURIComponent(message);
+
+      contactHtml += `
+        <a class="contact-button whatsapp-button"
+           href="${escapeAttribute(whatsappUrl)}"
+           target="_blank"
+           rel="noopener noreferrer">
+          💬 WhatsApp
+        </a>
+      `;
+    }
+
+    if(listing.website && String(listing.website).trim()) {
+      let website = String(listing.website).trim();
+
+      if(!/^https?:\/\//i.test(website)) {
+        website = "https://" + website;
+      }
+
+      contactHtml += `
+        <a class="contact-button website-button"
+           href="${escapeAttribute(website)}"
+           target="_blank"
+           rel="noopener noreferrer">
+          🌐 Visit Website
+        </a>
+      `;
+    }
+
+    /* ADDITIONAL DETAILS */
+
+    let detailsHtml = "";
+
+    if(listing.event_date) {
+      detailsHtml += `
+        <div class="detail-row">
+          <div class="detail-label">📅 Event Date</div>
+          <div class="detail-value">${escapeHtml(listing.event_date)}</div>
+        </div>
+      `;
+    }
+
+    if(listing.event_time) {
+      detailsHtml += `
+        <div class="detail-row">
+          <div class="detail-label">🕐 Event Time</div>
+          <div class="detail-value">${escapeHtml(listing.event_time)}</div>
+        </div>
+      `;
+    }
+
+    /* EXPIRY */
+
+    const expiryDate = listing.expires_at ? new Date(listing.expires_at) : null;
+    const isExpired = expiryDate && expiryDate <= new Date();
+
+    let expiryHtml = "";
+
+    if(expiryDate && !isNaN(expiryDate.getTime())) {
+      expiryHtml = `
+        <div class="expiry-box">
+          ${isExpired
+            ? `<span class="status-expired">🔴 Advert Expired</span>`
+            : `<span class="status-active">🟢 Advert Active</span>`
+          }
+          <br>
+          ${isExpired ? "Expired on: " : "Expires on: "}
+          ${escapeHtml(expiryDate.toLocaleString())}
+        </div>
+      `;
+    }
+
+    /* DISPLAY PAGE */
+
+    content.innerHTML = `
+      <div class="advert-card">
+
+        ${photoHtml}
+
+        <div class="content">
+
+          <div class="listing-type">
+            ${escapeHtml(listing.listing_type || "Advertisement")}
+          </div>
+
+          <h2 class="title">
+            ${escapeHtml(listing.title || "Untitled Advert")}
+          </h2>
+
+          ${priceHtml}
+          ${locationHtml}
+
+          <div class="description-box">
+            <h3>Advert Features &amp; Information</h3>
+            <div class="description">${descriptionHtml}</div>
+          </div>
+
+          ${detailsHtml ? `
+            <div class="details-box">${detailsHtml}</div>
+          ` : ""}
+
+          ${contactHtml ? `
+            <div class="contact-section">${contactHtml}</div>
+          ` : ""}
+
+          ${expiryHtml}
+
+        </div>
+      </div>
+    `;
+
+    preloadNearbyPhotos();
+    setupSwipe();
+
+  } catch(error) {
+    console.error("OGARS advert loading error:",error);
+    showMessage("⚠️","Unable to Load Advert",error.message || "Please try again.");
+  }
 }
 
+/* PHOTO PRELOADING */
 
-/* --------------------------------
-   START
--------------------------------- */
+function preloadNearbyPhotos() {
+  if(photos.length <= 1) return;
+
+  [currentPhotoIndex + 1,currentPhotoIndex - 1].forEach(index => {
+    if(index < 0 || index >= photos.length) return;
+    const image = new Image();
+    image.src = photos[index];
+  });
+}
+
+/* SHOW PHOTO */
+
+function showPhoto(index) {
+  if(!photos.length) return;
+
+  if(index < 0) index = photos.length - 1;
+  if(index >= photos.length) index = 0;
+
+  currentPhotoIndex = index;
+
+  const mainPhoto = document.getElementById("main-photo");
+  if(mainPhoto) mainPhoto.src = photos[index];
+
+  const count = document.getElementById("photo-count");
+  if(count) count.textContent = (index + 1) + " / " + photos.length;
+
+  document.querySelectorAll(".photo-thumb").forEach((thumb,i) => {
+    thumb.classList.toggle("selected",i === index);
+  });
+
+  const thumbnail = document.querySelectorAll(".photo-thumb")[index];
+
+  if(thumbnail) {
+    thumbnail.scrollIntoView({
+      behavior:"smooth",
+      block:"nearest",
+      inline:"center"
+    });
+  }
+
+  const viewer = document.getElementById("photo-viewer");
+  if(viewer.classList.contains("show")) updateViewer();
+
+  preloadNearbyPhotos();
+}
+
+function nextPhoto() {
+  if(photos.length > 1) showPhoto(currentPhotoIndex + 1);
+}
+
+function previousPhoto() {
+  if(photos.length > 1) showPhoto(currentPhotoIndex - 1);
+}
+
+/* FULLSCREEN VIEWER */
+
+function openPhotoViewer() {
+  if(!photos.length) return;
+
+  document.getElementById("photo-viewer").classList.add("show");
+  document.body.style.overflow = "hidden";
+  updateViewer();
+}
+
+function closePhotoViewer() {
+  document.getElementById("photo-viewer").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function updateViewer() {
+  const image = document.getElementById("viewer-image");
+  const count = document.getElementById("viewer-count");
+
+  if(!image || !count) return;
+
+  image.src = photos[currentPhotoIndex];
+  count.textContent = (currentPhotoIndex + 1) + " / " + photos.length;
+}
+
+/* SWIPE SUPPORT */
+
+function setupSwipe() {
+  if(swipeListenersAdded) return;
+  swipeListenersAdded = true;
+
+  const wrapper = document.getElementById("main-photo-wrapper");
+  const viewer = document.getElementById("photo-viewer");
+
+  function startSwipe(event) {
+    touchStartX = event.changedTouches[0].screenX;
+  }
+
+  function endSwipe(event) {
+    const difference = touchStartX - event.changedTouches[0].screenX;
+
+    if(Math.abs(difference) < 50) return;
+
+    if(difference > 0) nextPhoto();
+    else previousPhoto();
+  }
+
+  if(wrapper) {
+    wrapper.addEventListener("touchstart",startSwipe,{passive:true});
+    wrapper.addEventListener("touchend",endSwipe,{passive:true});
+  }
+
+  viewer.addEventListener("touchstart",startSwipe,{passive:true});
+  viewer.addEventListener("touchend",endSwipe,{passive:true});
+}
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",event => {
+  const viewer = document.getElementById("photo-viewer");
+
+  if(!viewer.classList.contains("show")) return;
+
+  if(event.key === "ArrowRight") nextPhoto();
+  if(event.key === "ArrowLeft") previousPhoto();
+  if(event.key === "Escape") closePhotoViewer();
+});
+
+/* START */
 
 loadAdvert();
 
