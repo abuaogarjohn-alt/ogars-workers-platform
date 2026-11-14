@@ -8,418 +8,465 @@
 <title>Advert Details | OGARS MARKET</title>
 
 <style>
-:root{
-  --purple:#512A91;
-  --deep:#38166f;
-  --light:#f1eaff;
-  --bg:#faf9fd;
-  --text:#211b36;
-  --muted:#716b83;
-  --border:#e6e0f5;
-  --white:#fff;
+:root {
+  --purple: #512A91;
+  --dark: #38166f;
+  --light: #f3edfc;
+  --bg: #fbfaff;
+  --text: #211b36;
+  --muted: #716b83;
+  --border: #e6e0f0;
+  --white: #fff;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.5;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-header{
-  background:linear-gradient(120deg,#4d32a5,#7655d6);
-  color:white;
-  padding:12px 16px;
-  text-align:center;
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
 }
 
-.logo{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:1px;
+header {
+  background: linear-gradient(120deg, #4d32a5, #7655d6);
+  color: white;
+  text-align: center;
+  padding: 16px;
 }
 
-header h1{
-  font-size:17px;
-  font-weight:600;
-  margin-top:2px;
+header h1 {
+  font-size: 23px;
+  font-weight: 900;
 }
 
-.container{
-  width:100%;
-  max-width:760px;
-  margin:auto;
-  padding:12px 12px 30px;
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin: auto;
+  padding: 12px 14px 35px;
 }
 
-.back-button{
-  display:inline-block;
-  margin:4px 0 12px;
-  color:var(--purple);
-  text-decoration:none;
-  font-weight:800;
-  font-size:13px;
+.back-button {
+  display: inline-block;
+  margin: 9px 0 16px;
+  color: var(--purple);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
 }
 
-.advert-card{
-  background:white;
-  border-radius:15px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:0 4px 16px rgba(40,20,80,.07);
+.advert-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(50, 30, 90, .07);
 }
 
-.photo-area{
-  width:100%;
-  background:#f1eaff;
-  position:relative;
-  overflow:hidden;
+/* PHOTO GALLERY */
+
+.photo-area {
+  width: 100%;
+  background: var(--light);
 }
 
-.main-photo-wrapper{
-  position:relative;
-  width:100%;
-  height:250px;
-  touch-action:pan-y;
-  overflow:hidden;
-  background:#f1eaff;
+.main-photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: var(--light);
+  touch-action: pan-y;
 }
 
-.main-photo{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-  cursor:pointer;
-  user-select:none;
-  -webkit-user-drag:none;
+.main-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.photo-count{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(30,20,50,.75);
-  color:white;
-  border-radius:20px;
-  padding:5px 10px;
-  font-size:12px;
-  font-weight:bold;
-  z-index:5;
+.photo-count {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(56, 22, 111, .8);
+  color: white;
+  border-radius: 20px;
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
-.photo-arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:35px;
-  height:35px;
-  border:0;
-  border-radius:50%;
-  background:rgba(30,20,50,.65);
-  color:white;
-  font-size:22px;
-  cursor:pointer;
-  z-index:5;
+.photo-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(56, 22, 111, .65);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.photo-prev{left:9px}
-.photo-next{right:9px}
+.photo-prev { left: 10px; }
+.photo-next { right: 10px; }
 
-.no-photo{
-  height:190px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--purple);
-  font-weight:bold;
+.no-photo {
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  font-weight: bold;
 }
 
-.photo-thumbnails{
-  display:flex;
-  gap:7px;
-  padding:8px;
-  overflow-x:auto;
-  background:white;
+.photo-thumbnails {
+  display: flex;
+  gap: 8px;
+  padding: 9px 12px;
+  overflow-x: auto;
+  background: white;
 }
 
-.photo-thumb{
-  width:58px;
-  height:48px;
-  object-fit:cover;
-  border-radius:7px;
-  cursor:pointer;
-  border:2px solid transparent;
-  flex-shrink:0;
+.photo-thumb {
+  width: 75px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  flex-shrink: 0;
 }
 
-.photo-thumb.selected{
-  border-color:var(--purple);
+.photo-thumb.selected {
+  border-color: var(--purple);
 }
 
-.content{padding:15px}
+/* ADVERT CONTENT */
 
-.listing-type{
-  color:var(--purple);
-  font-size:12px;
-  font-weight:900;
-  text-transform:uppercase;
-  margin-bottom:4px;
+.content {
+  padding: 17px;
 }
 
-.title{
-  font-size:22px;
-  line-height:1.25;
-  color:#171326;
-  font-weight:900;
-  margin-bottom:7px;
-  overflow-wrap:anywhere;
+.listing-type {
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
 
-.location{
-  color:#625b70;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:12px;
+.title {
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--text);
+  font-weight: 900;
+  margin-bottom: 7px;
+  overflow-wrap: anywhere;
 }
 
-.price-display{
-  color:var(--purple);
-  font-size:23px;
-  font-weight:900;
-  margin:5px 0 12px;
+.price {
+  color: var(--purple);
+  font-size: 25px;
+  font-weight: 900;
+  margin: 8px 0 12px;
 }
 
-.description-box{
-  background:#f7f4fc;
-  border:1px solid #ece5f8;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:14px;
+.location {
+  color: #514b61;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  overflow-wrap: anywhere;
 }
 
-.description-box h3{
-  color:var(--deep);
-  font-size:16px;
-  font-weight:900;
-  margin-bottom:11px;
+/* ADVERT FEATURES */
+
+.features-box {
+  background: #f7f3fc;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 12px 0 16px;
 }
 
-.description{
-  color:#373044;
-  font-size:14px;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
+.features-box h3 {
+  color: var(--purple);
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 10px;
 }
 
-.feature-row{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  padding:9px 0;
-  border-bottom:1px solid #e9e2f3;
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.feature-row:last-child{border-bottom:0}
-
-.feature-label{
-  color:#4b2b80;
-  font-size:12px;
-  font-weight:900;
-  text-transform:none;
+.feature-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 7px 0;
+  border-bottom: 1px solid #e7e0f0;
+  line-height: 1.45;
 }
 
-.feature-value{
-  color:#211b36;
-  font-size:14px;
-  font-weight:800;
-  overflow-wrap:anywhere;
+.feature-row:last-child {
+  border-bottom: 0;
 }
 
-.description-paragraph{
-  padding:5px 0;
-  font-weight:600;
-  color:#40394e;
+.feature-label {
+  color: var(--purple);
+  font-size: 13px;
+  font-weight: 900;
 }
 
-.details-box{
-  border-top:1px solid var(--border);
-  padding-top:12px;
-  margin-top:5px;
+.feature-value {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-.detail-row{
-  display:flex;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #eeeaf4;
-  font-size:13px;
+/* DESCRIPTION */
+
+.description-box {
+  background: #f7f3fc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px;
+  margin-bottom: 15px;
 }
 
-.detail-label{
-  font-weight:900;
-  min-width:100px;
-  color:#4b2b80;
+.description-box h3 {
+  color: var(--purple);
+  font-size: 16px;
+  margin-bottom: 7px;
 }
 
-.detail-value{
-  color:#292238;
-  font-weight:700;
-  word-break:break-word;
+.description {
+  color: #514b61;
+  font-size: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
-.contact-section{
-  margin-top:16px;
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:9px;
+/* CONTACT BUTTONS */
+
+.contact-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 17px;
 }
 
-.contact-button{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  text-decoration:none;
-  border-radius:9px;
-  padding:11px 7px;
-  min-height:43px;
-  font-weight:900;
-  font-size:12px;
+.contact-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 7px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 900;
+  font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
-.call-button{
-  background:var(--purple);
-  color:white;
+.call-button {
+  background: var(--purple);
+  color: white;
 }
 
-.whatsapp-button{
-  background:#eee7fb;
-  color:var(--deep);
-  border:1px solid #dfd2f5;
+.whatsapp-button {
+  background: #eee6fa;
+  color: var(--dark);
 }
 
-.website-button{
-  grid-column:1/-1;
-  background:#f7f4fc;
-  color:var(--purple);
-  border:1px solid var(--border);
+.website-button {
+  grid-column: 1 / -1;
+  background: #f1edf8;
+  color: var(--purple);
+  border: 1px solid var(--border);
 }
 
-.expiry-box{
-  margin-top:15px;
-  background:#f7f4fc;
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:10px 12px;
-  font-size:12px;
-  color:#5c536d;
-  font-weight:600;
+/* OPTIONAL FREE DESCRIPTION */
+
+.extra-description {
+  margin-top: 15px;
 }
 
-.status-active{
-  color:#16803c;
-  font-weight:900;
+/* FULLSCREEN PHOTO VIEWER */
+
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .95);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
 }
 
-.status-expired{
-  color:#b42318;
-  font-weight:900;
+.photo-viewer.show {
+  display: flex;
 }
 
-.photo-viewer{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
+.viewer-image {
+  max-width: 94vw;
+  max-height: 86vh;
+  object-fit: contain;
+  user-select: none;
 }
 
-.photo-viewer.show{display:flex}
-
-.viewer-image{
-  max-width:94vw;
-  max-height:86vh;
-  object-fit:contain;
+.viewer-close {
+  position: absolute;
+  top: 15px;
+  right: 17px;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.16);
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
 }
 
-.viewer-close{
-  position:absolute;
-  top:15px;
-  right:17px;
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.15);
-  color:white;
-  font-size:25px;
-  cursor:pointer;
+.viewer-count {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  background: rgba(0,0,0,.5);
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
-.viewer-count{
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  color:white;
-  background:rgba(0,0,0,.5);
-  padding:5px 11px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:bold;
+.viewer-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.17);
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
 }
 
-.viewer-arrow{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:50%;
-  background:rgba(255,255,255,.16);
-  color:white;
-  font-size:27px;
-  cursor:pointer;
+.viewer-prev { left: 12px; }
+.viewer-next { right: 12px; }
+
+/* MESSAGES AND FOOTER */
+
+.message {
+  background: white;
+  border-radius: 15px;
+  padding: 35px 20px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px solid var(--border);
 }
 
-.viewer-prev{left:12px}
-.viewer-next{right:12px}
-
-.message{
-  background:white;
-  border-radius:14px;
-  padding:30px 18px;
-  text-align:center;
-  color:#716b83;
-  border:1px solid var(--border);
+.message-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
 }
 
-.message-icon{font-size:35px;margin-bottom:8px}
-.message h2{color:var(--text);margin-bottom:7px;font-size:19px}
-
-footer{
-  text-align:center;
-  padding:22px 15px;
-  color:#716b83;
-  font-size:12px;
+.message h2 {
+  color: var(--text);
+  margin-bottom: 8px;
+  font-size: 20px;
 }
 
-@media(max-width:480px){
-  .logo{font-size:18px}
-  header h1{font-size:15px}
-  .main-photo-wrapper{height:220px}
-  .title{font-size:20px}
-  .content{padding:13px}
-  .price-display{font-size:21px}
-  .contact-button{font-size:11px;padding:10px 5px}
-  .photo-arrow{width:32px;height:32px}
-  .viewer-arrow{width:37px;height:37px}
+.message p {
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  padding: 28px 15px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 13px;
+  }
+
+  header h1 {
+    font-size: 21px;
+  }
+
+  .main-photo-wrapper {
+    height: 240px;
+  }
+
+  .content {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 21px;
+  }
+
+  .price {
+    font-size: 23px;
+  }
+
+  .features-box {
+    padding: 12px;
+  }
+
+  .features-box h3 {
+    font-size: 17px;
+  }
+
+  .feature-row {
+    gap: 5px;
+    padding: 6px 0;
+  }
+
+  .feature-label {
+    font-size: 12px;
+  }
+
+  .feature-value {
+    font-size: 13px;
+  }
+
+  .contact-button {
+    min-height: 45px;
+    font-size: 12px;
+  }
 }
 </style>
 </head>
@@ -427,7 +474,6 @@ footer{
 <body>
 
 <header>
-  <div class="logo">OGARS MARKET</div>
   <h1>Advert Details</h1>
 </header>
 
@@ -451,12 +497,24 @@ footer{
   © 2026 OGARS MARKET. Ghana's Online Marketplace.
 </footer>
 
+<!-- FULLSCREEN PHOTO VIEWER -->
+
 <div id="photo-viewer" class="photo-viewer">
-  <button type="button" class="viewer-close" onclick="closePhotoViewer()">×</button>
+
+  <button type="button" class="viewer-close"
+    onclick="closePhotoViewer()">×</button>
+
   <div id="viewer-count" class="viewer-count">1 / 1</div>
-  <button type="button" class="viewer-arrow viewer-prev" onclick="previousPhoto()">‹</button>
-  <img id="viewer-image" class="viewer-image" src="" alt="Advert photo">
-  <button type="button" class="viewer-arrow viewer-next" onclick="nextPhoto()">›</button>
+
+  <button type="button" class="viewer-arrow viewer-prev"
+    onclick="previousPhoto()">‹</button>
+
+  <img id="viewer-image" class="viewer-image"
+    src="" alt="Advert photo">
+
+  <button type="button" class="viewer-arrow viewer-next"
+    onclick="nextPhoto()">›</button>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -482,88 +540,163 @@ const listingId = params.get("id");
 let photos = [];
 let currentPhotoIndex = 0;
 let touchStartX = 0;
-let swipeListenersAdded = false;
+let touchEndX = 0;
+
+
+/* SECURITY HELPERS */
 
 function escapeHtml(value) {
   return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function escapeAttribute(value) {
   return escapeHtml(value);
 }
 
-function cleanPhone(value) {
-  let phone = String(value || "").replace(/\D/g,"");
 
-  if(phone.startsWith("0")) {
-    phone = "233" + phone.substring(1);
-  }
+/* PARSE ADVERT FEATURES */
 
-  return phone;
-}
-
-function showMessage(icon,title,message) {
-  content.innerHTML = `
-    <div class="message">
-      <div class="message-icon">${icon}</div>
-      <h2>${escapeHtml(title)}</h2>
-      <p>${escapeHtml(message)}</p>
-    </div>
-  `;
-}
-
-/* TURN DESCRIPTION INTO CLEAR FEATURE ROWS */
-
-function renderDescription(description) {
-  if(!description || !String(description).trim()) {
-    return `<div class="description-paragraph">No description provided.</div>`;
-  }
-
-  const lines = String(description).split(/\r?\n/);
-  let html = "";
-  let price = "";
+function parseFeatures(description) {
+  const lines = String(description || "").split(/\r?\n/);
+  const features = [];
+  const remaining = [];
 
   lines.forEach(line => {
-    const cleanLine = line.trim();
-    if(!cleanLine) return;
+    const trimmed = line.trim();
 
-    const match = cleanLine.match(/^([^:]{1,100}):\s*(.*)$/);
+    if (!trimmed) {
+      return;
+    }
 
-    if(match) {
-      const label = match[1].trim();
-      const value = match[2].trim();
+    const match = trimmed.match(/^([^:]+):\s*(.*)$/);
 
-      if(/^price\s*\(?(gh[₵¢]|g(h)?c|cedis?)?\)?$/i.test(label)) {
-        price = value;
-        return;
-      }
-
-      html += `
-        <div class="feature-row">
-          <div class="feature-label">${escapeHtml(label)}</div>
-          <div class="feature-value">${escapeHtml(value || "Not specified")}</div>
-        </div>
-      `;
+    if (match && match[1].trim() && match[2].trim()) {
+      features.push({
+        label: match[1].trim(),
+        value: match[2].trim()
+      });
     } else {
-      html += `
-        <div class="description-paragraph">${escapeHtml(cleanLine)}</div>
-      `;
+      remaining.push(trimmed);
     }
   });
 
-  return {html: html || `<div class="description-paragraph">No description provided.</div>`, price};
+  return {
+    features,
+    remaining: remaining.join("\n")
+  };
 }
+
+
+/* FIND A FEATURE BY LABEL */
+
+function getFeature(features, names) {
+  const found = features.find(feature =>
+    names.some(name =>
+      feature.label.toLowerCase().trim() === name.toLowerCase()
+    )
+  );
+
+  return found ? found.value : "";
+}
+
+
+/* REMOVE LOCATION AND PRICE FROM FEATURE LIST */
+
+function getVisibleFeatures(features) {
+  const hiddenLabels = [
+    "region",
+    "town / area",
+    "town/area",
+    "town",
+    "specific location",
+    "location",
+    "price",
+    "price (gh₵)",
+    "price (ghc)",
+    "price (ghs)"
+  ];
+
+  return features.filter(feature =>
+    !hiddenLabels.includes(feature.label.toLowerCase().trim())
+  );
+}
+
+
+/* BUILD LOCATION */
+
+function buildLocation(listing, features) {
+  const region = getFeature(features, ["Region"]);
+  const town = getFeature(features, ["Town / area", "Town/area", "Town"]);
+  const specific = getFeature(features, [
+    "Specific location",
+    "Specific area"
+  ]);
+
+  if (region || town || specific) {
+    let location = region || "";
+
+    if (town) {
+      location += (location ? ", " : "") + town;
+    }
+
+    if (specific) {
+      location += (location ? " - " : "") + specific;
+    }
+
+    return location;
+  }
+
+  return String(listing.location || "").trim();
+}
+
+
+/* GET PRICE */
+
+function getAdvertPrice(listing, features) {
+  const featurePrice = getFeature(features, [
+    "Price",
+    "Price (GH₵)",
+    "Price (GHC)",
+    "Price (GHS)"
+  ]);
+
+  if (featurePrice) {
+    const cleaned = featurePrice.replace(/[^\d.]/g, "");
+    const number = Number(cleaned);
+
+    if (Number.isFinite(number)) {
+      return "GH₵ " + number.toLocaleString("en-GH");
+    }
+
+    return "GH₵ " + featurePrice;
+  }
+
+  if (
+    listing.price !== null &&
+    listing.price !== undefined &&
+    listing.price !== ""
+  ) {
+    const number = Number(listing.price);
+
+    if (Number.isFinite(number)) {
+      return "GH₵ " + number.toLocaleString("en-GH");
+    }
+  }
+
+  return "";
+}
+
 
 /* LOAD ADVERT */
 
 async function loadAdvert() {
-  if(!listingId) {
-    showMessage("⚠️","Advert Not Found","No advert ID was provided.");
+  if (!listingId) {
+    showMessage("⚠️", "Advert Not Found", "No advert ID was provided.");
     return;
   }
 
@@ -571,363 +704,467 @@ async function loadAdvert() {
     const result = await supabaseClient
       .from("discover_listings")
       .select("*")
-      .eq("id",listingId)
+      .eq("id", listingId)
       .maybeSingle();
 
-    if(result.error) throw result.error;
+    if (result.error) {
+      throw result.error;
+    }
 
     const listing = result.data;
 
-    if(!listing) {
-      showMessage("🔎","Advert Not Found","This advert may have been removed or is no longer available.");
+    if (!listing) {
+      showMessage(
+        "🔎",
+        "Advert Not Found",
+        "This advert may have been removed or is no longer available."
+      );
       return;
     }
 
-    /* PHOTOS */
+    renderAdvert(listing);
 
-    photos = [];
+  } catch (error) {
+    console.error("Advert loading error:", error);
 
-    if(listing.photo_urls) {
-      if(Array.isArray(listing.photo_urls)) {
-        photos = listing.photo_urls.filter(Boolean);
-      } else {
-        photos = String(listing.photo_urls)
-          .split(",")
-          .map(url => url.trim())
-          .filter(Boolean);
-      }
-    }
-
-    currentPhotoIndex = 0;
-
-    let photoHtml = "";
-
-    if(photos.length) {
-      photoHtml = `
-        <div class="photo-area">
-          <div class="main-photo-wrapper" id="main-photo-wrapper">
-            <img
-              id="main-photo"
-              class="main-photo"
-              src="${escapeAttribute(photos[0])}"
-              alt="${escapeAttribute(listing.title || "Advert photo")}"
-              fetchpriority="high"
-              onclick="openPhotoViewer()"
-            >
-
-            ${photos.length > 1 ? `
-              <div id="photo-count" class="photo-count">1 / ${photos.length}</div>
-              <button type="button" class="photo-arrow photo-prev" onclick="previousPhoto()">‹</button>
-              <button type="button" class="photo-arrow photo-next" onclick="nextPhoto()">›</button>
-            ` : ""}
-          </div>
-
-          ${photos.length > 1 ? `
-            <div class="photo-thumbnails">
-              ${photos.map((photo,index) => `
-                <img
-                  src="${escapeAttribute(photo)}"
-                  class="photo-thumb ${index === 0 ? "selected" : ""}"
-                  onclick="showPhoto(${index})"
-                  alt="Photo ${index + 1}"
-                  loading="lazy"
-                >
-              `).join("")}
-            </div>
-          ` : ""}
-        </div>
-      `;
-    } else {
-      photoHtml = `
-        <div class="photo-area">
-          <div class="no-photo">📷 No Photo Available</div>
-        </div>
-      `;
-    }
-
-    /* DESCRIPTION AND PRICE */
-
-    const descriptionData = renderDescription(listing.description);
-    const descriptionHtml = descriptionData.html;
-    let price = descriptionData.price;
-
-    if(!price && listing.price !== undefined && listing.price !== null && listing.price !== "") {
-      price = String(listing.price);
-    }
-
-    const priceHtml = price ? `
-      <div class="price-display">GH₵ ${escapeHtml(price)}</div>
-    ` : "";
-
-    /* LOCATION */
-
-    const locationHtml = listing.location ? `
-      <div class="location">📍 ${escapeHtml(listing.location)}</div>
-    ` : "";
-
-    /* CONTACT BUTTONS */
-
-    let contactHtml = "";
-
-    if(listing.phone && String(listing.phone).trim()) {
-      contactHtml += `
-        <a class="contact-button call-button"
-           href="tel:${escapeAttribute(listing.phone)}">
-          📞 Call
-        </a>
-      `;
-    }
-
-    if(listing.whatsapp && String(listing.whatsapp).trim()) {
-      const whatsapp = cleanPhone(listing.whatsapp);
-      const message = "Hello, I saw your advert for \"" +
-        (listing.title || "this advert") +
-        "\" on OGARS MARKET. I would like to make an enquiry.";
-
-      const whatsappUrl = "https://wa.me/" + whatsapp +
-        "?text=" + encodeURIComponent(message);
-
-      contactHtml += `
-        <a class="contact-button whatsapp-button"
-           href="${escapeAttribute(whatsappUrl)}"
-           target="_blank"
-           rel="noopener noreferrer">
-          💬 WhatsApp
-        </a>
-      `;
-    }
-
-    if(listing.website && String(listing.website).trim()) {
-      let website = String(listing.website).trim();
-
-      if(!/^https?:\/\//i.test(website)) {
-        website = "https://" + website;
-      }
-
-      contactHtml += `
-        <a class="contact-button website-button"
-           href="${escapeAttribute(website)}"
-           target="_blank"
-           rel="noopener noreferrer">
-          🌐 Visit Website
-        </a>
-      `;
-    }
-
-    /* ADDITIONAL DETAILS */
-
-    let detailsHtml = "";
-
-    if(listing.event_date) {
-      detailsHtml += `
-        <div class="detail-row">
-          <div class="detail-label">📅 Event Date</div>
-          <div class="detail-value">${escapeHtml(listing.event_date)}</div>
-        </div>
-      `;
-    }
-
-    if(listing.event_time) {
-      detailsHtml += `
-        <div class="detail-row">
-          <div class="detail-label">🕐 Event Time</div>
-          <div class="detail-value">${escapeHtml(listing.event_time)}</div>
-        </div>
-      `;
-    }
-
-    /* EXPIRY */
-
-    const expiryDate = listing.expires_at ? new Date(listing.expires_at) : null;
-    const isExpired = expiryDate && expiryDate <= new Date();
-
-    let expiryHtml = "";
-
-    if(expiryDate && !isNaN(expiryDate.getTime())) {
-      expiryHtml = `
-        <div class="expiry-box">
-          ${isExpired
-            ? `<span class="status-expired">🔴 Advert Expired</span>`
-            : `<span class="status-active">🟢 Advert Active</span>`
-          }
-          <br>
-          ${isExpired ? "Expired on: " : "Expires on: "}
-          ${escapeHtml(expiryDate.toLocaleString())}
-        </div>
-      `;
-    }
-
-    /* DISPLAY PAGE */
-
-    content.innerHTML = `
-      <div class="advert-card">
-
-        ${photoHtml}
-
-        <div class="content">
-
-          <div class="listing-type">
-            ${escapeHtml(listing.listing_type || "Advertisement")}
-          </div>
-
-          <h2 class="title">
-            ${escapeHtml(listing.title || "Untitled Advert")}
-          </h2>
-
-          ${priceHtml}
-          ${locationHtml}
-
-          <div class="description-box">
-            <h3>Advert Features &amp; Information</h3>
-            <div class="description">${descriptionHtml}</div>
-          </div>
-
-          ${detailsHtml ? `
-            <div class="details-box">${detailsHtml}</div>
-          ` : ""}
-
-          ${contactHtml ? `
-            <div class="contact-section">${contactHtml}</div>
-          ` : ""}
-
-          ${expiryHtml}
-
-        </div>
-      </div>
-    `;
-
-    preloadNearbyPhotos();
-    setupSwipe();
-
-  } catch(error) {
-    console.error("OGARS advert loading error:",error);
-    showMessage("⚠️","Unable to Load Advert",error.message || "Please try again.");
+    showMessage(
+      "⚠️",
+      "Unable to Load Advert",
+      error.message || "Please try again."
+    );
   }
 }
 
-/* PHOTO PRELOADING */
+
+/* RENDER ADVERT */
+
+function renderAdvert(listing) {
+
+  /* PHOTOS */
+
+  photos = [];
+
+  if (listing.photo_urls) {
+    if (Array.isArray(listing.photo_urls)) {
+      photos = listing.photo_urls.filter(Boolean);
+    } else {
+      const raw = String(listing.photo_urls).trim();
+
+      try {
+        if (raw.startsWith("[")) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            photos = parsed.filter(Boolean);
+          }
+        }
+      } catch (error) {
+        console.warn("Photo URL parsing:", error);
+      }
+
+      if (!photos.length) {
+        photos = raw.split(",").map(url => url.trim()).filter(Boolean);
+      }
+    }
+  }
+
+  currentPhotoIndex = 0;
+
+  let photoHtml = "";
+
+  if (photos.length) {
+    photoHtml = `
+      <div class="photo-area">
+        <div class="main-photo-wrapper" id="main-photo-wrapper">
+
+          <img
+            id="main-photo"
+            class="main-photo"
+            src="${escapeAttribute(photos[0])}"
+            alt="Advert photo"
+            fetchpriority="high"
+            decoding="async"
+            onclick="openPhotoViewer()"
+          >
+
+          ${
+            photos.length > 1
+              ? `
+                <div id="photo-count" class="photo-count">
+                  1 / ${photos.length}
+                </div>
+
+                <button type="button"
+                  class="photo-arrow photo-prev"
+                  onclick="previousPhoto()"
+                  aria-label="Previous photo">‹</button>
+
+                <button type="button"
+                  class="photo-arrow photo-next"
+                  onclick="nextPhoto()"
+                  aria-label="Next photo">›</button>
+              `
+              : ""
+          }
+        </div>
+
+        ${
+          photos.length > 1
+            ? `
+              <div class="photo-thumbnails">
+                ${photos.map((photo, index) => `
+                  <img
+                    src="${escapeAttribute(photo)}"
+                    class="photo-thumb ${index === 0 ? "selected" : ""}"
+                    onclick="showPhoto(${index})"
+                    alt="Photo ${index + 1}"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                `).join("")}
+              </div>
+            `
+            : ""
+        }
+      </div>
+    `;
+  } else {
+    photoHtml = `
+      <div class="photo-area">
+        <div class="no-photo">📷 No Photo Available</div>
+      </div>
+    `;
+  }
+
+
+  /* FEATURES, LOCATION AND PRICE */
+
+  const parsed = parseFeatures(listing.description || "");
+  const features = parsed.features;
+
+  const location = buildLocation(listing, features);
+  const price = getAdvertPrice(listing, features);
+
+  const visibleFeatures = getVisibleFeatures(features);
+
+  let featuresHtml = "";
+
+  if (visibleFeatures.length) {
+    featuresHtml = `
+      <div class="features-box">
+        <h3>Advert Features &amp; Information</h3>
+
+        <div class="feature-list">
+          ${visibleFeatures.map(feature => `
+            <div class="feature-row">
+              <span class="feature-label">
+                ${escapeHtml(feature.label)}
+              </span>
+
+              <span class="feature-value">
+                ${escapeHtml(feature.value)}
+              </span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }
+
+
+  /* CONTACT BUTTONS */
+
+  let contactHtml = "";
+
+  const phone = String(listing.phone || "").trim();
+  const whatsappNumber = String(
+    listing.whatsapp || listing.phone || ""
+  ).replace(/\D/g, "");
+
+  if (phone) {
+    contactHtml += `
+      <a class="contact-button call-button"
+        href="tel:${escapeAttribute(phone)}">
+        📞 Call
+      </a>
+    `;
+  }
+
+  if (whatsappNumber) {
+    let whatsapp = whatsappNumber;
+
+    if (whatsapp.startsWith("0")) {
+      whatsapp = "233" + whatsapp.substring(1);
+    }
+
+    const message =
+      "Hello, I saw your advert for \"" +
+      (listing.title || "this advert") +
+      "\" on OGARS MARKET. I would like to make an enquiry. Please can you give me more information?";
+
+    const whatsappUrl =
+      "https://wa.me/" + whatsapp +
+      "?text=" + encodeURIComponent(message);
+
+    contactHtml += `
+      <a class="contact-button whatsapp-button"
+        href="${escapeAttribute(whatsappUrl)}"
+        target="_blank"
+        rel="noopener noreferrer">
+        💬 WhatsApp
+      </a>
+    `;
+  }
+
+  if (listing.website) {
+    let website = String(listing.website).trim();
+
+    if (!/^https?:\/\//i.test(website)) {
+      website = "https://" + website;
+    }
+
+    contactHtml += `
+      <a class="contact-button website-button"
+        href="${escapeAttribute(website)}"
+        target="_blank"
+        rel="noopener noreferrer">
+        🌐 Visit Website
+      </a>
+    `;
+  }
+
+
+  /* REMAINING DESCRIPTION */
+
+  const extraDescription = parsed.remaining
+    ? `
+      <div class="description-box extra-description">
+        <h3>About This Advert</h3>
+        <div class="description">${escapeHtml(parsed.remaining)}</div>
+      </div>
+    `
+    : "";
+
+
+  /* DISPLAY PAGE */
+
+  content.innerHTML = `
+    <div class="advert-card">
+
+      ${photoHtml}
+
+      <div class="content">
+
+        <div class="listing-type">
+          ${escapeHtml(listing.listing_type || "Advertisement")}
+        </div>
+
+        <h2 class="title">
+          ${escapeHtml(listing.title || "Untitled Advert")}
+        </h2>
+
+        ${price ? `
+          <div class="price">${escapeHtml(price)}</div>
+        ` : ""}
+
+        ${location ? `
+          <div class="location">
+            📍 ${escapeHtml(location)}
+          </div>
+        ` : ""}
+
+        ${featuresHtml}
+
+        ${extraDescription}
+
+        ${contactHtml ? `
+          <div class="contact-section">
+            ${contactHtml}
+          </div>
+        ` : ""}
+
+      </div>
+    </div>
+  `;
+
+  setupSwipe();
+  preloadNearbyPhotos();
+}
+
+
+/* PRELOAD NEARBY PHOTOS */
 
 function preloadNearbyPhotos() {
-  if(photos.length <= 1) return;
+  if (photos.length <= 1) return;
 
-  [currentPhotoIndex + 1,currentPhotoIndex - 1].forEach(index => {
-    if(index < 0 || index >= photos.length) return;
-    const image = new Image();
-    image.src = photos[index];
+  [currentPhotoIndex + 1, currentPhotoIndex - 1].forEach(index => {
+    if (index >= 0 && index < photos.length) {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = photos[index];
+    }
   });
 }
+
 
 /* SHOW PHOTO */
 
 function showPhoto(index) {
-  if(!photos.length) return;
+  if (!photos.length) return;
 
-  if(index < 0) index = photos.length - 1;
-  if(index >= photos.length) index = 0;
+  if (index < 0) index = photos.length - 1;
+  if (index >= photos.length) index = 0;
 
   currentPhotoIndex = index;
 
   const mainPhoto = document.getElementById("main-photo");
-  if(mainPhoto) mainPhoto.src = photos[index];
+
+  if (mainPhoto) {
+    mainPhoto.src = photos[index];
+  }
 
   const count = document.getElementById("photo-count");
-  if(count) count.textContent = (index + 1) + " / " + photos.length;
 
-  document.querySelectorAll(".photo-thumb").forEach((thumb,i) => {
-    thumb.classList.toggle("selected",i === index);
+  if (count) {
+    count.textContent = (index + 1) + " / " + photos.length;
+  }
+
+  document.querySelectorAll(".photo-thumb").forEach((thumb, i) => {
+    thumb.classList.toggle("selected", i === index);
   });
 
   const thumbnail = document.querySelectorAll(".photo-thumb")[index];
 
-  if(thumbnail) {
+  if (thumbnail) {
     thumbnail.scrollIntoView({
-      behavior:"smooth",
-      block:"nearest",
-      inline:"center"
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
     });
   }
 
   const viewer = document.getElementById("photo-viewer");
-  if(viewer.classList.contains("show")) updateViewer();
+
+  if (viewer.classList.contains("show")) {
+    updateViewer();
+  }
 
   preloadNearbyPhotos();
 }
 
+
 function nextPhoto() {
-  if(photos.length > 1) showPhoto(currentPhotoIndex + 1);
+  if (photos.length > 1) {
+    showPhoto(currentPhotoIndex + 1);
+  }
 }
 
+
 function previousPhoto() {
-  if(photos.length > 1) showPhoto(currentPhotoIndex - 1);
+  if (photos.length > 1) {
+    showPhoto(currentPhotoIndex - 1);
+  }
 }
+
 
 /* FULLSCREEN VIEWER */
 
 function openPhotoViewer() {
-  if(!photos.length) return;
+  if (!photos.length) return;
 
   document.getElementById("photo-viewer").classList.add("show");
   document.body.style.overflow = "hidden";
+
   updateViewer();
 }
+
 
 function closePhotoViewer() {
   document.getElementById("photo-viewer").classList.remove("show");
   document.body.style.overflow = "";
 }
 
+
 function updateViewer() {
   const image = document.getElementById("viewer-image");
   const count = document.getElementById("viewer-count");
 
-  if(!image || !count) return;
+  if (!image || !count || !photos.length) return;
 
   image.src = photos[currentPhotoIndex];
   count.textContent = (currentPhotoIndex + 1) + " / " + photos.length;
 }
 
+
 /* SWIPE SUPPORT */
 
-function setupSwipe() {
-  if(swipeListenersAdded) return;
-  swipeListenersAdded = true;
+function handleSwipe() {
+  const difference = touchStartX - touchEndX;
 
-  const wrapper = document.getElementById("main-photo-wrapper");
-  const viewer = document.getElementById("photo-viewer");
+  if (Math.abs(difference) < 50) return;
 
-  function startSwipe(event) {
-    touchStartX = event.changedTouches[0].screenX;
+  if (difference > 0) {
+    nextPhoto();
+  } else {
+    previousPhoto();
   }
-
-  function endSwipe(event) {
-    const difference = touchStartX - event.changedTouches[0].screenX;
-
-    if(Math.abs(difference) < 50) return;
-
-    if(difference > 0) nextPhoto();
-    else previousPhoto();
-  }
-
-  if(wrapper) {
-    wrapper.addEventListener("touchstart",startSwipe,{passive:true});
-    wrapper.addEventListener("touchend",endSwipe,{passive:true});
-  }
-
-  viewer.addEventListener("touchstart",startSwipe,{passive:true});
-  viewer.addEventListener("touchend",endSwipe,{passive:true});
 }
 
-/* KEYBOARD */
 
-document.addEventListener("keydown",event => {
-  const viewer = document.getElementById("photo-viewer");
+function setupSwipe() {
+  const wrapper = document.getElementById("main-photo-wrapper");
 
-  if(!viewer.classList.contains("show")) return;
+  if (!wrapper) return;
 
-  if(event.key === "ArrowRight") nextPhoto();
-  if(event.key === "ArrowLeft") previousPhoto();
-  if(event.key === "Escape") closePhotoViewer();
+  wrapper.addEventListener("touchstart", event => {
+    touchStartX = event.changedTouches[0].screenX;
+  }, { passive: true });
+
+  wrapper.addEventListener("touchend", event => {
+    touchEndX = event.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+}
+
+
+/* VIEWER SWIPE */
+
+const viewer = document.getElementById("photo-viewer");
+
+viewer.addEventListener("touchstart", event => {
+  touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+
+viewer.addEventListener("touchend", event => {
+  touchEndX = event.changedTouches[0].screenX;
+  handleSwipe();
+}, { passive: true });
+
+
+/* KEYBOARD CONTROLS */
+
+document.addEventListener("keydown", event => {
+  const viewerElement = document.getElementById("photo-viewer");
+
+  if (!viewerElement.classList.contains("show")) return;
+
+  if (event.key === "ArrowRight") nextPhoto();
+  if (event.key === "ArrowLeft") previousPhoto();
+  if (event.key === "Escape") closePhotoViewer();
 });
+
+
+/* MESSAGE */
+
+function showMessage(icon, title, message) {
+  content.innerHTML = `
+    <div class="message">
+      <div class="message-icon">${escapeHtml(icon)}</div>
+      <h2>${escapeHtml(title)}</h2>
+      <p>${escapeHtml(message)}</p>
+    </div>
+  `;
+}
+
 
 /* START */
 
