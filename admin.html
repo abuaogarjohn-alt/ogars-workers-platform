@@ -47,8 +47,20 @@ h2{font-size:17px}.small{font-size:12px;color:var(--muted);line-height:1.5}
 .error{background:#fff0f0;color:#a92338;padding:12px;border-radius:9px;font-size:12px;margin:12px 0;display:none;overflow-wrap:anywhere}
 .pagination{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:15px;flex-wrap:wrap}
 .page-info{font-size:12px;color:var(--muted)}
+.staff-form{display:grid;gap:10px;margin-top:13px}
+.staff-form input,.staff-form select{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;font-size:13px;background:white;color:var(--ink)}
+.permission-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px}
+.permission-row{display:flex;align-items:flex-start;gap:9px;padding:9px;border:1px solid var(--line);border-radius:9px;font-size:12px;line-height:1.5}
+.permission-row input{margin-top:2px;accent-color:var(--purple)}
+.staff-subtitle{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
-@media(min-width:650px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.tabs{grid-template-columns:repeat(4,minmax(0,1fr))}.filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:650px){
+ .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .staff-form{grid-template-columns:2fr 1fr auto;align-items:center}
+ .permission-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -82,6 +94,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   <button class="tab" data-tab="sellers">🛡️ Verify Sellers</button>
   <button class="tab" data-tab="trending">🔥 Trending</button>
   <button class="tab" data-tab="vip">🎬 VIP Videos</button>
+  <button class="tab" data-tab="staff">👥 Staff</button>
  </div>
 
  <section class="panel active section" id="panel-adverts">
@@ -90,45 +103,31 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
    <button class="btn secondary" id="refresh-adverts">Refresh</button>
   </div>
   <p class="small">Search the database directly. Only one page of results is loaded at a time.</p>
-
   <input class="search" id="advert-search" placeholder="Search title, location or category">
-
   <div class="filter-grid">
    <select class="filter" id="category-filter">
     <option value="">All categories</option>
-    <option>Vehicles &amp; Drivers</option>
-    <option>Products &amp; Goods</option>
-    <option>Houses &amp; Property</option>
-    <option>Jobs &amp; Employment</option>
-    <option>Skilled Workers</option>
-    <option>Businesses</option>
-    <option>Services</option>
-    <option>Agriculture &amp; Food</option>
-    <option>Electronics</option>
-    <option>Phones &amp; Tablets</option>
-    <option>VIP Video</option>
+    <option>Vehicles &amp; Drivers</option><option>Products &amp; Goods</option>
+    <option>Houses &amp; Property</option><option>Jobs &amp; Employment</option>
+    <option>Skilled Workers</option><option>Businesses</option><option>Services</option>
+    <option>Agriculture &amp; Food</option><option>Electronics</option>
+    <option>Phones &amp; Tablets</option><option>VIP Video</option>
    </select>
    <input class="filter" id="region-filter" placeholder="Region or town">
    <select class="filter" id="status-filter">
-    <option value="">All advert statuses</option>
-    <option value="active">Active</option>
-    <option value="inactive">Inactive</option>
-    <option value="expired">Expired</option>
-    <option value="featured">Featured</option>
-    <option value="notfeatured">Not featured</option>
+    <option value="">All advert statuses</option><option value="active">Active</option>
+    <option value="inactive">Inactive</option><option value="expired">Expired</option>
+    <option value="featured">Featured</option><option value="notfeatured">Not featured</option>
    </select>
    <input class="filter" id="seller-id-filter" placeholder="Seller user ID (optional)">
    <select class="filter" id="page-size">
-    <option value="20">20 per page</option>
-    <option value="50">50 per page</option>
-    <option value="100">100 per page</option>
+    <option value="20">20 per page</option><option value="50">50 per page</option><option value="100">100 per page</option>
    </select>
   </div>
   <div class="filter-actions">
    <button class="btn" id="apply-filters">Search / Apply filters</button>
    <button class="btn secondary" id="clear-filters">Clear filters</button>
   </div>
-
   <div id="advert-list" class="loading">Loading adverts...</div>
   <div class="pagination">
    <button class="btn secondary" id="advert-prev">← Previous</button>
@@ -138,11 +137,8 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
  </section>
 
  <section class="panel section" id="panel-sellers">
-  <div class="section-head">
-   <h2>Verify Sellers</h2>
-   <button class="btn secondary" id="refresh-sellers">Refresh</button>
-  </div>
-  <p class="small">Search seller profiles in the database. Verify identity and business details before awarding trust status.</p>
+  <div class="section-head"><h2>Verify Sellers</h2><button class="btn secondary" id="refresh-sellers">Refresh</button></div>
+  <p class="small">Verify identity and business details before awarding OGARS Trusted Seller status.</p>
   <input class="search" id="seller-search" placeholder="Search seller name, phone or WhatsApp">
   <div id="seller-list" class="loading">Loading seller profiles...</div>
   <div class="pagination">
@@ -153,10 +149,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
  </section>
 
  <section class="panel section" id="panel-trending">
-  <div class="section-head">
-   <h2>Featured / Trending Adverts</h2>
-   <button class="btn secondary" id="refresh-trending">Refresh</button>
-  </div>
+  <div class="section-head"><h2>Featured / Trending Adverts</h2><button class="btn secondary" id="refresh-trending">Refresh</button></div>
   <p class="small">Search adverts and manage their featured placement.</p>
   <input class="search" id="trending-search" placeholder="Search featured adverts by title, location or category">
   <div id="trending-list" class="loading">Loading featured adverts...</div>
@@ -171,8 +164,49 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   <h2 style="margin-bottom:12px">VIP Billboard Videos</h2>
   <div class="notice">
    This section is reserved for VIP electronic billboard advertisements displayed on the OGARS homepage.
-   <br><br>
-   Connection pending: we need to identify the existing VIP video table and its columns before connecting controls here. No existing VIP data will be changed.
+   <br><br>Connection pending: we need to identify the existing VIP video table and its columns before connecting controls here. No existing VIP data will be changed.
+  </div>
+ </section>
+
+ <!-- STAFF MANAGEMENT -->
+ <section class="panel section" id="panel-staff">
+  <div class="section-head">
+   <h2>Staff Management</h2>
+   <button class="btn secondary" id="refresh-staff">Refresh</button>
+  </div>
+
+  <div class="notice">
+   Add staff members, assign roles and customise their permissions. Staff must already have an OGARS Market account registered with the email address you enter.
+   <br><br>Only the Super Administrator can manage staff access.
+  </div>
+
+  <h3 style="font-size:14px;margin-top:18px">Add a Staff Member</h3>
+  <form id="staff-form" class="staff-form">
+   <input type="email" id="staff-email" placeholder="Staff member's registered email" required>
+   <select id="staff-role" required>
+    <option value="advert_manager">Advert Manager</option>
+    <option value="verification_officer">Verification Officer</option>
+    <option value="customer_support">Customer Support</option>
+    <option value="marketing_manager">Marketing Manager</option>
+    <option value="vip_media_manager">VIP Media Manager</option>
+   </select>
+   <button class="btn" type="submit">Add Staff</button>
+  </form>
+
+  <p class="staff-subtitle">If the email is not registered yet, ask the person to create an OGARS account first. Then return here and add them.</p>
+
+  <div style="margin-top:22px">
+   <div class="section-head">
+    <h3 style="font-size:14px">Staff Directory</h3>
+   </div>
+   <input class="search" id="staff-search" placeholder="Search staff by user ID or role">
+   <div id="staff-list" class="loading">Loading staff...</div>
+  </div>
+
+  <div style="margin-top:22px">
+   <h3 style="font-size:14px;margin-bottom:8px">Staff Activity</h3>
+   <p class="small">Recent activity records stored in the OGARS staff activity table.</p>
+   <div id="staff-activity" class="loading">Loading activity...</div>
   </div>
  </section>
 
@@ -213,6 +247,7 @@ let currentUser=null;
 let advertPage=0,sellerPage=0,trendingPage=0;
 let advertCount=0,sellerCount=0,trendingCount=0;
 let searchTimer=null;
+let staffRecords=[];
 
 function showError(message){
  const box=$("error-box");box.textContent=message;box.style.display="block";
@@ -220,13 +255,15 @@ function showError(message){
 function clearError(){$("error-box").style.display="none"}
 function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function active(a){return a.available!==false&&(!a.expires_at||new Date(a.expires_at).getTime()>=Date.now())}
-function formatDate(v){return v?new Date(v).toLocaleDateString():"Unknown"}
+function formatDate(v){return v?new Date(v).toLocaleString():"Unknown"}
 function uuidValid(v){return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v)}
+
 function tab(name){
  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));
  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+name));
  if(name==="sellers")loadSellers();
  if(name==="trending")loadTrending();
+ if(name==="staff"){loadStaff();loadStaffActivity();}
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
 
@@ -252,7 +289,6 @@ async function checkAdmin(){
  }
 }
 
-/* Database-wide counts: these requests return counts, not every advert. */
 async function countRows(builder){
  const {count,error}=await builder;
  if(error)throw error;
@@ -271,33 +307,18 @@ async function loadStats(){
   $("active-adverts").textContent=activeCount.toLocaleString();
   $("featured-adverts").textContent=featured.toLocaleString();
   $("trusted-sellers").textContent=trusted.toLocaleString();
- }catch(e){
-  console.error("Stats:",e);
-  showError("Some dashboard totals could not be loaded: "+e.message);
- }
+ }catch(e){console.error("Stats:",e);showError("Some dashboard totals could not be loaded: "+e.message)}
 }
 
-/* Build a database-side advert search. */
 function advertQuery({trending=false}={}){
  const q=(trending?$("trending-search").value:$("advert-search").value).trim().replace(/[,%()]/g," ");
- let query=db.from("discover_listings")
-  .select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"});
-
- if(q){
-  const pattern="%"+q+"%";
-  query=query.or("title.ilike."+pattern+",location.ilike."+pattern+",listing_type.ilike."+pattern);
- }
+ let query=db.from("discover_listings").select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"});
+ if(q){const pattern="%"+q+"%";query=query.or("title.ilike."+pattern+",location.ilike."+pattern+",listing_type.ilike."+pattern)}
  if(!trending){
-  const category=$("category-filter").value;
-  const region=$("region-filter").value.trim();
-  const status=$("status-filter").value;
-  const sellerId=$("seller-id-filter").value.trim();
+  const category=$("category-filter").value,region=$("region-filter").value.trim(),status=$("status-filter").value,sellerId=$("seller-id-filter").value.trim();
   if(category)query=query.ilike("listing_type","%"+category+"%");
   if(region)query=query.ilike("location","%"+region.replace(/[,%()]/g," ")+"%");
-  if(sellerId){
-   if(!uuidValid(sellerId))throw new Error("Enter a valid seller user ID (UUID), or clear that filter.");
-   query=query.eq("user_id",sellerId);
-  }
+  if(sellerId){if(!uuidValid(sellerId))throw new Error("Enter a valid seller user ID (UUID), or clear that filter.");query=query.eq("user_id",sellerId)}
   if(status==="active")query=query.eq("available",true).or("expires_at.is.null,expires_at.gte."+new Date().toISOString());
   if(status==="inactive")query=query.eq("available",false);
   if(status==="expired")query=query.not("expires_at","is",null).lt("expires_at",new Date().toISOString());
@@ -323,36 +344,24 @@ function advertCard(a){
   </div>
  </article>`;
 }
-
 function updateAdvertPagination(){
- const size=Number($("page-size").value);
- const pages=Math.max(1,Math.ceil(advertCount/size));
+ const size=Number($("page-size").value),pages=Math.max(1,Math.ceil(advertCount/size));
  $("advert-page-info").textContent=`Page ${advertPage+1} of ${pages} · ${advertCount.toLocaleString()} results`;
- $("advert-prev").disabled=advertPage===0;
- $("advert-next").disabled=advertPage>=pages-1;
+ $("advert-prev").disabled=advertPage===0;$("advert-next").disabled=advertPage>=pages-1;
 }
-
 async function loadAdverts(){
- clearError();
- const list=$("advert-list");
- list.innerHTML='<div class="loading">Searching the database...</div>';
+ clearError();const list=$("advert-list");list.innerHTML='<div class="loading">Searching the database...</div>';
  try{
-  const size=Number($("page-size").value);
-  const from=advertPage*size,to=from+size-1;
+  const size=Number($("page-size").value),from=advertPage*size,to=from+size-1;
   const {data,error,count}=await advertQuery().order("created_at",{ascending:false}).range(from,to);
   if(error)throw error;
   advertCount=count||0;
   list.innerHTML=data?.length?data.map(advertCard).join(""):'<div class="empty">No matching adverts found.</div>';
   updateAdvertPagination();
- }catch(e){
-  list.innerHTML='<div class="empty">Could not load adverts: '+safe(e.message)+'</div>';
-  showError("Advert search failed: "+e.message);
- }
+ }catch(e){list.innerHTML='<div class="empty">Could not load adverts: '+safe(e.message)+'</div>';showError("Advert search failed: "+e.message)}
 }
-
 async function updateAdvert(id,changes){
- const {error}=await db.from("discover_listings").update(changes).eq("id",id);
- if(error)throw error;
+ const {error}=await db.from("discover_listings").update(changes).eq("id",id);if(error)throw error;
 }
 async function toggleFeatured(id){
  try{
@@ -365,29 +374,21 @@ async function toggleFeatured(id){
 }
 async function toggleAvailable(id,isAvailable){
  if(!confirm("Are you sure you want to "+(isAvailable?"deactivate":"reactivate")+" this advert?"))return;
- try{
-  await updateAdvert(id,{available:!isAvailable});
-  await loadStats();await loadAdverts();
- }catch(e){showError("Could not update advert: "+e.message)}
+ try{await updateAdvert(id,{available:!isAvailable});await loadStats();await loadAdverts()}
+ catch(e){showError("Could not update advert: "+e.message)}
 }
 async function deleteAdvert(id){
  if(!confirm("Permanently delete this advert? This cannot be undone."))return;
  try{
-  const {error}=await db.from("discover_listings").delete().eq("id",id);
-  if(error)throw error;
+  const {error}=await db.from("discover_listings").delete().eq("id",id);if(error)throw error;
   await loadStats();await loadAdverts();
  }catch(e){showError("Could not delete advert: "+e.message)}
 }
 
-/* Seller search and pagination are also performed by Supabase. */
 function sellerQuery(){
  const q=$("seller-search").value.trim().replace(/[,%()]/g," ");
- let query=db.from("user_profiles")
-  .select("id,full_name,phone_number,whatsapp_number,is_trusted,trusted_at",{count:"exact"});
- if(q){
-  const p="%"+q+"%";
-  query=query.or("full_name.ilike."+p+",phone_number.ilike."+p+",whatsapp_number.ilike."+p);
- }
+ let query=db.from("user_profiles").select("id,full_name,phone_number,whatsapp_number,is_trusted,trusted_at",{count:"exact"});
+ if(q){const p="%"+q+"%";query=query.or("full_name.ilike."+p+",phone_number.ilike."+p+",whatsapp_number.ilike."+p)}
  return query;
 }
 function renderSeller(s){
@@ -397,71 +398,207 @@ function renderSeller(s){
   <div class="meta">WhatsApp: ${safe(s.whatsapp_number||"Not provided")}</div>
   <div class="meta">Seller ID: ${safe(s.id)}</div>
   <span class="status ${s.is_trusted?"good":"off"}">${s.is_trusted?"✓ OGARS Trusted Seller":"Not verified"}</span>
-  <div class="actions">
-   <button class="btn ${s.is_trusted?"danger":"secondary"}" onclick="setTrusted('${safe(s.id)}',${!!s.is_trusted})">${s.is_trusted?"Remove Trust Status":"Verify Seller"}</button>
-  </div>
+  <div class="actions"><button class="btn ${s.is_trusted?"danger":"secondary"}" onclick="setTrusted('${safe(s.id)}',${!!s.is_trusted})">${s.is_trusted?"Remove Trust Status":"Verify Seller"}</button></div>
  </article>`;
 }
 async function loadSellers(){
- const list=$("seller-list");
- list.innerHTML='<div class="loading">Searching seller profiles...</div>';
+ const list=$("seller-list");list.innerHTML='<div class="loading">Searching seller profiles...</div>';
  try{
   const from=sellerPage*PAGE_SIZE,to=from+PAGE_SIZE-1;
   const {data,error,count}=await sellerQuery().order("created_at",{ascending:false}).range(from,to);
   if(error)throw error;
-  sellerCount=count||0;
-  list.innerHTML=data?.length?data.map(renderSeller).join(""):'<div class="empty">No matching sellers found.</div>';
+  sellerCount=count||0;list.innerHTML=data?.length?data.map(renderSeller).join(""):'<div class="empty">No matching sellers found.</div>';
   const pages=Math.max(1,Math.ceil(sellerCount/PAGE_SIZE));
   $("seller-page-info").textContent=`Page ${sellerPage+1} of ${pages} · ${sellerCount.toLocaleString()} results`;
-  $("seller-prev").disabled=sellerPage===0;
-  $("seller-next").disabled=sellerPage>=pages-1;
- }catch(e){
-  list.innerHTML='<div class="empty">Could not load sellers: '+safe(e.message)+'</div>';
-  showError("Seller search failed: "+e.message);
- }
+  $("seller-prev").disabled=sellerPage===0;$("seller-next").disabled=sellerPage>=pages-1;
+ }catch(e){list.innerHTML='<div class="empty">Could not load sellers: '+safe(e.message)+'</div>';showError("Seller search failed: "+e.message)}
 }
 async function setTrusted(id,isTrusted){
  if(!confirm("Are you sure you want to "+(isTrusted?"remove the Trusted Seller status from":"verify")+" this seller?"))return;
  try{
-  const {error}=await db.from("user_profiles").update({
-   is_trusted:!isTrusted,
-   trusted_at:!isTrusted?new Date().toISOString():null,
-   trusted_by:!isTrusted?currentUser.id:null
-  }).eq("id",id);
-  if(error)throw error;
-  await loadStats();await loadSellers();
+  const {error}=await db.from("user_profiles").update({is_trusted:!isTrusted,trusted_at:!isTrusted?new Date().toISOString():null,trusted_by:!isTrusted?currentUser.id:null}).eq("id",id);
+  if(error)throw error;await loadStats();await loadSellers();
  }catch(e){showError("Could not update seller verification: "+e.message)}
 }
 
-/* Trending uses database-side search and pagination too. */
 async function loadTrending(){
- const list=$("trending-list");
- list.innerHTML='<div class="loading">Searching featured adverts...</div>';
+ const list=$("trending-list");list.innerHTML='<div class="loading">Searching featured adverts...</div>';
  try{
   const q=$("trending-search").value.trim().replace(/[,%()]/g," ");
-  let query=db.from("discover_listings")
-   .select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"})
-   .eq("featured",true);
-  if(q){
-   const p="%"+q+"%";
-   query=query.or("title.ilike."+p+",location.ilike."+p+",listing_type.ilike."+p);
-  }
+  let query=db.from("discover_listings").select("id,user_id,title,listing_type,location,created_at,featured,available,expires_at",{count:"exact"}).eq("featured",true);
+  if(q){const p="%"+q+"%";query=query.or("title.ilike."+p+",location.ilike."+p+",listing_type.ilike."+p)}
   const from=trendingPage*PAGE_SIZE,to=from+PAGE_SIZE-1;
   const {data,error,count}=await query.order("created_at",{ascending:false}).range(from,to);
   if(error)throw error;
-  trendingCount=count||0;
-  list.innerHTML=data?.length?data.map(advertCard).join(""):'<div class="empty">No featured adverts found.</div>';
+  trendingCount=count||0;list.innerHTML=data?.length?data.map(advertCard).join(""):'<div class="empty">No featured adverts found.</div>';
   const pages=Math.max(1,Math.ceil(trendingCount/PAGE_SIZE));
   $("trending-page-info").textContent=`Page ${trendingPage+1} of ${pages} · ${trendingCount.toLocaleString()} featured`;
-  $("trending-prev").disabled=trendingPage===0;
-  $("trending-next").disabled=trendingPage>=pages-1;
+  $("trending-prev").disabled=trendingPage===0;$("trending-next").disabled=trendingPage>=pages-1;
+ }catch(e){list.innerHTML='<div class="empty">Could not load featured adverts: '+safe(e.message)+'</div>';showError("Trending search failed: "+e.message)}
+}
+
+/* STAFF MANAGEMENT */
+const ROLE_NAMES={
+ advert_manager:"Advert Manager",
+ verification_officer:"Verification Officer",
+ customer_support:"Customer Support",
+ marketing_manager:"Marketing Manager",
+ vip_media_manager:"VIP Media Manager"
+};
+
+const PERMISSIONS=[
+ ["adverts.view","View adverts"],
+ ["adverts.review","Review adverts"],
+ ["adverts.feature","Feature / unfeature adverts"],
+ ["adverts.deactivate","Deactivate adverts"],
+ ["adverts.delete","Delete adverts"],
+ ["sellers.view","View seller profiles"],
+ ["sellers.review","Review seller details"],
+ ["sellers.verify","Verify sellers"],
+ ["support.view","View customer support"],
+ ["support.respond","Respond to customer support"],
+ ["promotions.view","View promotions"],
+ ["promotions.manage","Manage promotions"],
+ ["vip.view","View VIP videos"],
+ ["vip.review","Review VIP videos"],
+ ["vip.manage","Manage VIP videos"]
+];
+
+const ROLE_DEFAULTS={
+ advert_manager:["adverts.view","adverts.review","adverts.feature","adverts.deactivate"],
+ verification_officer:["sellers.view","sellers.review","sellers.verify"],
+ customer_support:["support.view","support.respond"],
+ marketing_manager:["adverts.view","adverts.feature","promotions.view","promotions.manage"],
+ vip_media_manager:["vip.view","vip.review","vip.manage"]
+};
+
+function effectivePermission(staff,key,overrides){
+ const found=overrides.find(p=>p.staff_id===staff.id&&p.permission_key===key);
+ if(found)return found.allowed===true;
+ return (ROLE_DEFAULTS[staff.role]||[]).includes(key);
+}
+
+async function loadStaff(){
+ const list=$("staff-list");list.innerHTML='<div class="loading">Loading staff directory...</div>';
+ try{
+  const {data,error}=await db.from("ogars_staff")
+   .select("id,user_id,role,is_active,created_at")
+   .order("created_at",{ascending:false});
+  if(error)throw error;
+  staffRecords=data||[];
+  const {data:overrides,error:permissionError}=await db.from("ogars_staff_permissions")
+   .select("staff_id,permission_key,allowed");
+  if(permissionError)throw permissionError;
+
+  const term=$("staff-search").value.trim().toLowerCase();
+  const filtered=staffRecords.filter(s=>
+   !term||String(s.user_id).toLowerCase().includes(term)||String(s.role).toLowerCase().includes(term)
+  );
+  if(!filtered.length){list.innerHTML='<div class="empty">No staff members found. Add your first staff member above.</div>';return}
+
+  list.innerHTML=filtered.map(s=>{
+   const isActive=s.is_active!==false;
+   const permissions=PERMISSIONS.map(([key,label])=>{
+    const checked=effectivePermission(s,key,overrides||[]);
+    return `<label class="permission-row">
+      <input type="checkbox" ${checked?"checked":""}
+       onchange="changeStaffPermission('${safe(s.id)}','${key}',this.checked)">
+      <span>${safe(label)}</span>
+     </label>`;
+   }).join("");
+
+   return `<article class="item">
+    <h3>${safe(ROLE_NAMES[s.role]||s.role||"Staff member")}</h3>
+    <div class="meta">Staff user ID: ${safe(s.user_id)}</div>
+    <div class="meta">Staff record ID: ${safe(s.id)}</div>
+    <div class="meta">Added: ${safe(formatDate(s.created_at))}</div>
+    <span class="status ${isActive?"good":"off"}">${isActive?"Active staff":"Suspended"}</span>
+    <details style="margin-top:13px">
+     <summary style="font-size:12px;font-weight:bold;color:var(--dark);cursor:pointer">Manage individual permissions</summary>
+     <p class="staff-subtitle">Checked permissions are allowed. Unchecked permissions are denied. These settings override the role defaults.</p>
+     <div class="permission-grid">${permissions}</div>
+    </details>
+    <div class="actions">
+     <button class="btn ${isActive?"danger":"secondary"}" onclick="changeStaffStatus('${safe(s.id)}',${isActive})">${isActive?"Suspend Staff":"Reactivate Staff"}</button>
+    </div>
+   </article>`;
+  }).join("");
  }catch(e){
-  list.innerHTML='<div class="empty">Could not load featured adverts: '+safe(e.message)+'</div>';
-  showError("Trending search failed: "+e.message);
+  list.innerHTML='<div class="empty">Could not load staff: '+safe(e.message)+'</div>';
+  showError("Staff directory error: "+e.message);
  }
 }
 
-/* Search after the user pauses typing. */
+$("staff-form").addEventListener("submit",async e=>{
+ e.preventDefault();clearError();
+ const email=$("staff-email").value.trim();
+ const role=$("staff-role").value;
+ if(!email){showError("Enter the staff member's email address.");return}
+ if(!confirm("Add "+email+" as "+(ROLE_NAMES[role]||role)+"?"))return;
+ const button=$("staff-form").querySelector("button[type=submit]");
+ button.disabled=true;button.textContent="Adding...";
+ try{
+  const {data,error}=await db.rpc("ogars_assign_staff",{p_email:email,p_role:role});
+  if(error)throw error;
+  alert("Staff assignment request completed.");
+  $("staff-email").value="";
+  await loadStaff();
+ }catch(err){
+  showError("Could not add staff: "+err.message);
+ }finally{
+  button.disabled=false;button.textContent="Add Staff";
+ }
+});
+
+async function changeStaffPermission(staffId,permission,allowed){
+ try{
+  const {error}=await db.rpc("ogars_set_staff_permission",{
+   p_staff_id:staffId,p_permission:permission,p_allowed:allowed
+  });
+  if(error)throw error;
+  alert("Staff permission updated.");
+  await loadStaff();
+ }catch(e){
+  showError("Could not update permission: "+e.message);
+  await loadStaff();
+ }
+}
+
+async function changeStaffStatus(staffId,isActive){
+ const action=isActive?"suspend":"reactivate";
+ if(!confirm("Are you sure you want to "+action+" this staff member?"))return;
+ try{
+  const {error}=await db.rpc("ogars_set_staff_status",{
+   p_staff_id:staffId,p_active:!isActive
+  });
+  if(error)throw error;
+  alert("Staff status updated.");
+  await loadStaff();
+ }catch(e){showError("Could not change staff status: "+e.message)}
+}
+
+async function loadStaffActivity(){
+ const list=$("staff-activity");list.innerHTML='<div class="loading">Loading activity...</div>';
+ try{
+  const {data,error}=await db.from("ogars_staff_activity")
+   .select("staff_id,actor_user_id,action,details,created_at")
+   .order("created_at",{ascending:false}).limit(30);
+  if(error)throw error;
+  if(!data?.length){list.innerHTML='<div class="empty">No staff activity records are available yet.</div>';return}
+  list.innerHTML=data.map(a=>`
+   <article class="item">
+    <h3>${safe(a.action||"Staff action")}</h3>
+    <div class="meta">Staff record: ${safe(a.staff_id||"Not specified")}</div>
+    <div class="meta">Performed by: ${safe(a.actor_user_id||"Not specified")}</div>
+    <div class="meta">Date: ${safe(formatDate(a.created_at))}</div>
+    <div class="meta">Details: ${safe(typeof a.details==="object"?JSON.stringify(a.details):a.details||"No details")}</div>
+   </article>`).join("");
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load staff activity: '+safe(e.message)+'</div>';
+ }
+}
+
+/* SEARCH AND PAGINATION */
 $("advert-search").addEventListener("input",()=>{
  clearTimeout(searchTimer);searchTimer=setTimeout(()=>{advertPage=0;loadAdverts()},450);
 });
@@ -491,6 +628,11 @@ $("trending-search").addEventListener("input",()=>{
 $("trending-prev").addEventListener("click",()=>{if(trendingPage>0){trendingPage--;loadTrending()}});
 $("trending-next").addEventListener("click",()=>{if((trendingPage+1)*PAGE_SIZE<trendingCount){trendingPage++;loadTrending()}});
 $("refresh-trending").addEventListener("click",()=>{trendingPage=0;loadTrending()});
+
+$("staff-search").addEventListener("input",()=>{
+ clearTimeout(searchTimer);searchTimer=setTimeout(loadStaff,350);
+});
+$("refresh-staff").addEventListener("click",()=>{loadStaff();loadStaffActivity()});
 
 $("signout").addEventListener("click",async()=>{
  const {error}=await db.auth.signOut();
