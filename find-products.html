@@ -4,227 +4,290 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#54218c">
-<title>Products & Goods | OGARS MARKET</title>
+<meta name="theme-color" content="#6545c5">
+<meta name="description" content="Discover electronics, laptops, televisions, gaming devices and appliances on OGARS MARKET Ghana.">
+<title>Electronics | OGARS MARKET</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --p:#6500a8;--deep:#4e087f;--lav:#f2e8ff;
-  --line:#e5d2ff;--ink:#211b36;--muted:#716b83;
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;
+  --border:#e6e0f5;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;padding-bottom:85px}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
 .hero{
-  min-height:105px;padding:15px;display:flex;align-items:center;gap:11px;
-  color:white;background:linear-gradient(110deg,#7814c5,#4e087f);
+  display:flex;align-items:center;gap:9px;min-height:82px;
+  padding:9px 12px;
+  background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+  color:#fff;position:relative;overflow:hidden
 }
-.hero-back{color:white;text-decoration:none;font-size:32px}
-.hero-icon{width:53px;height:53px;flex:0 0 53px;border:2px solid white;border-radius:16px;display:grid;place-items:center;font-size:28px}
-.hero-copy h1{margin:0;font-size:clamp(20px,5vw,27px);font-weight:900}
-.hero-copy p{margin:5px 0 0;font-size:12px;color:#f1e6ff}
-main{max-width:950px;margin:auto;padding:12px 13px 25px}
-.search-panel{background:var(--lav);border-radius:22px;padding:12px;margin:7px 0 17px}
+.hero::after{
+  content:"💻";position:absolute;right:10px;top:-30px;
+  font-size:105px;color:rgba(255,255,255,.07);pointer-events:none
+}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+  border-radius:12px;display:grid;place-items:center;
+  font-size:25px;position:relative;z-index:1
+}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+/* SEARCH */
+.search-panel{
+  background:#f1e8ff;border:1px solid #e9ddfb;
+  border-radius:14px;padding:9px;margin:8px 0 12px
+}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
 .search-panel input,.search-panel select{
-  width:100%;height:46px;border:1px solid var(--line);border-radius:22px;
-  background:white;padding:0 13px;font-size:14px;color:var(--ink);min-width:0
+  width:100%;min-width:0;min-height:38px;padding:8px 10px;
+  border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+  color:var(--text);font-size:12px
 }
-.search-panel input{margin-bottom:9px}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
 .search-button{
-  height:46px;width:100%;border:0;border-radius:22px;color:white;
-  background:linear-gradient(110deg,#6800a9,#4f087f);font-size:15px;font-weight:900
+  border:0;border-radius:9px;background:var(--dark);
+  color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
 }
-.results-summary{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:10px 2px 0;color:var(--muted);font-size:11px}
-.clear-button{border:0;background:white;color:var(--deep);border-radius:18px;padding:7px 11px;font-weight:bold}
-.section-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:13px 2px}
-.section-heading h2{color:#5c078f;font-size:19px;margin:0;font-weight:900}
-.sort{border:1px solid #c76af0;border-radius:20px;padding:6px 8px;color:var(--p);font-size:11px}
-.sort select{border:0;background:transparent;max-width:115px;color:var(--ink);font-weight:bold;font-size:11px}
-.category-intro{margin:8px 2px 11px}
-.category-intro h2{margin:0 0 4px;color:#5c078f;font-size:19px}
-.category-intro p{margin:0;color:var(--muted);font-size:12px}
-.categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:15px}
-.category-card{
-  min-width:0;min-height:94px;border:1px solid var(--line);border-radius:17px;
-  background:white;color:var(--ink);padding:8px 5px;font-size:11px;font-weight:900;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;font-size:10px;color:var(--muted);margin-top:7px
 }
-.category-card .emoji{font-size:27px}
-.category-card.active{border:2px solid #8a55c5;background:#f8f2ff}
-.category-card:active{transform:scale(.98)}
-.note{font-size:11px;color:var(--muted);margin:0 0 12px}
-.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.product-card{min-width:0;border:1px solid var(--line);border-radius:19px;overflow:hidden;background:white;box-shadow:0 3px 9px #4e087f12;display:flex;flex-direction:column}
-.image-wrap{height:135px;background:#f8efff;position:relative;overflow:hidden}
+.clear-button{
+  background:#fff;border:1px solid var(--border);color:var(--dark);
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
+}
+
+/* CATEGORIES */
+.electronics-intro{margin:0 0 7px}
+.electronics-intro h2{font-size:16px;margin:0 0 2px}
+.electronics-intro p{font-size:10px;color:var(--muted);margin:0}
+.electronics-shortcuts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;margin:8px 0
+}
+.shortcut{
+  min-width:0;min-height:0;padding:5px;border:1px solid var(--border);
+  border-radius:10px;background:#fff;color:var(--text);
+  text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 5px rgba(77,50,165,.04)
+}
+.shortcut-icon{
+  width:100%;height:43px;border-radius:7px;
+  background:linear-gradient(145deg,#eee4ff,#faf7ff);
+  display:grid;place-items:center;font-size:24px
+}
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.electronics-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+/* ADVERT CARDS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
+}
+.image-wrap{height:125px;background:#f2edff;position:relative}
 .product-image{width:100%;height:100%;object-fit:cover;display:block}
-.no-image{height:100%;display:grid;place-items:center;font-size:40px;color:#8b65b8}
-.category-badge{position:absolute;bottom:6px;left:6px;max-width:calc(100% - 12px);padding:5px 8px;background:white;color:var(--deep);border-radius:20px;font-size:9px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.product-content{padding:9px;display:flex;flex-direction:column;flex:1;min-width:0}
-.product-name{margin:0;font-size:13px;line-height:1.3;font-weight:900;overflow-wrap:anywhere}
-.price{color:var(--p);font-size:16px;font-weight:900;margin-top:5px}
-.description{color:var(--muted);font-size:11px;line-height:1.4;margin-top:6px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.business{border-top:1px solid var(--line);padding-top:7px;margin-top:8px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
-.delivery{background:#f6f2ff;color:#55427f;padding:7px;border-radius:9px;margin-top:7px;font-size:10px;line-height:1.4;overflow-wrap:anywhere}
-.view-details{display:block;text-align:center;text-decoration:none;background:#f2e8ff;color:#5b078f;border-radius:17px;padding:8px 5px;margin-top:8px;font-size:11px;font-weight:900}
-.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:7px}
-.action-button{min-width:0;min-height:34px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:0;border-radius:16px;padding:5px 2px;font-size:9px;font-weight:900;cursor:pointer;text-align:center}
-.whatsapp{background:#e7f8ed;color:#16783a}
-.call{background:#f0e8ff;color:#5a2290}
-.share{background:#eeeaff;color:#4f32a5}
-.message{grid-column:1/-1;padding:25px 15px;text-align:center;color:var(--muted);background:#faf7ff;border:1px solid var(--line);border-radius:18px;font-size:13px}
-.message strong{display:block;color:var(--ink);margin-bottom:7px}
-.retry-button{border:0;background:var(--p);color:white;border-radius:20px;padding:9px 16px;margin-top:11px;font-weight:bold}
-.back-area{text-align:center;margin:20px 0}
-.back{display:inline-block;color:var(--deep);text-decoration:none;border:1px solid var(--line);background:white;border-radius:20px;padding:9px 15px;font-size:12px;font-weight:bold}
-.detail-view .image-wrap{height:270px}
-.detail-view .product-content{padding:14px}
-.detail-view .product-name{font-size:20px}
-.detail-view .price{font-size:22px}
-.detail-view .description{display:block;overflow:visible;font-size:13px;line-height:1.6}
-.detail-view .business,.detail-view .delivery{font-size:12px}
-.detail-view .action-button{min-height:42px;font-size:11px}
-.detail-view .view-details{display:none}
-footer{background:#211b36;color:#e1dced;text-align:center;padding:18px 12px;font-size:11px}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:10px}
-.footer-links a{color:white;text-decoration:none;font-weight:bold}
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;height:70px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;background:#ffffffed;border-top:1px solid var(--line);box-shadow:0 -4px 14px #23184612;padding-bottom:env(safe-area-inset-bottom)}
-.bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;color:#777187;text-decoration:none;font-size:10px;font-weight:700}
-.bottom-nav .active{color:var(--p)}
-.nav-icon{font-size:21px;line-height:1.1}
-.sell-icon{width:36px;height:29px;display:grid;place-items:center;background:var(--p);color:white;border-radius:11px;font-size:21px;margin-top:-8px}
-[hidden]{display:none!important}
-@media(min-width:650px){
- main{padding-left:18px;padding-right:18px}
- .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
- .image-wrap{height:170px}
- .product-content{padding:11px}
- .product-name{font-size:15px}
- .price{font-size:18px}
- .action-button{font-size:10px}
- .categories{grid-template-columns:repeat(3,minmax(0,1fr))}
+.no-image{
+  width:100%;height:100%;display:flex;align-items:center;
+  justify-content:center;font-size:34px;color:#7b68b8
 }
-@media(max-width:360px){
- main{padding-left:9px;padding-right:9px}
- .products{gap:7px}
- .product-content{padding:7px}
- .product-name{font-size:12px}
- .image-wrap{height:115px}
- .action-button{font-size:8px}
+.category-badge{
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
+.description{
+  color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
+}
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
+}
+.button{
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
+}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+.details-button{
+  display:flex;justify-content:center;align-items:center;width:100%;
+  min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+  background:var(--dark);color:#fff;text-decoration:none;
+  text-align:center;font-size:10px;font-weight:bold
+}
+.message{
+  grid-column:1/-1;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:20px 12px;text-align:center;
+  color:var(--muted);font-size:12px;overflow-wrap:anywhere
+}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{
+  background:var(--purple);color:#fff;border:0;border-radius:7px;
+  padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
+}
+.back-area{text-align:center;margin-top:16px}
+.back{
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
+}
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+  box-shadow:0 -3px 12px rgba(35,24,70,.08)
+}
+.bottom-nav a,.bottom-nav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
+}
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+  width:33px;height:26px;display:grid;place-items:center;
+  background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
+}
+@media(min-width:851px){
+  .image-wrap{height:160px}
+  .product-content{padding:9px}
+}
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .image-wrap{height:110px}
+  .product-content{padding:6px}
+  .product-name{font-size:11px}
+  .price{font-size:13px}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
+  .shortcut-icon{height:42px;font-size:23px}
+  .shortcut{font-size:9px}
+  .search-button-row{grid-template-columns:1fr}
+  .search-button{min-height:35px}
 }
 </style>
 </head>
 
 <body>
+
 <section class="hero">
-  <a href="index.html" class="hero-back" aria-label="Back">‹</a>
-  <div class="hero-icon" id="hero-icon">🛍️</div>
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box">💻</div>
   <div class="hero-copy">
-    <h1 id="hero-title">Products &amp; Goods</h1>
-    <p id="hero-description">Find everyday products and goods</p>
+    <h1>Electronics</h1>
+    <p>Computers, TVs, appliances and more</p>
   </div>
 </section>
 
-<main>
-  <section class="search-panel" id="search-panel">
-    <input type="search" id="product-search" placeholder="Search products, brands or items..." autocomplete="off">
-    <div class="filters">
-      <select id="location-filter" aria-label="Choose region">
-        <option value="">📍 All Ghana</option>
-        <option value="Ahafo">Ahafo Region</option>
-        <option value="Ashanti">Ashanti Region</option>
-        <option value="Bono">Bono Region</option>
-        <option value="Bono East">Bono East Region</option>
-        <option value="Central">Central Region</option>
-        <option value="Eastern">Eastern Region</option>
-        <option value="Greater Accra">Greater Accra Region</option>
-        <option value="North East">North East Region</option>
-        <option value="Northern">Northern Region</option>
-        <option value="Oti">Oti Region</option>
-        <option value="Savannah">Savannah Region</option>
-        <option value="Upper East">Upper East Region</option>
-        <option value="Upper West">Upper West Region</option>
-        <option value="Volta">Volta Region</option>
-        <option value="Western">Western Region</option>
-        <option value="Western North">Western North Region</option>
-      </select>
-      <select id="category-filter" aria-label="Product category">
-        <option value="">All Categories</option>
-        <option>Home &amp; Kitchen Goods</option>
-        <option>Phones &amp; Accessories</option>
-        <option>Electronics &amp; Appliances</option>
-        <option>Computers &amp; Office Equipment</option>
-        <option>Baby &amp; Kids Products</option>
-        <option>Health &amp; Personal Care</option>
-        <option>Tools &amp; Hardware</option>
-        <option>Sports &amp; Outdoor Goods</option>
-        <option>Books, Stationery &amp; Media</option>
-        <option>Industrial &amp; Business Supplies</option>
-        <option>Other Products &amp; Goods</option>
-      </select>
-    </div>
-    <button type="button" class="search-button" id="search-button">⌕ &nbsp; Search Products</button>
-    <div class="results-summary">
-      <span id="results-count">Connecting to OGARS...</span>
-      <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
-    </div>
-  </section>
+<main class="container">
 
-  <section id="electronics-intro" class="category-intro" hidden>
-    <h2>Browse Electronics</h2>
-    <p>Choose a category to narrow your search.</p>
-  </section>
-
-  <section id="electronics-shortcuts" class="categories" hidden>
-    <button class="category-card" type="button" data-subcategory="Laptops & Computers"><span class="emoji">💻</span>Laptops & Computers</button>
-    <button class="category-card" type="button" data-subcategory="TVs & Projectors"><span class="emoji">📺</span>TVs & Projectors</button>
-    <button class="category-card" type="button" data-subcategory="Gaming Devices"><span class="emoji">🎮</span>Gaming Devices</button>
-    <button class="category-card" type="button" data-subcategory="Audio & Headphones"><span class="emoji">🎧</span>Audio & Headphones</button>
-    <button class="category-card" type="button" data-subcategory="Cameras"><span class="emoji">📷</span>Cameras</button>
-    <button class="category-card" type="button" data-subcategory="Printers & Scanners"><span class="emoji">🖨️</span>Printers & Scanners</button>
-    <button class="category-card" type="button" data-subcategory="Home Appliances"><span class="emoji">🧊</span>Home Appliances</button>
-    <button class="category-card" type="button" data-subcategory="Fans & Cooling"><span class="emoji">🌀</span>Fans & Cooling</button>
-    <button class="category-card" type="button" data-subcategory="Electronics Accessories"><span class="emoji">🔌</span>Accessories</button>
-  </section>
-
-  <p class="note" id="electronics-note" hidden>Showing electronic products only.</p>
-
-  <div class="section-heading" id="listing-heading">
-    <h2 id="listing-title">Latest Products &amp; Goods</h2>
-    <label class="sort">↕
-      <select id="sort-filter" aria-label="Sort products">
-        <option value="newest">Latest</option>
-        <option value="verified">Verified sellers</option>
-        <option value="price-low">Price: Low to High</option>
-        <option value="price-high">Price: High to Low</option>
-      </select>
-    </label>
+<section class="search-panel">
+  <div class="search-button-row">
+    <input type="search" id="product-search" placeholder="Search laptops, TVs, cameras..." autocomplete="off">
+    <button type="button" class="search-button" id="search-button">⌕ Search</button>
   </div>
 
-  <section id="products" class="products" aria-live="polite">
-    <div class="message"><strong>🛍️ Loading products...</strong>Please wait while we connect to OGARS.</div>
-  </section>
+  <div class="filters">
+    <select id="location-filter" aria-label="Choose region">
+      <option value="">📍 All Ghana</option>
+      <option value="Ahafo">Ahafo Region</option>
+      <option value="Ashanti">Ashanti Region</option>
+      <option value="Bono">Bono Region</option>
+      <option value="Bono East">Bono East Region</option>
+      <option value="Central">Central Region</option>
+      <option value="Eastern">Eastern Region</option>
+      <option value="Greater Accra">Greater Accra Region</option>
+      <option value="North East">North East Region</option>
+      <option value="Northern">Northern Region</option>
+      <option value="Oti">Oti Region</option>
+      <option value="Savannah">Savannah Region</option>
+      <option value="Upper East">Upper East Region</option>
+      <option value="Upper West">Upper West Region</option>
+      <option value="Volta">Volta Region</option>
+      <option value="Western">Western Region</option>
+      <option value="Western North">Western North Region</option>
+    </select>
 
-  <div class="back-area" id="back-area">
-    <a href="index.html" class="back">← Back to OGARS MARKET</a>
+    <select id="sort-filter" aria-label="Sort adverts">
+      <option value="newest">Latest / Newest</option>
+      <option value="verified">Trusted sellers first</option>
+      <option value="price-low">Price: lowest first</option>
+      <option value="price-high">Price: highest first</option>
+    </select>
   </div>
+
+  <div class="results-summary">
+    <span id="results-count">Connecting to OGARS MARKET...</span>
+    <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+  </div>
+</section>
+
+<section class="electronics-intro">
+  <h2>Electronics Categories</h2>
+  <p>Tap a category to see its adverts.</p>
+</section>
+
+<section class="electronics-shortcuts" aria-label="Electronics categories">
+  <button class="shortcut" type="button" data-subcategory="Laptops & Computers"><span class="shortcut-icon">💻</span><span>Laptops &amp; Computers</span></button>
+  <button class="shortcut" type="button" data-subcategory="TVs & Projectors"><span class="shortcut-icon">📺</span><span>TVs &amp; Projectors</span></button>
+  <button class="shortcut" type="button" data-subcategory="Gaming Devices"><span class="shortcut-icon">🎮</span><span>Gaming Devices</span></button>
+  <button class="shortcut" type="button" data-subcategory="Audio & Headphones"><span class="shortcut-icon">🎧</span><span>Audio &amp; Headphones</span></button>
+  <button class="shortcut" type="button" data-subcategory="Cameras"><span class="shortcut-icon">📷</span><span>Cameras</span></button>
+  <button class="shortcut" type="button" data-subcategory="Printers & Scanners"><span class="shortcut-icon">🖨️</span><span>Printers &amp; Scanners</span></button>
+  <button class="shortcut" type="button" data-subcategory="Home Appliances"><span class="shortcut-icon">🧊</span><span>Home Appliances</span></button>
+  <button class="shortcut" type="button" data-subcategory="Fans & Cooling"><span class="shortcut-icon">🌀</span><span>Fans &amp; Cooling</span></button>
+  <button class="shortcut" type="button" data-subcategory="Accessories"><span class="shortcut-icon">🔌</span><span>Accessories</span></button>
+</section>
+
+<p class="electronics-note" id="electronics-note">Showing all Electronics adverts.</p>
+
+<section id="products" class="products" aria-live="polite">
+  <div class="message"><strong>Loading Electronics adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+</section>
+
+<div class="back-area">
+  <a href="index.html" class="back">← Back to OGARS MARKET</a>
+</div>
 </main>
 
 <nav class="bottom-nav" aria-label="Main navigation">
-  <a href="index.html"><span class="nav-icon">⌂</span>Home</a>
-  <a href="discover.html" class="active"><span class="nav-icon">▦</span>Explore</a>
-  <a href="advertise.html"><span class="sell-icon">＋</span>Sell</a>
-  <a href="discover.html?mode=ai"><span class="nav-icon">✧</span>AI Search</a>
-  <a href="account.html"><span class="nav-icon">♙</span>Account</a>
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
 </nav>
 
 <footer>
   <nav class="footer-links">
     <a href="index.html">Home</a>
-    <a href="discover.html">Explore</a>
+    <a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a>
     <a href="find-property.html">Properties</a>
     <a href="vehicles.html">Vehicles</a>
-    <a href="account.html">Account</a>
+    <a href="business.html">Businesses</a>
+    <a href="discover.html">Discover</a>
   </nav>
   <div>© 2026 OGARS MARKET</div>
   <div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
@@ -235,345 +298,445 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:18px 12px;font
 
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
 
-let allProducts=[];
-let businessMap={};
-
-const pageParams=new URLSearchParams(window.location.search);
-const requestedCategory=(pageParams.get("category")||"").trim();
-const productIdFromUrl=pageParams.get("product");
-const isElectronicsPage=requestedCategory.toLowerCase()==="electronics";
-let selectedSubcategory=(pageParams.get("subcategory")||"").trim();
-
-const productCategories=[
-"Home & Kitchen Goods","Phones & Accessories","Electronics & Appliances",
-"Computers & Office Equipment","Baby & Kids Products","Health & Personal Care",
-"Tools & Hardware","Sports & Outdoor Goods","Books, Stationery & Media",
-"Industrial & Business Supplies","Other Products & Goods"
+const categories=[
+  "Laptops & Computers","TVs & Projectors","Gaming Devices",
+  "Audio & Headphones","Cameras","Printers & Scanners",
+  "Home Appliances","Fans & Cooling","Accessories"
 ];
 
-const electronicsGroups={
-"Laptops & Computers":["laptop","notebook","desktop computer","computer","macbook","chromebook","monitor","keyboard","mouse"],
-"TVs & Projectors":["tv","television","smart tv","projector","decoder","set top box"],
-"Gaming Devices":["gaming","game console","playstation","xbox","nintendo","controller","video game"],
-"Audio & Headphones":["headphone","earbud","earphone","speaker","sound system","home theatre","microphone","audio"],
-"Cameras":["camera","camcorder","lens","photography"],
-"Printers & Scanners":["printer","scanner","ink cartridge","toner"],
-"Home Appliances":["refrigerator","fridge","freezer","washing machine","microwave","blender","iron","electric kettle","vacuum cleaner","appliance"],
-"Fans & Cooling":["fan","air conditioner","air conditioning","cooling"],
-"Electronics Accessories":["charger","cable","adapter","power bank","remote control","router","wifi","networking","electronic accessory","computer accessories"]
-};
+let allProducts=[];
+let sellerMap={};
 
-const electronicsTerms=Object.values(electronicsGroups).flat().concat([
-"electronics","electronic","laptop","computer","television","projector",
-"decoder","console","speaker","headphone","camera","printer","scanner",
-"router","monitor","keyboard","mouse","refrigerator","washing machine",
-"microwave","fan","air conditioner","charger","power bank"
-]);
+const params=new URLSearchParams(location.search);
+let selectedSubcategory=params.get("subcategory")||"";
 
-function escapeHtml(value){
- return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;")
- .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
+/* PARSE DETAILS SAVED IN DESCRIPTION */
+function parseAdvert(advert){
+  const lines=String(advert.description||"").split(/\r?\n/);
+  const details={};
+  const publicLines=[];
 
-function productSearchText(product){
- return [product.product_name,product.category,product.description,product.brand,product.subcategory]
- .filter(Boolean).join(" ").toLowerCase();
-}
+  const automaticFields=[
+    "Device type","Brand","Model","Condition","Processor","RAM","Storage",
+    "Screen size","Product type","Resolution","Service type","Gaming device type",
+    "Brand / platform","Model / version","Included accessories","Gaming service",
+    "Audio product type","Connectivity","Audio service","Camera type",
+    "Camera service","Equipment type","Printing type","Printer service",
+    "Appliance type","Capacity / size","Appliance service","Size / capacity",
+    "Cooling service","Accessory type","Item name","Compatible brand / model",
+    "Service offered","Price (GH₵)","Maximum budget (GH₵)",
+    "Warranty","Quantity available","Service location / coverage"
+  ];
 
-function isElectronicProduct(product){
- const category=String(product.category||"").toLowerCase();
- const text=productSearchText(product);
- const excluded=["food","frozen","grocery","chicken","fish","meat","clothing","fashion","shoes","furniture","beauty","fresh produce"];
- if(excluded.some(term=>category.includes(term)))return false;
- return category.includes("electronic")||category.includes("computer")||
- electronicsTerms.some(term=>text.includes(term));
-}
+  for(const line of lines){
+    const text=line.trim();
+    if(!text)continue;
 
-function matchesElectronicsSubcategory(product,subcategory){
- if(!subcategory)return true;
- const terms=electronicsGroups[subcategory]||[subcategory.toLowerCase()];
- const text=productSearchText(product);
- return terms.some(term=>text.includes(term.toLowerCase()));
-}
+    const colon=text.indexOf(":");
+    if(colon>0){
+      const label=text.slice(0,colon).trim();
+      const value=text.slice(colon+1).trim();
+      if(value)details[label.toLowerCase()]=value;
+    }
 
-function showMessage(title,detail,isError=false){
- document.getElementById("products").innerHTML=`
- <div class="message"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div>
- <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button></div>`;
- document.getElementById("results-count").textContent=isError?"Could not load products":"0 products found";
-}
+    if(
+      /^Electronics category:/i.test(text)||
+      /^Advert purpose:/i.test(text)||
+      /^Region:/i.test(text)||
+      /^Town \/ area:/i.test(text)||
+      /^Specific location:/i.test(text)
+    )continue;
 
-/* PAGE SETUP */
-if(isElectronicsPage){
- document.getElementById("hero-icon").textContent="📺";
- document.getElementById("hero-title").textContent="Electronics";
- document.getElementById("hero-description").textContent="Find electronics and appliances";
- document.getElementById("product-search").placeholder="Search TVs, laptops, brands...";
- document.getElementById("search-button").textContent="⌕  Search Electronics";
- document.getElementById("category-filter").hidden=true;
- document.getElementById("electronics-intro").hidden=false;
- document.getElementById("electronics-shortcuts").hidden=false;
- document.getElementById("electronics-note").hidden=false;
- document.getElementById("listing-title").textContent="Latest Electronics";
-}else{
- document.getElementById("category-filter").value=
- productCategories.find(c=>c.toLowerCase()===requestedCategory.toLowerCase())||"";
- if(requestedCategory){
-  document.getElementById("listing-title").textContent=requestedCategory;
-  document.getElementById("hero-title").textContent=requestedCategory;
-  document.getElementById("hero-description").textContent="Browse available products in this category";
- }
-}
+    if(automaticFields.some(field=>
+      text.toLowerCase().startsWith(field.toLowerCase()+":")
+    ))continue;
 
-function cleanPhoneNumber(phone){
- let value=String(phone||"").replace(/[^\d+]/g,"");
- if(value.startsWith("+"))value=value.substring(1);
- if(value.startsWith("0"))value="233"+value.substring(1);
- return value;
-}
-
-async function shareProduct(product){
- const url=new URL(window.location.href);
- url.search="";
- url.searchParams.set("product",product.id);
- const shareData={
-  title:product.product_name||"Product on OGARS MARKET",
-  text:`Check out ${product.product_name||"this product"} on OGARS MARKET.`,
-  url:url.toString()
- };
- try{
-  if(navigator.share)await navigator.share(shareData);
-  else if(navigator.clipboard?.writeText){
-   await navigator.clipboard.writeText(shareData.url);
-   alert("Product link copied. You can now share it.");
-  }else window.prompt("Copy this product link:",shareData.url);
- }catch(error){
-  if(error?.name!=="AbortError")window.prompt("Copy this product link:",shareData.url);
- }
-}
-
-function createProductCard(product,detailMode=false){
- const card=document.createElement("article");
- card.className="product-card"+(detailMode?" detail-view":"");
-
- const photoUrls=String(product.photo_urls||"").split(",").map(u=>u.trim()).filter(Boolean);
- const photo=photoUrls[0]||"";
- const business=businessMap[String(product.business_id)]||null;
- const businessName=business?.business_name||"Seller";
- const businessPhone=business?.phone||"";
- const businessLocation=business?.location||"";
-
- const imageHtml=photo
- ?`<img class="product-image" src="${escapeHtml(photo)}" alt="${escapeHtml(product.product_name||"Product")}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'">`
- :`<div class="no-image">🛍️</div>`;
-
- let priceText="Price on request";
- if(product.price!==null&&product.price!==undefined&&product.price!==""){
-  const numericPrice=Number(product.price);
-  if(Number.isFinite(numericPrice))priceText="GH₵"+numericPrice.toFixed(2);
- }
-
- let deliveryText="🚫 No Delivery";
- if(product.delivery_available===true){
-  deliveryText="🚚 Delivery Available";
-  if(product.delivery_fee_type==="free")deliveryText+=" • Free delivery";
-  else if(product.delivery_fee_type==="fixed")deliveryText+=" • GH₵"+Number(product.delivery_fee||0).toFixed(2);
-  else if(product.delivery_fee_type==="negotiable")deliveryText+=" • Fee negotiable";
-  if(product.delivery_areas)deliveryText+=" • "+product.delivery_areas;
- }
-
- const phone=cleanPhoneNumber(businessPhone);
- const whatsappMessage=encodeURIComponent(`Hello, I found your product "${product.product_name||"product"}" on OGARS MARKET. Is it available?`);
-
- const contactButtons=`
- <div class="button-row">
- ${phone?`<a class="action-button whatsapp" href="https://wa.me/${escapeHtml(phone)}?text=${whatsappMessage}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`:`<span class="action-button whatsapp" style="opacity:.5">💬 WhatsApp</span>`}
- ${businessPhone?`<a class="action-button call" href="tel:${escapeHtml(businessPhone)}">📞 Call</a>`:`<span class="action-button call" style="opacity:.5">📞 Call</span>`}
- <button class="action-button share" type="button">↗ Share</button>
- </div>`;
-
- const description=product.description?`<div class="description">${escapeHtml(product.description)}</div>`:"";
-
- card.innerHTML=`
- <div class="image-wrap">${imageHtml}<div class="category-badge">${escapeHtml(product.category||"Products & Goods")}</div></div>
- <div class="product-content">
- <h2 class="product-name">${escapeHtml(product.product_name||"Unnamed Product")}</h2>
- <div class="price">${escapeHtml(priceText)}</div>
- ${description}
- <div class="business">🏢 <strong>${escapeHtml(businessName)}</strong>${businessLocation?`<br>📍 ${escapeHtml(businessLocation)}`:""}</div>
- <div class="delivery">${escapeHtml(deliveryText)}</div>
- <a class="view-details" href="?product=${encodeURIComponent(product.id)}">View Product Details →</a>
- ${contactButtons}
- </div>`;
-
- card.querySelector(".share").addEventListener("click",()=>shareProduct(product));
-
- if(detailMode){
-  const content=card.querySelector(".description");
-  if(content){content.style.display="block";content.style.webkitLineClamp="unset";content.style.overflow="visible";}
-  if(photoUrls.length>1){
-   const gallery=document.createElement("div");
-   gallery.style.cssText="display:flex;gap:7px;overflow-x:auto;padding:8px 0";
-   photoUrls.slice(1).forEach(url=>{
-    const img=document.createElement("img");
-    img.src=url;img.alt=product.product_name||"Product photo";
-    img.style.cssText="width:90px;height:85px;object-fit:cover;border-radius:12px;flex-shrink:0";
-    gallery.appendChild(img);
-   });
-   card.querySelector(".product-content").insertBefore(gallery,card.querySelector(".business"));
+    publicLines.push(text);
   }
- }
- return card;
+
+  const priceValue=details["price (gh₵)"]||details["maximum budget (gh₵)"]||"";
+  const numericPrice=Number(String(priceValue).replace(/,/g,""));
+
+  return{
+    category:details["electronics category"]||"",
+    purpose:details["advert purpose"]||"",
+    price:priceValue&&Number.isFinite(numericPrice)?numericPrice:null,
+    publicDescription:publicLines.join("\n").trim()
+  };
 }
 
-function displayProducts(products){
- const container=document.getElementById("products");
- document.getElementById("results-count").textContent=products.length+(products.length===1?" product found":" products found");
- if(!products.length){
-  container.innerHTML='<div class="message"><strong>🔍 No products found</strong>Try another search or clear the filters.</div>';
-  return;
- }
- const fragment=document.createDocumentFragment();
- products.forEach(product=>fragment.appendChild(createProductCard(product)));
- container.replaceChildren(fragment);
+/* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
+
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
+
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+  }
+  return true;
 }
 
-const locationAliases={
- "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","tudu","kasoa","chantan","spintex","adenta","east legon"],
- "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong","konongo"],
- "central":["central","cape coast","winneba","mankessim","swedru","kasoa"],
- "eastern":["eastern","koforidua","nkawkaw","nsawam","akosombo","somanya"],
- "western":["western","sekondi","takoradi","tarkwa","prestea"],
- "western north":["western north","sefwi","bibiani","enchi"],
- "volta":["volta","ho","hohoe","keta","aflao"],
- "northern":["northern","tamale","yendi","savelugu"],
- "upper east":["upper east","bolgatanga","bawku","navrongo"],
- "upper west":["upper west","wa","lawra","jirapa"],
- "bono":["bono","sun y","sunyan i","berekum","wenchi"],
- "bono east":["bono east","techiman","kintampo","nkoranza"],
- "ahafo":["ahafo","goaso","kenyasi","bechem"],
- "oti":["oti","dambai","jasikan","kad jebi"],
- "savannah":["savannah","damongo","salaga","bole"],
- "north east":["north east","nalerigu","walewale","gambaga"]
-};
-
-function getFilteredProducts(){
- const search=document.getElementById("product-search").value.toLowerCase().trim();
- const category=document.getElementById("category-filter").value.toLowerCase().trim();
- const location=document.getElementById("location-filter").value.toLowerCase().trim();
- const sort=document.getElementById("sort-filter").value;
-
- return allProducts.filter(product=>{
-  const business=businessMap[String(product.business_id)]||null;
-  const text=[product.product_name,product.category,product.description,product.brand,product.subcategory,business?.business_name,business?.location].filter(Boolean).join(" ").toLowerCase();
-  const productLocation=String(business?.location||"").toLowerCase();
-  const productCategory=String(product.category||"").toLowerCase();
-  const matchesSearch=!search||text.includes(search);
-  const matchesCategory=!category||productCategory===category||productCategory.includes(category)||category.includes(productCategory);
-  const aliases=locationAliases[location]||[location];
-  const matchesLocation=!location||aliases.some(alias=>productLocation.includes(alias));
-  const matchesElectronics=!isElectronicsPage||isElectronicProduct(product);
-  const matchesSubcategory=!isElectronicsPage||matchesElectronicsSubcategory(product,selectedSubcategory);
-  return matchesSearch&&matchesCategory&&matchesLocation&&matchesElectronics&&matchesSubcategory;
- }).sort((a,b)=>{
-  const priceA=Number(a.price),priceB=Number(b.price);
-  const validA=a.price!==null&&a.price!==undefined&&a.price!==""&&Number.isFinite(priceA);
-  const validB=b.price!==null&&b.price!==undefined&&b.price!==""&&Number.isFinite(priceB);
-  const dateA=new Date(a.created_at||0).getTime(),dateB=new Date(b.created_at||0).getTime();
-  const businessA=businessMap[String(a.business_id)]||{};
-  const businessB=businessMap[String(b.business_id)]||{};
-  const verifiedA=[a.is_verified,a.verified,a.seller_verified,businessA.is_verified,businessA.verified,businessA.is_verified_seller].some(v=>v===true||String(v).toLowerCase()==="verified");
-  const verifiedB=[b.is_verified,b.verified,b.seller_verified,businessB.is_verified,businessB.verified,businessB.is_verified_seller].some(v=>v===true||String(v).toLowerCase()==="verified");
-  if(sort==="price-low"){if(validA&&validB)return priceA-priceB;if(validA)return -1;if(validB)return 1;}
-  if(sort==="price-high"){if(validA&&validB)return priceB-priceA;if(validA)return -1;if(validB)return 1;}
-  if(sort==="verified"&&verifiedA!==verifiedB)return verifiedA?-1:1;
-  return dateB-dateA;
- });
+/* SAFE HTML */
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-function filterProducts(){displayProducts(getFilteredProducts());}
-
-async function loadBusinessInformation(){
- const ids=[...new Set(allProducts.map(p=>p.business_id).filter(id=>id!==null&&id!==undefined))];
- if(!ids.length)return;
- try{
-  const result=await supabaseClient.from("businesses").select("*").in("id",ids);
-  if(result.error)throw result.error;
-  businessMap={};
-  (result.data||[]).forEach(b=>businessMap[String(b.id)]=b);
-  if(productIdFromUrl)showProductDetails();
-  else displayProducts(getFilteredProducts());
- }catch(error){console.error("OGARS seller information error:",error);}
+/* PHONE NUMBER */
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
+  return value;
 }
 
-function showProductDetails(){
- const product=allProducts.find(p=>String(p.id)===String(productIdFromUrl));
- const container=document.getElementById("products");
- if(!product){showMessage("Product not found","This product may no longer be available.");return;}
- document.getElementById("search-panel").hidden=true;
- document.getElementById("listing-heading").hidden=true;
- document.getElementById("electronics-intro").hidden=true;
- document.getElementById("electronics-shortcuts").hidden=true;
- document.getElementById("electronics-note").hidden=true;
- document.getElementById("back-area").innerHTML='<a href="javascript:history.back()" class="back">← Back to Products</a>';
- document.getElementById("hero-title").textContent="Product Details";
- document.getElementById("hero-description").textContent=product.product_name||"View product information";
- container.style.gridTemplateColumns="minmax(0,650px)";
- container.style.justifyContent="center";
- container.replaceChildren(createProductCard(product,true));
- document.getElementById("results-count").textContent="Product details";
-}
-
+/* LOAD ELECTRONICS ADVERTS */
 async function loadProducts(){
- const container=document.getElementById("products");
- container.innerHTML='<div class="message"><strong>🛍️ Loading products...</strong>Connecting to OGARS MARKET.</div>';
- document.getElementById("results-count").textContent="Connecting to OGARS...";
- try{
-  const result=await supabaseClient.from("business_products").select("*").eq("available",true).order("created_at",{ascending:false});
-  if(result.error)throw result.error;
-  allProducts=result.data||[];
-  if(isElectronicsPage)allProducts=allProducts.filter(isElectronicProduct);
-  if(productIdFromUrl)showProductDetails();
-  else displayProducts(getFilteredProducts());
-  if(allProducts.length)loadBusinessInformation();
- }catch(error){
-  console.error("OGARS product loading error:",error);
-  showMessage("Unable to load products",error.message||"An unexpected error occurred.",true);
- }
+  $("products").innerHTML=`<div class="message"><strong>💻 Loading Electronics adverts...</strong>Connecting to OGARS MARKET.</div>`;
+  $("results-count").textContent="Connecting to OGARS MARKET...";
+
+  try{
+    const {data,error}=await db.from("discover_listings")
+      .select("*")
+      .eq("listing_type","Electronics")
+      .order("created_at",{ascending:false})
+      .limit(500);
+
+    if(error)throw error;
+
+    allProducts=(data||[])
+      .filter(isAdvertActive)
+      .map(advert=>{
+        const parsed=parseAdvert(advert);
+        return{...advert,parsed,category:parsed.category,purpose:parsed.purpose,price:parsed.price};
+      })
+      .filter(advert=>categories.includes(advert.category));
+
+    displayProducts(getFilteredProducts());
+    loadSellerInformation();
+  }catch(error){
+    console.error("OGARS Electronics error:",error);
+    showMessage("Unable to load adverts",error.message||"Please try again.",true);
+  }
 }
 
-/* FILTER EVENTS */
-document.getElementById("product-search").addEventListener("input",filterProducts);
-document.getElementById("category-filter").addEventListener("change",filterProducts);
-document.getElementById("location-filter").addEventListener("change",filterProducts);
-document.getElementById("sort-filter").addEventListener("change",filterProducts);
-document.getElementById("search-button").addEventListener("click",filterProducts);
+/* SELLER TRUST INFORMATION */
+async function loadSellerInformation(){
+  const ids=[...new Set(allProducts.map(item=>item.user_id).filter(Boolean))];
+  if(!ids.length)return;
 
-document.getElementById("clear-filters").addEventListener("click",()=>{
- document.getElementById("product-search").value="";
- document.getElementById("category-filter").value="";
- document.getElementById("location-filter").value="";
- document.getElementById("sort-filter").value="newest";
- selectedSubcategory="";
- document.querySelectorAll(".category-card").forEach(b=>b.classList.remove("active"));
- filterProducts();
+  try{
+    const {data,error}=await db.from("user_profiles")
+      .select("id,is_trusted").in("id",ids);
+
+    if(error)throw error;
+
+    sellerMap={};
+    (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
+    filterProducts();
+  }catch(error){
+    console.warn("Seller verification lookup unavailable:",error.message);
+  }
+}
+
+/* ERROR AND EMPTY MESSAGES */
+function showMessage(title,detail,isError=false){
+  $("products").innerHTML=`
+    <div class="message">
+      <strong>${escapeHtml(title)}</strong>
+      <div>${escapeHtml(detail)}</div>
+      <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
+    </div>`;
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
+}
+
+/* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"").split(",")
+    .map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
+
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Electronics advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
+
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else{
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }
+}
+
+/* ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
+
+  const parsed=advert.parsed;
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+  let priceText="Price on request";
+  if(parsed.price!==null){
+    priceText="GH₵"+parsed.price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,maximumFractionDigits:2
+    });
+  }
+
+  let imageHtml='<div class="no-image">💻</div>';
+  if(photo){
+    imageHtml=`
+      <img class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(advert.title||"Electronics advert")}"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>💻</div>'">
+    `;
+  }
+
+  const detailsUrl=new URL("discover-details.html",location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+  const shareUrl=detailsUrl.href;
+
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Electronics advert")+
+        '" on OGARS MARKET. Is it still available?'
+      );
+      buttons+=`
+        <a class="button whatsapp"
+          href="https://wa.me/${escapeHtml(number)}?text=${message}"
+          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+    }
+  }
+
+  if(phone){
+    buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+  }
+
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+  card.innerHTML=`
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">${escapeHtml(parsed.category)}</div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">${escapeHtml(advert.title||"Electronics advert")}</h2>
+      <div class="price">${escapeHtml(priceText)}</div>
+      <div class="purpose">${escapeHtml(parsed.purpose||"For sale")}</div>
+
+      ${parsed.publicDescription
+        ?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
+
+      <div class="business">
+        ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+        📍 ${escapeHtml(advert.location||"Ghana")}
+      </div>
+
+      <div class="delivery">
+        ${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}
+      </div>
+
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
+
+      ${buttons?`<div class="button-row">${buttons}</div>`:""}
+    </div>
+  `;
+
+  card.querySelector(".share-button").addEventListener("click",()=>{
+    shareAdvert(advert.title,shareUrl);
+  });
+
+  return card;
+}
+
+/* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=products.length+(products.length===1?" advert found":" adverts found");
+
+  if(!products.length){
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>🔍 No Electronics adverts found</strong>
+        Try another category or clear your filters.
+      </div>`;
+    return;
+  }
+
+  const fragment=document.createDocumentFragment();
+  products.forEach(advert=>fragment.appendChild(createProductCard(advert)));
+  $("products").replaceChildren(fragment);
+}
+
+/* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
+
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
+
+  const aliases={
+    "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
+    "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
+    "central":["central","cape coast","winneba","mankessim","swedru"],
+    "eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],
+    "western":["western","takoradi","sekondi","tarkwa","axim"],
+    "western north":["western north","sefwi","bibiani","enchi"],
+    "volta":["volta","ho","hohoe","keta","aflao"],
+    "northern":["northern","tamale","yendi","savelugu"],
+    "upper east":["upper east","bolgatanga","bawku","navrongo"],
+    "upper west":["upper west","wa","lawra","tumu"],
+    "bono":["bono","sunnyani","berekum","dormaa"],
+    "bono east":["bono east","techiman","kintampo","nkoranza"],
+    "ahafo":["ahafo","goaso","kenyasi","bechem"],
+    "oti":["oti","dambai","jasikan","nkwanta"],
+    "savannah":["savannah","damongo","bole","salaga"],
+    "north east":["north east","nalerigu","walewale"]
+  };
+
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
+}
+
+/* SEARCH, CATEGORY AND SORTING */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
+
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,advert.location,advert.description,
+      advert.category,advert.purpose
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedSubcategory||advert.category===selectedSubcategory;
+    const matchesLocation=matchesRegion(advert.location,region);
+
+    return matchesSearch&&matchesCategory&&matchesLocation;
+  }).sort((a,b)=>{
+    const priceA=a.price,priceB=b.price;
+    const validA=priceA!==null&&Number.isFinite(priceA);
+    const validB=priceB!==null&&Number.isFinite(priceB);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+    const trustedA=sellerMap[String(a.user_id)]?.is_trusted===true;
+    const trustedB=sellerMap[String(b.user_id)]?.is_trusted===true;
+
+    if(sort==="price-low"){
+      if(validA&&validB)return priceA-priceB;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="price-high"){
+      if(validA&&validB)return priceB-priceA;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="verified"){
+      if(trustedA!==trustedB)return trustedA?-1:1;
+      return dateB-dateA;
+    }
+    return dateB-dateA;
+  });
+}
+
+function filterProducts(){
+  displayProducts(getFilteredProducts());
+}
+
+/* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.subcategory;
+    selectedSubcategory=selectedSubcategory===category?"":category;
+
+    document.querySelectorAll(".shortcut").forEach(item=>{
+      item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory);
+    });
+
+    $("electronics-note").textContent=selectedSubcategory
+      ?"Showing adverts in "+selectedSubcategory+"."
+      :"Showing all Electronics adverts.";
+
+    filterProducts();
+    $("products").scrollIntoView({behavior:"smooth",block:"start"});
+  });
 });
 
-document.querySelectorAll(".category-card").forEach(button=>{
- button.addEventListener("click",()=>{
-  selectedSubcategory=selectedSubcategory===button.dataset.subcategory?"":button.dataset.subcategory;
-  document.querySelectorAll(".category-card").forEach(item=>item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory));
+/* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+  selectedSubcategory="";
+
+  document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
+
+  $("electronics-note").textContent="Showing all Electronics adverts.";
   filterProducts();
-  document.getElementById("products").scrollIntoView({behavior:"smooth",block:"start"});
- });
-});
-
-if(selectedSubcategory){
- document.querySelectorAll(".category-card").forEach(item=>item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory));
 }
 
+/* EVENT LISTENERS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+  alert("OGARS MARKET AI Search is coming soon.");
+});
+
+/* CATEGORY FROM URL */
+if(selectedSubcategory){
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.toggle("active",button.dataset.subcategory===selectedSubcategory);
+  });
+  $("electronics-note").textContent="Showing adverts in "+selectedSubcategory+".";
+}
+
+/* START */
 loadProducts();
 </script>
 </body>
