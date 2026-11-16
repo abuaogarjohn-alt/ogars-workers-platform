@@ -1,57 +1,777 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#512A91"><title>Phones & Tablets | OGARS Platform</title><style>:root{--p:#512A91;--pd:#3e1d78;--l:#f1eaff;--n:#171638;--m:#706b8c;--b:#e5dcf7;--s:0 5px 16px rgba(70,39,130,.09)}*{box-sizing:border-box}body{margin:0;background:#faf9fd;color:var(--n);font-family:Arial,Helvetica,sans-serif;line-height:1.45}a{color:inherit;text-decoration:none}button,input,select{font:inherit}header{background:linear-gradient(115deg,#6d28d9,#512A91 56%,#38166f);color:white;padding:17px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 12px #28144a20}.back{font-size:30px;width:25px;color:white}.brand-icon{width:48px;height:48px;border:2px solid #ffffffd9;border-radius:13px;display:grid;place-items:center;font-size:29px;flex-shrink:0;background:#ffffff12}.brand-copy h1{font-size:clamp(21px,5vw,29px);line-height:1.05;margin:0;font-weight:800}.brand-copy p{margin:5px 0 0;color:#f0e8ff;font-size:13px}main{width:min(100%,1000px);margin:auto;padding:18px 14px 42px}.hero{background:linear-gradient(135deg,#f1eaff,#fff);border:1px solid var(--b);border-radius:22px;padding:22px 18px;margin-bottom:18px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--p)}h2{margin:6px 0 8px;font-size:clamp(24px,5vw,32px);line-height:1.15}.muted{color:var(--m);font-size:14px}.search{display:flex;gap:8px;margin:16px 0}.search input{flex:1;min-width:0;padding:13px;border:1px solid var(--b);border-radius:12px;background:#fff;outline-color:var(--p)}.btn{border:0;background:var(--p);color:#fff;padding:12px 15px;border-radius:12px;font-weight:700;cursor:pointer}.btn.secondary{background:#fff;color:var(--p);border:1px solid var(--b)}.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tile{background:#fff;border:1px solid var(--b);border-radius:14px;padding:7px;box-shadow:var(--s);display:flex;flex-direction:column;gap:9px;align-items:stretch;min-width:0;overflow:hidden}.tile .emoji{width:100%;height:94px;border-radius:15px;background:linear-gradient(145deg,#eee3ff,#fbf8ff);display:grid;place-items:center;overflow:hidden;flex-shrink:0;padding:8px}.tile .emoji svg{width:100%;height:100%;display:block}.tile{background:linear-gradient(180deg,#f8f2ff 0%,#fff 100%);border-color:#e8def8;border-radius:19px;padding:9px;gap:8px;box-shadow:0 5px 16px rgba(70,39,130,.08)}.tile strong{font-size:12px;min-height:32px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;padding:0 1px}.tile strong{display:block;text-align:center;font-size:14px;line-height:1.3;padding:0 2px;overflow-wrap:anywhere}.tile small{display:none}.section-title{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:24px 0 12px}.section-title h3{margin:0;font-size:19px}.filters{display:flex;gap:8px;overflow:auto;padding:2px 0 10px;margin-bottom:8px}.chip{white-space:nowrap;border:1px solid var(--b);border-radius:999px;padding:9px 12px;background:#fff;color:var(--p);font-size:13px;font-weight:700;cursor:pointer}.chip.active{background:var(--p);color:#fff}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:#fff;border:1px solid var(--b);border-radius:16px;overflow:hidden;box-shadow:var(--s)}.photo{height:165px;background:#f5f1fb;display:grid;place-items:center;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover}.placeholder{font-size:40px;color:#8b72b5}.info{padding:12px}.price{color:var(--p);font-weight:800;font-size:17px;margin:0 0 5px}.title{font-size:14px;line-height:1.35;margin:0 0 7px;overflow-wrap:anywhere}.meta{color:var(--m);font-size:12px;margin:0 0 10px}.contact-row{display:flex;gap:7px}.contact-row a{flex:1;text-align:center;padding:9px 5px;border-radius:10px;background:var(--l);color:var(--p);font-weight:700;font-size:12px}.state{background:#fff;border:1px dashed var(--b);border-radius:16px;padding:24px;text-align:center;color:var(--m);grid-column:1/-1}.footer{text-align:center;color:var(--m);font-size:12px;padding:25px 8px}@media(min-width:700px){.tiles{grid-template-columns:repeat(4,minmax(0,1fr))}.tile .emoji{height:150px}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.photo{height:190px}}@media(max-width:360px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.tile{padding:7px}.tile .emoji{height:78px}.cards{grid-template-columns:1fr}.photo{height:200px}.search{flex-wrap:wrap}.search .btn{width:100%}}body{padding-bottom:100px;background:#fff}.brand-icon{width:72px;height:72px;border-radius:23px;border-width:4px;font-size:40px}.brand-copy p{font-size:14px}.hero{display:none}.search-panel{background:#f2e8ff;border-radius:32px;padding:14px;margin:8px 0 24px}.search-panel input,.search-panel select{font-size:16px;background:white;border:1.5px solid #e5d2ff;border-radius:28px;padding:0 16px;height:58px;min-width:0;width:100%;color:#292641}.search-panel input{margin-bottom:12px}.filter-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.search-button{height:62px;width:100%;border:0;border-radius:26px;background:linear-gradient(110deg,#6800a9,#4f087f);color:#fff;font-weight:800;font-size:20px;cursor:pointer}.section-title h3{color:#5c078f;font-weight:900}.listing-heading{align-items:center}.sort-control{display:flex;align-items:center;gap:5px;border:1.5px solid #c76af0;border-radius:28px;padding:8px;color:#6500a8;flex-shrink:0;white-space:nowrap}.sort-control select{border:0;background:transparent;color:#17143d;font-weight:700;font-size:13px;max-width:120px;outline:none}.nav{position:fixed;bottom:0;left:0;right:0;height:82px;background:#ffffffed;border-top:1px solid #eadcff;display:flex;justify-content:space-around;align-items:center;z-index:20}.nav a{color:#777486;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px}.nav a.home{color:#6500a8;font-weight:800}.nav .ico{font-size:26px;line-height:1}.nav .sell{width:62px;height:62px;border-radius:50%;background:#6500a8;color:white!important;display:grid;place-items:center;font-size:40px;margin-top:-25px;border:4px solid white;line-height:1}.state{padding:24px 12px}.footer{padding-bottom:15px}@media(max-width:420px){.listing-heading{align-items:flex-start;flex-direction:column}.sort-control{align-self:flex-end;margin-top:-5px}.filter-row{gap:8px}.search-panel{padding:13px}.sort-control select{max-width:110px}}
-.filter-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.filter-row select,#sort-order{min-width:0;width:100%;border:1px solid var(--b);border-radius:999px;background:#fff;padding:14px 12px;color:var(--n);outline-color:var(--p)}
-#sort-order{font-weight:700;color:var(--p)}
-.tile .emoji{background:linear-gradient(145deg,#f0e4ff 0%,#fbf8ff 100%);border:1px solid #f0e5ff;box-shadow:inset 0 1px 0 #fff}
-.tile .emoji svg{filter:drop-shadow(0 3px 2px rgba(81,42,145,.12))}
 
-/* Polished cartoon category tiles inspired by the OGARS Agriculture & Food design */
-.tile{background:#fff!important;border:1.5px solid #e5d4fb!important;border-radius:23px!important;padding:10px!important;gap:7px!important;box-shadow:0 5px 0 rgba(180,139,225,.10),0 8px 18px rgba(70,39,130,.08)!important}
-.tile .emoji{height:130px!important;border:0!important;border-radius:17px!important;background:linear-gradient(145deg,#f2e7ff,#fffaff)!important;padding:4px!important;box-shadow:none!important}
-.tile .emoji svg{width:100%;height:100%;filter:drop-shadow(0 2px 1px rgba(81,42,145,.08))}
-.tile strong{font-size:clamp(13px,3.5vw,16px)!important;font-weight:800!important;line-height:1.22!important;min-height:38px!important;color:#171638}
-@media(min-width:700px){.tile .emoji{height:160px!important}}
-@media(max-width:380px){.tile{padding:7px!important}.tile .emoji{height:100px!important}}
-</style></head><body><header><a class="back" href="index.html" aria-label="Back to homepage">‹</a><div class="brand-icon">⌂</div><div class="brand-copy"><h1>OGARS PLATFORM</h1><p>Phones, tablets & accessories</p></div></header><main><section class="search-panel" aria-label="Search phones and tablets">
-<input id="quick-search" type="search" placeholder="Search iPhone, Samsung, iPad…" aria-label="Search phones and tablets">
-<div class="filter-row">
-<select id="location-filter" aria-label="Choose location"><option value="">📍 All Ghana</option>
-<optgroup label="Greater Accra Region"><option>Accra</option><option>Tema</option><option>Madina</option><option>Adenta</option><option>Achimota</option><option>Lapaz</option><option>Dansoman</option><option>Kasoa</option><option>Weija</option><option>Dodowa</option></optgroup>
-<optgroup label="Ashanti Region"><option>Kumasi</option><option>Obuasi</option><option>Ejisu</option><option>Mampong</option><option>Konongo</option><option>Bekwai</option><option>Offinso</option></optgroup>
-<optgroup label="Western Region"><option>Sekondi-Takoradi</option><option>Tarkwa</option></optgroup>
-<optgroup label="Central Region"><option>Cape Coast</option><option>Winneba</option><option>Swedru</option></optgroup>
-<optgroup label="Eastern Region"><option>Koforidua</option><option>Nkawkaw</option><option>Nsawam</option></optgroup>
-<optgroup label="Volta Region"><option>Ho</option><option>Hohoe</option><option>Keta</option><option>Aflao</option></optgroup>
-<optgroup label="Northern Region"><option>Tamale</option><option>Yendi</option></optgroup>
-<optgroup label="Upper East Region"><option>Bolgatanga</option><option>Bawku</option></optgroup>
-<optgroup label="Upper West Region"><option>Wa</option></optgroup>
-<optgroup label="Bono Region"><option>Sunyani</option><option>Berekum</option></optgroup>
-<optgroup label="Bono East Region"><option>Techiman</option><option>Kintampo</option></optgroup>
-</select>
-<select id="sort-order" aria-label="Sort adverts"><option value="latest">↕ Sort: Latest</option><option value="oldest">Oldest</option><option value="price-low">Price: Low to High</option><option value="price-high">Price: High to Low</option></select>
-</div>
-<button class="search-button" id="search-btn">⌕ &nbsp; Search</button>
-</section>
-<div class="section-title"><h3>Phones &amp; Tablets Categories</h3><span class="muted">Choose what you need</span></div><div class="tiles" id="category-tiles"></div>
-<div class="section-title listing-heading"><div><h3>Hot Phones &amp; Tablets Adverts</h3><p class="muted">Featured and recent phones, tablets and accessories</p></div></div>
-<div id="latest" class="cards"><div class="state">Loading the latest adverts…</div></div><div class="footer">© <span id="year"></span> OGARS Platform · Buy and sell with confidence</div></main><nav class="nav" aria-label="Main navigation"><a class="home" href="index.html"><span class="ico">⌂</span><span>Home</span></a><a href="index.html#categories"><span class="ico">▦</span><span>Explore</span></a><a href="advertise.html" aria-label="Sell"><span class="sell">+</span><span>Sell</span></a><a href="ai-search.html"><span class="ico">✧</span><span>AI Search</span></a><a href="account.html"><span class="ico">♙</span><span>Account</span></a></nav><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-const SUB_URL="https://pawqsmcswoypuiihfbrr.supabase.co",SUB_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb",db=supabase.createClient(SUB_URL,SUB_KEY);const cats=[
-['Mobile phones',`<svg viewBox="0 0 180 130" aria-hidden="true"><defs><linearGradient id="phoneBody" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#4c1d95"/></linearGradient><linearGradient id="phoneScreen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9f2ff"/><stop offset="1" stop-color="#68c9e8"/></linearGradient></defs><ellipse cx="90" cy="115" rx="48" ry="8" fill="#d9c7f5"/><circle cx="39" cy="31" r="12" fill="#ffcf70"/><path d="M25 31l8-3 5 7 7-6" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><rect x="54" y="9" width="72" height="111" rx="15" fill="url(#phoneBody)" stroke="#32135e" stroke-width="3"/><rect x="60" y="17" width="60" height="91" rx="10" fill="url(#phoneScreen)"/><rect x="76" y="21" width="28" height="5" rx="3" fill="#31204e"/><circle cx="90" cy="101" r="3" fill="#fff"/><path d="M66 54q22-24 46 0v18q-23 20-46 0z" fill="#fff" opacity=".85"/><circle cx="108" cy="39" r="5" fill="#ff8c9b"/><path d="M131 31l5 9 10 2-8 7 2 10-9-5-9 5 2-10-8-7 10-2z" fill="#ffcf70"/></svg>`,''],
-['Tablets & iPads',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="58" ry="8" fill="#d9c7f5"/><circle cx="34" cy="28" r="10" fill="#ffd36d"/><path d="M45 19l4 7 8 2-6 6 1 8-7-4-7 4 2-8-6-6 8-2z" fill="#ff8c9b"/><g transform="rotate(-7 90 65)"><rect x="36" y="12" width="108" height="102" rx="12" fill="#56308f" stroke="#32135e" stroke-width="3"/><rect x="43" y="19" width="94" height="88" rx="7" fill="#a8e9f6"/><rect x="51" y="27" width="36" height="29" rx="5" fill="#fff"/><rect x="93" y="27" width="35" height="12" rx="4" fill="#ffe28a"/><rect x="93" y="44" width="35" height="12" rx="4" fill="#ff9db0"/><rect x="51" y="64" width="77" height="34" rx="5" fill="#fff" opacity=".9"/><path d="M59 89l16-15 13 10 14-12 18 16" fill="none" stroke="#7d5bd6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M143 88l14 24" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/><path d="M139 85l8-4 6 7-8 4z" fill="#ffb84d"/></svg>`,''],
-['Phone accessories',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="57" ry="8" fill="#d9c7f5"/><rect x="27" y="49" width="47" height="62" rx="10" fill="#56308f" transform="rotate(-12 50 80)"/><rect x="32" y="55" width="37" height="48" rx="7" fill="#24213d" transform="rotate(-12 50 80)"/><circle cx="43" cy="65" r="5" fill="#91e4f5"/><circle cx="54" cy="63" r="5" fill="#91e4f5"/><circle cx="45" cy="76" r="5" fill="#91e4f5"/><path d="M87 33q27-23 46 3t-3 42q-12 12 2 22" fill="none" stroke="#7c4dd6" stroke-width="8" stroke-linecap="round"/><path d="M89 33q25-20 41 4" fill="none" stroke="#c4b5fd" stroke-width="3" stroke-linecap="round"/><rect x="127" y="95" width="15" height="22" rx="5" fill="#ff8da1" stroke="#8c2b6b" stroke-width="2"/><rect x="131" y="91" width="7" height="8" rx="2" fill="#ffd36d"/><circle cx="115" cy="23" r="10" fill="#ffd36d"/><path d="M145 27l5 8 9 2-7 6 2 9-9-5-8 5 2-9-7-6 9-2z" fill="#8de0f3"/></svg>`,''],
-['Tablet accessories',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="114" rx="58" ry="8" fill="#d9c7f5"/><rect x="24" y="28" width="132" height="76" rx="10" fill="#6840a4" stroke="#32135e" stroke-width="3"/><rect x="31" y="35" width="118" height="60" rx="6" fill="#e8fbff"/><g fill="#89d7ee"><rect x="39" y="43" width="11" height="8" rx="2"/><rect x="54" y="43" width="11" height="8" rx="2"/><rect x="69" y="43" width="11" height="8" rx="2"/><rect x="84" y="43" width="11" height="8" rx="2"/><rect x="99" y="43" width="11" height="8" rx="2"/><rect x="114" y="43" width="11" height="8" rx="2"/><rect x="129" y="43" width="11" height="8" rx="2"/></g><g fill="#c5b5f4"><rect x="39" y="56" width="11" height="8" rx="2"/><rect x="54" y="56" width="11" height="8" rx="2"/><rect x="69" y="56" width="11" height="8" rx="2"/><rect x="84" y="56" width="11" height="8" rx="2"/><rect x="99" y="56" width="11" height="8" rx="2"/><rect x="114" y="56" width="11" height="8" rx="2"/><rect x="129" y="56" width="11" height="8" rx="2"/></g><rect x="46" y="72" width="88" height="14" rx="5" fill="#ffcf70"/><path d="M37 104l-8 11h122l-8-11" fill="#a88ad8"/><path d="M137 14l5 8 9 2-7 6 2 9-9-5-8 5 2-9-7-6 9-2z" fill="#ff8da1"/></svg>`,''],
-['Smartwatches',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="42" ry="8" fill="#d9c7f5"/><path d="M72 8h36l8 32v43l-8 36H72l-8-36V40z" fill="#82d8ed" stroke="#4b267d" stroke-width="3"/><rect x="49" y="31" width="82" height="65" rx="20" fill="#4c2585" stroke="#32135e" stroke-width="3"/><rect x="57" y="39" width="66" height="49" rx="14" fill="#fff"/><circle cx="90" cy="63" r="19" fill="#e5d9ff"/><path d="M90 48v15l12 7" stroke="#6c35b6" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="69" cy="50" r="4" fill="#ff8da1"/><circle cx="110" cy="76" r="4" fill="#7dd9ef"/><path d="M32 28l5 8 9 2-7 6 2 9-9-5-8 5 2-9-7-6 9-2z" fill="#ffd36d"/><circle cx="145" cy="27" r="9" fill="#ff9caf"/></svg>`,''],
-['Headphones & earbuds',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="50" ry="8" fill="#d9c7f5"/><path d="M42 69V54a48 48 0 0 1 96 0v15" fill="none" stroke="#4b237f" stroke-width="15" stroke-linecap="round"/><path d="M42 56a48 48 0 0 1 96 0" fill="none" stroke="#9e7be3" stroke-width="5" stroke-linecap="round"/><rect x="27" y="59" width="32" height="48" rx="12" fill="#8fe1f1" stroke="#4b237f" stroke-width="4"/><rect x="121" y="59" width="32" height="48" rx="12" fill="#8fe1f1" stroke="#4b237f" stroke-width="4"/><rect x="34" y="66" width="18" height="31" rx="8" fill="#fff" opacity=".7"/><rect x="128" y="66" width="18" height="31" rx="8" fill="#fff" opacity=".7"/><circle cx="90" cy="101" r="7" fill="#ff8da1"/><path d="M82 100q8-10 16 0" fill="none" stroke="#4b237f" stroke-width="3" stroke-linecap="round"/><path d="M23 23l5 8 9 2-7 6 2 9-9-5-8 5 2-9-7-6 9-2z" fill="#ffd36d"/></svg>`,''],
-['Phone parts & repairs',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="52" ry="8" fill="#d9c7f5"/><rect x="24" y="29" width="56" height="78" rx="9" fill="#4b237f" stroke="#32135e" stroke-width="3"/><rect x="31" y="37" width="42" height="62" rx="5" fill="#ffb4bd"/><path d="M36 43l31 49M67 43L36 92M52 38v60" stroke="#fff" stroke-width="3"/><path d="M111 20l17 17-36 36-18 5 5-18z" fill="#9c7bd9" stroke="#4b237f" stroke-width="3" stroke-linejoin="round"/><path d="M109 18l7-7 18 18-7 7z" fill="#ffd36d" stroke="#8c5c17" stroke-width="2"/><path d="M112 66l23 25" stroke="#4b237f" stroke-width="10" stroke-linecap="round"/><path d="M132 88l13 14" stroke="#ff8da1" stroke-width="10" stroke-linecap="round"/><circle cx="141" cy="36" r="10" fill="#8fe1f1"/><path d="M141 30v12M135 36h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>`,''],
-['Other phone gadgets',`<svg viewBox="0 0 180 130" aria-hidden="true"><ellipse cx="90" cy="115" rx="58" ry="8" fill="#d9c7f5"/><rect x="19" y="56" width="38" height="48" rx="8" fill="#5b3194" stroke="#32135e" stroke-width="2"/><rect x="25" y="62" width="26" height="33" rx="5" fill="#a9e9f6"/><circle cx="38" cy="99" r="2" fill="#fff"/><rect x="70" y="29" width="40" height="76" rx="9" fill="#4b237f" stroke="#32135e" stroke-width="3"/><rect x="76" y="36" width="28" height="60" rx="5" fill="#d7c5ff"/><circle cx="90" cy="42" r="3" fill="#fff"/><rect x="123" y="57" width="37" height="48" rx="9" fill="#ffbd54" stroke="#a96020" stroke-width="3"/><circle cx="141" cy="73" r="7" fill="#fff"/><rect x="132" y="84" width="18" height="5" rx="2" fill="#fff"/><path d="M30 22l5 8 9 2-7 6 2 9-9-5-8 5 2-9-7-6 9-2z" fill="#ff8da1"/><path d="M145 17l4 7 8 2-6 5 1 8-7-4-7 4 2-8-6-5 8-2z" fill="#83dced"/></svg>`,'']];
-const tiles=document.getElementById('category-tiles');tiles.innerHTML=cats.map(c=>`<a class="tile" href="phones-tablets-listings.html?subcategory=${encodeURIComponent(c[0])}"><span class="emoji" aria-hidden="true">${c[1]}</span><span><strong>${c[0]}</strong></span></a>`).join('');const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function money(v){if(v===null||v===undefined||v==='')return 'Contact for price';const n=Number(String(v).replace(/[^0-9.-]/g,''));return Number.isFinite(n)?'GH₵ '+n.toLocaleString('en-GH'):esc(v)}function phoneCategoryOf(a){const d=String(a.description||'');const m=d.match(/OGARS_PHONE_CATEGORY:\s*([^\n\r]+)/i);return m?m[1].trim():''}function phones(a){const t=(String(a.title||'')+' '+String(a.description||'')).toLowerCase();const type=String(a.listing_type||'').trim().toLowerCase();const sub=/subcategory\s*:\s*phones\s*&\s*electronics/i.test(String(a.description||''));return type==='products & goods'&&(!!phoneCategoryOf(a)||sub||/(phone|tablet|ipad|iphone|samsung|tecno|infinix|xiaomi|oppo|smartwatch|earbud|headphone|charger|power bank|mobile|screen repair|phone repair|accessor)/i.test(t))}function img(a){let v=String(a.photo_urls||'').split(',')[0].trim();return v||''}function card(a){let im=img(a),ph=String(a.phone||a.whatsapp||'').replace(/[^+\d]/g,'');const priceNum=Number(String(a.price??"").replace(/[^0-9.-]/g,""));const created=Date.parse(a.created_at||"")||0;return `<article class="card" data-price="${Number.isFinite(priceNum)&&String(a.price??"").trim()!==""?priceNum:""}" data-created="${created}"><div class="photo">${im?`<img src="${esc(im)}" alt="${esc(a.title||'Phone or tablet')}" loading="lazy" onerror="this.style.display='none'">`:'<div class="placeholder">📱</div>'}</div><div class="info"><p class="price">${money(a.price)}</p><h3 class="title">${esc(a.title||'Phone or tablet advert')}</h3><p class="meta">⌖ ${esc(a.location||'Ghana')}</p><div class="contact-row">${ph?`<a href="tel:${esc(ph)}">Call seller</a>`:''}<a href="phone-tablet-details.html?id=${encodeURIComponent(a.id)}">Details</a></div></div></article>`}async function load(){let box=document.getElementById('latest');try{let {data,error}=await db.from('discover_listings').select('*').eq('listing_type','Products & Goods').order('created_at',{ascending:false}).limit(100);if(error)throw error;console.log('OGARS listings fetched:',(data||[]).length);phoneRows=(data||[]).filter(phones);console.log('OGARS phone listings matched:',phoneRows.length);applyListingControls();}catch(e){console.error(e);box.innerHTML='<div class="state">We could not load adverts right now. Please try again later.</div>'}}let phoneRows=[];function applyListingControls(){let q=document.getElementById('quick-search').value.trim().toLowerCase(),loc=document.getElementById('location-filter').value.toLowerCase(),cat=document.getElementById('category-filter').value.toLowerCase(),sort=document.getElementById('sort-filter').value;let rows=phoneRows.filter(a=>{let hay=(String(a.title||'')+' '+String(a.description||'')).toLowerCase();let okQ=!q||hay.includes(q);let okL=!loc||String(a.location||'').toLowerCase().includes(loc);let actualCat=phoneCategoryOf(a).toLowerCase();let okC=!cat||actualCat===cat||hay.includes(cat);return okQ&&okL&&okC});rows.sort((a,b)=>{if(sort==='oldest')return new Date(a.created_at||0)-new Date(b.created_at||0);if(sort==='price-low'||sort==='price-high'){let pa=Number(String(a.price||'').replace(/[^0-9.]/g,''))||0,pb=Number(String(b.price||'').replace(/[^0-9.]/g,''))||0;return sort==='price-low'?pa-pb:pb-pa}return new Date(b.created_at||0)-new Date(a.created_at||0)});let box=document.getElementById('latest');box.innerHTML=rows.length?rows.map(card).join(''):'<div class="state">No adverts match those filters yet.</div>'}
-function sortLatestCards(){
- const sel=document.getElementById('sort-order');if(!sel)return;
- const box=document.getElementById('latest');const cards=Array.from(box.querySelectorAll('.card'));
- cards.sort((a,b)=>{const mode=sel.value;
- if(mode==='latest'||mode==='oldest'){const ta=Number(a.dataset.created||0),tb=Number(b.dataset.created||0);return mode==='latest'?tb-ta:ta-tb;}
- const pa=a.dataset.price===''?Number.POSITIVE_INFINITY:Number(a.dataset.price),pb=b.dataset.price===''?Number.POSITIVE_INFINITY:Number(b.dataset.price);
- return mode==='price-low'?pa-pb:pb-pa;});
- cards.forEach(c=>box.appendChild(c));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#512A91">
+<meta name="description" content="Buy and sell phones, tablets and accessories on OGARS MARKET Ghana.">
+<title>Phones & Tablets | OGARS MARKET</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root{
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;--border:#e6e0f5;
 }
-function search(){let q=document.getElementById('quick-search').value.trim(),loc=document.getElementById('location-filter').value,cat=document.getElementById('category-filter').value;let params=new URLSearchParams();if(q)params.set('search',q);if(loc)params.set('location',loc);if(cat)params.set('subcategory',cat);location.href='phones-tablets-listings.html'+(params.toString()?'?'+params.toString():'')}document.getElementById('search-btn').addEventListener('click',search);document.getElementById('quick-search').addEventListener('keydown',e=>{if(e.key==='Enter')search()});document.getElementById('year').textContent=new Date().getFullYear();document.getElementById('sort-filter').addEventListener('change',applyListingControls);document.getElementById('location-filter').addEventListener('change',applyListingControls);document.getElementById('category-filter').addEventListener('change',applyListingControls);load();</script></body></html>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;padding-bottom:85px}
+button,input,select{font:inherit}
+
+/* HERO */
+.hero{
+  display:flex;align-items:center;gap:9px;min-height:82px;
+  padding:9px 12px;background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+  color:#fff;position:relative;overflow:hidden
+}
+.hero::after{
+  content:"▦";position:absolute;right:10px;top:-30px;
+  font-size:115px;color:rgba(255,255,255,.07);pointer-events:none
+}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+  border-radius:12px;display:grid;place-items:center;font-size:25px;
+  position:relative;z-index:1
+}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+
+/* MAIN */
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+/* SEARCH */
+.search-panel{
+  background:#f1e8ff;border:1px solid #e9ddfb;
+  border-radius:14px;padding:9px;margin:8px 0 12px
+}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
+.search-panel input,.search-panel select{
+  width:100%;min-width:0;min-height:38px;padding:8px 10px;
+  border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+  color:var(--text);font-size:12px
+}
+.search-button{
+  border:0;border-radius:9px;background:var(--dark);
+  color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
+}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;font-size:10px;color:var(--muted);margin-top:7px
+}
+.clear-button{
+  background:#fff;border:1px solid var(--border);color:var(--dark);
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
+}
+
+/* CATEGORY TILES */
+.category-intro{margin:0 0 7px}
+.category-intro h2{font-size:16px;margin:0 0 2px}
+.category-intro p{font-size:10px;color:var(--muted);margin:0}
+.category-tiles{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;margin:8px 0
+}
+.tile{
+  min-width:0;min-height:0;padding:5px;border:1px solid var(--border);
+  border-radius:10px;background:#fff;color:var(--text);
+  text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 5px rgba(77,50,165,.04)
+}
+.tile-icon{
+  width:100%;height:43px;border-radius:7px;
+  background:linear-gradient(145deg,#eee4ff,#faf7ff);
+  display:grid;place-items:center;font-size:24px
+}
+.tile.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.category-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+/* ADVERT CARDS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
+}
+.image-wrap{height:125px;background:#f2edff;position:relative}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
+.no-image{
+  width:100%;height:100%;display:flex;align-items:center;
+  justify-content:center;font-size:34px;color:#7b68b8
+}
+.category-badge{
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.description{
+  color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
+}
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:4px}
+
+/* BUTTONS */
+.details-button{
+  display:flex;justify-content:center;align-items:center;width:100%;
+  min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+  background:var(--dark);color:#fff;text-decoration:none;
+  text-align:center;font-size:10px;font-weight:bold
+}
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
+}
+.button{
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
+}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+
+.message{
+  grid-column:1/-1;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:20px 12px;text-align:center;
+  color:var(--muted);font-size:12px;overflow-wrap:anywhere
+}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{
+  background:var(--purple);color:#fff;border:0;border-radius:7px;
+  padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
+}
+.back-area{text-align:center;margin-top:16px}
+.back{
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
+}
+
+/* FOOTER */
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+  box-shadow:0 -3px 12px rgba(35,24,70,.08)
+}
+.bottom-nav a,.bottom-nav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
+}
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+  width:33px;height:26px;display:grid;place-items:center;
+  background:var(--dark);color:#fff;border-radius:8px;
+  font-size:20px;margin-top:-8px
+}
+
+@media(min-width:851px){
+  .image-wrap{height:160px}
+  .product-content{padding:9px}
+}
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .image-wrap{height:110px}
+  .product-content{padding:6px}
+  .product-name{font-size:11px}
+  .price{font-size:13px}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
+  .tile-icon{height:42px;font-size:23px}
+  .tile{font-size:9px}
+  .search-button-row{grid-template-columns:1fr}
+  .search-button{min-height:35px}
+}
+@media(max-width:340px){
+  .products{grid-template-columns:1fr}
+  .image-wrap{height:170px}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box">📱</div>
+  <div class="hero-copy">
+    <h1>Phones &amp; Tablets</h1>
+    <p>Phones, tablets and accessories in one place</p>
+  </div>
+</section>
+
+<main class="container">
+
+  <section class="search-panel" aria-label="Search phones and tablets">
+    <div class="search-button-row">
+      <input id="product-search" type="search"
+        placeholder="Search iPhone, Samsung, iPad..."
+        autocomplete="off" aria-label="Search phones and tablets">
+      <button type="button" class="search-button" id="search-button">⌕ Search</button>
+    </div>
+
+    <div class="filters">
+      <select id="location-filter" aria-label="Choose region">
+        <option value="">📍 All Ghana</option>
+        <option value="Ahafo">Ahafo Region</option>
+        <option value="Ashanti">Ashanti Region</option>
+        <option value="Bono">Bono Region</option>
+        <option value="Bono East">Bono East Region</option>
+        <option value="Central">Central Region</option>
+        <option value="Eastern">Eastern Region</option>
+        <option value="Greater Accra">Greater Accra Region</option>
+        <option value="North East">North East Region</option>
+        <option value="Northern">Northern Region</option>
+        <option value="Oti">Oti Region</option>
+        <option value="Savannah">Savannah Region</option>
+        <option value="Upper East">Upper East Region</option>
+        <option value="Upper West">Upper West Region</option>
+        <option value="Volta">Volta Region</option>
+        <option value="Western">Western Region</option>
+        <option value="Western North">Western North Region</option>
+      </select>
+
+      <select id="sort-filter" aria-label="Sort adverts">
+        <option value="newest">Latest / Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="price-low">Price: lowest first</option>
+        <option value="price-high">Price: highest first</option>
+      </select>
+    </div>
+
+    <div class="results-summary">
+      <span id="results-count">Connecting to OGARS MARKET...</span>
+      <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+    </div>
+  </section>
+
+  <section class="category-intro">
+    <h2>Phones &amp; Tablets Categories</h2>
+    <p>Tap a category to see its adverts.</p>
+  </section>
+
+  <section class="category-tiles" id="category-tiles" aria-label="Phones and Tablets categories">
+    <button class="tile" type="button" data-category="Mobile phones"><span class="tile-icon">📱</span><span>Mobile phones</span></button>
+    <button class="tile" type="button" data-category="Tablets & iPads"><span class="tile-icon">📲</span><span>Tablets &amp; iPads</span></button>
+    <button class="tile" type="button" data-category="Phone accessories"><span class="tile-icon">🔌</span><span>Phone accessories</span></button>
+    <button class="tile" type="button" data-category="Tablet accessories"><span class="tile-icon">⌨️</span><span>Tablet accessories</span></button>
+    <button class="tile" type="button" data-category="Smartwatches"><span class="tile-icon">⌚</span><span>Smartwatches</span></button>
+    <button class="tile" type="button" data-category="Headphones & earbuds"><span class="tile-icon">🎧</span><span>Headphones &amp; earbuds</span></button>
+    <button class="tile" type="button" data-category="Phone parts & repairs"><span class="tile-icon">🛠️</span><span>Phone parts &amp; repairs</span></button>
+    <button class="tile" type="button" data-category="Other phone gadgets"><span class="tile-icon">🔋</span><span>Other phone gadgets</span></button>
+  </section>
+
+  <p class="category-note" id="category-note">Showing all Phones &amp; Tablets adverts.</p>
+
+  <section id="products" class="products" aria-live="polite">
+    <div class="message">
+      <strong>📱 Loading Phones &amp; Tablets adverts...</strong>
+      Please wait while we connect to OGARS MARKET.
+    </div>
+  </section>
+
+  <div class="back-area">
+    <a href="index.html" class="back">← Back to OGARS MARKET</a>
+  </div>
+</main>
+
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+</nav>
+
+<footer>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="find-property.html">Properties</a>
+    <a href="vehicles.html">Vehicles</a>
+    <a href="business.html">Businesses</a>
+    <a href="discover.html">Discover</a>
+  </nav>
+  <div>© 2026 OGARS MARKET</div>
+  <div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
+</footer>
+
+<script>
+"use strict";
+
+/* SUPABASE CONNECTION — PRESERVED */
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const $=id=>document.getElementById(id);
+
+const categories=[
+  "Mobile phones",
+  "Tablets & iPads",
+  "Phone accessories",
+  "Tablet accessories",
+  "Smartwatches",
+  "Headphones & earbuds",
+  "Phone parts & repairs",
+  "Other phone gadgets"
+];
+
+let allProducts=[];
+let selectedCategory="";
+
+const pageParams=new URLSearchParams(window.location.search);
+const initialCategory=pageParams.get("subcategory")||"";
+
+/* SAFE HTML */
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* READ PHONE CATEGORY SAVED BY THE POSTING PAGE */
+function phoneCategoryOf(advert){
+  const description=String(advert.description||"");
+
+  const marker=description.match(/OGARS_PHONE_CATEGORY:\s*([^\n\r]+)/i);
+  if(marker)return marker[1].trim();
+
+  const categoryLine=description.match(/Phones\s*&\s*Tablets category:\s*([^\n\r]+)/i);
+  if(categoryLine)return categoryLine[1].trim();
+
+  const subcategoryLine=description.match(/subcategory:\s*([^\n\r]+)/i);
+  if(subcategoryLine)return subcategoryLine[1].trim();
+
+  return "";
+}
+
+/* IDENTIFY PHONE AND TABLET ADVERTS */
+function isPhoneAdvert(advert){
+  const description=String(advert.description||"");
+  const title=String(advert.title||"");
+  const listingType=String(advert.listing_type||"").trim().toLowerCase();
+
+  const text=(title+" "+description).toLowerCase();
+
+  const category=phoneCategoryOf(advert);
+
+  const hasPhoneCategory=categories.some(item=>
+    item.toLowerCase()===category.toLowerCase()
+  );
+
+  const hasOldPhoneMarker=/subcategory\s*:\s*phones\s*&\s*electronics/i.test(description);
+
+  const phoneKeywords=/phone|tablet|ipad|iphone|samsung|tecno|infinix|xiaomi|oppo|smartwatch|earbud|headphone|charger|power bank|mobile|screen repair|phone repair|accessor/i.test(text);
+
+  return listingType==="products & goods" &&
+    (hasPhoneCategory || hasOldPhoneMarker || phoneKeywords);
+}
+
+/* READ PRICE FROM ADVERT */
+function getPrice(advert){
+  if(advert.price!==null&&advert.price!==undefined&&String(advert.price).trim()!==""){
+    const value=Number(String(advert.price).replace(/,/g,""));
+    if(Number.isFinite(value))return value;
+  }
+
+  const description=String(advert.description||"");
+  const match=description.match(/(?:Price|Maximum budget)\s*\(GH₵\)\s*:\s*([0-9,.]+)/i);
+
+  if(match){
+    const value=Number(match[1].replace(/,/g,""));
+    if(Number.isFinite(value))return value;
+  }
+
+  return null;
+}
+
+/* CLEAN PHONE NUMBER */
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
+  return value;
+}
+
+/* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
+
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
+
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+  }
+
+  return true;
+}
+
+/* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"")
+    .split(",")
+    .map(url=>url.trim())
+    .filter(url=>/^https?:\/\//i.test(url));
+}
+
+/* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
+
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
+
+  const aliases={
+    "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
+    "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
+    "central":["central","cape coast","winneba","mankessim","swedru"],
+    "eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],
+    "western":["western","takoradi","sekondi","tarkwa","axim"],
+    "western north":["western north","sefwi","bibiani","enchi"],
+    "volta":["volta","ho","hohoe","keta","aflao"],
+    "northern":["northern","tamale","yendi","savelugu"],
+    "upper east":["upper east","bolgatanga","bawku","navrongo"],
+    "upper west":["upper west","wa","lawra","tumu"],
+    "bono":["bono","sunnyani","berekum","dormaa"],
+    "bono east":["bono east","techiman","kintampo","nkoranza"],
+    "ahafo":["ahafo","goaso","kenyasi","bechem"],
+    "oti":["oti","dambai","jasikan","nkwanta"],
+    "savannah":["savannah","damongo","bole","salaga"],
+    "north east":["north east","nalerigu","walewale"]
+  };
+
+  return (aliases[selected]||[selected]).some(term=>text.includes(term));
+}
+
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Phones & Tablets advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
+
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else{
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
+
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }
+}
+
+/* CREATE ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
+
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const category=phoneCategoryOf(advert);
+  const price=getPrice(advert);
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+
+  let priceText="Price on request";
+  if(price!==null){
+    priceText="GH₵"+price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
+
+  let imageHtml='<div class="no-image">📱</div>';
+
+  if(photo){
+    imageHtml=`
+      <img class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(advert.title||"Phone or tablet")}"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>📱</div>'">
+    `;
+  }
+
+  const detailsUrl=new URL("discover-details.html",window.location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Phones & Tablets advert")+
+        '" on OGARS MARKET. Is it still available?'
+      );
+
+      buttons+=`
+        <a class="button whatsapp"
+          href="https://wa.me/${escapeHtml(number)}?text=${message}"
+          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+      `;
+    }
+  }
+
+  if(phone){
+    buttons+=`
+      <a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>
+    `;
+  }
+
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+  card.innerHTML=`
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">${escapeHtml(category||"Phones & Tablets")}</div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">${escapeHtml(advert.title||"Phone or tablet advert")}</h2>
+      <div class="price">${escapeHtml(priceText)}</div>
+      <div class="purpose">${escapeHtml(advert.location||"Ghana")}</div>
+
+      ${advert.description
+        ?`<div class="description">${escapeHtml(advert.description.split(/OGARS_PHONE_CATEGORY:|Phones & Tablets category:|subcategory:/i)[0].trim().slice(0,180))}</div>`
+        :""}
+
+      <div class="business">
+        📍 ${escapeHtml(advert.location||"Ghana")}
+        ${photos.length?`<br>📷 ${photos.length} photo(s)`:""}
+      </div>
+
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
+
+      <div class="button-row">${buttons}</div>
+    </div>
+  `;
+
+  card.querySelector(".share-button").addEventListener("click",()=>{
+    shareAdvert(advert.title,detailsUrl.href);
+  });
+
+  return card;
+}
+
+/* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=
+    products.length+(products.length===1?" advert found":" adverts found");
+
+  if(!products.length){
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>🔍 No adverts found</strong>
+        Try another subcategory or clear your filters.
+      </div>
+    `;
+    return;
+  }
+
+  const fragment=document.createDocumentFragment();
+
+  products.forEach(advert=>{
+    fragment.appendChild(createProductCard(advert));
+  });
+
+  $("products").replaceChildren(fragment);
+}
+
+/* SEARCH, FILTER AND SORT */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
+
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,
+      advert.location,
+      advert.description,
+      phoneCategoryOf(advert)
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedCategory||
+      phoneCategoryOf(advert).toLowerCase()===selectedCategory.toLowerCase();
+    const matchesLocation=matchesRegion(advert.location,region);
+
+    return matchesSearch&&matchesCategory&&matchesLocation;
+  }).sort((a,b)=>{
+    const priceA=getPrice(a);
+    const priceB=getPrice(b);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+
+    if(sort==="oldest")return dateA-dateB;
+
+    if(sort==="price-low"){
+      if(priceA!==null&&priceB!==null)return priceA-priceB;
+      if(priceA!==null)return -1;
+      if(priceB!==null)return 1;
+      return dateB-dateA;
+    }
+
+    if(sort==="price-high"){
+      if(priceA!==null&&priceB!==null)return priceB-priceA;
+      if(priceA!==null)return -1;
+      if(priceB!==null)return 1;
+      return dateB-dateA;
+    }
+
+    return dateB-dateA;
+  });
+}
+
+function filterProducts(){
+  displayProducts(getFilteredProducts());
+}
+
+/* LOAD ADVERTS FROM THE EXISTING TABLE */
+async function loadProducts(){
+  $("products").innerHTML=`
+    <div class="message">
+      <strong>📱 Loading Phones & Tablets adverts...</strong>
+      Connecting to OGARS MARKET.
+    </div>
+  `;
+
+  $("results-count").textContent="Connecting to OGARS MARKET...";
+
+  try{
+    const {data,error}=await db.from("discover_listings")
+      .select("*")
+      .eq("listing_type","Products & Goods")
+      .order("created_at",{ascending:false})
+      .limit(500);
+
+    if(error)throw error;
+
+    allProducts=(data||[])
+      .filter(isAdvertActive)
+      .filter(isPhoneAdvert);
+
+    filterProducts();
+
+  }catch(error){
+    console.error("OGARS Phones & Tablets error:",error);
+
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>Unable to load adverts</strong>
+        ${escapeHtml(error.message||"Please check your internet connection and try again.")}
+        <br>
+        <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
+      </div>
+    `;
+
+    $("results-count").textContent="Could not load adverts";
+  }
+}
+
+/* CATEGORY BUTTONS — FILTER ON THIS SAME PAGE */
+document.querySelectorAll(".tile").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.category;
+
+    selectedCategory=selectedCategory===category?"":category;
+
+    document.querySelectorAll(".tile").forEach(item=>{
+      item.classList.toggle("active",item.dataset.category===selectedCategory);
+    });
+
+    $("category-note").textContent=selectedCategory
+      ?"Showing adverts in "+selectedCategory+"."
+      :"Showing all Phones & Tablets adverts.";
+
+    filterProducts();
+    $("products").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+});
+
+/* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+
+  selectedCategory="";
+
+  document.querySelectorAll(".tile").forEach(button=>{
+    button.classList.remove("active");
+  });
+
+  $("category-note").textContent="Showing all Phones & Tablets adverts.";
+
+  filterProducts();
+}
+
+/* EVENTS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+  alert("OGARS MARKET AI Search is coming soon.");
+});
+
+/* CATEGORY LINK FROM HOMEPAGE OR OTHER PAGE */
+if(categories.some(item=>item.toLowerCase()===initialCategory.toLowerCase())){
+  selectedCategory=categories.find(item=>
+    item.toLowerCase()===initialCategory.toLowerCase()
+  );
+
+  document.querySelectorAll(".tile").forEach(button=>{
+    button.classList.toggle("active",button.dataset.category===selectedCategory);
+  });
+
+  $("category-note").textContent="Showing adverts in "+selectedCategory+".";
+}
+
+/* START */
+loadProducts();
+</script>
+</body>
+</html>
