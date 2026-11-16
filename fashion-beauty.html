@@ -3,539 +3,341 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#542B9A">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6545c5">
+<meta name="description" content="Discover fashion, clothing, shoes, bags, wigs and beauty services on OGARS MARKET Ghana.">
 <title>Fashion & Beauty | OGARS MARKET</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --purple:#512A91;
-  --deep:#38166f;
-  --lav:#f1eaff;
-  --navy:#171638;
-  --muted:#706b8c;
-  --border:#e5dcf7;
-  --page:#faf9fd;
-  --white:#fff;
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;
+  --border:#e6e0f5;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--page);
-  color:var(--navy);
-  font:15px/1.5 Arial,Helvetica,sans-serif;
-}
-button,input,select{font:inherit}
-a{text-decoration:none;color:inherit}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
 
+/* FASHION & BEAUTY HERO */
 .hero{
-  background:linear-gradient(115deg,#6d28d9,#512A91 56%,#38166f);
-  color:white;
-  padding:15px 14px 19px;
+  display:flex;align-items:center;gap:9px;min-height:82px;
+  padding:9px 12px;
+  background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+  color:#fff;position:relative;overflow:hidden
 }
-.hero-top{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  gap:11px;
+.hero::after{
+  content:"👗";position:absolute;right:10px;top:-20px;
+  font-size:75px;color:rgba(255,255,255,.07);pointer-events:none
 }
-.back{
-  color:white;
-  font-size:29px;
-  line-height:1;
-  width:24px;
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+  border-radius:12px;display:grid;place-items:center;
+  font-size:25px;position:relative;z-index:1
 }
-.hero-icon{
-  width:43px;
-  height:43px;
-  border:1.5px solid #ffffffcc;
-  border-radius:12px;
-  display:grid;
-  place-items:center;
-  font-size:25px;
-  flex-shrink:0;
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+/* SEARCH */
+.search-panel{
+  background:#f1e8ff;border:1px solid #e9ddfb;
+  border-radius:14px;padding:9px;margin:8px 0 12px
 }
-.hero-title h1{
-  font-size:22px;
-  line-height:1.1;
-  margin:0;
-  font-weight:800;
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
+.search-panel input,.search-panel select{
+  width:100%;min-width:0;min-height:38px;padding:8px 10px;
+  border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+  color:var(--text);font-size:12px
 }
-.hero-title p{
-  margin:4px 0 0;
-  font-size:12px;
-  color:#eee5ff;
+.search-button{
+  border:0;border-radius:9px;background:var(--dark);
+  color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
 }
-.search-wrap{
-  max-width:1100px;
-  margin:15px auto 0;
-  display:flex;
-  gap:8px;
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;font-size:10px;color:var(--muted);margin-top:7px
 }
-.search-wrap input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  padding:12px 14px;
-  border-radius:11px;
-  background:white;
-  color:var(--navy);
+.clear-button{
+  background:#fff;border:1px solid var(--border);color:var(--dark);
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
 }
-.search-wrap button{
-  border:0;
-  background:#fff;
-  color:var(--purple);
-  font-weight:bold;
-  padding:0 17px;
-  border-radius:11px;
-  cursor:pointer;
+
+/* CATEGORY CARDS */
+.electronics-intro{margin:0 0 7px}
+.electronics-intro h2{font-size:16px;margin:0 0 2px}
+.electronics-intro p{font-size:10px;color:var(--muted);margin:0}
+.electronics-shortcuts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;margin:8px 0
 }
-.container{
-  max-width:1100px;
-  padding:17px 13px 100px;
-  margin:auto;
+.shortcut{
+  min-width:0;min-height:0;padding:5px;border:1px solid var(--border);
+  border-radius:10px;background:#fff;color:var(--text);
+  text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 5px rgba(77,50,165,.04)
 }
-.filter-panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:13px;
-  margin-bottom:15px;
+.shortcut-icon{
+  width:100%;height:43px;border-radius:7px;
+  background:linear-gradient(145deg,#eee4ff,#faf7ff);
+  display:grid;place-items:center;font-size:24px
 }
-.filter-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.electronics-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+/* ADVERT CARDS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
 }
-.filter-row select{
-  width:100%;
-  min-width:0;
-  padding:10px 11px;
-  border:1px solid #ddd4ec;
-  border-radius:10px;
-  background:white;
-  color:var(--navy);
-  font-size:13px;
-}
-.section-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin:19px 0 10px;
-}
-.section-heading h2{
-  font-size:17px;
-  margin:0;
-}
-.section-heading span{
-  color:var(--muted);
-  font-size:12px;
-}
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:9px;
-}
-.category-button{
-  min-width:0;
-  border:1px solid var(--border);
-  background:white;
-  color:var(--navy);
-  border-radius:12px;
-  padding:11px 5px;
-  text-align:center;
-  cursor:pointer;
-  font-size:12px;
-  font-weight:bold;
-  line-height:1.3;
-  min-height:67px;
-}
-.category-button .emoji{
-  display:block;
-  font-size:22px;
-  margin-bottom:4px;
-}
-.category-button.active{
-  background:var(--lav);
-  border:1.5px solid var(--purple);
-  color:var(--purple);
-}
-.results-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  margin:22px 0 11px;
-}
-.results-heading h2{
-  font-size:18px;
-  margin:0;
-}
-.results-heading small{
-  color:var(--muted);
-  font-size:12px;
-}
-.listing-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:13px;
-}
-.listing-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
-  min-width:0;
-  box-shadow:0 3px 12px rgba(55,28,100,.045);
-}
-.image-wrap{
-  height:180px;
-  background:#f0ebf8;
-  position:relative;
-  overflow:hidden;
-}
-.listing-image{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  cursor:pointer;
-}
+.image-wrap{height:125px;background:#f2edff;position:relative}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
 .no-image{
-  height:100%;
-  display:grid;
-  place-items:center;
-  color:#8069a8;
-  font-size:42px;
+  width:100%;height:100%;display:flex;align-items:center;
+  justify-content:center;font-size:34px;color:#7b68b8
 }
-.photo-label{
-  position:absolute;
-  right:8px;
-  bottom:8px;
-  background:#171638d9;
-  color:white;
-  border-radius:20px;
-  padding:4px 8px;
-  font-size:11px;
+.category-badge{
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
-.category-label{
-  display:inline-block;
-  background:var(--lav);
-  color:var(--purple);
-  font-size:10px;
-  font-weight:bold;
-  padding:4px 8px;
-  border-radius:20px;
-  margin-bottom:7px;
-}
-.card-body{
-  padding:11px;
-}
-.card-title{
-  font-size:14px;
-  line-height:1.35;
-  font-weight:bold;
-  margin:0 0 6px;
-  overflow-wrap:anywhere;
-}
-.price{
-  font-size:16px;
-  color:var(--purple);
-  font-weight:800;
-  margin:5px 0;
-}
-.purpose{
-  color:#5e4b83;
-  font-size:11px;
-  font-weight:bold;
-  margin:3px 0 7px;
-}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
 .description{
-  color:#625e73;
-  font-size:12px;
-  line-height:1.45;
-  margin:7px 0;
-  overflow-wrap:anywhere;
+  color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
 }
-.card-location{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:8px;
-  overflow-wrap:anywhere;
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+
+/* CONTACT AND SHARE BUTTONS */
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
 }
-.seller{
-  font-size:11px;
-  margin-top:7px;
-  color:#5d5870;
+.button{
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
 }
-.trusted{
-  color:#167344;
-  font-weight:bold;
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+.details-button{
+  display:flex;justify-content:center;align-items:center;width:100%;
+  min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+  background:var(--dark);color:#fff;text-decoration:none;
+  text-align:center;font-size:10px;font-weight:bold
 }
-.card-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:11px;
+.message{
+  grid-column:1/-1;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:20px 12px;text-align:center;
+  color:var(--muted);font-size:12px;overflow-wrap:anywhere
 }
-.action{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  min-height:35px;
-  padding:7px 5px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:bold;
-  border:1px solid var(--border);
-  background:white;
-  color:var(--purple);
-  cursor:pointer;
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{
+  background:var(--purple);color:#fff;border:0;border-radius:7px;
+  padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
 }
-.action.primary{
-  background:var(--purple);
-  border-color:var(--purple);
-  color:white;
+.back-area{text-align:center;margin-top:16px}
+.back{
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
 }
-.action.whatsapp{
-  background:#eaf9ef;
-  border-color:#c8ecd3;
-  color:#14783c;
-}
-.action.call{
-  background:#f3f0ff;
-}
-.action.share{
-  background:#faf9fd;
-}
-.empty{
-  background:white;
-  border:1px dashed #cbb9e7;
-  border-radius:14px;
-  padding:32px 16px;
-  text-align:center;
-  color:var(--muted);
-  grid-column:1/-1;
-}
-.empty strong{
-  display:block;
-  color:var(--navy);
-  font-size:15px;
-  margin-bottom:6px;
-}
-.loading{
-  text-align:center;
-  padding:35px 12px;
-  color:var(--muted);
-}
-.load-error{
-  background:#fff0f0;
-  color:#9b1c2c;
-  padding:13px;
-  border-radius:10px;
-  font-size:13px;
-  margin:12px 0;
-  display:none;
-}
-footer{
-  text-align:center;
-  padding:20px 12px 90px;
-  color:var(--muted);
-  font-size:12px;
-}
+
+/* FOOTER */
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+
+/* BOTTOM NAVIGATION */
 .bottom-nav{
-  position:fixed;
-  z-index:20;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  border-top:1px solid var(--border);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+  box-shadow:0 -3px 12px rgba(35,24,70,.08)
 }
-.nav-item{
-  text-align:center;
-  color:#77718b;
-  font-size:10px;
-  padding:3px 1px;
+.bottom-nav a,.bottom-nav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
 }
-.nav-item span{
-  display:block;
-  font-size:19px;
-  line-height:1.3;
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+  width:33px;height:26px;display:grid;place-items:center;
+  background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
 }
-.nav-item.active{
-  color:var(--purple);
-  font-weight:bold;
+
+@media(min-width:851px){
+  .image-wrap{height:160px}
+  .product-content{padding:9px}
 }
-@media(max-width:700px){
-  .listing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .image-wrap{height:145px}
-  .category-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-  .category-button{font-size:10px;min-height:64px;padding:8px 3px}
-  .category-button .emoji{font-size:20px}
-  .card-body{padding:9px}
-  .card-title{font-size:13px}
-  .price{font-size:14px}
-}
-@media(max-width:380px){
-  .category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .filter-row{grid-template-columns:1fr}
-  .image-wrap{height:130px}
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .image-wrap{height:110px}
+  .product-content{padding:6px}
+  .product-name{font-size:11px}
+  .price{font-size:13px}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
+  .shortcut-icon{height:42px;font-size:23px}
+  .shortcut{font-size:9px}
+  .search-button-row{grid-template-columns:1fr}
+  .search-button{min-height:35px}
 }
 </style>
 </head>
 
 <body>
 
-<header class="hero">
-  <div class="hero-top">
-    <a class="back" href="index.html" aria-label="Back to homepage">‹</a>
-    <div class="hero-icon">👗</div>
-    <div class="hero-title">
-      <h1>FASHION &amp; BEAUTY</h1>
-      <p>Discover fashion, beauty products and services across Ghana</p>
-    </div>
+<section class="hero">
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box">👗</div>
+  <div class="hero-copy">
+    <h1>Fashion &amp; Beauty</h1>
+    <p>Fashion, beauty products and services in one place</p>
   </div>
-
-  <form class="search-wrap" id="search-form">
-    <input id="search-input" type="search" placeholder="Search fashion, shoes, wigs, makeup...">
-    <button type="submit">Search</button>
-  </form>
-</header>
+</section>
 
 <main class="container">
 
-  <section class="filter-panel">
-    <div class="filter-row">
-      <select id="region-filter">
-        <option value="">All regions in Ghana</option>
-        <option>Ahafo</option>
-        <option>Ashanti</option>
-        <option>Bono</option>
-        <option>Bono East</option>
-        <option>Central</option>
-        <option>Eastern</option>
-        <option>Greater Accra</option>
-        <option>North East</option>
-        <option>Northern</option>
-        <option>Oti</option>
-        <option>Savannah</option>
-        <option>Upper East</option>
-        <option>Upper West</option>
-        <option>Volta</option>
-        <option>Western</option>
-        <option>Western North</option>
-      </select>
-
-      <select id="purpose-filter">
-        <option value="">All advert purposes</option>
-        <option>For sale</option>
-        <option>Wanted</option>
-        <option>Service offered</option>
-      </select>
-
-      <select id="audience-filter">
-        <option value="">All audiences</option>
-        <option>Men</option>
-        <option>Women</option>
-        <option>Children</option>
-      </select>
-
-      <select id="sort-filter">
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-        <option value="price-low">Price: low to high</option>
-        <option value="price-high">Price: high to low</option>
-      </select>
-    </div>
-  </section>
-
-  <div class="section-heading">
-    <h2>Explore Fashion &amp; Beauty</h2>
-    <span>Choose a category</span>
+<section class="search-panel">
+  <div class="search-button-row">
+    <input type="search" id="product-search" placeholder="Search clothes, shoes, wigs, makeup..." autocomplete="off">
+    <button type="button" class="search-button" id="search-button">⌕ Search</button>
   </div>
 
-  <section class="category-grid" id="category-grid">
-    <button class="category-button active" data-category="">
-      <span class="emoji">✨</span>All categories
-    </button>
-    <button class="category-button" data-category="Clothing & Fashion">
-      <span class="emoji">👗</span>Clothing &amp; Fashion
-    </button>
-    <button class="category-button" data-category="Shoes & Footwear">
-      <span class="emoji">👟</span>Shoes &amp; Footwear
-    </button>
-    <button class="category-button" data-category="Bags & Accessories">
-      <span class="emoji">👜</span>Bags &amp; Accessories
-    </button>
-    <button class="category-button" data-category="Jewellery & Watches">
-      <span class="emoji">💍</span>Jewellery &amp; Watches
-    </button>
-    <button class="category-button" data-category="Makeup & Cosmetics">
-      <span class="emoji">💄</span>Makeup &amp; Cosmetics
-    </button>
-    <button class="category-button" data-category="Hair & Wigs">
-      <span class="emoji">💇</span>Hair &amp; Wigs
-    </button>
-    <button class="category-button" data-category="Skincare & Fragrance">
-      <span class="emoji">🧴</span>Skincare &amp; Fragrance
-    </button>
-    <button class="category-button" data-category="Salons & Beauty Services">
-      <span class="emoji">💅</span>Salons &amp; Beauty Services
-    </button>
-  </section>
+  <div class="filters">
+    <select id="location-filter" aria-label="Choose region">
+      <option value="">📍 All Ghana</option>
+      <option value="Ahafo">Ahafo Region</option>
+      <option value="Ashanti">Ashanti Region</option>
+      <option value="Bono">Bono Region</option>
+      <option value="Bono East">Bono East Region</option>
+      <option value="Central">Central Region</option>
+      <option value="Eastern">Eastern Region</option>
+      <option value="Greater Accra">Greater Accra Region</option>
+      <option value="North East">North East Region</option>
+      <option value="Northern">Northern Region</option>
+      <option value="Oti">Oti Region</option>
+      <option value="Savannah">Savannah Region</option>
+      <option value="Upper East">Upper East Region</option>
+      <option value="Upper West">Upper West Region</option>
+      <option value="Volta">Volta Region</option>
+      <option value="Western">Western Region</option>
+      <option value="Western North">Western North Region</option>
+    </select>
 
-  <section class="results-heading">
-    <h2 id="results-title">Latest adverts</h2>
-    <small id="results-count">Loading adverts...</small>
-  </section>
+    <select id="sort-filter" aria-label="Sort adverts">
+      <option value="newest">Latest / Newest</option>
+      <option value="verified">Trusted sellers first</option>
+      <option value="price-low">Price: lowest first</option>
+      <option value="price-high">Price: highest first</option>
+    </select>
+  </div>
 
-  <div id="load-error" class="load-error"></div>
-  <section class="listing-grid" id="listing-grid">
-    <div class="loading">Loading Fashion &amp; Beauty adverts...</div>
-  </section>
+  <div class="results-summary">
+    <span id="results-count">Connecting to OGARS MARKET...</span>
+    <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+  </div>
+</section>
 
+<section class="electronics-intro">
+  <h2>Fashion &amp; Beauty Categories</h2>
+  <p>Tap a category to see its adverts.</p>
+</section>
+
+<section class="electronics-shortcuts" aria-label="Fashion and Beauty categories">
+  <button class="shortcut" type="button" data-subcategory="Clothing & Fashion">
+    <span class="shortcut-icon">👗</span><span>Clothing &amp; Fashion</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Shoes & Footwear">
+    <span class="shortcut-icon">👟</span><span>Shoes &amp; Footwear</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Bags & Accessories">
+    <span class="shortcut-icon">👜</span><span>Bags &amp; Accessories</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Jewellery & Watches">
+    <span class="shortcut-icon">💍</span><span>Jewellery &amp; Watches</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Makeup & Cosmetics">
+    <span class="shortcut-icon">💄</span><span>Makeup &amp; Cosmetics</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Hair & Wigs">
+    <span class="shortcut-icon">💇</span><span>Hair &amp; Wigs</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Skincare & Fragrance">
+    <span class="shortcut-icon">🧴</span><span>Skincare &amp; Fragrance</span>
+  </button>
+  <button class="shortcut" type="button" data-subcategory="Salons & Beauty Services">
+    <span class="shortcut-icon">💅</span><span>Salons &amp; Beauty Services</span>
+  </button>
+</section>
+
+<p class="electronics-note" id="electronics-note">Showing all Fashion &amp; Beauty adverts.</p>
+
+<section id="products" class="products" aria-live="polite">
+  <div class="message">
+    <strong>Loading Fashion &amp; Beauty adverts...</strong>
+    Please wait while we connect to OGARS MARKET.
+  </div>
+</section>
+
+<div class="back-area">
+  <a href="index.html" class="back">← Back to OGARS MARKET</a>
+</div>
 </main>
 
-<footer>
-  © 2026 OGARS MARKET. Trusted people. Real opportunities.
-</footer>
-
-<nav class="bottom-nav">
-  <a class="nav-item" href="index.html"><span>⌂</span>Home</a>
-  <a class="nav-item" href="discover.html"><span>🔎</span>Discover</a>
-  <a class="nav-item" href="advertise.html"><span>＋</span>Post advert</a>
-  <a class="nav-item" href="account.html"><span>♙</span>Account</a>
-  <a class="nav-item active" href="fashion-beauty.html"><span>👗</span>Fashion</a>
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<footer>
+  <nav class="footer-links">
+    <a href="index.html">Home</a><a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
+    <a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
+    <a href="discover.html">Discover</a>
+  </nav>
+  <div>© 2026 OGARS MARKET</div>
+  <div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
+</footer>
 
 <script>
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+"use strict";
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
 
-const $ = id => document.getElementById(id);
+const categories=[
+  "Clothing & Fashion",
+  "Shoes & Footwear",
+  "Bags & Accessories",
+  "Jewellery & Watches",
+  "Makeup & Cosmetics",
+  "Hair & Wigs",
+  "Skincare & Fragrance",
+  "Salons & Beauty Services"
+];
 
-const listingGrid = $("listing-grid");
-const resultsCount = $("results-count");
-const resultsTitle = $("results-title");
-const errorBox = $("load-error");
-
-let allListings = [];
-let trustedUsers = new Set();
-let activeCategory = "";
-
-const categoryIcons = {
+const categoryIcons={
   "Clothing & Fashion":"👗",
   "Shoes & Footwear":"👟",
   "Bags & Accessories":"👜",
@@ -546,400 +348,514 @@ const categoryIcons = {
   "Salons & Beauty Services":"💅"
 };
 
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  })[char]);
-}
+let allProducts=[];
+let sellerMap={};
 
-function parseDescription(description){
-  const lines = String(description || "").split(/\r?\n/);
-  const metadata = {};
-  const publicLines = [];
+const params=new URLSearchParams(location.search);
+let selectedSubcategory=params.get("subcategory")||"";
 
-  lines.forEach(line => {
-    const match = line.match(/^\s*(Fashion & Beauty category|Advert purpose|Region|Town \/ area|Specific location|Product \/ service type|Service name|Service price \/ rate \(GH₵\)|Price \(GH₵\)|Maximum budget \(GH₵\)|Condition|Size|Colour|Brand|Quantity available|Warranty \/ return details|Suitable service \/ use|Service location \/ coverage)\s*:\s*(.*)$/i);
+/* PARSE DETAILS SAVED IN DESCRIPTION */
+function parseAdvert(advert){
+  const lines=String(advert.description||"").split(/\r?\n/);
+  const details={};
+  const publicLines=[];
 
-    if(match){
-      metadata[match[1].toLowerCase()] = match[2].trim();
-    }else if(line.trim()){
-      publicLines.push(line.trim());
+  const automaticFields=[
+    "Fashion & Beauty category",
+    "Advert purpose",
+    "Region",
+    "Town / area",
+    "Specific location",
+    "Product / service type",
+    "Service name",
+    "Service price / rate (GH₵)",
+    "Service location / coverage",
+    "Product name",
+    "Price (GH₵)",
+    "Maximum budget (GH₵)",
+    "Condition",
+    "Size",
+    "Colour",
+    "Brand",
+    "Quantity available",
+    "Suitable service / use",
+    "Warranty / return details"
+  ];
+
+  for(const line of lines){
+    const text=line.trim();
+    if(!text)continue;
+
+    const colon=text.indexOf(":");
+    if(colon>0){
+      const label=text.slice(0,colon).trim();
+      const value=text.slice(colon+1).trim();
+
+      if(value){
+        details[label.toLowerCase()]=value;
+      }
     }
-  });
 
-  return {
-    metadata,
-    publicDescription:publicLines.join(" ")
+    if(automaticFields.some(field=>
+      text.toLowerCase().startsWith(field.toLowerCase()+":")
+    ))continue;
+
+    publicLines.push(text);
+  }
+
+  const priceValue=
+    details["price (gh₵)"]||
+    details["service price / rate (gh₵)"]||
+    details["maximum budget (gh₵)"]||"";
+
+  const numericPrice=Number(String(priceValue).replace(/,/g,""));
+
+  return{
+    category:details["fashion & beauty category"]||"",
+    purpose:details["advert purpose"]||"",
+    region:details["region"]||"",
+    town:details["town / area"]||"",
+    price:priceValue&&Number.isFinite(numericPrice)?numericPrice:null,
+    publicDescription:publicLines.join("\n").trim()
   };
 }
 
-function getMetadata(parsed, name){
-  return parsed.metadata[name.toLowerCase()] || "";
-}
+/* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
 
-function getPrice(parsed){
-  const possible = [
-    "price (gh₵)",
-    "service price / rate (gh₵)",
-    "maximum budget (gh₵)"
-  ];
+  const status=String(advert.status||"").toLowerCase();
 
-  for(const key of possible){
-    const value = getMetadata(parsed,key);
-    if(value){
-      const number = Number(value.replace(/,/g,"").replace(/[^\d.]/g,""));
-      if(Number.isFinite(number)) return number;
-    }
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status)){
+    return false;
   }
 
-  return null;
-}
-
-function formatPrice(price){
-  if(price === null || price === undefined) return "";
-  return "GH₵ " + Number(price).toLocaleString("en-GH",{
-    maximumFractionDigits:2
-  });
-}
-
-function getPhotoUrls(value){
-  if(!value) return [];
-
-  if(Array.isArray(value)){
-    return value.filter(Boolean);
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
   }
 
-  return String(value)
-    .split(",")
-    .map(url => url.trim())
-    .filter(Boolean);
+  return true;
 }
 
-function normalisePhone(phone){
-  return String(phone || "").replace(/[^\d+]/g,"");
+/* SAFE HTML */
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-function makeWhatsApp(phone){
-  let number = normalisePhone(phone).replace(/\D/g,"");
-
-  if(number.startsWith("0")){
-    number = "233" + number.slice(1);
-  }else if(number.startsWith("233")){
-    // Already has Ghana country code.
-  }
-
-  return number ? "https://wa.me/" + number : "";
+/* PHONE NUMBER */
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
+  return value;
 }
 
-function getAdvertCategory(parsed){
-  return getMetadata(parsed,"Fashion & Beauty category");
-}
+/* LOAD ADVERTS */
+async function loadProducts(){
+  $("products").innerHTML=`
+    <div class="message">
+      <strong>👗 Loading Fashion &amp; Beauty adverts...</strong>
+      Connecting to OGARS MARKET.
+    </div>`;
 
-function getAdvertPurpose(parsed){
-  return getMetadata(parsed,"Advert purpose");
-}
+  $("results-count").textContent="Connecting to OGARS MARKET...";
 
-function getAdvertRegion(parsed){
-  return getMetadata(parsed,"Region");
-}
-
-function getAdvertTown(parsed){
-  return getMetadata(parsed,"Town / area");
-}
-
-function getAdvertAudience(parsed){
-  const details = [
-    getMetadata(parsed,"Product / service type"),
-    getMetadata(parsed,"Suitable service / use")
-  ].join(" ").toLowerCase();
-
-  if(/\b(men|male|man's|menswear)\b/.test(details)) return "Men";
-  if(/\b(women|female|ladies|womenswear)\b/.test(details)) return "Women";
-  if(/\b(children|kids|boys|girls|baby)\b/.test(details)) return "Children";
-
-  return "";
-}
-
-function safeImage(url){
   try{
-    const parsed = new URL(url);
-    return ["https:","http:"].includes(parsed.protocol) ? parsed.href : "";
-  }catch{
-    return "";
+    const {data,error}=await db.from("discover_listings")
+      .select("*")
+      .eq("listing_type","Fashion & Beauty")
+      .order("created_at",{ascending:false})
+      .limit(500);
+
+    if(error)throw error;
+
+    allProducts=(data||[])
+      .filter(isAdvertActive)
+      .map(advert=>{
+        const parsed=parseAdvert(advert);
+
+        return{
+          ...advert,
+          parsed,
+          category:parsed.category,
+          purpose:parsed.purpose,
+          price:parsed.price
+        };
+      })
+      .filter(advert=>categories.includes(advert.category));
+
+    displayProducts(getFilteredProducts());
+    loadSellerInformation();
+
+  }catch(error){
+    console.error("OGARS Fashion & Beauty error:",error);
+    showMessage("Unable to load adverts",error.message||"Please try again.",true);
   }
 }
 
-function makeCard(item){
-  const parsed = parseDescription(item.description);
-  const category = getAdvertCategory(parsed);
-  const purpose = getAdvertPurpose(parsed);
-  const region = getAdvertRegion(parsed);
-  const town = getAdvertTown(parsed);
-  const price = getPrice(parsed);
-  const photos = getPhotoUrls(item.photo_urls);
-  const phone = item.phone || "";
-  const whatsapp = item.whatsapp || phone;
-  const description = parsed.publicDescription || "Contact the advertiser for more details.";
-  const trusted = trustedUsers.has(item.user_id);
-  const detailsUrl = "discover-details.html?id=" + encodeURIComponent(item.id);
-  const title = escapeHTML(item.title || "Fashion & Beauty advert");
-  const location = [town,region].filter(Boolean).join(", ") || item.location || "Location not specified";
-  const icon = categoryIcons[category] || "👗";
+/* SELLER TRUST INFORMATION */
+async function loadSellerInformation(){
+  const ids=[...new Set(allProducts.map(item=>item.user_id).filter(Boolean))];
+  if(!ids.length)return;
 
-  const imageHTML = photos.length
-    ? `<img class="listing-image" src="${escapeHTML(safeImage(photos[0]))}" alt="${title}" loading="lazy" onclick="window.location.href='${detailsUrl}'" onerror="this.style.display='none';this.parentElement.querySelector('.no-image').style.display='grid'">`
-    : "";
+  try{
+    const {data,error}=await db.from("user_profiles")
+      .select("id,is_trusted")
+      .in("id",ids);
 
-  const whatsappUrl = makeWhatsApp(whatsapp);
-  const callUrl = phone ? "tel:" + normalisePhone(phone) : "";
-  const shareUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/,"") + detailsUrl;
+    if(error)throw error;
 
-  const priceHTML = price !== null
-    ? `<div class="price">${formatPrice(price)}</div>`
-    : "";
+    sellerMap={};
+    (data||[]).forEach(seller=>{
+      sellerMap[String(seller.id)]=seller;
+    });
 
-  const purposeHTML = purpose
-    ? `<div class="purpose">${escapeHTML(purpose)}</div>`
-    : "";
+    filterProducts();
 
-  const trustedHTML = trusted
-    ? `<span class="trusted">✓ Trusted seller</span>`
-    : `<span>Seller</span>`;
-
-  const photoHTML = photos.length > 1
-    ? `<span class="photo-label">📷 ${photos.length} photos</span>`
-    : "";
-
-  return `
-    <article class="listing-card">
-      <div class="image-wrap">
-        ${imageHTML}
-        <div class="no-image" ${photos.length ? 'style="display:none"' : ""}>${icon}</div>
-        ${photoHTML}
-      </div>
-
-      <div class="card-body">
-        <span class="category-label">${escapeHTML(category || "Fashion & Beauty")}</span>
-        <h3 class="card-title">${title}</h3>
-        ${priceHTML}
-        ${purposeHTML}
-        <p class="description">${escapeHTML(description.slice(0,115))}${description.length>115?"…":""}</p>
-        <div class="card-location">📍 ${escapeHTML(location)}</div>
-        <div class="seller">${trustedHTML}</div>
-
-        <div class="card-actions">
-          <a class="action primary" href="${detailsUrl}">View Advert</a>
-          ${whatsappUrl ? `<a class="action whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener">WhatsApp</a>` : `<span class="action">No WhatsApp</span>`}
-          ${callUrl ? `<a class="action call" href="${callUrl}">Call</a>` : `<span class="action">No phone</span>`}
-          <button class="action share" type="button" onclick="shareAdvert('${escapeHTML(item.id)}')">Share</button>
-        </div>
-      </div>
-    </article>
-  `;
+  }catch(error){
+    console.warn("Seller verification lookup unavailable:",error.message);
+  }
 }
 
-async function shareAdvert(id){
-  const url = window.location.origin +
-    window.location.pathname.replace(/[^/]*$/,"") +
-    "discover-details.html?id=" + encodeURIComponent(id);
+/* ERROR AND EMPTY MESSAGES */
+function showMessage(title,detail,isError=false){
+  $("products").innerHTML=`
+    <div class="message">
+      <strong>${escapeHtml(title)}</strong>
+      <div>${escapeHtml(detail)}</div>
+      <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
+    </div>`;
+
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
+}
+
+/* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"").split(",")
+    .map(url=>url.trim())
+    .filter(url=>/^https?:\/\//i.test(url));
+}
+
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Fashion & Beauty advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
 
   try{
     if(navigator.share){
-      await navigator.share({
-        title:"OGARS MARKET Fashion & Beauty",
-        text:"Check out this advert on OGARS MARKET",
-        url
-      });
-    }else if(navigator.clipboard){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
       await navigator.clipboard.writeText(url);
-      alert("Advert link copied. You can now share it.");
+      alert("Advert link copied. You can now paste and share it.");
     }else{
-      prompt("Copy this advert link:",url);
+      window.prompt("Copy this advert link to share:",url);
     }
   }catch(error){
-    if(error.name !== "AbortError"){
-      alert("Unable to share this advert. Please try again.");
+    if(error&&error.name==="AbortError")return;
+
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
     }
   }
 }
 
-function filterListings(){
-  const search = $("search-input").value.trim().toLowerCase();
-  const region = $("region-filter").value.toLowerCase();
-  const purpose = $("purpose-filter").value.toLowerCase();
-  const audience = $("audience-filter").value;
-  const sort = $("sort-filter").value;
+/* ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
 
-  let filtered = allListings.filter(item => {
-    const parsed = parseDescription(item.description);
-    const category = getAdvertCategory(parsed);
-    const advertPurpose = getAdvertPurpose(parsed);
-    const advertRegion = getAdvertRegion(parsed);
-    const advertTown = getAdvertTown(parsed);
-    const advertAudience = getAdvertAudience(parsed);
+  const parsed=advert.parsed;
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
 
-    if(activeCategory && category !== activeCategory) return false;
-    if(region && advertRegion.toLowerCase() !== region) return false;
-    if(purpose && advertPurpose.toLowerCase() !== purpose) return false;
-    if(audience && advertAudience !== audience) return false;
+  let priceText="Price on request";
 
-    if(search){
-      const searchable = [
-        item.title,
-        item.location,
-        item.description,
-        category,
-        advertPurpose,
-        advertRegion,
-        advertTown
-      ].join(" ").toLowerCase();
+  if(parsed.price!==null){
+    priceText="GH₵"+parsed.price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+  }
 
-      if(!searchable.includes(search)) return false;
-    }
+  const icon=categoryIcons[parsed.category]||"👗";
 
-    return true;
-  });
+  let imageHtml=`<div class="no-image">${icon}</div>`;
 
-  filtered.sort((a,b) => {
-    if(sort === "oldest"){
-      return new Date(a.created_at) - new Date(b.created_at);
-    }
-
-    if(sort === "price-low" || sort === "price-high"){
-      const priceA = getPrice(parseDescription(a.description));
-      const priceB = getPrice(parseDescription(b.description));
-
-      if(priceA === null && priceB === null) return 0;
-      if(priceA === null) return 1;
-      if(priceB === null) return -1;
-
-      return sort === "price-low" ? priceA-priceB : priceB-priceA;
-    }
-
-    return new Date(b.created_at) - new Date(a.created_at);
-  });
-
-  displayListings(filtered);
-}
-
-function displayListings(items){
-  resultsCount.textContent = items.length + (items.length === 1 ? " advert" : " adverts");
-
-  resultsTitle.textContent = activeCategory || "Latest adverts";
-
-  if(!items.length){
-    listingGrid.innerHTML = `
-      <div class="empty">
-        <strong>No adverts found</strong>
-        There are currently no adverts matching your selection.
-        Try another category or change your filters.
-      </div>
+  if(photo){
+    imageHtml=`
+      <img class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(advert.title||"Fashion & Beauty advert")}"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>${icon}</div>'">
     `;
+  }
+
+  const detailsUrl=new URL("discover-details.html",location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+  const shareUrl=detailsUrl.href;
+
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Fashion & Beauty advert")+
+        '" on OGARS MARKET. Is it still available?'
+      );
+
+      buttons+=`
+        <a class="button whatsapp"
+          href="https://wa.me/${escapeHtml(number)}?text=${message}"
+          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+    }
+  }
+
+  if(phone){
+    buttons+=`
+      <a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+  }
+
+  buttons+=`
+    <button class="button share-button" type="button">↗ Share</button>`;
+
+  card.innerHTML=`
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">${escapeHtml(parsed.category)}</div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">${escapeHtml(advert.title||"Fashion & Beauty advert")}</h2>
+      <div class="price">${escapeHtml(priceText)}</div>
+      <div class="purpose">${escapeHtml(parsed.purpose||"For sale")}</div>
+
+      ${parsed.publicDescription
+        ?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
+
+      <div class="business">
+        ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+        📍 ${escapeHtml(advert.location||"Ghana")}
+      </div>
+
+      <div class="delivery">
+        ${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}
+      </div>
+
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
+
+      ${buttons?`<div class="button-row">${buttons}</div>`:""}
+    </div>
+  `;
+
+  const shareButton=card.querySelector(".share-button");
+
+  shareButton.addEventListener("click",()=>{
+    shareAdvert(advert.title,shareUrl);
+  });
+
+  return card;
+}
+
+/* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=
+    products.length+(products.length===1?" advert found":" adverts found");
+
+  if(!products.length){
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>🔍 No adverts found in this category</strong>
+        Try another category or clear your filters.
+      </div>`;
     return;
   }
 
-  listingGrid.innerHTML = items.map(makeCard).join("");
+  const fragment=document.createDocumentFragment();
+
+  products.forEach(advert=>{
+    fragment.appendChild(createProductCard(advert));
+  });
+
+  $("products").replaceChildren(fragment);
 }
 
-async function loadTrustedUsers(userIds){
-  if(!userIds.length) return;
+/* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
 
-  const uniqueIds = [...new Set(userIds)].filter(Boolean);
-  if(!uniqueIds.length) return;
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
 
-  const {data,error} = await client
-    .from("user_profiles")
-    .select("id,is_trusted")
-    .in("id",uniqueIds);
+  const aliases={
+    "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
+    "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
+    "central":["central","cape coast","winneba","mankessim","swedru"],
+    "eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],
+    "western":["western","takoradi","sekondi","tarkwa","axim"],
+    "western north":["western north","sefwi","bibiani","enchi"],
+    "volta":["volta","ho","hohoe","keta","aflao"],
+    "northern":["northern","tamale","yendi","savelugu"],
+    "upper east":["upper east","bolgatanga","bawku","navrongo"],
+    "upper west":["upper west","wa","lawra","tumu"],
+    "bono":["bono","sunnyani","berekum","dormaa"],
+    "bono east":["bono east","techiman","kintampo","nkoranza"],
+    "ahafo":["ahafo","goaso","kenyasi","bechem"],
+    "oti":["oti","dambai","jasikan","nkwanta"],
+    "savannah":["savannah","damongo","bole","salaga"],
+    "north east":["north east","nalerigu","walewale"]
+  };
 
-  if(error){
-    console.warn("Could not load seller trust details:",error.message);
-    return;
-  }
-
-  trustedUsers = new Set(
-    (data || [])
-      .filter(profile => profile.is_trusted === true)
-      .map(profile => profile.id)
-  );
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
 }
 
-async function loadListings(){
-  listingGrid.innerHTML = `<div class="loading">Loading Fashion &amp; Beauty adverts...</div>`;
-  errorBox.style.display = "none";
+/* SEARCH, CATEGORY AND SORTING */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
 
-  try{
-    const {data,error} = await client
-      .from("discover_listings")
-      .select("*")
-      .eq("listing_type","Fashion & Beauty")
-      .eq("available",true)
-      .order("created_at",{ascending:false});
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,
+      advert.location,
+      advert.description,
+      advert.category,
+      advert.purpose
+    ].filter(Boolean).join(" ").toLowerCase();
 
-    if(error) throw error;
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedSubcategory||advert.category===selectedSubcategory;
+    const matchesLocation=matchesRegion(advert.location,region);
 
-    const now = Date.now();
-    const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+    return matchesSearch&&matchesCategory&&matchesLocation;
 
-    allListings = (data || []).filter(item => {
-      if(!item.created_at) return true;
+  }).sort((a,b)=>{
+    const priceA=a.price,priceB=b.price;
+    const validA=priceA!==null&&Number.isFinite(priceA);
+    const validB=priceB!==null&&Number.isFinite(priceB);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+    const trustedA=sellerMap[String(a.user_id)]?.is_trusted===true;
+    const trustedB=sellerMap[String(b.user_id)]?.is_trusted===true;
 
-      const created = new Date(item.created_at).getTime();
-      if(!Number.isFinite(created)) return true;
+    if(sort==="price-low"){
+      if(validA&&validB)return priceA-priceB;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
 
-      return now - created <= thirtyDays;
+    if(sort==="price-high"){
+      if(validA&&validB)return priceB-priceA;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+
+    if(sort==="verified"){
+      if(trustedA!==trustedB)return trustedA?-1:1;
+      return dateB-dateA;
+    }
+
+    return dateB-dateA;
+  });
+}
+
+function filterProducts(){
+  displayProducts(getFilteredProducts());
+}
+
+/* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.subcategory;
+
+    selectedSubcategory=selectedSubcategory===category?"":category;
+
+    document.querySelectorAll(".shortcut").forEach(item=>{
+      item.classList.toggle(
+        "active",
+        item.dataset.subcategory===selectedSubcategory
+      );
     });
 
-    await loadTrustedUsers(allListings.map(item => item.user_id));
+    $("electronics-note").textContent=selectedSubcategory
+      ?"Showing adverts in "+selectedSubcategory+"."
+      :"Showing all Fashion & Beauty adverts.";
 
-    filterListings();
+    filterProducts();
 
-  }catch(error){
-    console.error("Fashion & Beauty loading error:",error);
+    $("products").scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+  });
+});
 
-    listingGrid.innerHTML = `
-      <div class="empty">
-        <strong>Unable to load adverts</strong>
-        Please check your internet connection and refresh the page.
-      </div>
-    `;
+/* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+  selectedSubcategory="";
 
-    errorBox.textContent = "There was a problem loading adverts: " + (error.message || "Please try again.");
-    errorBox.style.display = "block";
-    resultsCount.textContent = "Unable to load";
-  }
-}
-
-$("category-grid").addEventListener("click",event => {
-  const button = event.target.closest(".category-button");
-  if(!button) return;
-
-  activeCategory = button.dataset.category || "";
-
-  document.querySelectorAll(".category-button").forEach(item => {
-    item.classList.toggle("active",item === button);
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.remove("active");
   });
 
-  filterListings();
+  $("electronics-note").textContent="Showing all Fashion & Beauty adverts.";
+
+  filterProducts();
+}
+
+/* EVENT LISTENERS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+  alert("OGARS MARKET AI Search is coming soon.");
 });
 
-$("search-form").addEventListener("submit",event => {
-  event.preventDefault();
-  filterListings();
-});
+/* CATEGORY FROM URL */
+if(selectedSubcategory){
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.subcategory===selectedSubcategory
+    );
+  });
 
-["region-filter","purpose-filter","audience-filter","sort-filter"].forEach(id => {
-  $(id).addEventListener("change",filterListings);
-});
+  $("electronics-note").textContent=
+    "Showing adverts in "+selectedSubcategory+".";
+}
 
-$("search-input").addEventListener("input",filterListings);
-
-loadListings();
+/* START */
+loadProducts();
 </script>
-
 </body>
 </html>
