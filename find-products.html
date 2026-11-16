@@ -10,453 +10,124 @@
 
 <style>
 :root{
-  --p:#6500a8;
-  --deep:#4e087f;
-  --lav:#f2e8ff;
-  --line:#e5d2ff;
-  --ink:#211b36;
-  --muted:#716b83;
-  --white:#fff;
+  --p:#6500a8;--deep:#4e087f;--lav:#f2e8ff;
+  --line:#e5d2ff;--ink:#211b36;--muted:#716b83;
 }
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--ink);
-  background:#fff;
-  padding-bottom:95px;
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff;padding-bottom:85px}
 .hero{
-  min-height:150px;
-  padding:22px 15px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  position:relative;
-  overflow:hidden;
-  color:white;
-  background:linear-gradient(110deg,#7814c5,#4e087f);
+  min-height:105px;padding:15px;display:flex;align-items:center;gap:11px;
+  color:white;background:linear-gradient(110deg,#7814c5,#4e087f);
 }
-.hero:after{
-  content:"▦";
-  position:absolute;
-  right:8px;
-  top:-25px;
-  font-size:150px;
-  color:#ffffff18;
-  pointer-events:none;
-}
-.hero-back{
-  color:white;
-  text-decoration:none;
-  font-size:38px;
-  line-height:1;
-  position:relative;
-  z-index:1;
-}
-.hero-icon{
-  width:70px;
-  height:70px;
-  flex:0 0 70px;
-  border:3px solid white;
-  border-radius:21px;
-  display:grid;
-  place-items:center;
-  font-size:37px;
-  position:relative;
-  z-index:1;
-}
-.hero-copy{position:relative;z-index:1;min-width:0}
-.hero h1{
-  margin:0;
-  font-size:clamp(21px,5vw,29px);
-  line-height:1.12;
-  font-weight:900;
-  text-transform:uppercase;
-}
-.hero p{margin:8px 0 0;font-size:13px;color:#f1e6ff}
-main{max-width:950px;margin:auto;padding:15px 13px 30px}
-.search-panel{
-  background:var(--lav);
-  border-radius:27px;
-  padding:14px;
-  margin:10px 0 20px;
-}
+.hero-back{color:white;text-decoration:none;font-size:32px}
+.hero-icon{width:53px;height:53px;flex:0 0 53px;border:2px solid white;border-radius:16px;display:grid;place-items:center;font-size:28px}
+.hero-copy h1{margin:0;font-size:clamp(20px,5vw,27px);font-weight:900}
+.hero-copy p{margin:5px 0 0;font-size:12px;color:#f1e6ff}
+main{max-width:950px;margin:auto;padding:12px 13px 25px}
+.search-panel{background:var(--lav);border-radius:22px;padding:12px;margin:7px 0 17px}
 .search-panel input,.search-panel select{
-  width:100%;
-  min-width:0;
-  height:52px;
-  border:1.5px solid var(--line);
-  border-radius:25px;
-  background:white;
-  padding:0 14px;
-  font-size:15px;
-  color:var(--ink);
+  width:100%;height:46px;border:1px solid var(--line);border-radius:22px;
+  background:white;padding:0 13px;font-size:14px;color:var(--ink);min-width:0
 }
-.search-panel input{margin-bottom:10px}
-.filters{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-bottom:11px;
-}
+.search-panel input{margin-bottom:9px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
 .search-button{
-  height:53px;
-  width:100%;
-  border:0;
-  border-radius:25px;
-  color:white;
-  background:linear-gradient(110deg,#6800a9,#4f087f);
-  font-size:17px;
-  font-weight:900;
+  height:46px;width:100%;border:0;border-radius:22px;color:white;
+  background:linear-gradient(110deg,#6800a9,#4f087f);font-size:15px;font-weight:900
 }
-.results-summary{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  margin:12px 2px 17px;
-  color:var(--muted);
-  font-size:12px;
+.results-summary{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:10px 2px 0;color:var(--muted);font-size:11px}
+.clear-button{border:0;background:white;color:var(--deep);border-radius:18px;padding:7px 11px;font-weight:bold}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:13px 2px}
+.section-heading h2{color:#5c078f;font-size:19px;margin:0;font-weight:900}
+.sort{border:1px solid #c76af0;border-radius:20px;padding:6px 8px;color:var(--p);font-size:11px}
+.sort select{border:0;background:transparent;max-width:115px;color:var(--ink);font-weight:bold;font-size:11px}
+.category-intro{margin:8px 2px 11px}
+.category-intro h2{margin:0 0 4px;color:#5c078f;font-size:19px}
+.category-intro p{margin:0;color:var(--muted);font-size:12px}
+.categories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:15px}
+.category-card{
+  min-width:0;min-height:94px;border:1px solid var(--line);border-radius:17px;
+  background:white;color:var(--ink);padding:8px 5px;font-size:11px;font-weight:900;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px
 }
-.clear-button{
-  border:0;
-  background:white;
-  color:var(--deep);
-  border-radius:18px;
-  padding:8px 12px;
-  font-weight:bold;
-}
-.heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  margin:12px 2px 15px;
-}
-.heading h2{
-  color:#5c078f;
-  font-size:clamp(17px,4.5vw,23px);
-  margin:0;
-  font-weight:900;
-}
-.sort{
-  border:1.5px solid #c76af0;
-  border-radius:25px;
-  padding:7px 9px;
-  display:flex;
-  align-items:center;
-  gap:5px;
-  color:var(--p);
-}
-.sort select{
-  border:0;
-  background:transparent;
-  max-width:125px;
-  color:var(--ink);
-  font-weight:bold;
-  font-size:12px;
-}
-.products{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;
-}
-.product-card{
-  min-width:0;
-  border:1.5px solid var(--line);
-  border-radius:23px;
-  overflow:hidden;
-  background:white;
-  box-shadow:0 4px 9px #4e087f12;
-  display:flex;
-  flex-direction:column;
-}
-.image-wrap{
-  height:140px;
-  background:linear-gradient(140deg,#f8efff,#fff);
-  position:relative;
-  overflow:hidden;
-}
-.product-image{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-.no-image{
-  height:100%;
-  display:grid;
-  place-items:center;
-  font-size:45px;
-  color:#8b65b8;
-}
-.category-badge{
-  position:absolute;
-  bottom:7px;
-  left:7px;
-  max-width:calc(100% - 14px);
-  padding:5px 8px;
-  background:white;
-  color:var(--deep);
-  border-radius:20px;
-  font-size:9px;
-  font-weight:900;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.product-content{
-  padding:9px;
-  display:flex;
-  flex-direction:column;
-  flex:1;
-  min-width:0;
-}
-.product-name{
-  margin:0;
-  font-size:14px;
-  line-height:1.25;
-  font-weight:900;
-  overflow-wrap:anywhere;
-}
-.price{
-  color:var(--p);
-  font-size:17px;
-  font-weight:900;
-  margin-top:6px;
-}
-.description{
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.4;
-  margin-top:7px;
-  overflow-wrap:anywhere;
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.business{
-  border-top:1px solid var(--line);
-  padding-top:8px;
-  margin-top:9px;
-  font-size:10px;
-  line-height:1.45;
-  overflow-wrap:anywhere;
-}
-.delivery{
-  background:#f6f2ff;
-  color:#55427f;
-  padding:7px;
-  border-radius:10px;
-  margin-top:8px;
-  font-size:10px;
-  line-height:1.4;
-  overflow-wrap:anywhere;
-}
-.view-details{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  background:#f2e8ff;
-  color:#5b078f;
-  border-radius:18px;
-  padding:9px 5px;
-  margin-top:9px;
-  font-size:11px;
-  font-weight:900;
-}
-.button-row{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:5px;
-  margin-top:8px;
-}
-.action-button{
-  min-width:0;
-  min-height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  border:0;
-  border-radius:17px;
-  padding:6px 3px;
-  font-size:10px;
-  font-weight:900;
-  cursor:pointer;
-  text-align:center;
-}
+.category-card .emoji{font-size:27px}
+.category-card.active{border:2px solid #8a55c5;background:#f8f2ff}
+.category-card:active{transform:scale(.98)}
+.note{font-size:11px;color:var(--muted);margin:0 0 12px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.product-card{min-width:0;border:1px solid var(--line);border-radius:19px;overflow:hidden;background:white;box-shadow:0 3px 9px #4e087f12;display:flex;flex-direction:column}
+.image-wrap{height:135px;background:#f8efff;position:relative;overflow:hidden}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
+.no-image{height:100%;display:grid;place-items:center;font-size:40px;color:#8b65b8}
+.category-badge{position:absolute;bottom:6px;left:6px;max-width:calc(100% - 12px);padding:5px 8px;background:white;color:var(--deep);border-radius:20px;font-size:9px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-content{padding:9px;display:flex;flex-direction:column;flex:1;min-width:0}
+.product-name{margin:0;font-size:13px;line-height:1.3;font-weight:900;overflow-wrap:anywhere}
+.price{color:var(--p);font-size:16px;font-weight:900;margin-top:5px}
+.description{color:var(--muted);font-size:11px;line-height:1.4;margin-top:6px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.business{border-top:1px solid var(--line);padding-top:7px;margin-top:8px;font-size:10px;line-height:1.45;overflow-wrap:anywhere}
+.delivery{background:#f6f2ff;color:#55427f;padding:7px;border-radius:9px;margin-top:7px;font-size:10px;line-height:1.4;overflow-wrap:anywhere}
+.view-details{display:block;text-align:center;text-decoration:none;background:#f2e8ff;color:#5b078f;border-radius:17px;padding:8px 5px;margin-top:8px;font-size:11px;font-weight:900}
+.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:7px}
+.action-button{min-width:0;min-height:34px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:0;border-radius:16px;padding:5px 2px;font-size:9px;font-weight:900;cursor:pointer;text-align:center}
 .whatsapp{background:#e7f8ed;color:#16783a}
 .call{background:#f0e8ff;color:#5a2290}
 .share{background:#eeeaff;color:#4f32a5}
-.message{
-  grid-column:1/-1;
-  padding:28px 16px;
-  text-align:center;
-  color:var(--muted);
-  background:#faf7ff;
-  border:1px solid var(--line);
-  border-radius:20px;
-}
+.message{grid-column:1/-1;padding:25px 15px;text-align:center;color:var(--muted);background:#faf7ff;border:1px solid var(--line);border-radius:18px;font-size:13px}
 .message strong{display:block;color:var(--ink);margin-bottom:7px}
-.retry-button{
-  border:0;
-  background:var(--p);
-  color:white;
-  border-radius:20px;
-  padding:10px 17px;
-  margin-top:12px;
-  font-weight:bold;
-}
-.back-area{text-align:center;margin:22px 0}
-.back{
-  display:inline-block;
-  color:var(--deep);
-  text-decoration:none;
-  border:1px solid var(--line);
-  background:white;
-  border-radius:20px;
-  padding:10px 16px;
-  font-size:12px;
-  font-weight:bold;
-}
-.detail-view .image-wrap{height:280px}
-.detail-view .product-content{padding:15px}
-.detail-view .product-name{font-size:21px}
-.detail-view .price{font-size:23px}
-.detail-view .description{
-  display:block;
-  overflow:visible;
-  font-size:13px;
-  line-height:1.6;
-}
+.retry-button{border:0;background:var(--p);color:white;border-radius:20px;padding:9px 16px;margin-top:11px;font-weight:bold}
+.back-area{text-align:center;margin:20px 0}
+.back{display:inline-block;color:var(--deep);text-decoration:none;border:1px solid var(--line);background:white;border-radius:20px;padding:9px 15px;font-size:12px;font-weight:bold}
+.detail-view .image-wrap{height:270px}
+.detail-view .product-content{padding:14px}
+.detail-view .product-name{font-size:20px}
+.detail-view .price{font-size:22px}
+.detail-view .description{display:block;overflow:visible;font-size:13px;line-height:1.6}
 .detail-view .business,.detail-view .delivery{font-size:12px}
-.detail-view .button-row{gap:8px}
-.detail-view .action-button{min-height:43px;font-size:12px}
+.detail-view .action-button{min-height:42px;font-size:11px}
 .detail-view .view-details{display:none}
-.electronics-intro{margin:5px 2px 12px}
-.electronics-intro h2{margin:0 0 4px;color:#5c078f;font-size:21px}
-.electronics-intro p{margin:0;color:var(--muted);font-size:12px}
-.electronics-shortcuts{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
-  margin-bottom:14px;
-}
-.shortcut{
-  min-width:0;
-  min-height:120px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:white;
-  color:var(--ink);
-  padding:8px 5px;
-  font-size:11px;
-  font-weight:900;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-}
-.shortcut-icon{font-size:34px}
-.shortcut.active{border:2px solid #8a55c5;background:#f8f2ff}
-.electronics-note{font-size:11px;color:var(--muted);margin:0 0 12px}
-footer{
-  background:#211b36;
-  color:#e1dced;
-  text-align:center;
-  padding:20px 12px;
-  font-size:11px;
-}
-.footer-links{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-  margin-bottom:12px;
-}
+footer{background:#211b36;color:#e1dced;text-align:center;padding:18px 12px;font-size:11px}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:10px}
 .footer-links a{color:white;text-decoration:none;font-weight:bold}
-.bottom-nav{
-  position:fixed;
-  left:0;right:0;bottom:0;
-  z-index:50;
-  height:75px;
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  align-items:center;
-  background:#ffffffed;
-  border-top:1px solid var(--line);
-  box-shadow:0 -4px 14px #23184612;
-  padding-bottom:env(safe-area-inset-bottom);
-}
-.bottom-nav a,.bottom-nav button{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-  min-width:0;
-  border:0;
-  background:none;
-  color:#777187;
-  text-decoration:none;
-  font-size:10px;
-  font-weight:700;
-}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;height:70px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;background:#ffffffed;border-top:1px solid var(--line);box-shadow:0 -4px 14px #23184612;padding-bottom:env(safe-area-inset-bottom)}
+.bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;color:#777187;text-decoration:none;font-size:10px;font-weight:700}
 .bottom-nav .active{color:var(--p)}
-.nav-icon{font-size:22px;line-height:1.1}
-.sell-icon{
-  width:39px;height:31px;
-  display:grid;place-items:center;
-  background:var(--p);
-  color:white;
-  border-radius:12px;
-  font-size:22px;
-  margin-top:-10px;
-}
+.nav-icon{font-size:21px;line-height:1.1}
+.sell-icon{width:36px;height:29px;display:grid;place-items:center;background:var(--p);color:white;border-radius:11px;font-size:21px;margin-top:-8px}
+[hidden]{display:none!important}
 @media(min-width:650px){
-  main{padding-left:18px;padding-right:18px}
-  .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-  .image-wrap{height:175px}
-  .product-content{padding:12px}
-  .product-name{font-size:16px}
-  .price{font-size:19px}
-  .action-button{font-size:11px}
+ main{padding-left:18px;padding-right:18px}
+ .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+ .image-wrap{height:170px}
+ .product-content{padding:11px}
+ .product-name{font-size:15px}
+ .price{font-size:18px}
+ .action-button{font-size:10px}
+ .categories{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:360px){
-  main{padding-left:9px;padding-right:9px}
-  .products{gap:7px}
-  .product-content{padding:7px}
-  .product-name{font-size:12px}
-  .image-wrap{height:115px}
-  .action-button{font-size:9px}
-  .heading{align-items:flex-start;flex-direction:column}
-  .sort{align-self:flex-end;margin-top:-7px}
+ main{padding-left:9px;padding-right:9px}
+ .products{gap:7px}
+ .product-content{padding:7px}
+ .product-name{font-size:12px}
+ .image-wrap{height:115px}
+ .action-button{font-size:8px}
 }
 </style>
 </head>
 
 <body>
-
 <section class="hero">
   <a href="index.html" class="hero-back" aria-label="Back">‹</a>
   <div class="hero-icon" id="hero-icon">🛍️</div>
   <div class="hero-copy">
-    <h1 id="hero-title">Products<br>&amp; Goods</h1>
+    <h1 id="hero-title">Products &amp; Goods</h1>
     <p id="hero-description">Find everyday products and goods</p>
   </div>
 </section>
 
-<main id="main-content">
-
+<main>
   <section class="search-panel" id="search-panel">
-    <input type="search" id="product-search"
-      placeholder="Search products, brands or items..."
-      autocomplete="off">
-
+    <input type="search" id="product-search" placeholder="Search products, brands or items..." autocomplete="off">
     <div class="filters">
       <select id="location-filter" aria-label="Choose region">
         <option value="">📍 All Ghana</option>
@@ -477,7 +148,6 @@ footer{
         <option value="Western">Western Region</option>
         <option value="Western North">Western North Region</option>
       </select>
-
       <select id="category-filter" aria-label="Product category">
         <option value="">All Categories</option>
         <option>Home &amp; Kitchen Goods</option>
@@ -493,42 +163,37 @@ footer{
         <option>Other Products &amp; Goods</option>
       </select>
     </div>
-
-    <button type="button" class="search-button" id="search-button">
-      ⌕ &nbsp; Search Products
-    </button>
-
+    <button type="button" class="search-button" id="search-button">⌕ &nbsp; Search Products</button>
     <div class="results-summary">
       <span id="results-count">Connecting to OGARS...</span>
       <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
     </div>
   </section>
 
-  <section id="electronics-intro" class="electronics-intro" hidden>
+  <section id="electronics-intro" class="category-intro" hidden>
     <h2>Browse Electronics</h2>
     <p>Choose a category to narrow your search.</p>
   </section>
 
-  <section id="electronics-shortcuts" class="electronics-shortcuts" hidden>
-    <button class="shortcut" type="button" data-subcategory="Laptops & Computers"><span class="shortcut-icon">💻</span>Laptops & Computers</button>
-    <button class="shortcut" type="button" data-subcategory="TVs & Projectors"><span class="shortcut-icon">📺</span>TVs & Projectors</button>
-    <button class="shortcut" type="button" data-subcategory="Gaming Devices"><span class="shortcut-icon">🎮</span>Gaming Devices</button>
-    <button class="shortcut" type="button" data-subcategory="Audio & Headphones"><span class="shortcut-icon">🎧</span>Audio & Headphones</button>
-    <button class="shortcut" type="button" data-subcategory="Cameras"><span class="shortcut-icon">📷</span>Cameras</button>
-    <button class="shortcut" type="button" data-subcategory="Printers & Scanners"><span class="shortcut-icon">🖨️</span>Printers & Scanners</button>
-    <button class="shortcut" type="button" data-subcategory="Home Appliances"><span class="shortcut-icon">🧊</span>Home Appliances</button>
-    <button class="shortcut" type="button" data-subcategory="Fans & Cooling"><span class="shortcut-icon">🌀</span>Fans & Cooling</button>
-    <button class="shortcut" type="button" data-subcategory="Electronics Accessories"><span class="shortcut-icon">🔌</span>Accessories</button>
+  <section id="electronics-shortcuts" class="categories" hidden>
+    <button class="category-card" type="button" data-subcategory="Laptops & Computers"><span class="emoji">💻</span>Laptops & Computers</button>
+    <button class="category-card" type="button" data-subcategory="TVs & Projectors"><span class="emoji">📺</span>TVs & Projectors</button>
+    <button class="category-card" type="button" data-subcategory="Gaming Devices"><span class="emoji">🎮</span>Gaming Devices</button>
+    <button class="category-card" type="button" data-subcategory="Audio & Headphones"><span class="emoji">🎧</span>Audio & Headphones</button>
+    <button class="category-card" type="button" data-subcategory="Cameras"><span class="emoji">📷</span>Cameras</button>
+    <button class="category-card" type="button" data-subcategory="Printers & Scanners"><span class="emoji">🖨️</span>Printers & Scanners</button>
+    <button class="category-card" type="button" data-subcategory="Home Appliances"><span class="emoji">🧊</span>Home Appliances</button>
+    <button class="category-card" type="button" data-subcategory="Fans & Cooling"><span class="emoji">🌀</span>Fans & Cooling</button>
+    <button class="category-card" type="button" data-subcategory="Electronics Accessories"><span class="emoji">🔌</span>Accessories</button>
   </section>
 
-  <p class="electronics-note" id="electronics-note" hidden>Showing electronic products only.</p>
+  <p class="note" id="electronics-note" hidden>Showing electronic products only.</p>
 
-  <div class="heading" id="listing-heading">
+  <div class="section-heading" id="listing-heading">
     <h2 id="listing-title">Latest Products &amp; Goods</h2>
-    <label class="sort">
-      ↕
+    <label class="sort">↕
       <select id="sort-filter" aria-label="Sort products">
-        <option value="newest">Sort: Latest</option>
+        <option value="newest">Latest</option>
         <option value="verified">Verified sellers</option>
         <option value="price-low">Price: Low to High</option>
         <option value="price-high">Price: High to Low</option>
@@ -537,16 +202,12 @@ footer{
   </div>
 
   <section id="products" class="products" aria-live="polite">
-    <div class="message">
-      <strong>🛍️ Loading products...</strong>
-      Please wait while we connect to OGARS.
-    </div>
+    <div class="message"><strong>🛍️ Loading products...</strong>Please wait while we connect to OGARS.</div>
   </section>
 
   <div class="back-area" id="back-area">
     <a href="index.html" class="back">← Back to OGARS MARKET</a>
   </div>
-
 </main>
 
 <nav class="bottom-nav" aria-label="Main navigation">
@@ -572,498 +233,318 @@ footer{
 <script>
 "use strict";
 
-/* SUPABASE CONNECTION */
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+let allProducts=[];
+let businessMap={};
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const pageParams=new URLSearchParams(window.location.search);
+const requestedCategory=(pageParams.get("category")||"").trim();
+const productIdFromUrl=pageParams.get("product");
+const isElectronicsPage=requestedCategory.toLowerCase()==="electronics";
+let selectedSubcategory=(pageParams.get("subcategory")||"").trim();
 
-let allProducts = [];
-let businessMap = {};
-
-const pageParams = new URLSearchParams(window.location.search);
-const requestedCategory = (pageParams.get("category") || "").trim();
-const productIdFromUrl = pageParams.get("product");
-const isElectronicsPage = requestedCategory.toLowerCase() === "electronics";
-let selectedSubcategory = (pageParams.get("subcategory") || "").trim();
-
-const productCategories = [
-  "Home & Kitchen Goods",
-  "Phones & Accessories",
-  "Electronics & Appliances",
-  "Computers & Office Equipment",
-  "Baby & Kids Products",
-  "Health & Personal Care",
-  "Tools & Hardware",
-  "Sports & Outdoor Goods",
-  "Books, Stationery & Media",
-  "Industrial & Business Supplies",
-  "Other Products & Goods"
+const productCategories=[
+"Home & Kitchen Goods","Phones & Accessories","Electronics & Appliances",
+"Computers & Office Equipment","Baby & Kids Products","Health & Personal Care",
+"Tools & Hardware","Sports & Outdoor Goods","Books, Stationery & Media",
+"Industrial & Business Supplies","Other Products & Goods"
 ];
 
-const electronicsGroups = {
-  "Laptops & Computers":["laptop","notebook","desktop computer","computer","macbook","chromebook","monitor","keyboard","mouse"],
-  "TVs & Projectors":["tv","television","smart tv","projector","decoder","set top box"],
-  "Gaming Devices":["gaming","game console","playstation","xbox","nintendo","controller","video game"],
-  "Audio & Headphones":["headphone","earbud","earphone","speaker","sound system","home theatre","microphone","audio"],
-  "Cameras":["camera","camcorder","lens","photography"],
-  "Printers & Scanners":["printer","scanner","ink cartridge","toner"],
-  "Home Appliances":["refrigerator","fridge","freezer","washing machine","microwave","blender","iron","electric kettle","vacuum cleaner","appliance"],
-  "Fans & Cooling":["fan","air conditioner","air conditioning","cooling"],
-  "Electronics Accessories":["charger","cable","adapter","power bank","remote control","router","wifi","networking","electronic accessory","computer accessories"]
+const electronicsGroups={
+"Laptops & Computers":["laptop","notebook","desktop computer","computer","macbook","chromebook","monitor","keyboard","mouse"],
+"TVs & Projectors":["tv","television","smart tv","projector","decoder","set top box"],
+"Gaming Devices":["gaming","game console","playstation","xbox","nintendo","controller","video game"],
+"Audio & Headphones":["headphone","earbud","earphone","speaker","sound system","home theatre","microphone","audio"],
+"Cameras":["camera","camcorder","lens","photography"],
+"Printers & Scanners":["printer","scanner","ink cartridge","toner"],
+"Home Appliances":["refrigerator","fridge","freezer","washing machine","microwave","blender","iron","electric kettle","vacuum cleaner","appliance"],
+"Fans & Cooling":["fan","air conditioner","air conditioning","cooling"],
+"Electronics Accessories":["charger","cable","adapter","power bank","remote control","router","wifi","networking","electronic accessory","computer accessories"]
 };
 
-const electronicsTerms = Object.values(electronicsGroups).flat().concat([
-  "electronics","electronic","laptop","computer","television","projector",
-  "decoder","console","speaker","headphone","camera","printer","scanner",
-  "router","monitor","keyboard","mouse","refrigerator","washing machine",
-  "microwave","fan","air conditioner","charger","power bank"
+const electronicsTerms=Object.values(electronicsGroups).flat().concat([
+"electronics","electronic","laptop","computer","television","projector",
+"decoder","console","speaker","headphone","camera","printer","scanner",
+"router","monitor","keyboard","mouse","refrigerator","washing machine",
+"microwave","fan","air conditioner","charger","power bank"
 ]);
 
 function escapeHtml(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+ return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
 function productSearchText(product){
-  return [
-    product.product_name,
-    product.category,
-    product.description,
-    product.brand,
-    product.subcategory
-  ].filter(Boolean).join(" ").toLowerCase();
+ return [product.product_name,product.category,product.description,product.brand,product.subcategory]
+ .filter(Boolean).join(" ").toLowerCase();
 }
 
 function isElectronicProduct(product){
-  const category = String(product.category || "").toLowerCase();
-  const text = productSearchText(product);
-  const excluded = [
-    "food","frozen","grocery","chicken","fish","meat",
-    "clothing","fashion","shoes","furniture","beauty","fresh produce"
-  ];
-  if(excluded.some(term => category.includes(term))) return false;
-  return category.includes("electronic") ||
-    category.includes("computer") ||
-    electronicsTerms.some(term => text.includes(term));
+ const category=String(product.category||"").toLowerCase();
+ const text=productSearchText(product);
+ const excluded=["food","frozen","grocery","chicken","fish","meat","clothing","fashion","shoes","furniture","beauty","fresh produce"];
+ if(excluded.some(term=>category.includes(term)))return false;
+ return category.includes("electronic")||category.includes("computer")||
+ electronicsTerms.some(term=>text.includes(term));
 }
 
-function matchesElectronicsSubcategory(product, subcategory){
-  if(!subcategory) return true;
-  const text = productSearchText(product);
-  const terms = electronicsGroups[subcategory] || [subcategory.toLowerCase()];
-  return terms.some(term => text.includes(term.toLowerCase()));
+function matchesElectronicsSubcategory(product,subcategory){
+ if(!subcategory)return true;
+ const terms=electronicsGroups[subcategory]||[subcategory.toLowerCase()];
+ const text=productSearchText(product);
+ return terms.some(term=>text.includes(term.toLowerCase()));
 }
 
-function showMessage(title, detail, isError=false){
-  document.getElementById("products").innerHTML = `
-    <div class="message">
-      <strong>${escapeHtml(title)}</strong>
-      <div>${escapeHtml(detail)}</div>
-      <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
-    </div>`;
-  document.getElementById("results-count").textContent =
-    isError ? "Could not load products" : "0 products found";
-}
-
-async function requestWithTimeout(promise,milliseconds=15000){
-  let timer;
-  try{
-    return await Promise.race([
-      promise,
-      new Promise((_,reject)=>{
-        timer=setTimeout(()=>reject(new Error(
-          "The request took too long. Please check your internet connection and try again."
-        )),milliseconds);
-      })
-    ]);
-  }finally{
-    clearTimeout(timer);
-  }
+function showMessage(title,detail,isError=false){
+ document.getElementById("products").innerHTML=`
+ <div class="message"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div>
+ <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button></div>`;
+ document.getElementById("results-count").textContent=isError?"Could not load products":"0 products found";
 }
 
 /* PAGE SETUP */
-
 if(isElectronicsPage){
-  document.getElementById("hero-icon").textContent="📺";
-  document.getElementById("hero-title").innerHTML="Electronics";
-  document.getElementById("hero-description").textContent="Find electronics and appliances";
-  document.getElementById("product-search").placeholder="Search TVs, laptops, brands...";
-  document.getElementById("search-button").textContent="⌕  Search Electronics";
-  document.getElementById("category-filter").hidden=true;
-  document.getElementById("electronics-intro").hidden=false;
-  document.getElementById("electronics-shortcuts").hidden=false;
-  document.getElementById("electronics-note").hidden=false;
-  document.getElementById("listing-title").textContent="Latest Electronics";
+ document.getElementById("hero-icon").textContent="📺";
+ document.getElementById("hero-title").textContent="Electronics";
+ document.getElementById("hero-description").textContent="Find electronics and appliances";
+ document.getElementById("product-search").placeholder="Search TVs, laptops, brands...";
+ document.getElementById("search-button").textContent="⌕  Search Electronics";
+ document.getElementById("category-filter").hidden=true;
+ document.getElementById("electronics-intro").hidden=false;
+ document.getElementById("electronics-shortcuts").hidden=false;
+ document.getElementById("electronics-note").hidden=false;
+ document.getElementById("listing-title").textContent="Latest Electronics";
 }else{
-  document.getElementById("category-filter").value =
-    productCategories.find(c=>c.toLowerCase()===requestedCategory.toLowerCase()) || "";
-  if(requestedCategory){
-    document.getElementById("listing-title").textContent=requestedCategory;
-    document.getElementById("hero-title").innerHTML=escapeHtml(requestedCategory);
-    document.getElementById("hero-description").textContent="Browse available products in this category";
-  }
+ document.getElementById("category-filter").value=
+ productCategories.find(c=>c.toLowerCase()===requestedCategory.toLowerCase())||"";
+ if(requestedCategory){
+  document.getElementById("listing-title").textContent=requestedCategory;
+  document.getElementById("hero-title").textContent=requestedCategory;
+  document.getElementById("hero-description").textContent="Browse available products in this category";
+ }
 }
-
-/* PHONE NUMBER */
 
 function cleanPhoneNumber(phone){
-  let value=String(phone||"").replace(/[^\d+]/g,"");
-  if(value.startsWith("+")) value=value.substring(1);
-  if(value.startsWith("0")) value="233"+value.substring(1);
-  return value;
+ let value=String(phone||"").replace(/[^\d+]/g,"");
+ if(value.startsWith("+"))value=value.substring(1);
+ if(value.startsWith("0"))value="233"+value.substring(1);
+ return value;
 }
-
-/* SHARING */
 
 async function shareProduct(product){
-  const url=new URL(window.location.href);
-  url.search="";
-  url.searchParams.set("product",product.id);
-
-  const shareData={
-    title:product.product_name || "Product on OGARS MARKET",
-    text:`Check out ${product.product_name || "this product"} on OGARS MARKET.`,
-    url:url.toString()
-  };
-
-  try{
-    if(navigator.share){
-      await navigator.share(shareData);
-    }else if(navigator.clipboard && navigator.clipboard.writeText){
-      await navigator.clipboard.writeText(shareData.url);
-      alert("Product link copied. You can now share it.");
-    }else{
-      window.prompt("Copy this product link:",shareData.url);
-    }
-  }catch(error){
-    if(error && error.name!=="AbortError"){
-      window.prompt("Copy this product link:",shareData.url);
-    }
-  }
+ const url=new URL(window.location.href);
+ url.search="";
+ url.searchParams.set("product",product.id);
+ const shareData={
+  title:product.product_name||"Product on OGARS MARKET",
+  text:`Check out ${product.product_name||"this product"} on OGARS MARKET.`,
+  url:url.toString()
+ };
+ try{
+  if(navigator.share)await navigator.share(shareData);
+  else if(navigator.clipboard?.writeText){
+   await navigator.clipboard.writeText(shareData.url);
+   alert("Product link copied. You can now share it.");
+  }else window.prompt("Copy this product link:",shareData.url);
+ }catch(error){
+  if(error?.name!=="AbortError")window.prompt("Copy this product link:",shareData.url);
+ }
 }
-
-/* PRODUCT CARD */
 
 function createProductCard(product,detailMode=false){
-  const card=document.createElement("article");
-  card.className="product-card"+(detailMode?" detail-view":"");
+ const card=document.createElement("article");
+ card.className="product-card"+(detailMode?" detail-view":"");
 
-  const photoUrls=String(product.photo_urls||"")
-    .split(",").map(url=>url.trim()).filter(Boolean);
+ const photoUrls=String(product.photo_urls||"").split(",").map(u=>u.trim()).filter(Boolean);
+ const photo=photoUrls[0]||"";
+ const business=businessMap[String(product.business_id)]||null;
+ const businessName=business?.business_name||"Seller";
+ const businessPhone=business?.phone||"";
+ const businessLocation=business?.location||"";
 
-  const photo=photoUrls[0]||"";
-  const business=businessMap[String(product.business_id)]||null;
-  const businessName=business?.business_name||"Seller";
-  const businessPhone=business?.phone||"";
-  const businessLocation=business?.location||"";
+ const imageHtml=photo
+ ?`<img class="product-image" src="${escapeHtml(photo)}" alt="${escapeHtml(product.product_name||"Product")}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'">`
+ :`<div class="no-image">🛍️</div>`;
 
-  const imageHtml=photo
-    ? `<img class="product-image" src="${escapeHtml(photo)}"
-         alt="${escapeHtml(product.product_name||"Product")}"
-         loading="lazy" decoding="async"
-         onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'">`
-    : `<div class="no-image">🛍️</div>`;
+ let priceText="Price on request";
+ if(product.price!==null&&product.price!==undefined&&product.price!==""){
+  const numericPrice=Number(product.price);
+  if(Number.isFinite(numericPrice))priceText="GH₵"+numericPrice.toFixed(2);
+ }
 
-  let priceText="Price on request";
-  if(product.price!==null && product.price!==undefined && product.price!==""){
-    const numericPrice=Number(product.price);
-    if(Number.isFinite(numericPrice)) priceText="GH₵"+numericPrice.toFixed(2);
+ let deliveryText="🚫 No Delivery";
+ if(product.delivery_available===true){
+  deliveryText="🚚 Delivery Available";
+  if(product.delivery_fee_type==="free")deliveryText+=" • Free delivery";
+  else if(product.delivery_fee_type==="fixed")deliveryText+=" • GH₵"+Number(product.delivery_fee||0).toFixed(2);
+  else if(product.delivery_fee_type==="negotiable")deliveryText+=" • Fee negotiable";
+  if(product.delivery_areas)deliveryText+=" • "+product.delivery_areas;
+ }
+
+ const phone=cleanPhoneNumber(businessPhone);
+ const whatsappMessage=encodeURIComponent(`Hello, I found your product "${product.product_name||"product"}" on OGARS MARKET. Is it available?`);
+
+ const contactButtons=`
+ <div class="button-row">
+ ${phone?`<a class="action-button whatsapp" href="https://wa.me/${escapeHtml(phone)}?text=${whatsappMessage}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`:`<span class="action-button whatsapp" style="opacity:.5">💬 WhatsApp</span>`}
+ ${businessPhone?`<a class="action-button call" href="tel:${escapeHtml(businessPhone)}">📞 Call</a>`:`<span class="action-button call" style="opacity:.5">📞 Call</span>`}
+ <button class="action-button share" type="button">↗ Share</button>
+ </div>`;
+
+ const description=product.description?`<div class="description">${escapeHtml(product.description)}</div>`:"";
+
+ card.innerHTML=`
+ <div class="image-wrap">${imageHtml}<div class="category-badge">${escapeHtml(product.category||"Products & Goods")}</div></div>
+ <div class="product-content">
+ <h2 class="product-name">${escapeHtml(product.product_name||"Unnamed Product")}</h2>
+ <div class="price">${escapeHtml(priceText)}</div>
+ ${description}
+ <div class="business">🏢 <strong>${escapeHtml(businessName)}</strong>${businessLocation?`<br>📍 ${escapeHtml(businessLocation)}`:""}</div>
+ <div class="delivery">${escapeHtml(deliveryText)}</div>
+ <a class="view-details" href="?product=${encodeURIComponent(product.id)}">View Product Details →</a>
+ ${contactButtons}
+ </div>`;
+
+ card.querySelector(".share").addEventListener("click",()=>shareProduct(product));
+
+ if(detailMode){
+  const content=card.querySelector(".description");
+  if(content){content.style.display="block";content.style.webkitLineClamp="unset";content.style.overflow="visible";}
+  if(photoUrls.length>1){
+   const gallery=document.createElement("div");
+   gallery.style.cssText="display:flex;gap:7px;overflow-x:auto;padding:8px 0";
+   photoUrls.slice(1).forEach(url=>{
+    const img=document.createElement("img");
+    img.src=url;img.alt=product.product_name||"Product photo";
+    img.style.cssText="width:90px;height:85px;object-fit:cover;border-radius:12px;flex-shrink:0";
+    gallery.appendChild(img);
+   });
+   card.querySelector(".product-content").insertBefore(gallery,card.querySelector(".business"));
   }
-
-  let deliveryText="🚫 No Delivery";
-  if(product.delivery_available===true){
-    deliveryText="🚚 Delivery Available";
-    if(product.delivery_fee_type==="free"){
-      deliveryText+=" • Free delivery";
-    }else if(product.delivery_fee_type==="fixed"){
-      deliveryText+=" • GH₵"+Number(product.delivery_fee||0).toFixed(2);
-    }else if(product.delivery_fee_type==="negotiable"){
-      deliveryText+=" • Fee negotiable";
-    }
-    if(product.delivery_areas) deliveryText+=" • "+product.delivery_areas;
-  }
-
-  const phone=cleanPhoneNumber(businessPhone);
-  const whatsappMessage=encodeURIComponent(
-    `Hello, I found your product "${product.product_name||"product"}" on OGARS MARKET. Is it available?`
-  );
-
-  const contactButtons=`
-    <div class="button-row">
-      ${phone
-        ? `<a class="action-button whatsapp"
-             href="https://wa.me/${escapeHtml(phone)}?text=${whatsappMessage}"
-             target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
-        : `<span class="action-button whatsapp" style="opacity:.5">💬 WhatsApp</span>`}
-      ${businessPhone
-        ? `<a class="action-button call" href="tel:${escapeHtml(businessPhone)}">📞 Call</a>`
-        : `<span class="action-button call" style="opacity:.5">📞 Call</span>`}
-      <button class="action-button share" type="button">↗ Share</button>
-    </div>`;
-
-  const description=product.description
-    ? `<div class="description">${escapeHtml(product.description)}</div>`
-    : "";
-
-  card.innerHTML=`
-    <div class="image-wrap">
-      ${imageHtml}
-      <div class="category-badge">${escapeHtml(product.category||"Products & Goods")}</div>
-    </div>
-    <div class="product-content">
-      <h2 class="product-name">${escapeHtml(product.product_name||"Unnamed Product")}</h2>
-      <div class="price">${escapeHtml(priceText)}</div>
-      ${description}
-      <div class="business">
-        🏢 <strong>${escapeHtml(businessName)}</strong>
-        ${businessLocation?`<br>📍 ${escapeHtml(businessLocation)}`:""}
-      </div>
-      <div class="delivery">${escapeHtml(deliveryText)}</div>
-      <a class="view-details" href="?product=${encodeURIComponent(product.id)}">View Product Details →</a>
-      ${contactButtons}
-    </div>`;
-
-  const shareButton=card.querySelector(".share");
-  shareButton.addEventListener("click",()=>shareProduct(product));
-
-  if(detailMode){
-    const content=card.querySelector(".description");
-    if(content){
-      content.style.display="block";
-      content.style.webkitLineClamp="unset";
-      content.style.overflow="visible";
-    }
-    if(photoUrls.length>1){
-      const gallery=document.createElement("div");
-      gallery.style.cssText="display:flex;gap:7px;overflow-x:auto;padding:8px 0;";
-      photoUrls.slice(1).forEach(url=>{
-        const img=document.createElement("img");
-        img.src=url;
-        img.alt=product.product_name||"Product photo";
-        img.style.cssText="width:90px;height:85px;object-fit:cover;border-radius:12px;flex-shrink:0;";
-        gallery.appendChild(img);
-      });
-      card.querySelector(".product-content").insertBefore(
-        gallery,card.querySelector(".business")
-      );
-    }
-  }
-
-  return card;
+ }
+ return card;
 }
-
-/* DISPLAY PRODUCTS */
 
 function displayProducts(products){
-  const container=document.getElementById("products");
-  document.getElementById("results-count").textContent=
-    products.length+(products.length===1?" product found":" products found");
-
-  if(!products.length){
-    container.innerHTML=`
-      <div class="message">
-        <strong>🔍 No products found</strong>
-        Try another search or clear the filters.
-      </div>`;
-    return;
-  }
-
-  const fragment=document.createDocumentFragment();
-  products.forEach(product=>fragment.appendChild(createProductCard(product)));
-  container.replaceChildren(fragment);
+ const container=document.getElementById("products");
+ document.getElementById("results-count").textContent=products.length+(products.length===1?" product found":" products found");
+ if(!products.length){
+  container.innerHTML='<div class="message"><strong>🔍 No products found</strong>Try another search or clear the filters.</div>';
+  return;
+ }
+ const fragment=document.createDocumentFragment();
+ products.forEach(product=>fragment.appendChild(createProductCard(product)));
+ container.replaceChildren(fragment);
 }
 
-/* PRODUCT LOCATION FILTER */
-
 const locationAliases={
-  "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","tudu","kasoa","chantan","spintex","adenta","east legon"],
-  "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong","konongo"],
-  "central":["central","cape coast","winneba","mankessim","swedru","kasoa"],
-  "eastern":["eastern","koforidua","nkawkaw","nsawam","akosombo","somanya"],
-  "western":["western","sekondi","takoradi","tarkwa","prestea"],
-  "western north":["western north","sefwi","bibiani","enchi"],
-  "volta":["volta","ho","hohoe","keta","aflao"],
-  "northern":["northern","tamale","yendi","savelugu"],
-  "upper east":["upper east","bolgatanga","bawku","navrongo"],
-  "upper west":["upper west","wa","lawra","jirapa"],
-  "bono":["bono","sun y","sunyan i","berekum","wenchi"],
-  "bono east":["bono east","techiman","kintampo","nkoranza"],
-  "ahafo":["ahafo","goaso","kenyasi","bechem"],
-  "oti":["oti","dambai","jasikan","kad jebi"],
-  "savannah":["savannah","damongo","salaga","bole"],
-  "north east":["north east","nalerigu","walewale","gambaga"]
+ "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","tudu","kasoa","chantan","spintex","adenta","east legon"],
+ "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong","konongo"],
+ "central":["central","cape coast","winneba","mankessim","swedru","kasoa"],
+ "eastern":["eastern","koforidua","nkawkaw","nsawam","akosombo","somanya"],
+ "western":["western","sekondi","takoradi","tarkwa","prestea"],
+ "western north":["western north","sefwi","bibiani","enchi"],
+ "volta":["volta","ho","hohoe","keta","aflao"],
+ "northern":["northern","tamale","yendi","savelugu"],
+ "upper east":["upper east","bolgatanga","bawku","navrongo"],
+ "upper west":["upper west","wa","lawra","jirapa"],
+ "bono":["bono","sun y","sunyan i","berekum","wenchi"],
+ "bono east":["bono east","techiman","kintampo","nkoranza"],
+ "ahafo":["ahafo","goaso","kenyasi","bechem"],
+ "oti":["oti","dambai","jasikan","kad jebi"],
+ "savannah":["savannah","damongo","salaga","bole"],
+ "north east":["north east","nalerigu","walewale","gambaga"]
 };
 
 function getFilteredProducts(){
-  const search=document.getElementById("product-search").value.toLowerCase().trim();
-  const category=document.getElementById("category-filter").value.toLowerCase().trim();
-  const location=document.getElementById("location-filter").value.toLowerCase().trim();
-  const sort=document.getElementById("sort-filter").value;
+ const search=document.getElementById("product-search").value.toLowerCase().trim();
+ const category=document.getElementById("category-filter").value.toLowerCase().trim();
+ const location=document.getElementById("location-filter").value.toLowerCase().trim();
+ const sort=document.getElementById("sort-filter").value;
 
-  return allProducts.filter(product=>{
-    const business=businessMap[String(product.business_id)]||null;
-    const text=[
-      product.product_name,product.category,product.description,product.brand,
-      product.subcategory,business?.business_name,business?.location
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    const productLocation=String(business?.location||"").toLowerCase();
-    const matchesSearch=!search||text.includes(search);
-
-    const productCategory=String(product.category||"").toLowerCase();
-    const matchesCategory=!category ||
-      productCategory===category ||
-      productCategory.includes(category) ||
-      category.includes(productCategory);
-
-    const aliases=locationAliases[location]||[location];
-    const matchesLocation=!location||aliases.some(alias=>productLocation.includes(alias));
-
-    const matchesElectronics=!isElectronicsPage||isElectronicProduct(product);
-    const matchesSubcategory=!isElectronicsPage||matchesElectronicsSubcategory(product,selectedSubcategory);
-
-    return matchesSearch&&matchesCategory&&matchesLocation&&matchesElectronics&&matchesSubcategory;
-  }).sort((a,b)=>{
-    const priceA=Number(a.price),priceB=Number(b.price);
-    const validA=a.price!==null&&a.price!==undefined&&a.price!==""&&Number.isFinite(priceA);
-    const validB=b.price!==null&&b.price!==undefined&&b.price!==""&&Number.isFinite(priceB);
-    const dateA=new Date(a.created_at||0).getTime();
-    const dateB=new Date(b.created_at||0).getTime();
-    const businessA=businessMap[String(a.business_id)]||{};
-    const businessB=businessMap[String(b.business_id)]||{};
-
-    const verifiedA=[a.is_verified,a.verified,a.seller_verified,businessA.is_verified,businessA.verified,businessA.is_verified_seller]
-      .some(v=>v===true||String(v).toLowerCase()==="verified");
-    const verifiedB=[b.is_verified,b.verified,b.seller_verified,businessB.is_verified,businessB.verified,businessB.is_verified_seller]
-      .some(v=>v===true||String(v).toLowerCase()==="verified");
-
-    if(sort==="price-low"){
-      if(validA&&validB)return priceA-priceB;
-      if(validA)return -1;
-      if(validB)return 1;
-    }
-    if(sort==="price-high"){
-      if(validA&&validB)return priceB-priceA;
-      if(validA)return -1;
-      if(validB)return 1;
-    }
-    if(sort==="verified"&&verifiedA!==verifiedB)return verifiedA?-1:1;
-    return dateB-dateA;
-  });
+ return allProducts.filter(product=>{
+  const business=businessMap[String(product.business_id)]||null;
+  const text=[product.product_name,product.category,product.description,product.brand,product.subcategory,business?.business_name,business?.location].filter(Boolean).join(" ").toLowerCase();
+  const productLocation=String(business?.location||"").toLowerCase();
+  const productCategory=String(product.category||"").toLowerCase();
+  const matchesSearch=!search||text.includes(search);
+  const matchesCategory=!category||productCategory===category||productCategory.includes(category)||category.includes(productCategory);
+  const aliases=locationAliases[location]||[location];
+  const matchesLocation=!location||aliases.some(alias=>productLocation.includes(alias));
+  const matchesElectronics=!isElectronicsPage||isElectronicProduct(product);
+  const matchesSubcategory=!isElectronicsPage||matchesElectronicsSubcategory(product,selectedSubcategory);
+  return matchesSearch&&matchesCategory&&matchesLocation&&matchesElectronics&&matchesSubcategory;
+ }).sort((a,b)=>{
+  const priceA=Number(a.price),priceB=Number(b.price);
+  const validA=a.price!==null&&a.price!==undefined&&a.price!==""&&Number.isFinite(priceA);
+  const validB=b.price!==null&&b.price!==undefined&&b.price!==""&&Number.isFinite(priceB);
+  const dateA=new Date(a.created_at||0).getTime(),dateB=new Date(b.created_at||0).getTime();
+  const businessA=businessMap[String(a.business_id)]||{};
+  const businessB=businessMap[String(b.business_id)]||{};
+  const verifiedA=[a.is_verified,a.verified,a.seller_verified,businessA.is_verified,businessA.verified,businessA.is_verified_seller].some(v=>v===true||String(v).toLowerCase()==="verified");
+  const verifiedB=[b.is_verified,b.verified,b.seller_verified,businessB.is_verified,businessB.verified,businessB.is_verified_seller].some(v=>v===true||String(v).toLowerCase()==="verified");
+  if(sort==="price-low"){if(validA&&validB)return priceA-priceB;if(validA)return -1;if(validB)return 1;}
+  if(sort==="price-high"){if(validA&&validB)return priceB-priceA;if(validA)return -1;if(validB)return 1;}
+  if(sort==="verified"&&verifiedA!==verifiedB)return verifiedA?-1:1;
+  return dateB-dateA;
+ });
 }
 
-function filterProducts(){
-  displayProducts(getFilteredProducts());
-}
-
-/* LOAD SELLER DETAILS */
+function filterProducts(){displayProducts(getFilteredProducts());}
 
 async function loadBusinessInformation(){
-  const ids=[...new Set(allProducts.map(p=>p.business_id).filter(id=>id!==null&&id!==undefined))];
-  if(!ids.length)return;
-
-  try{
-    const result=await requestWithTimeout(
-      supabaseClient.from("businesses").select("*").in("id",ids)
-    );
-    if(result.error)throw result.error;
-
-    businessMap={};
-    (result.data||[]).forEach(business=>{
-      businessMap[String(business.id)]=business;
-    });
-
-    if(productIdFromUrl){
-      showProductDetails();
-    }else{
-      displayProducts(getFilteredProducts());
-    }
-  }catch(error){
-    console.error("OGARS seller information error:",error);
-  }
+ const ids=[...new Set(allProducts.map(p=>p.business_id).filter(id=>id!==null&&id!==undefined))];
+ if(!ids.length)return;
+ try{
+  const result=await supabaseClient.from("businesses").select("*").in("id",ids);
+  if(result.error)throw result.error;
+  businessMap={};
+  (result.data||[]).forEach(b=>businessMap[String(b.id)]=b);
+  if(productIdFromUrl)showProductDetails();
+  else displayProducts(getFilteredProducts());
+ }catch(error){console.error("OGARS seller information error:",error);}
 }
-
-/* INDIVIDUAL PRODUCT DETAILS */
 
 function showProductDetails(){
-  const product=allProducts.find(p=>String(p.id)===String(productIdFromUrl));
-  const container=document.getElementById("products");
-
-  if(!product){
-    showMessage("Product not found","This product may no longer be available.");
-    return;
-  }
-
-  document.getElementById("search-panel").hidden=true;
-  document.getElementById("listing-heading").hidden=true;
-  document.getElementById("electronics-intro").hidden=true;
-  document.getElementById("electronics-shortcuts").hidden=true;
-  document.getElementById("electronics-note").hidden=true;
-  document.getElementById("back-area").innerHTML=
-    '<a href="javascript:history.back()" class="back">← Back to Products</a>';
-
-  document.getElementById("hero-title").textContent="Product Details";
-  document.getElementById("hero-description").textContent=
-    product.product_name||"View product information";
-
-  container.className="products";
-  container.style.gridTemplateColumns="minmax(0,650px)";
-  container.style.justifyContent="center";
-  container.replaceChildren(createProductCard(product,true));
-
-  document.getElementById("results-count").textContent="Product details";
+ const product=allProducts.find(p=>String(p.id)===String(productIdFromUrl));
+ const container=document.getElementById("products");
+ if(!product){showMessage("Product not found","This product may no longer be available.");return;}
+ document.getElementById("search-panel").hidden=true;
+ document.getElementById("listing-heading").hidden=true;
+ document.getElementById("electronics-intro").hidden=true;
+ document.getElementById("electronics-shortcuts").hidden=true;
+ document.getElementById("electronics-note").hidden=true;
+ document.getElementById("back-area").innerHTML='<a href="javascript:history.back()" class="back">← Back to Products</a>';
+ document.getElementById("hero-title").textContent="Product Details";
+ document.getElementById("hero-description").textContent=product.product_name||"View product information";
+ container.style.gridTemplateColumns="minmax(0,650px)";
+ container.style.justifyContent="center";
+ container.replaceChildren(createProductCard(product,true));
+ document.getElementById("results-count").textContent="Product details";
 }
 
-/* LOAD PRODUCTS */
-
 async function loadProducts(){
-  const container=document.getElementById("products");
-  container.innerHTML=`
-    <div class="message">
-      <strong>🛍️ Loading products...</strong>
-      Connecting to OGARS MARKET.
-    </div>`;
-  document.getElementById("results-count").textContent="Connecting to OGARS...";
-
-  try{
-    const result=await requestWithTimeout(
-      supabaseClient.from("business_products")
-        .select("*")
-        .eq("available",true)
-        .order("created_at",{ascending:false})
-    );
-
-    if(result.error)throw result.error;
-
-    allProducts=result.data||[];
-
-    if(isElectronicsPage){
-      allProducts=allProducts.filter(isElectronicProduct);
-    }
-
-    if(productIdFromUrl){
-      showProductDetails();
-    }else{
-      displayProducts(getFilteredProducts());
-    }
-
-    if(allProducts.length)loadBusinessInformation();
-
-  }catch(error){
-    console.error("OGARS product loading error:",error);
-    showMessage("Unable to load products",
-      error.message||"An unexpected error occurred.",true);
-  }
+ const container=document.getElementById("products");
+ container.innerHTML='<div class="message"><strong>🛍️ Loading products...</strong>Connecting to OGARS MARKET.</div>';
+ document.getElementById("results-count").textContent="Connecting to OGARS...";
+ try{
+  const result=await supabaseClient.from("business_products").select("*").eq("available",true).order("created_at",{ascending:false});
+  if(result.error)throw result.error;
+  allProducts=result.data||[];
+  if(isElectronicsPage)allProducts=allProducts.filter(isElectronicProduct);
+  if(productIdFromUrl)showProductDetails();
+  else displayProducts(getFilteredProducts());
+  if(allProducts.length)loadBusinessInformation();
+ }catch(error){
+  console.error("OGARS product loading error:",error);
+  showMessage("Unable to load products",error.message||"An unexpected error occurred.",true);
+ }
 }
 
 /* FILTER EVENTS */
-
 document.getElementById("product-search").addEventListener("input",filterProducts);
 document.getElementById("category-filter").addEventListener("change",filterProducts);
 document.getElementById("location-filter").addEventListener("change",filterProducts);
@@ -1071,40 +552,29 @@ document.getElementById("sort-filter").addEventListener("change",filterProducts)
 document.getElementById("search-button").addEventListener("click",filterProducts);
 
 document.getElementById("clear-filters").addEventListener("click",()=>{
-  document.getElementById("product-search").value="";
-  document.getElementById("category-filter").value="";
-  document.getElementById("location-filter").value="";
-  document.getElementById("sort-filter").value="newest";
-  selectedSubcategory="";
-  document.querySelectorAll(".shortcut").forEach(b=>b.classList.remove("active"));
-  filterProducts();
+ document.getElementById("product-search").value="";
+ document.getElementById("category-filter").value="";
+ document.getElementById("location-filter").value="";
+ document.getElementById("sort-filter").value="newest";
+ selectedSubcategory="";
+ document.querySelectorAll(".category-card").forEach(b=>b.classList.remove("active"));
+ filterProducts();
 });
 
-document.querySelectorAll(".shortcut").forEach(button=>{
-  button.addEventListener("click",()=>{
-    selectedSubcategory=
-      selectedSubcategory===button.dataset.subcategory?"":button.dataset.subcategory;
-
-    document.querySelectorAll(".shortcut").forEach(item=>
-      item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory)
-    );
-    filterProducts();
-    document.getElementById("products").scrollIntoView({
-      behavior:"smooth",block:"start"
-    });
-  });
+document.querySelectorAll(".category-card").forEach(button=>{
+ button.addEventListener("click",()=>{
+  selectedSubcategory=selectedSubcategory===button.dataset.subcategory?"":button.dataset.subcategory;
+  document.querySelectorAll(".category-card").forEach(item=>item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory));
+  filterProducts();
+  document.getElementById("products").scrollIntoView({behavior:"smooth",block:"start"});
+ });
 });
 
 if(selectedSubcategory){
-  document.querySelectorAll(".shortcut").forEach(item=>
-    item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory)
-  );
+ document.querySelectorAll(".category-card").forEach(item=>item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory));
 }
 
-/* START */
-
 loadProducts();
-
 </script>
 </body>
 </html>
