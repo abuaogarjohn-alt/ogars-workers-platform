@@ -1,28 +1,740 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#512A91">
-<title>OGARS Properties | Browse Property Categories</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#6545c5">
+<meta name="description" content="Find houses, apartments, land and commercial properties on OGARS MARKET Ghana.">
+<title>Properties | OGARS MARKET</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--purple:#512A91;--lav:#f1eaff;--navy:#171638;--muted:#706b8c;--border:#e5dcf7;--shadow:0 5px 16px rgba(70,39,130,.09)}*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--navy);font-family:Arial,Helvetica,sans-serif;line-height:1.4}a{color:inherit;text-decoration:none}.brand{min-height:130px;padding:20px;display:flex;align-items:center;gap:12px;color:#fff;background:linear-gradient(115deg,#6d28d9,#512A91 58%,#38166f);position:relative;overflow:hidden}.brand:after{content:'⌂';position:absolute;right:16px;bottom:-55px;font-size:180px;color:#ffffff14}.back{font-size:30px;color:white;z-index:1}.brand-icon{font-size:38px;border:2px solid white;border-radius:13px;width:50px;height:50px;display:grid;place-items:center;z-index:1}.brand-copy{z-index:1}.brand h1{margin:0;font-size:clamp(22px,5vw,30px);line-height:1.05}.brand p{margin:7px 0 0;color:#f0e8ff;font-size:14px}main{max-width:980px;margin:auto;padding:16px 18px 100px}.search{background:var(--lav);border:1px solid #e8ddff;border-radius:22px;padding:14px;box-shadow:var(--shadow);margin-bottom:25px}.search input,.search select{width:100%;min-height:51px;border:1px solid var(--border);border-radius:13px;padding:12px;background:#fff;color:var(--navy);font-size:15px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}.search button{width:100%;height:52px;border:0;border-radius:13px;background:var(--purple);color:#fff;font-size:17px;font-weight:bold;margin-top:10px}.heading{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin:0 1px 15px}.heading h2{font-size:clamp(21px,4.8vw,28px);line-height:1.2;margin:0;letter-spacing:-.5px}.heading p{margin:6px 0 0;color:var(--muted);font-size:15px}.all{color:#6124c9;font-weight:bold;white-space:nowrap;margin-top:4px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{min-width:0;display:flex;flex-direction:column;padding:9px;border:1px solid var(--border);border-radius:21px;background:linear-gradient(150deg,#f5efff,#fff);box-shadow:var(--shadow);overflow:hidden}.art{width:100%;aspect-ratio:1.05/1;border-radius:15px;background:linear-gradient(145deg,#e9dcff,#fff);display:grid;place-items:center;overflow:hidden;margin-bottom:9px}.art svg{width:100%;height:100%;display:block}.ctitle{font-size:clamp(12px,2.8vw,16px);font-weight:800;line-height:1.22;margin:0 1px 5px}.desc{font-size:clamp(10px,2.5vw,14px);line-height:1.3;color:var(--muted);margin:0 1px 3px}.hot{margin-top:29px}.hothead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.hothead h2{font-size:clamp(19px,4.5vw,25px);margin:0}.hothead p{margin:3px 0 0;color:var(--muted);font-size:14px}.hoticon{color:#8c42e8;font-size:29px;margin-right:8px}.hotrow{display:flex;align-items:center}.placeholder{border:1px dashed #cbb7ef;background:#faf7ff;border-radius:15px;padding:17px;color:var(--muted);font-size:14px}.placeholder strong{display:block;color:var(--purple);margin-bottom:4px}.nav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;align-items:center;padding:9px 6px max(10px,env(safe-area-inset-bottom));background:#fffffffa;border-top:1px solid #e9e1f5;box-shadow:0 -4px 18px #28144610}.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;color:#77738a;font-size:11px}.nav .active{color:var(--purple);font-weight:bold}.nav .ico{font-size:21px;line-height:1.2}.plus{width:52px;height:52px;border-radius:50%;background:#6425db;color:#fff!important;display:grid!important;place-items:center;font-size:31px!important;margin-top:-27px;border:4px solid white;box-shadow:0 5px 14px #512a914d}@media(min-width:700px){.brand{padding-left:max(28px,calc((100% - 940px)/2))}.grid{gap:18px}.card{padding:13px}.art{aspect-ratio:1.2/1}.nav{display:none}main{padding-bottom:35px}}@media(max-width:370px){main{padding-left:10px;padding-right:10px}.grid{gap:7px}.card{padding:6px;border-radius:16px}.art{border-radius:11px}.filters{gap:6px}.search select{padding:9px 6px;font-size:13px}}
-</style></head>
+:root{
+--purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+--bg:#fbfaff;--text:#211b36;--muted:#716b83;
+--border:#e6e0f5;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* PROPERTY HEADER */
+.hero{
+display:flex;align-items:center;gap:9px;min-height:82px;
+padding:9px 12px;background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+color:#fff;position:relative;overflow:hidden
+}
+.hero::after{
+content:"⌂";position:absolute;right:10px;top:-35px;
+font-size:120px;color:rgba(255,255,255,.07);pointer-events:none
+}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+border-radius:12px;display:grid;place-items:center;font-size:25px;
+position:relative;z-index:1
+}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+/* SEARCH */
+.search-panel{
+background:#f1e8ff;border:1px solid #e9ddfb;
+border-radius:14px;padding:9px;margin:8px 0 12px
+}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
+.search-panel input,.search-panel select{
+width:100%;min-width:0;min-height:38px;padding:8px 10px;
+border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+color:var(--text);font-size:12px
+}
+.search-button{
+border:0;border-radius:9px;background:var(--dark);
+color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
+}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{
+display:flex;align-items:center;justify-content:space-between;
+gap:6px;font-size:10px;color:var(--muted);margin-top:7px
+}
+.clear-button{
+background:#fff;border:1px solid var(--border);color:var(--dark);
+padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
+}
+
+/* CATEGORIES */
+.category-intro{margin:0 0 7px}
+.category-intro h2{font-size:16px;margin:0 0 2px}
+.category-intro p{font-size:10px;color:var(--muted);margin:0}
+.category-shortcuts{
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:6px;margin:8px 0
+}
+.shortcut{
+min-width:0;padding:5px;border:1px solid var(--border);
+border-radius:10px;background:#fff;color:var(--text);
+text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+display:flex;flex-direction:column;align-items:center;gap:3px;
+box-shadow:0 2px 5px rgba(77,50,165,.04)
+}
+.shortcut-icon{
+width:100%;height:43px;border-radius:7px;
+background:linear-gradient(145deg,#eee4ff,#faf7ff);
+display:grid;place-items:center;font-size:24px
+}
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.category-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+/* PROPERTY ADVERT CARDS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{
+min-width:0;background:#fff;border:1px solid var(--border);
+border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
+}
+.image-wrap{height:125px;background:#f2edff;position:relative}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
+.no-image{
+width:100%;height:100%;display:flex;align-items:center;
+justify-content:center;font-size:34px;color:#7b68b8
+}
+.category-badge{
+position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
+.description{
+color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
+}
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+
+/* CONTACT AND SHARE */
+.button-row{
+display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+gap:4px;margin-top:6px
+}
+.button{
+display:flex;justify-content:center;align-items:center;min-width:0;
+min-height:30px;padding:4px 2px;border-radius:6px;
+text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+border:0;cursor:pointer;white-space:nowrap
+}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+.details-button{
+display:flex;justify-content:center;align-items:center;width:100%;
+min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+background:var(--dark);color:#fff;text-decoration:none;
+text-align:center;font-size:10px;font-weight:bold
+}
+.message{
+grid-column:1/-1;background:#fff;border:1px solid var(--border);
+border-radius:10px;padding:20px 12px;text-align:center;
+color:var(--muted);font-size:12px;overflow-wrap:anywhere
+}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{
+background:var(--purple);color:#fff;border:0;border-radius:7px;
+padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
+}
+.back-area{text-align:center;margin-top:16px}
+.back{
+display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
+}
+
+/* FOOTER */
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav{
+position:fixed;left:0;right:0;bottom:0;z-index:50;
+display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+box-shadow:0 -3px 12px rgba(35,24,70,.08)
+}
+.bottom-nav a,.bottom-nav button{
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
+}
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+width:33px;height:26px;display:grid;place-items:center;
+background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
+}
+
+@media(min-width:851px){.image-wrap{height:160px}.product-content{padding:9px}}
+@media(max-width:600px){
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.image-wrap{height:110px}
+.product-content{padding:6px}
+.product-name{font-size:11px}
+.price{font-size:13px}
+.button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+.button{font-size:8px;padding:4px 1px}
+.shortcut-icon{height:42px;font-size:23px}
+.shortcut{font-size:9px}
+.search-button-row{grid-template-columns:1fr}
+.search-button{min-height:35px}
+}
+</style>
+</head>
+
 <body>
-<header class="brand"><a class="back" href="index.html" aria-label="Back">‹</a><div class="brand-icon" aria-hidden="true">⌂</div><div class="brand-copy"><h1>OGARS<br>PROPERTIES</h1><p>Find your next property in Ghana</p></div></header>
-<main>
-<form class="search" id="searchForm"><input id="query" type="search" placeholder="Search houses, apartments, land, shops..." aria-label="Search properties"><div class="filters"><select id="region" aria-label="Location"><option value="">📍 All Ghana</option><option>Greater Accra</option><option>Ashanti</option><option>Central</option><option>Eastern</option><option>Western</option><option>Northern</option><option>Volta</option><option>Other region</option></select><select id="price" aria-label="Price range"><option value="">Any price</option><option value="0-1000">Up to GH₵1,000</option><option value="1000-3000">GH₵1,000–3,000</option><option value="3000-7000">GH₵3,000–7,000</option><option value="7000-999999999">GH₵7,000+</option></select></div><button type="submit">⌕ &nbsp; Search Properties</button></form>
-<section><div class="heading"><div><h2>Browse Property Categories</h2><p>Find the right property and explore opportunities.</p></div><a class="all" href="properties.html">All Adverts →</a></div>
-<div class="grid">
-<a class="card" href="properties.html?category=house-for-rent"><div class="art"><svg viewBox="0 0 180 145" aria-label="House illustration"><ellipse cx="90" cy="129" rx="68" ry="8" fill="#d8c5fa"/><circle cx="35" cy="38" r="20" fill="#e0d2ff"/><path d="M34 65 90 20l56 45-10 9-46-36-46 36Z" fill="#59409a"/><path d="M46 67 90 34l44 33v52H46Z" fill="#fff" stroke="#b8a1e8" stroke-width="2"/><path d="M38 67 90 27l52 40" fill="none" stroke="#31235d" stroke-width="5"/><rect x="57" y="76" width="23" height="22" rx="2" fill="#a8d8f2" stroke="#fff" stroke-width="3"/><path d="M68 76v22M57 87h23" stroke="#fff" stroke-width="2"/><rect x="99" y="76" width="22" height="43" rx="3" fill="#7b52b5"/><circle cx="31" cy="111" r="13" fill="#65bd8a"/><rect x="28" y="113" width="5" height="13" fill="#8b654a"/><circle cx="149" cy="111" r="13" fill="#65bd8a"/><rect x="147" y="113" width="5" height="13" fill="#8b654a"/></svg></div><span class="ctitle">Houses for Rent</span><span class="desc">Whole houses and family homes</span></a>
-<a class="card" href="properties.html?category=apartment-for-rent"><div class="art"><svg viewBox="0 0 180 145" aria-label="Apartment building illustration"><ellipse cx="90" cy="129" rx="70" ry="8" fill="#d8c5fa"/><path d="M32 119V45l59-20v94Z" fill="#f9fbff" stroke="#9e8acb" stroke-width="2"/><path d="M91 119V15l57 19v85Z" fill="#d9e5f5" stroke="#8c7bb4" stroke-width="2"/><path d="M25 47 91 22l65 18" fill="none" stroke="#4e397f" stroke-width="5"/><g fill="#7fc7eb" stroke="#fff" stroke-width="3"><rect x="43" y="55" width="16" height="17"/><rect x="68" y="48" width="15" height="17"/><rect x="43" y="82" width="16" height="17"/><rect x="68" y="76" width="15" height="17"/><rect x="105" y="35" width="16" height="17"/><rect x="128" y="43" width="13" height="17"/><rect x="105" y="62" width="16" height="17"/><rect x="128" y="70" width="13" height="17"/><rect x="105" y="89" width="16" height="17"/><rect x="128" y="97" width="13" height="17"/></g><rect x="73" y="101" width="17" height="18" fill="#7b52b5"/></svg></div><span class="ctitle">Apartments for Rent</span><span class="desc">Flats and apartments</span></a>
-<a class="card" href="properties.html?category=room-for-rent"><div class="art"><svg viewBox="0 0 180 145" aria-label="Bedroom illustration"><rect x="16" y="16" width="148" height="112" rx="12" fill="#f7e9df"/><rect x="27" y="27" width="49" height="47" rx="3" fill="#c1e3f6" stroke="#fff" stroke-width="5"/><path d="M51 27v47M27 51h49" stroke="#fff" stroke-width="3"/><rect x="29" y="84" width="120" height="27" rx="7" fill="#8b6ac0"/><rect x="34" y="73" width="110" height="29" rx="8" fill="#fffdf9" stroke="#d5c5ec" stroke-width="2"/><rect x="40" y="78" width="40" height="16" rx="5" fill="#c4b0e8"/><rect x="85" y="78" width="53" height="16" rx="5" fill="#e6dbf8"/><path d="M39 102v17m100-17v17" stroke="#8b6ac0" stroke-width="4"/></svg></div><span class="ctitle">Rooms for Rent</span><span class="desc">Single rooms, chamber &amp; hall</span></a>
-<a class="card" href="properties.html?category=house-for-sale"><div class="art"><svg viewBox="0 0 180 145" aria-label="House for sale illustration"><ellipse cx="88" cy="129" rx="70" ry="8" fill="#d8c5fa"/><path d="M34 66 88 23l56 43-9 9-47-35-45 35Z" fill="#4d376f"/><path d="M45 68 88 37l44 31v51H45Z" fill="#fffdfb" stroke="#b7a1dd" stroke-width="2"/><rect x="57" y="77" width="24" height="23" fill="#9bd3f0" stroke="#fff" stroke-width="3"/><rect x="98" y="76" width="22" height="43" fill="#7b52b5"/><rect x="96" y="99" width="68" height="28" rx="3" fill="#ef4d54" stroke="#fff" stroke-width="2"/><text x="130" y="111" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">FOR</text><text x="130" y="121" text-anchor="middle" font-size="9" font-weight="800" fill="#fff">SALE</text></svg></div><span class="ctitle">Houses for Sale</span><span class="desc">Buy a house or home</span></a>
-<a class="card" href="properties.html?category=land-for-sale"><div class="art"><svg viewBox="0 0 180 145" aria-label="Land plot illustration"><rect x="14" y="15" width="152" height="113" rx="12" fill="#e5f4e8"/><path d="M18 104 89 65l73 36-72 30Z" fill="#7acb78"/><path d="M31 104 89 76l59 27-58 20Z" fill="#a8df82" stroke="#fff" stroke-width="3" stroke-dasharray="6 4"/><path d="M89 28c-14 0-24 11-24 24 0 18 24 39 24 39s24-21 24-39c0-13-10-24-24-24Z" fill="#f34f63"/><circle cx="89" cy="51" r="9" fill="#fff"/><circle cx="28" cy="41" r="13" fill="#79c996"/><circle cx="148" cy="43" r="13" fill="#79c996"/></svg></div><span class="ctitle">Land for Sale</span><span class="desc">Land and plots</span></a>
-<a class="card" href="properties.html?category=commercial-property"><div class="art"><svg viewBox="0 0 180 145" aria-label="Commercial building illustration"><ellipse cx="90" cy="128" rx="72" ry="7" fill="#d8c5fa"/><path d="M25 119V44l66-20v95Z" fill="#f7faff" stroke="#a999ce" stroke-width="2"/><path d="M91 119V34l63 12v73Z" fill="#dfe8f4" stroke="#9280b9" stroke-width="2"/><path d="M19 45 91 20l69 22" fill="none" stroke="#443267" stroke-width="5"/><g fill="#7bc9ed" stroke="#fff" stroke-width="3"><rect x="37" y="54" width="19" height="20"/><rect x="65" y="46" width="17" height="20"/><rect x="37" y="82" width="19" height="20"/><rect x="65" y="75" width="17" height="20"/><rect x="103" y="49" width="19" height="19"/><rect x="130" y="55" width="15" height="19"/><rect x="103" y="77" width="19" height="19"/></g><rect x="100" y="105" width="52" height="15" rx="2" fill="#512A91"/><text x="126" y="115" text-anchor="middle" font-size="8" font-weight="800" fill="#fff">SHOP</text></svg></div><span class="ctitle">Commercial Property</span><span class="desc">Shops, offices and business spaces</span></a>
-<a class="card" href="properties.html?category=short-stay"><div class="art"><svg viewBox="0 0 180 145" aria-label="Short stay bedroom illustration"><rect x="15" y="16" width="150" height="112" rx="12" fill="#f8eadd"/><rect x="29" y="27" width="50" height="43" rx="3" fill="#b7dff4" stroke="#fff" stroke-width="5"/><path d="M54 27v43M29 49h50" stroke="#fff" stroke-width="3"/><rect x="29" y="84" width="121" height="26" rx="7" fill="#9a78c9"/><rect x="34" y="72" width="111" height="30" rx="8" fill="#fff" stroke="#d8c6ed" stroke-width="2"/><rect x="40" y="77" width="42" height="16" rx="5" fill="#d7c6f3"/><rect x="87" y="77" width="51" height="16" rx="5" fill="#efe7fb"/><path d="M40 102v17m99-17v17" stroke="#9a78c9" stroke-width="4"/></svg></div><span class="ctitle">Short Stay / Guest House</span><span class="desc">Daily and short stays</span></a>
-<a class="card" href="properties.html?category=property-wanted"><div class="art"><svg viewBox="0 0 180 145" aria-label="Property wanted illustration"><circle cx="90" cy="73" r="54" fill="#e8dcff"/><path d="M34 77 86 37l52 40-9 8-43-33-43 33Z" fill="#b74b38"/><path d="M47 79 86 49l39 30v34H47Z" fill="#fff" stroke="#b8a2dd" stroke-width="2"/><rect x="59" y="86" width="18" height="18" fill="#9fd6f2" stroke="#fff" stroke-width="2"/><rect x="91" y="84" width="18" height="29" fill="#7b52b5"/><circle cx="121" cy="71" r="24" fill="none" stroke="#51417a" stroke-width="7"/><path d="m138 89 19 22" stroke="#51417a" stroke-width="9" stroke-linecap="round"/><ellipse cx="85" cy="121" rx="52" ry="5" fill="#d2c0f1"/></svg></div><span class="ctitle">Property Wanted</span><span class="desc">Looking for property</span></a>
-</div></section>
-<section class="hot"><div class="hothead"><div class="hotrow"><span class="hoticon">✦</span><div><h2>Hot Property Adverts</h2><p>Featured properties selected by OGARS</p></div></div><a class="all" href="properties.html?featured=true">See all →</a></div><div class="placeholder"><strong>OGARS Featured Properties</strong>This section is ready for properties selected by OGARS administrators. The featured-advert control still needs to be connected to live listings.</div></section>
+
+<section class="hero">
+<a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+<div class="hero-icon-box">⌂</div>
+<div class="hero-copy">
+<h1>Properties</h1>
+<p>Find houses, land and properties in Ghana</p>
+</div>
+</section>
+
+<main class="container">
+
+<section class="search-panel">
+<div class="search-button-row">
+<input type="search" id="property-search" placeholder="Search houses, apartments, land, shops..." autocomplete="off">
+<button type="button" class="search-button" id="search-button">⌕ Search</button>
+</div>
+
+<div class="filters">
+<select id="location-filter" aria-label="Choose region">
+<option value="">📍 All Ghana</option>
+<option value="Ahafo">Ahafo Region</option>
+<option value="Ashanti">Ashanti Region</option>
+<option value="Bono">Bono Region</option>
+<option value="Bono East">Bono East Region</option>
+<option value="Central">Central Region</option>
+<option value="Eastern">Eastern Region</option>
+<option value="Greater Accra">Greater Accra Region</option>
+<option value="North East">North East Region</option>
+<option value="Northern">Northern Region</option>
+<option value="Oti">Oti Region</option>
+<option value="Savannah">Savannah Region</option>
+<option value="Upper East">Upper East Region</option>
+<option value="Upper West">Upper West Region</option>
+<option value="Volta">Volta Region</option>
+<option value="Western">Western Region</option>
+<option value="Western North">Western North Region</option>
+</select>
+
+<select id="sort-filter" aria-label="Sort adverts">
+<option value="newest">Latest / Newest</option>
+<option value="verified">Trusted sellers first</option>
+<option value="price-low">Price: lowest first</option>
+<option value="price-high">Price: highest first</option>
+</select>
+</div>
+
+<div class="filters">
+<select id="purpose-filter" aria-label="Listing purpose">
+<option value="">Rent, Sale and Wanted</option>
+<option value="Rent">For Rent</option>
+<option value="Sale">For Sale</option>
+<option value="Wanted">Property Wanted</option>
+</select>
+<select id="price-filter" aria-label="Maximum price">
+<option value="">Any price</option>
+<option value="1000">Up to GH₵1,000</option>
+<option value="3000">Up to GH₵3,000</option>
+<option value="7000">Up to GH₵7,000</option>
+<option value="15000">Up to GH₵15,000</option>
+<option value="50000">Up to GH₵50,000</option>
+</select>
+</div>
+
+<div class="results-summary">
+<span id="results-count">Connecting to OGARS MARKET...</span>
+<button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+</div>
+</section>
+
+<section class="category-intro">
+<h2>Property Categories</h2>
+<p>Tap a category to see its adverts.</p>
+</section>
+
+<section class="category-shortcuts" aria-label="Property categories">
+<button class="shortcut" type="button" data-category="Houses for Rent"><span class="shortcut-icon">🏠</span><span>Houses for Rent</span></button>
+<button class="shortcut" type="button" data-category="Apartments for Rent"><span class="shortcut-icon">🏢</span><span>Apartments for Rent</span></button>
+<button class="shortcut" type="button" data-category="Rooms for Rent"><span class="shortcut-icon">🛏️</span><span>Rooms for Rent</span></button>
+<button class="shortcut" type="button" data-category="Houses for Sale"><span class="shortcut-icon">🏡</span><span>Houses for Sale</span></button>
+<button class="shortcut" type="button" data-category="Land for Sale"><span class="shortcut-icon">🌳</span><span>Land for Sale</span></button>
+<button class="shortcut" type="button" data-category="Commercial Property"><span class="shortcut-icon">🏬</span><span>Commercial Property</span></button>
+<button class="shortcut" type="button" data-category="Short Stay / Guest House"><span class="shortcut-icon">🛎️</span><span>Short Stay / Guest House</span></button>
+<button class="shortcut" type="button" data-category="Property Wanted"><span class="shortcut-icon">🔎</span><span>Property Wanted</span></button>
+</section>
+
+<p class="category-note" id="category-note">Showing all Property adverts.</p>
+
+<section id="products" class="products" aria-live="polite">
+<div class="message"><strong>Loading property adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+</section>
+
+<div class="back-area">
+<a href="index.html" class="back">← Back to OGARS MARKET</a>
+</div>
 </main>
-<nav class="nav" aria-label="Main navigation"><a class="active" href="index.html"><span class="ico">⌂</span><span>Home</span></a><a href="find-property.html"><span class="ico">▦</span><span>Explore</span></a><a href="advertise.html"><span class="plus">+</span><span>Sell</span></a><a href="index.html#ai-search"><span class="ico">✧</span><span>AI Search</span></a><a href="join-ogars.html"><span class="ico">♙</span><span>Account</span></a></nav>
-<script>document.getElementById('searchForm').addEventListener('submit',function(e){e.preventDefault();const p=new URLSearchParams();const q=document.getElementById('query').value.trim(),r=document.getElementById('region').value,price=document.getElementById('price').value;if(q)p.set('q',q);if(r)p.set('region',r);if(price)p.set('price',price);location.href='properties.html'+(p.toString()?'?'+p.toString():'')});</script>
-</body></html>
+
+<nav class="bottom-nav" aria-label="Main navigation">
+<a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+<a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+<a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+<a href="ai-search.html"><span class="nav-icon">✦</span><span>AI Search</span></a>
+<a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+</nav>
+
+<footer>
+<nav class="footer-links">
+<a href="index.html">Home</a><a href="workers.html">Workers</a>
+<a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
+<a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
+<a href="discover.html">Discover</a>
+</nav>
+<div>© 2026 OGARS MARKET</div>
+<div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
+</footer>
+
+<script>
+"use strict";
+
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+
+const categories=[
+"Houses for Rent","Apartments for Rent","Rooms for Rent",
+"Houses for Sale","Land for Sale","Commercial Property",
+"Short Stay / Guest House","Property Wanted"
+];
+
+let allProperties=[];
+let sellerMap={};
+let selectedCategory="";
+
+function escapeHtml(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+})[c]);
+}
+
+/* READ PROPERTY INFORMATION FROM THE DESCRIPTION */
+function parseProperty(advert){
+const details={};
+const publicLines=[];
+const lines=String(advert.description||"").split(/\r?\n/);
+
+const knownFields=[
+"property category","region","town / area","specific location",
+"property condition","bedrooms","bathrooms","toilets","furnishing",
+"parking spaces","advance payment / duration","availability",
+"ownership / documentation","land size","land condition",
+"land topography","road access","documentation","ownership",
+"room type","number of rooms","bathroom arrangement",
+"commercial property type","floor area / size",
+"number of rooms / units","floor / storey","facilities",
+"nightly rate (gh₵)","accommodation type","bedrooms / rooms",
+"preferred bedrooms","property wanted","budget (gh₵)",
+"preferred location","when do you need it?","rent amount (gh₵)",
+"payment period","asking price (gh₵)"
+];
+
+for(const line of lines){
+const text=line.trim();
+if(!text)continue;
+const colon=text.indexOf(":");
+
+if(colon>0){
+const label=text.slice(0,colon).trim().toLowerCase();
+const value=text.slice(colon+1).trim();
+if(value)details[label]=value;
+}
+
+const label=colon>0?text.slice(0,colon).trim().toLowerCase():"";
+if(knownFields.includes(label))continue;
+publicLines.push(text);
+}
+
+const category=details["property category"]||"";
+let purpose="";
+
+if(category==="Property Wanted")purpose="Wanted";
+else if(category==="Houses for Rent"||
+category==="Apartments for Rent"||
+category==="Rooms for Rent"||
+category==="Commercial Property"||
+category==="Short Stay / Guest House")purpose="Rent";
+else if(category==="Houses for Sale"||category==="Land for Sale")purpose="Sale";
+
+let priceValue="";
+let priceKey="";
+
+const priceFields=[
+"rent amount (gh₵)","asking price (gh₵)",
+"nightly rate (gh₵)","budget (gh₵)"
+];
+
+for(const key of priceFields){
+if(details[key]){
+priceValue=details[key];
+priceKey=key;
+break;
+}
+}
+
+const numericPrice=priceValue
+?Number(priceValue.replace(/,/g,"").replace(/[^\d.]/g,""))
+:null;
+
+return{
+details,
+category,
+purpose,
+priceValue,
+priceKey,
+price:Number.isFinite(numericPrice)?numericPrice:null,
+publicDescription:publicLines.join("\n").trim()
+};
+}
+
+function getPhotos(advert){
+return String(advert.photo_urls||"").split(",")
+.map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
+
+function cleanPhone(phone){
+let value=String(phone||"").replace(/[^\d+]/g,"");
+if(value.startsWith("+"))value=value.substring(1);
+if(value.startsWith("0"))value="233"+value.substring(1);
+return value;
+}
+
+function isActive(advert){
+if(advert.available===false)return false;
+if(advert.is_active===false||advert.active===false)return false;
+const status=String(advert.status||"").toLowerCase();
+if(["inactive","expired","deactivated","removed","closed"].includes(status))return false;
+if(advert.expires_at){
+const expiry=new Date(advert.expires_at).getTime();
+if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+}
+return true;
+}
+
+function getPriceLabel(property){
+if(property.priceKey==="rent amount (gh₵)")return "Rent";
+if(property.priceKey==="asking price (gh₵)")return "Asking price";
+if(property.priceKey==="nightly rate (gh₵)")return "Per night";
+if(property.priceKey==="budget (gh₵)")return "Budget";
+return "";
+}
+
+function matchesRegion(locationText,region){
+if(!region)return true;
+const text=String(locationText||"").toLowerCase();
+return text.includes(region.toLowerCase());
+}
+
+/* PROPERTY CARD */
+function createPropertyCard(advert){
+const card=document.createElement("article");
+card.className="product-card";
+
+const details=advert.parsed.details;
+const photos=getPhotos(advert);
+const photo=photos[0]||"";
+const phone=advert.phone||"";
+const whatsapp=advert.whatsapp||phone;
+const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+let priceText="Contact owner";
+if(advert.parsed.priceValue){
+priceText="GH₵ "+advert.parsed.priceValue;
+}
+
+let purposeText=advert.parsed.purpose==="Rent"?"For Rent":
+advert.parsed.purpose==="Sale"?"For Sale":
+advert.parsed.purpose==="Wanted"?"Property Wanted":"";
+
+let imageHtml='<div class="no-image">⌂</div>';
+if(photo){
+imageHtml=`<img class="product-image" src="${escapeHtml(photo)}"
+alt="${escapeHtml(advert.title||"Property advert")}" loading="lazy"
+onerror="this.outerHTML='<div class=&quot;no-image&quot;>⌂</div>'">`;
+}
+
+const propertyUrl=new URL("property-details.html",location.href);
+propertyUrl.searchParams.set("id",advert.id);
+
+let extra=[];
+if(details.bedrooms)extra.push(details.bedrooms+" bedrooms");
+if(details["bedrooms / rooms"])extra.push(details["bedrooms / rooms"]+" rooms");
+if(details["preferred bedrooms"])extra.push("Preferred: "+details["preferred bedrooms"]+" bedrooms");
+if(details["land size"])extra.push("Land: "+details["land size"]);
+if(details["payment period"])extra.push(details["payment period"]);
+if(details["advance payment / duration"])extra.push(details["advance payment / duration"]);
+
+let buttons="";
+const number=cleanPhone(whatsapp);
+if(number){
+const message=encodeURIComponent("Hello, I saw your property advert on OGARS MARKET: "+(advert.title||"Property listing")+". Is it still available?");
+buttons+=`<a class="button whatsapp" href="https://wa.me/${escapeHtml(number)}?text=${message}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+}
+if(phone){
+buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+}
+buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+card.innerHTML=`
+<div class="image-wrap">
+${imageHtml}
+<div class="category-badge">${escapeHtml(advert.parsed.category)}</div>
+</div>
+<div class="product-content">
+<h2 class="product-name">${escapeHtml(advert.title||"Property advert")}</h2>
+<div class="price">${escapeHtml(priceText)}${getPriceLabel(advert.parsed)?` <small style="font-size:9px">${escapeHtml(getPriceLabel(advert.parsed))}</small>`:""}</div>
+<div class="purpose">${escapeHtml(purposeText)}</div>
+${advert.parsed.publicDescription?`<div class="description">${escapeHtml(advert.parsed.publicDescription)}</div>`:""}
+${extra.length?`<div class="description">${extra.map(escapeHtml).join(" · ")}</div>`:""}
+<div class="business">
+${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+📍 ${escapeHtml(advert.location||"Ghana")}
+</div>
+<div class="delivery">📷 ${photos.length} photo(s)</div>
+<a class="details-button" href="${escapeHtml(propertyUrl.href)}">View Advert</a>
+${buttons?`<div class="button-row">${buttons}</div>`:""}
+</div>`;
+
+card.querySelector(".share-button").addEventListener("click",()=>shareProperty(advert.title,propertyUrl.href));
+return card;
+}
+
+/* SHARE */
+async function shareProperty(title,url){
+const data={title:"OGARS Property Advert",text:"Have a look at this property on OGARS MARKET:",url};
+try{
+if(navigator.share)await navigator.share(data);
+else if(navigator.clipboard){
+await navigator.clipboard.writeText(url);
+alert("Property link copied. You can now share it.");
+}else{
+window.prompt("Copy this property link:",url);
+}
+}catch(error){
+if(error.name!=="AbortError")console.error("Share failed:",error);
+}
+}
+
+/* FILTER AND SORT */
+function getFilteredProperties(){
+const query=$("property-search").value.trim().toLowerCase();
+const region=$("location-filter").value;
+const purpose=$("purpose-filter").value;
+const maxPrice=$("price-filter").value?Number($("price-filter").value):null;
+const sort=$("sort-filter").value;
+
+return allProperties.filter(property=>{
+const parsed=property.parsed;
+const searchable=[
+property.title,property.location,property.description,
+parsed.category,parsed.publicDescription,
+parsed.details["specific location"],
+parsed.details["preferred location"]
+].join(" ").toLowerCase();
+
+if(query&&!searchable.includes(query))return false;
+if(selectedCategory&&parsed.category!==selectedCategory)return false;
+if(region&&!matchesRegion(parsed.details.region||property.location,region))return false;
+if(purpose&&parsed.purpose!==purpose)return false;
+if(maxPrice!==null&&(parsed.price===null||parsed.price>maxPrice))return false;
+return true;
+}).sort((a,b)=>{
+const pa=a.parsed.price,pb=b.parsed.price;
+const va=pa!==null,vb=pb!==null;
+const da=new Date(a.created_at||0).getTime();
+const dbb=new Date(b.created_at||0).getTime();
+const ta=sellerMap[String(a.user_id)]?.is_trusted===true;
+const tb=sellerMap[String(b.user_id)]?.is_trusted===true;
+
+if(sort==="price-low"){
+if(va&&vb)return pa-pb;
+if(va)return -1;
+if(vb)return 1;
+return dbb-da;
+}
+if(sort==="price-high"){
+if(va&&vb)return pb-pa;
+if(va)return -1;
+if(vb)return 1;
+return dbb-da;
+}
+if(sort==="verified"&&ta!==tb)return ta?-1:1;
+return dbb-da;
+});
+}
+
+function displayProperties(properties){
+$("results-count").textContent=properties.length+(properties.length===1?" property found":" properties found");
+
+if(!properties.length){
+$("products").innerHTML=`
+<div class="message">
+<strong>🔍 No property adverts found</strong>
+Try another category or clear your filters.
+</div>`;
+return;
+}
+
+const fragment=document.createDocumentFragment();
+properties.forEach(property=>fragment.appendChild(createPropertyCard(property)));
+$("products").replaceChildren(fragment);
+}
+
+function filterProperties(){
+displayProperties(getFilteredProperties());
+}
+
+function showError(title,detail){
+$("results-count").textContent="Unable to load property adverts";
+$("products").innerHTML=`
+<div class="message">
+<strong>${escapeHtml(title)}</strong>
+<div>${escapeHtml(detail)}</div>
+<button class="retry-button" type="button" onclick="loadProperties()">Try Again</button>
+</div>`;
+}
+
+/* LOAD PROPERTY ADVERTS */
+async function loadProperties(){
+$("results-count").textContent="Connecting to OGARS MARKET...";
+$("products").innerHTML='<div class="message"><strong>Loading property adverts...</strong>Please wait while we connect to OGARS MARKET.</div>';
+
+try{
+const {data,error}=await db.from("discover_listings")
+.select("*")
+.eq("listing_type","Property")
+.order("created_at",{ascending:false})
+.limit(500);
+
+if(error)throw error;
+
+allProperties=(data||[])
+.filter(isActive)
+.map(advert=>({...advert,parsed:parseProperty(advert)}))
+.filter(advert=>categories.includes(advert.parsed.category));
+
+/* TRUSTED SELLER INFORMATION */
+const ids=[...new Set(allProperties.map(p=>p.user_id).filter(Boolean))];
+sellerMap={};
+
+if(ids.length){
+const {data:profiles,error:profileError}=await db.from("user_profiles")
+.select("id,is_trusted").in("id",ids);
+
+if(!profileError&&profiles){
+profiles.forEach(profile=>sellerMap[String(profile.id)]=profile);
+}
+}
+
+filterProperties();
+
+}catch(error){
+console.error("OGARS Property error:",error);
+showError("Unable to load property adverts",error.message||"Please try again.");
+}
+}
+
+/* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+button.addEventListener("click",()=>{
+const value=button.dataset.category;
+selectedCategory=selectedCategory===value?"":value;
+
+document.querySelectorAll(".shortcut").forEach(item=>{
+item.classList.toggle("active",item.dataset.category===selectedCategory);
+});
+
+$("category-note").textContent=selectedCategory
+?"Showing "+selectedCategory+" adverts."
+:"Showing all Property adverts.";
+
+filterProperties();
+$("products").scrollIntoView({behavior:"smooth",block:"start"});
+});
+});
+
+/* CLEAR FILTERS */
+function clearFilters(){
+$("property-search").value="";
+$("location-filter").value="";
+$("sort-filter").value="newest";
+$("purpose-filter").value="";
+$("price-filter").value="";
+selectedCategory="";
+
+document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
+$("category-note").textContent="Showing all Property adverts.";
+filterProperties();
+}
+
+/* EVENTS */
+$("property-search").addEventListener("input",filterProperties);
+$("location-filter").addEventListener("change",filterProperties);
+$("sort-filter").addEventListener("change",filterProperties);
+$("purpose-filter").addEventListener("change",filterProperties);
+$("price-filter").addEventListener("change",filterProperties);
+$("search-button").addEventListener("click",filterProperties);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+location.href="ai-search.html";
+});
+
+/* SUPPORT OLD CATEGORY LINKS */
+const params=new URLSearchParams(location.search);
+const oldCategory=params.get("category");
+const legacyCategories={
+"house-for-rent":"Houses for Rent",
+"apartment-for-rent":"Apartments for Rent",
+"room-for-rent":"Rooms for Rent",
+"house-for-sale":"Houses for Sale",
+"land-for-sale":"Land for Sale",
+"commercial-property":"Commercial Property",
+"short-stay":"Short Stay / Guest House",
+"property-wanted":"Property Wanted"
+};
+
+if(oldCategory){
+selectedCategory=legacyCategories[oldCategory]||oldCategory;
+const button=document.querySelector(`.shortcut[data-category="${CSS.escape(selectedCategory)}"]`);
+if(button)button.classList.add("active");
+$("category-note").textContent="Showing "+selectedCategory+" adverts.";
+}
+
+if(params.get("q"))$("property-search").value=params.get("q");
+if(params.get("region"))$("location-filter").value=params.get("region");
+if(params.get("purpose"))$("purpose-filter").value=params.get("purpose");
+if(params.get("price"))$("price-filter").value=params.get("price");
+
+loadProperties();
+</script>
+</body>
+</html>
