@@ -3,183 +3,191 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#542B9A">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6545c5">
+<meta name="description" content="Discover products and goods on OGARS MARKET Ghana.">
 <title>Products & Goods | OGARS MARKET</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
-  --p:#6500a8;
-  --deep:#4e087f;
-  --lav:#f2e8ff;
-  --line:#e5d2ff;
-  --ink:#211b36;
-  --muted:#716b83;
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;
+  --border:#e6e0f5;
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;color:var(--ink);background:#fff;padding-bottom:90px}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+
 .hero{
-  min-height:150px;padding:22px 15px;display:flex;align-items:center;
-  gap:12px;color:white;background:linear-gradient(110deg,#7814c5,#4e087f);
-  position:relative;overflow:hidden
+  display:flex;align-items:center;gap:9px;min-height:82px;
+  padding:9px 12px;
+  background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+  color:#fff;position:relative;overflow:hidden
 }
-.hero:after{
-  content:"▦";position:absolute;right:8px;top:-25px;
-  font-size:150px;color:#ffffff18;pointer-events:none
+.hero::after{
+  content:"▦";position:absolute;right:10px;top:-35px;
+  font-size:120px;color:rgba(255,255,255,.07);pointer-events:none
 }
-.hero-back{color:white;text-decoration:none;font-size:38px;line-height:1;z-index:1}
-.hero-icon{
-  width:70px;height:70px;flex:0 0 70px;border:3px solid white;
-  border-radius:21px;display:grid;place-items:center;font-size:37px;z-index:1
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+  border-radius:12px;display:grid;place-items:center;
+  font-size:25px;position:relative;z-index:1
 }
-.hero-copy{z-index:1;min-width:0}
-.hero h1{margin:0;font-size:clamp(21px,5vw,29px);line-height:1.12;font-weight:900}
-.hero p{margin:8px 0 0;font-size:13px;color:#f1e6ff}
-main{max-width:950px;margin:auto;padding:15px 13px 30px}
-.search-panel{background:var(--lav);border-radius:27px;padding:14px;margin:10px 0 23px}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+.search-panel{
+  background:#f1e8ff;border:1px solid #e9ddfb;
+  border-radius:14px;padding:9px;margin:8px 0 12px
+}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
 .search-panel input,.search-panel select{
-  width:100%;min-width:0;height:52px;border:1.5px solid var(--line);
-  border-radius:25px;background:white;padding:0 14px;font-size:15px;color:var(--ink)
+  width:100%;min-width:0;min-height:38px;padding:8px 10px;
+  border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+  color:var(--text);font-size:12px
 }
-.search-panel input{margin-bottom:10px}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px}
 .search-button{
-  height:53px;width:100%;border:0;border-radius:25px;color:white;
-  background:linear-gradient(110deg,#6800a9,#4f087f);
-  font-size:17px;font-weight:900;cursor:pointer
+  border:0;border-radius:9px;background:var(--dark);
+  color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
 }
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
 .results-summary{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:8px;margin:12px 2px 0;color:var(--muted);font-size:12px
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;font-size:10px;color:var(--muted);margin-top:7px
 }
 .clear-button{
-  border:0;background:white;color:var(--deep);border-radius:18px;
-  padding:8px 12px;font-weight:bold;cursor:pointer
+  background:#fff;border:1px solid var(--border);color:var(--dark);
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
 }
-.heading{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:8px;margin:8px 2px 16px
-}
-.heading h2{color:#5c078f;font-size:clamp(17px,4.5vw,23px);margin:0;font-weight:900}
-.sort{
-  border:1.5px solid #c76af0;border-radius:25px;padding:7px 9px;
-  display:flex;align-items:center;gap:5px;color:var(--p);flex-shrink:0
-}
-.sort select{border:0;background:transparent;max-width:120px;color:var(--ink);font-weight:bold;font-size:12px}
-.category-grid{
+
+.category-intro{margin:0 0 7px}
+.category-intro h2{font-size:16px;margin:0 0 2px}
+.category-intro p{font-size:10px;color:var(--muted);margin:0}
+.category-shortcuts{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:9px;margin-bottom:24px
+  gap:6px;margin:8px 0
 }
-.category-card{
-  min-width:0;min-height:116px;border:1.5px solid var(--line);
-  border-radius:22px;padding:9px 5px;background:white;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:7px;text-align:center;color:var(--ink);font-size:11px;font-weight:900;
-  cursor:pointer;box-shadow:0 4px 9px #4e087f10
+.shortcut{
+  min-width:0;min-height:0;padding:5px;border:1px solid var(--border);
+  border-radius:10px;background:#fff;color:var(--text);
+  text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 5px rgba(77,50,165,.04)
 }
-.category-card.active{border:2px solid #8a55c5;background:#f8f2ff}
-.category-icon{font-size:34px;line-height:1.2}
-.category-card span:last-child{overflow-wrap:anywhere}
-.products{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px
+.shortcut-icon{
+  width:100%;height:43px;border-radius:7px;
+  background:linear-gradient(145deg,#eee4ff,#faf7ff);
+  display:grid;place-items:center;font-size:24px
 }
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.category-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 .product-card{
-  min-width:0;border:1.5px solid var(--line);border-radius:22px;
-  overflow:hidden;background:white;box-shadow:0 4px 9px #4e087f12;
-  display:flex;flex-direction:column
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
 }
-.image-wrap{
-  height:140px;background:linear-gradient(140deg,#f8efff,#fff);
-  position:relative;overflow:hidden
-}
+.image-wrap{height:125px;background:#f2edff;position:relative}
 .product-image{width:100%;height:100%;object-fit:cover;display:block}
-.no-image{height:100%;display:grid;place-items:center;font-size:45px;color:#8b65b8}
+.no-image{
+  width:100%;height:100%;display:flex;align-items:center;
+  justify-content:center;font-size:34px;color:#7b68b8
+}
 .category-badge{
-  position:absolute;bottom:7px;left:7px;max-width:calc(100% - 14px);
-  padding:5px 8px;background:white;color:var(--deep);border-radius:20px;
-  font-size:9px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
 }
-.product-content{padding:9px;display:flex;flex-direction:column;flex:1;min-width:0}
-.product-name{margin:0;font-size:14px;line-height:1.25;font-weight:900;overflow-wrap:anywhere}
-.price{color:var(--p);font-size:17px;font-weight:900;margin-top:6px}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
 .description{
-  color:var(--muted);font-size:11px;line-height:1.4;margin-top:7px;
-  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;
-  -webkit-box-orient:vertical;overflow:hidden
+  color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
 }
-.business{
-  border-top:1px solid var(--line);padding-top:8px;margin-top:9px;
-  font-size:10px;line-height:1.45;overflow-wrap:anywhere
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
 }
+.button{
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
+}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
 .details-button{
-  display:block;text-align:center;text-decoration:none;background:#f2e8ff;
-  color:#5b078f;border-radius:18px;padding:9px 5px;margin-top:9px;
-  font-size:11px;font-weight:900
+  display:flex;justify-content:center;align-items:center;width:100%;
+  min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+  background:var(--dark);color:#fff;text-decoration:none;
+  text-align:center;font-size:10px;font-weight:bold
 }
-.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:8px}
-.action-button{
-  min-width:0;min-height:36px;display:flex;align-items:center;justify-content:center;
-  text-decoration:none;border:0;border-radius:17px;padding:6px 3px;
-  font-size:10px;font-weight:900;cursor:pointer;text-align:center
-}
-.whatsapp{background:#e7f8ed;color:#16783a}
-.call{background:#f0e8ff;color:#5a2290}
-.share{background:#eeeaff;color:#4f32a5}
 .message{
-  grid-column:1/-1;padding:28px 16px;text-align:center;color:var(--muted);
-  background:#faf7ff;border:1px solid var(--line);border-radius:20px
+  grid-column:1/-1;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:20px 12px;text-align:center;
+  color:var(--muted);font-size:12px;overflow-wrap:anywhere
 }
-.message strong{display:block;color:var(--ink);margin-bottom:7px}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
 .retry-button{
-  border:0;background:var(--p);color:white;border-radius:20px;
-  padding:10px 17px;margin-top:12px;font-weight:bold
+  background:var(--purple);color:#fff;border:0;border-radius:7px;
+  padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
 }
-.back-area{text-align:center;margin:22px 0}
+.back-area{text-align:center;margin-top:16px}
 .back{
-  display:inline-block;color:var(--deep);text-decoration:none;
-  border:1px solid var(--line);background:white;border-radius:20px;
-  padding:10px 16px;font-size:12px;font-weight:bold
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
 }
-footer{background:#211b36;color:#e1dced;text-align:center;padding:20px 12px;font-size:11px}
-.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:12px}
-.footer-links a{color:white;text-decoration:none;font-weight:bold}
+
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+
 .bottom-nav{
-  position:fixed;left:0;right:0;bottom:0;z-index:50;height:75px;
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;
-  background:#ffffffed;border-top:1px solid var(--line);
-  box-shadow:0 -4px 14px #23184612;padding-bottom:env(safe-area-inset-bottom)
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+  box-shadow:0 -3px 12px rgba(35,24,70,.08)
 }
-.bottom-nav a{
+.bottom-nav a,.bottom-nav button{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;min-width:0;color:#777187;text-decoration:none;font-size:10px;font-weight:700
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
 }
-.bottom-nav .active{color:var(--p)}
-.nav-icon{font-size:22px;line-height:1.1}
-.sell-icon{
-  width:39px;height:31px;display:grid;place-items:center;background:var(--p);
-  color:white;border-radius:12px;font-size:22px;margin-top:-10px
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+  width:33px;height:26px;display:grid;place-items:center;
+  background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
 }
-@media(min-width:650px){
-  main{padding-left:18px;padding-right:18px}
-  .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-  .image-wrap{height:175px}
-  .product-content{padding:12px}
-  .product-name{font-size:16px}
-  .price{font-size:19px}
-  .action-button{font-size:11px}
+
+@media(min-width:851px){
+  .image-wrap{height:160px}
+  .product-content{padding:9px}
 }
-@media(max-width:360px){
-  main{padding-left:9px;padding-right:9px}
-  .category-grid{gap:6px}
-  .category-card{font-size:10px;min-height:105px}
-  .products{gap:7px}
-  .product-content{padding:7px}
-  .product-name{font-size:12px}
-  .image-wrap{height:115px}
-  .action-button{font-size:9px}
-  .heading{align-items:flex-start;flex-direction:column}
-  .sort{align-self:flex-end;margin-top:-7px}
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .image-wrap{height:110px}
+  .product-content{padding:6px}
+  .product-name{font-size:11px}
+  .price{font-size:13px}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
+  .shortcut-icon{height:42px;font-size:23px}
+  .shortcut{font-size:9px}
+  .search-button-row{grid-template-columns:1fr}
+  .search-button{min-height:35px}
 }
 </style>
 </head>
@@ -187,108 +195,102 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:20px 12px;font
 <body>
 
 <section class="hero">
-  <a href="index.html" class="hero-back" aria-label="Back">‹</a>
-  <div class="hero-icon">🛍️</div>
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box">🛍️</div>
   <div class="hero-copy">
-    <h1>OGARS<br>PRODUCTS &amp; GOODS</h1>
+    <h1>Products &amp; Goods</h1>
     <p>Find everyday products and goods</p>
   </div>
 </section>
 
-<main>
+<main class="container">
 
-  <section class="search-panel">
-    <input type="search" id="search" placeholder="Search products, brands or items..." autocomplete="off">
-
-    <div class="filters">
-      <select id="location-filter" aria-label="Filter by region">
-        <option value="">📍 All Ghana</option>
-        <option value="Ahafo">Ahafo Region</option>
-        <option value="Ashanti">Ashanti Region</option>
-        <option value="Bono">Bono Region</option>
-        <option value="Bono East">Bono East Region</option>
-        <option value="Central">Central Region</option>
-        <option value="Eastern">Eastern Region</option>
-        <option value="Greater Accra">Greater Accra Region</option>
-        <option value="North East">North East Region</option>
-        <option value="Northern">Northern Region</option>
-        <option value="Oti">Oti Region</option>
-        <option value="Savannah">Savannah Region</option>
-        <option value="Upper East">Upper East Region</option>
-        <option value="Upper West">Upper West Region</option>
-        <option value="Volta">Volta Region</option>
-        <option value="Western">Western Region</option>
-        <option value="Western North">Western North Region</option>
-      </select>
-
-      <select id="category-filter" aria-label="Choose product category">
-        <option value="">All Categories</option>
-      </select>
-    </div>
-
-    <button type="button" class="search-button" id="search-button">⌕ &nbsp; Search Products</button>
-
-    <div class="results-summary">
-      <span id="results-count">Connecting to OGARS...</span>
-      <button type="button" class="clear-button" id="clear">Clear Filters</button>
-    </div>
-  </section>
-
-  <div class="heading">
-    <h2>Products &amp; Goods Categories</h2>
-    <label class="sort">
-      ↕
-      <select id="sort">
-        <option value="latest">Sort: Latest</option>
-        <option value="oldest">Sort: Oldest</option>
-        <option value="low">Price: Low to High</option>
-        <option value="high">Price: High to Low</option>
-      </select>
-    </label>
+<section class="search-panel">
+  <div class="search-button-row">
+    <input type="search" id="product-search" placeholder="Search products, brands or items..." autocomplete="off">
+    <button type="button" class="search-button" id="search-button">⌕ Search</button>
   </div>
 
-  <section class="category-grid" id="category-grid">
-    <button class="category-card" type="button" data-category="Home & Kitchen Goods"><span class="category-icon">🍳</span><span>Home &amp; Kitchen Goods</span></button>
-    <button class="category-card" type="button" data-category="Phones & Accessories"><span class="category-icon">📱</span><span>Phones &amp; Accessories</span></button>
-    <button class="category-card" type="button" data-category="Electronics & Appliances"><span class="category-icon">📺</span><span>Electronics &amp; Appliances</span></button>
-    <button class="category-card" type="button" data-category="Computers & Office Equipment"><span class="category-icon">💻</span><span>Computers &amp; Office Equipment</span></button>
-    <button class="category-card" type="button" data-category="Baby & Kids Products"><span class="category-icon">🧸</span><span>Baby &amp; Kids Products</span></button>
-    <button class="category-card" type="button" data-category="Health & Personal Care"><span class="category-icon">🧴</span><span>Health &amp; Personal Care</span></button>
-    <button class="category-card" type="button" data-category="Tools & Hardware"><span class="category-icon">🔧</span><span>Tools &amp; Hardware</span></button>
-    <button class="category-card" type="button" data-category="Sports & Outdoor Goods"><span class="category-icon">⚽</span><span>Sports &amp; Outdoor Goods</span></button>
-    <button class="category-card" type="button" data-category="Books, Stationery & Media"><span class="category-icon">📚</span><span>Books, Stationery &amp; Media</span></button>
-    <button class="category-card" type="button" data-category="Industrial & Business Supplies"><span class="category-icon">🏭</span><span>Industrial &amp; Business Supplies</span></button>
-    <button class="category-card" type="button" data-category="Other Products & Goods"><span class="category-icon">📦</span><span>Other Products &amp; Goods</span></button>
-  </section>
+  <div class="filters">
+    <select id="location-filter" aria-label="Choose region">
+      <option value="">📍 All Ghana</option>
+      <option value="Ahafo">Ahafo Region</option>
+      <option value="Ashanti">Ashanti Region</option>
+      <option value="Bono">Bono Region</option>
+      <option value="Bono East">Bono East Region</option>
+      <option value="Central">Central Region</option>
+      <option value="Eastern">Eastern Region</option>
+      <option value="Greater Accra">Greater Accra Region</option>
+      <option value="North East">North East Region</option>
+      <option value="Northern">Northern Region</option>
+      <option value="Oti">Oti Region</option>
+      <option value="Savannah">Savannah Region</option>
+      <option value="Upper East">Upper East Region</option>
+      <option value="Upper West">Upper West Region</option>
+      <option value="Volta">Volta Region</option>
+      <option value="Western">Western Region</option>
+      <option value="Western North">Western North Region</option>
+    </select>
 
-  <div class="heading">
-    <h2 id="listing-title">Latest Products &amp; Goods</h2>
+    <select id="sort-filter" aria-label="Sort adverts">
+      <option value="newest">Latest / Newest</option>
+      <option value="verified">Trusted sellers first</option>
+      <option value="price-low">Price: lowest first</option>
+      <option value="price-high">Price: highest first</option>
+    </select>
   </div>
 
-  <section id="products" class="products" aria-live="polite">
-    <div class="message"><strong>🛍️ Loading products...</strong>Please wait while we connect to OGARS MARKET.</div>
-  </section>
-
-  <div class="back-area">
-    <a href="index.html" class="back">← Back to OGARS MARKET</a>
+  <div class="results-summary">
+    <span id="results-count">Connecting to OGARS MARKET...</span>
+    <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
   </div>
+</section>
+
+<section class="category-intro">
+  <h2>Products &amp; Goods Categories</h2>
+  <p>Tap a category to see its adverts.</p>
+</section>
+
+<section class="category-shortcuts" aria-label="Products and Goods categories">
+  <button class="shortcut" type="button" data-subcategory="Home & Kitchen Goods"><span class="shortcut-icon">🍳</span><span>Home &amp; Kitchen Goods</span></button>
+  <button class="shortcut" type="button" data-subcategory="Computers & Office Equipment"><span class="shortcut-icon">💻</span><span>Computers &amp; Office Equipment</span></button>
+  <button class="shortcut" type="button" data-subcategory="Baby & Kids Products"><span class="shortcut-icon">🧸</span><span>Baby &amp; Kids Products</span></button>
+  <button class="shortcut" type="button" data-subcategory="Health & Personal Care"><span class="shortcut-icon">🧴</span><span>Health &amp; Personal Care</span></button>
+  <button class="shortcut" type="button" data-subcategory="Tools & Hardware"><span class="shortcut-icon">🔧</span><span>Tools &amp; Hardware</span></button>
+  <button class="shortcut" type="button" data-subcategory="Sports & Outdoor Goods"><span class="shortcut-icon">⚽</span><span>Sports &amp; Outdoor Goods</span></button>
+  <button class="shortcut" type="button" data-subcategory="Books, Stationery & Media"><span class="shortcut-icon">📚</span><span>Books, Stationery &amp; Media</span></button>
+  <button class="shortcut" type="button" data-subcategory="Industrial & Business Supplies"><span class="shortcut-icon">🏭</span><span>Industrial &amp; Business Supplies</span></button>
+  <button class="shortcut" type="button" data-subcategory="Other Products & Goods"><span class="shortcut-icon">📦</span><span>Other Products &amp; Goods</span></button>
+</section>
+
+<p class="category-note" id="category-note">Showing all Products &amp; Goods adverts.</p>
+
+<section id="products" class="products" aria-live="polite">
+  <div class="message"><strong>Loading Products &amp; Goods adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+</section>
+
+<div class="back-area">
+  <a href="index.html" class="back">← Back to OGARS MARKET</a>
+</div>
 </main>
 
 <nav class="bottom-nav" aria-label="Main navigation">
-  <a href="index.html"><span class="nav-icon">⌂</span>Home</a>
-  <a href="discover.html" class="active"><span class="nav-icon">▦</span>Explore</a>
-  <a href="advertise.html"><span class="sell-icon">＋</span>Sell</a>
-  <a href="discover.html?mode=ai"><span class="nav-icon">✧</span>AI Search</a>
-  <a href="account.html"><span class="nav-icon">♙</span>Account</a>
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
 </nav>
 
 <footer>
   <nav class="footer-links">
     <a href="index.html">Home</a>
-    <a href="discover.html">Explore</a>
+    <a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a>
     <a href="find-property.html">Properties</a>
     <a href="vehicles.html">Vehicles</a>
-    <a href="account.html">Account</a>
+    <a href="business.html">Businesses</a>
+    <a href="discover.html">Discover</a>
   </nav>
   <div>© 2026 OGARS MARKET</div>
   <div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
@@ -299,344 +301,447 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:20px 12px;font
 
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
-const categories=[
-"Home & Kitchen Goods",
-"Phones & Accessories",
-"Electronics & Appliances",
-"Computers & Office Equipment",
-"Baby & Kids Products",
-"Health & Personal Care",
-"Tools & Hardware",
-"Sports & Outdoor Goods",
-"Books, Stationery & Media",
-"Industrial & Business Supplies",
-"Other Products & Goods"
-];
-
-const params=new URLSearchParams(location.search);
-let selectedCategory=params.get("category")||"";
-let allListings=[];
-let trustedUsers={};
-
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 
+const categories=[
+  "Home & Kitchen Goods",
+  "Computers & Office Equipment",
+  "Baby & Kids Products",
+  "Health & Personal Care",
+  "Tools & Hardware",
+  "Sports & Outdoor Goods",
+  "Books, Stationery & Media",
+  "Industrial & Business Supplies",
+  "Other Products & Goods"
+];
+
+let allProducts=[];
+let sellerMap={};
+
+const params=new URLSearchParams(location.search);
+let selectedSubcategory=params.get("subcategory")||"";
+
+/* PARSE DETAILS SAVED IN DESCRIPTION */
+function parseAdvert(advert){
+  const lines=String(advert.description||"").split(/\r?\n/);
+  const details={};
+  const publicLines=[];
+
+  const automaticFields=[
+    "Product type","Product name","Price (GH₵)","Maximum budget (GH₵)",
+    "Condition","Quantity available","Brand","Model / size","Warranty"
+  ];
+
+  for(const line of lines){
+    const text=line.trim();
+    if(!text)continue;
+
+    const colon=text.indexOf(":");
+    if(colon>0){
+      const label=text.slice(0,colon).trim();
+      const value=text.slice(colon+1).trim();
+      if(value)details[label.toLowerCase()]=value;
+    }
+
+    if(
+      /^Products & Goods category:/i.test(text)||
+      /^Advert purpose:/i.test(text)||
+      /^Region:/i.test(text)||
+      /^Town \/ area:/i.test(text)||
+      /^Specific location:/i.test(text)
+    )continue;
+
+    if(automaticFields.some(field=>
+      text.toLowerCase().startsWith(field.toLowerCase()+":")
+    ))continue;
+
+    publicLines.push(text);
+  }
+
+  const priceValue=details["price (gh₵)"]||details["maximum budget (gh₵)"]||"";
+  const numericPrice=Number(String(priceValue).replace(/,/g,""));
+
+  return{
+    category:details["products & goods category"]||"",
+    purpose:details["advert purpose"]||"",
+    price:priceValue&&Number.isFinite(numericPrice)?numericPrice:null,
+    publicDescription:publicLines.join("\n").trim()
+  };
+}
+
+/* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
+
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
+
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+  }
+  return true;
+}
+
+/* SAFE HTML */
 function escapeHtml(value){
- return String(value??"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
- }[c]));
+  return String(value??"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-function parseDetails(description){
- const details={};
- const publicLines=[];
- String(description||"").split(/\r?\n/).forEach(line=>{
-  const match=line.match(/^\s*([^:\n]+):\s*(.*?)\s*$/);
-  if(match){
-   details[match[1].trim().toLowerCase()]=match[2].trim();
-  }else if(line.trim()){
-   publicLines.push(line.trim());
+/* PHONE NUMBER */
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
+  return value;
+}
+
+/* LOAD ADVERTS */
+async function loadProducts(){
+  $("products").innerHTML=`<div class="message"><strong>🛍️ Loading Products & Goods adverts...</strong>Connecting to OGARS MARKET.</div>`;
+  $("results-count").textContent="Connecting to OGARS MARKET...";
+
+  try{
+    const {data,error}=await db.from("discover_listings")
+      .select("*")
+      .eq("listing_type","Products & Goods")
+      .order("created_at",{ascending:false})
+      .limit(500);
+
+    if(error)throw error;
+
+    allProducts=(data||[])
+      .filter(isAdvertActive)
+      .map(advert=>{
+        const parsed=parseAdvert(advert);
+        return{...advert,parsed,category:parsed.category,purpose:parsed.purpose,price:parsed.price};
+      })
+      .filter(advert=>categories.includes(advert.category));
+
+    displayProducts(getFilteredProducts());
+    loadSellerInformation();
+  }catch(error){
+    console.error("OGARS Products & Goods error:",error);
+    showMessage("Unable to load adverts",error.message||"Please try again.",true);
   }
- });
- return {details,publicText:publicLines.join(" ")};
 }
 
-function getCategory(listing){
- const {details}=parseDetails(listing.description);
- return details["products & goods category"]||"";
-}
+/* SELLER TRUST INFORMATION */
+async function loadSellerInformation(){
+  const ids=[...new Set(allProducts.map(item=>item.user_id).filter(Boolean))];
+  if(!ids.length)return;
 
-function getPrice(listing){
- const {details}=parseDetails(listing.description);
- return details["price (gh₵)"]||details["maximum budget (gh₵)"]||"";
-}
+  try{
+    const {data,error}=await db.from("user_profiles")
+      .select("id,is_trusted").in("id",ids);
 
-function getPriceText(listing){
- const price=getPrice(listing);
- if(!price)return "Price on request";
- const n=Number(price.replace(/,/g,""));
- return Number.isFinite(n)?"GH₵"+n.toLocaleString("en-GH",{minimumFractionDigits:2,maximumFractionDigits:2}):"Price on request";
-}
+    if(error)throw error;
 
-function isActive(listing){
- if(listing.available===false||listing.is_active===false||listing.active===false)return false;
- const status=String(listing.status||"").toLowerCase();
- if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
- if(listing.expires_at&&new Date(listing.expires_at)<new Date())return false;
- return true;
-}
-
-function cleanPhone(phone){
- let value=String(phone||"").replace(/[^\d+]/g,"");
- if(value.startsWith("+"))value=value.slice(1);
- if(value.startsWith("0"))value="233"+value.slice(1);
- return value;
-}
-
-function getLocationText(listing){
- return listing.location||"";
-}
-
-function matchesRegion(listing,region){
- if(!region)return true;
- const location=getLocationText(listing).toLowerCase();
- const aliases={
-  "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","tudu","kasoa","chantan","spintex","adenta","east legon"],
-  "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong","konongo"],
-  "central":["central","cape coast","winneba","mankessim","swedru"],
-  "eastern":["eastern","koforidua","nkawkaw","nsawam","aburi","somanya"],
-  "western":["western","sekondi","takoradi","tarkwa","prestea"],
-  "western north":["western north","sefwi","bibiani","enchi"],
-  "volta":["volta","ho","hohoe","keta","aflao"],
-  "northern":["northern","tamale","yendi","savelugu"],
-  "upper east":["upper east","bolgatanga","bawku","navrongo"],
-  "upper west":["upper west","wa","lawra","jirapa"],
-  "bono":["bono","sun y","berekum","wenchi"],
-  "bono east":["bono east","techiman","kintampo","nkoranza"],
-  "ahafo":["ahafo","goaso","kenyasi","bechem"],
-  "oti":["oti","dambai","jasikan","kad jebi"],
-  "savannah":["savannah","damongo","salaga","bole"],
-  "north east":["north east","nalerigu","walewale","gambaga"]
- };
- const terms=aliases[region.toLowerCase()]||[region.toLowerCase()];
- return terms.some(term=>location.includes(term));
-}
-
-function showMessage(title,detail,error=false){
- $("products").innerHTML=`
-  <div class="message">
-   <strong>${escapeHtml(title)}</strong>
-   ${escapeHtml(detail)}
-   ${error?'<br><button class="retry-button" onclick="loadListings()">Try Again</button>':""}
-  </div>`;
- $("results-count").textContent=error?"Could not load adverts":"0 adverts found";
-}
-
-async function loadTrustedUsers(){
- const ids=[...new Set(allListings.map(item=>item.user_id).filter(Boolean))];
- if(!ids.length)return;
- try{
-  const {data,error}=await client.from("user_profiles").select("id,is_trusted").in("id",ids);
-  if(error)throw error;
-  trustedUsers={};
-  (data||[]).forEach(user=>trustedUsers[user.id]=user.is_trusted===true);
- }catch(error){
-  console.warn("Seller trust information could not be loaded:",error);
- }
-}
-
-function shareListing(listing){
- const url=new URL("discover-details.html",location.href);
- url.searchParams.set("id",listing.id);
- const data={
-  title:listing.title||"Products & Goods on OGARS MARKET",
-  text:"Check out this advert on OGARS MARKET.",
-  url:url.href
- };
- if(navigator.share){
-  navigator.share(data).catch(error=>{
-   if(error.name!=="AbortError")copyShareLink(url.href);
-  });
- }else{
-  copyShareLink(url.href);
- }
-}
-
-async function copyShareLink(url){
- try{
-  await navigator.clipboard.writeText(url);
-  alert("Advert link copied. You can now share it.");
- }catch(error){
-  prompt("Copy this advert link:",url);
- }
-}
-
-function createCard(listing){
- const card=document.createElement("article");
- card.className="product-card";
-
- const {details,publicText}=parseDetails(listing.description);
- const photos=String(listing.photo_urls||"").split(",").map(s=>s.trim()).filter(Boolean);
- const image=photos[0]||"";
- const category=getCategory(listing);
- const phone=listing.phone||listing.whatsapp||"";
- const whatsapp=listing.whatsapp||listing.phone||"";
- const phoneClean=cleanPhone(phone);
- const whatsappClean=cleanPhone(whatsapp);
- const trusted=trustedUsers[listing.user_id]===true;
- const price=getPriceText(listing);
-
- const imageHTML=image
- ?`<img class="product-image" src="${escapeHtml(image)}" alt="${escapeHtml(listing.title)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'">`
- :`<div class="no-image">🛍️</div>`;
-
- const contactMessage=encodeURIComponent(
-  `Hello, I saw your advert "${listing.title}" on OGARS MARKET. Is it still available?`
- );
-
- card.innerHTML=`
-  <div class="image-wrap">
-   ${imageHTML}
-   <div class="category-badge">${escapeHtml(category||"Products & Goods")}</div>
-  </div>
-  <div class="product-content">
-   <h3 class="product-name">${escapeHtml(listing.title||"Products & Goods advert")}</h3>
-   <div class="price">${escapeHtml(price)}</div>
-   ${publicText?`<div class="description">${escapeHtml(publicText)}</div>`:""}
-   <div class="business">
-    ${trusted?"<strong>✓ Trusted seller</strong><br>":""}
-    ${details["advert purpose"]?`<strong>${escapeHtml(details["advert purpose"])}</strong><br>`:""}
-    ${details["product type"]?`Product type: ${escapeHtml(details["product type"])}<br>`:""}
-    ${details["condition"]?`Condition: ${escapeHtml(details["condition"])}<br>`:""}
-    ${details["brand"]?`Brand: ${escapeHtml(details["brand"])}<br>`:""}
-    ${listing.location?`📍 ${escapeHtml(listing.location)}`:""}
-   </div>
-   <a class="details-button" href="discover-details.html?id=${encodeURIComponent(listing.id)}">View Advert Details →</a>
-   <div class="button-row">
-    ${whatsappClean?`<a class="action-button whatsapp" href="https://wa.me/${escapeHtml(whatsappClean)}?text=${contactMessage}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`:`<span class="action-button whatsapp" style="opacity:.5">💬 WhatsApp</span>`}
-    ${phone?`<a class="action-button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`:`<span class="action-button call" style="opacity:.5">📞 Call</span>`}
-    <button class="action-button share" type="button">↗ Share</button>
-   </div>
-  </div>`;
-
- card.querySelector(".share").addEventListener("click",()=>shareListing(listing));
- return card;
-}
-
-function getFilteredListings(){
- const query=$("search").value.trim().toLowerCase();
- const region=$("location-filter").value;
- const category=$("category-filter").value||selectedCategory;
- const sort=$("sort").value;
-
- return allListings.filter(item=>{
-  const details=parseDetails(item.description).details;
-  const text=[
-   item.title,item.description,item.location,item.phone,
-   details["product type"],details["product name"],details["brand"],
-   details["model / size"],details["condition"]
-  ].filter(Boolean).join(" ").toLowerCase();
-
-  return (!query||text.includes(query))&&
-   (!category||getCategory(item).toLowerCase()===category.toLowerCase())&&
-   matchesRegion(item,region);
- }).sort((a,b)=>{
-  const pa=Number(getPrice(a).replace(/,/g,""));
-  const pb=Number(getPrice(b).replace(/,/g,""));
-  const va=Number.isFinite(pa)&&getPrice(a)!=="";
-  const vb=Number.isFinite(pb)&&getPrice(b)!=="";
-  if(sort==="low"){
-   if(va&&vb)return pa-pb;
-   if(va)return -1;
-   if(vb)return 1;
+    sellerMap={};
+    (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
+    filterProducts();
+  }catch(error){
+    console.warn("Seller verification lookup unavailable:",error.message);
   }
-  if(sort==="high"){
-   if(va&&vb)return pb-pa;
-   if(va)return -1;
-   if(vb)return 1;
-  }
-  const dateA=new Date(a.created_at||0).getTime();
-  const dateB=new Date(b.created_at||0).getTime();
-  return sort==="oldest"?dateA-dateB:dateB-dateA;
- });
 }
 
-function renderListings(){
- const items=getFilteredListings();
- $("results-count").textContent=items.length+(items.length===1?" advert found":" adverts found");
- $("listing-title").textContent=selectedCategory||"Latest Products & Goods";
-
- if(!items.length){
+/* ERROR AND EMPTY MESSAGES */
+function showMessage(title,detail,isError=false){
   $("products").innerHTML=`
-   <div class="message">
-    <strong>🔍 No adverts found</strong>
-    Try another search or choose a different category.
-   </div>`;
-  return;
- }
- const fragment=document.createDocumentFragment();
- items.forEach(item=>fragment.appendChild(createCard(item)));
- $("products").replaceChildren(fragment);
+    <div class="message">
+      <strong>${escapeHtml(title)}</strong>
+      <div>${escapeHtml(detail)}</div>
+      <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
+    </div>`;
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
 }
 
-function selectCategory(category){
- selectedCategory=selectedCategory===category?"":category;
- $("category-filter").value=selectedCategory;
- document.querySelectorAll(".category-card").forEach(button=>{
-  button.classList.toggle("active",button.dataset.category===selectedCategory);
- });
- renderListings();
- $("products").scrollIntoView({behavior:"smooth",block:"start"});
+/* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"").split(",")
+    .map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
 }
 
-async function loadListings(){
- showMessage("🛍️ Loading products...","Connecting to OGARS MARKET.");
- try{
-  const {data,error}=await client.from("discover_listings")
-   .select("*")
-   .eq("listing_type","Products & Goods")
-   .order("created_at",{ascending:false})
-   .limit(500);
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Products & Goods advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
 
-  if(error)throw error;
-  allListings=(data||[]).filter(isActive);
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else{
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
 
-  if(!categories.includes(selectedCategory))selectedCategory="";
-  $("category-filter").value=selectedCategory;
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }
+}
 
-  document.querySelectorAll(".category-card").forEach(button=>{
-   button.classList.toggle("active",button.dataset.category===selectedCategory);
+/* ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
+
+  const parsed=advert.parsed;
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+  let priceText="Price on request";
+  if(parsed.price!==null){
+    priceText="GH₵"+parsed.price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,maximumFractionDigits:2
+    });
+  }
+
+  let imageHtml='<div class="no-image">🛍️</div>';
+  if(photo){
+    imageHtml=`
+      <img class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(advert.title||"Products & Goods advert")}"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛍️</div>'">
+    `;
+  }
+
+  const detailsUrl=new URL("discover-details.html",location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+  const shareUrl=detailsUrl.href;
+
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Products & Goods advert")+
+        '" on OGARS MARKET. Is it still available?'
+      );
+      buttons+=`
+        <a class="button whatsapp"
+          href="https://wa.me/${escapeHtml(number)}?text=${message}"
+          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+    }
+  }
+
+  if(phone){
+    buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+  }
+
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+  card.innerHTML=`
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">${escapeHtml(parsed.category)}</div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">${escapeHtml(advert.title||"Products & Goods advert")}</h2>
+      <div class="price">${escapeHtml(priceText)}</div>
+      <div class="purpose">${escapeHtml(parsed.purpose||"For sale")}</div>
+
+      ${parsed.publicDescription
+        ?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
+
+      <div class="business">
+        ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+        📍 ${escapeHtml(advert.location||"Ghana")}
+      </div>
+
+      <div class="delivery">
+        ${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}
+      </div>
+
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
+
+      ${buttons?`<div class="button-row">${buttons}</div>`:""}
+    </div>
+  `;
+
+  const shareButton=card.querySelector(".share-button");
+  shareButton.addEventListener("click",()=>{
+    shareAdvert(advert.title,shareUrl);
   });
 
-  renderListings();
-  loadTrustedUsers().then(renderListings);
- }catch(error){
-  console.error("OGARS Products & Goods loading error:",error);
-  showMessage("Unable to load adverts",error.message||"Please check your connection and try again.",true);
- }
+  return card;
 }
 
-document.querySelectorAll(".category-card").forEach(button=>{
- button.addEventListener("click",()=>selectCategory(button.dataset.category));
-});
+/* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=products.length+(products.length===1?" advert found":" adverts found");
 
-categories.forEach(category=>{
- const option=document.createElement("option");
- option.value=category;
- option.textContent=category;
- $("category-filter").appendChild(option);
-});
+  if(!products.length){
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>🔍 No adverts found in this category</strong>
+        Try another category or clear your filters.
+      </div>`;
+    return;
+  }
 
-$("category-filter").addEventListener("change",()=>{
- selectedCategory=$("category-filter").value;
- document.querySelectorAll(".category-card").forEach(button=>{
-  button.classList.toggle("active",button.dataset.category===selectedCategory);
- });
- renderListings();
-});
-
-$("search").addEventListener("input",renderListings);
-$("location-filter").addEventListener("change",renderListings);
-$("sort").addEventListener("change",renderListings);
-$("search-button").addEventListener("click",renderListings);
-
-$("clear").addEventListener("click",()=>{
- $("search").value="";
- $("location-filter").value="";
- $("category-filter").value="";
- $("sort").value="latest";
- selectedCategory="";
- document.querySelectorAll(".category-card").forEach(button=>button.classList.remove("active"));
- renderListings();
-});
-
-const incomingCategory=params.get("category");
-if(incomingCategory&&categories.some(c=>c.toLowerCase()===incomingCategory.toLowerCase())){
- selectedCategory=categories.find(c=>c.toLowerCase()===incomingCategory.toLowerCase());
+  const fragment=document.createDocumentFragment();
+  products.forEach(advert=>fragment.appendChild(createProductCard(advert)));
+  $("products").replaceChildren(fragment);
 }
 
-loadListings();
+/* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
+
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
+
+  const aliases={
+    "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
+    "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
+    "central":["central","cape coast","winneba","mankessim","swedru"],
+    "eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],
+    "western":["western","takoradi","sekondi","tarkwa","axim"],
+    "western north":["western north","sefwi","bibiani","enchi"],
+    "volta":["volta","ho","hohoe","keta","aflao"],
+    "northern":["northern","tamale","yendi","savelugu"],
+    "upper east":["upper east","bolgatanga","bawku","navrongo"],
+    "upper west":["upper west","wa","lawra","tumu"],
+    "bono":["bono","sunnyani","berekum","dormaa"],
+    "bono east":["bono east","techiman","kintampo","nkoranza"],
+    "ahafo":["ahafo","goaso","kenyasi","bechem"],
+    "oti":["oti","dambai","jasikan","nkwanta"],
+    "savannah":["savannah","damongo","bole","salaga"],
+    "north east":["north east","nalerigu","walewale"]
+  };
+
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
+}
+
+/* SEARCH, CATEGORY AND SORTING */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
+
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,advert.location,advert.description,
+      advert.category,advert.purpose
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedSubcategory||advert.category===selectedSubcategory;
+    const matchesLocation=matchesRegion(advert.location,region);
+
+    return matchesSearch&&matchesCategory&&matchesLocation;
+  }).sort((a,b)=>{
+    const priceA=a.price,priceB=b.price;
+    const validA=priceA!==null&&Number.isFinite(priceA);
+    const validB=priceB!==null&&Number.isFinite(priceB);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+    const trustedA=sellerMap[String(a.user_id)]?.is_trusted===true;
+    const trustedB=sellerMap[String(b.user_id)]?.is_trusted===true;
+
+    if(sort==="price-low"){
+      if(validA&&validB)return priceA-priceB;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="price-high"){
+      if(validA&&validB)return priceB-priceA;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="verified"){
+      if(trustedA!==trustedB)return trustedA?-1:1;
+      return dateB-dateA;
+    }
+    return dateB-dateA;
+  });
+}
+
+function filterProducts(){
+  displayProducts(getFilteredProducts());
+}
+
+/* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.subcategory;
+    selectedSubcategory=selectedSubcategory===category?"":category;
+
+    document.querySelectorAll(".shortcut").forEach(item=>{
+      item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory);
+    });
+
+    $("category-note").textContent=selectedSubcategory
+      ?"Showing adverts in "+selectedSubcategory+"."
+      :"Showing all Products & Goods adverts.";
+
+    filterProducts();
+    $("products").scrollIntoView({behavior:"smooth",block:"start"});
+  });
+});
+
+/* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+  selectedSubcategory="";
+
+  document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
+
+  $("category-note").textContent="Showing all Products & Goods adverts.";
+  filterProducts();
+}
+
+/* EVENT LISTENERS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+  alert("OGARS MARKET AI Search is coming soon.");
+});
+
+/* CATEGORY FROM URL */
+if(selectedSubcategory){
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.toggle("active",button.dataset.subcategory===selectedSubcategory);
+  });
+  $("category-note").textContent="Showing adverts in "+selectedSubcategory+".";
+}
+
+/* START */
+loadProducts();
 </script>
 </body>
 </html>
