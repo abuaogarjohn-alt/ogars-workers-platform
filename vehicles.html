@@ -559,15 +559,8 @@ function normalizeRow(row){
    Do not require particular words in the title or description:
    genuine adverts may not contain words such as "car" or "vehicle". */
 function isVehicleListing(v){
-  const type=clean(v.raw.listing_type).toLowerCase();
-  const isVehicleCategory=type.includes("vehicle")||type.includes("driver");
-  const notExpired=!v.expires||v.expires>Date.now();
-  const available=v.available!==false;
-  const status=clean(v.raw.status).toLowerCase();
-  const notClosed=!["inactive","expired","deactivated","removed","sold","closed"].includes(status);
-  return isVehicleCategory&&notExpired&&available&&notClosed;
+  return clean(v.raw.listing_type).toLowerCase()==="vehicles & drivers";
 }
-
 function formatMoney(value){
   return value===null?"Price not stated":"GH₵"+value.toLocaleString("en-GH",{
     minimumFractionDigits:2,maximumFractionDigits:2
