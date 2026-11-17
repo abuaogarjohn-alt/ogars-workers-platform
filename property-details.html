@@ -3,154 +3,245 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#512A91">
-<title>Property Details - OGARS</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Property Details | OGARS MARKET</title>
 
 <style>
 :root {
   --purple:#512A91;
-  --purple-dark:#3e1d78;
-  --lavender:#eee5ff;
-  --pink-lavender:#f7efff;
-  --navy:#171638;
-  --muted:#706b8c;
-  --border:#e5dcf7;
+  --dark:#38166f;
+  --light:#f3edfc;
+  --bg:#fbfaff;
+  --text:#211b36;
+  --muted:#716b83;
+  --border:#e6e0f0;
   --white:#fff;
-  --whatsapp:#168a45;
-  --shadow:0 8px 28px rgba(52,30,95,.10);
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;background:#faf9fd;color:var(--navy);
-  font-family:Arial,Helvetica,sans-serif;line-height:1.55;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.5;
 }
 a{text-decoration:none}
-.site-header{
-  display:flex;align-items:center;gap:13px;
-  padding:19px max(16px,calc((100% - 980px)/2));
-  color:white;background:linear-gradient(115deg,#6d28d9,var(--purple) 58%,var(--purple-dark));
-  box-shadow:0 3px 12px rgba(40,20,74,.12);
+header{
+  background:linear-gradient(120deg,#4d32a5,#7655d6);
+  color:white;text-align:center;padding:16px;
 }
-.back-link{color:white;font-size:31px;line-height:1;padding:0 4px}
-.brand-icon{
-  width:47px;height:47px;flex:0 0 47px;display:grid;place-items:center;
-  border:2px solid rgba(255,255,255,.85);border-radius:13px;font-size:28px;
+header h1{font-size:23px;font-weight:900}
+.container{
+  width:100%;max-width:760px;margin:auto;padding:12px 14px 35px;
 }
-.brand-copy h1{margin:0;font-size:clamp(22px,5vw,29px);line-height:1.1}
-.brand-copy p{margin:5px 0 0;color:#f0e8ff;font-size:14px}
-.container{width:min(100%,980px);margin:22px auto 40px;padding:0 14px}
-.property-card{
-  overflow:hidden;background:var(--white);border:1px solid var(--border);
-  border-radius:22px;box-shadow:var(--shadow);padding:clamp(14px,3vw,26px);
+.back-button{
+  display:inline-block;margin:9px 0 16px;color:var(--purple);
+  text-decoration:none;font-weight:800;font-size:14px;
 }
-.gallery{position:relative;margin:0 0 22px}
-.gallery-frame{
-  position:relative;width:100%;aspect-ratio:16/10;max-height:520px;
-  overflow:hidden;border-radius:17px;background:linear-gradient(135deg,var(--lavender),white);
+.advert-card{
+  background:white;border:1px solid var(--border);
+  border-radius:19px;overflow:hidden;
+  box-shadow:0 4px 18px rgba(50,30,90,.07);
 }
-.gallery-frame img{width:100%;height:100%;display:block;object-fit:cover}
-.gallery-arrow{
-  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
-  width:43px;height:43px;border:0;border-radius:50%;
-  display:grid;place-items:center;background:rgba(23,22,56,.78);
-  color:white;font-size:28px;cursor:pointer;box-shadow:0 2px 8px #0003;
+
+/* PHOTO GALLERY */
+.photo-area{width:100%;background:var(--light)}
+.main-photo-wrapper{
+  position:relative;width:100%;height:300px;overflow:hidden;
+  background:var(--light);touch-action:pan-y;
 }
-.gallery-arrow:focus-visible,.contact-button:focus-visible,.back-link:focus-visible{
-  outline:3px solid #8ec5ff;outline-offset:3px;
+.main-photo{
+  width:100%;height:100%;object-fit:contain;display:block;
+  cursor:pointer;user-select:none;-webkit-user-drag:none;
 }
-.gallery-arrow.prev{left:12px}
-.gallery-arrow.next{right:12px}
-.gallery-count{
-  position:absolute;right:12px;bottom:12px;z-index:2;
-  padding:6px 11px;border-radius:999px;color:white;
-  background:rgba(23,22,56,.82);font-size:13px;font-weight:700;
+.photo-count{
+  position:absolute;top:12px;right:12px;
+  background:rgba(56,22,111,.8);color:white;
+  border-radius:20px;padding:6px 11px;font-size:13px;font-weight:bold;
 }
-.gallery-dots{display:flex;justify-content:center;gap:7px;margin-top:11px}
-.gallery-dot{
-  width:8px;height:8px;padding:0;border:0;border-radius:50%;
-  background:#cbbbe8;cursor:pointer;
+.photo-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;border:none;border-radius:50%;
+  background:rgba(56,22,111,.65);color:white;font-size:22px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
 }
-.gallery-dot.active{width:22px;border-radius:8px;background:var(--purple)}
-.gallery.single .gallery-arrow,.gallery.single .gallery-count,.gallery.single .gallery-dots{display:none}
-.eyebrow{
-  margin:0 0 5px;color:var(--purple);font-size:12px;font-weight:800;
-  text-transform:uppercase;letter-spacing:.08em;
+.photo-prev{left:10px}
+.photo-next{right:10px}
+.no-photo{
+  height:210px;display:flex;align-items:center;justify-content:center;
+  color:var(--purple);font-weight:bold;
 }
-.property-title{
-  margin:0 0 12px;font-size:clamp(24px,5vw,34px);
-  line-height:1.2;overflow-wrap:anywhere;
+.photo-thumbnails{
+  display:flex;gap:8px;padding:9px 12px;overflow-x:auto;background:white;
+}
+.photo-thumb{
+  width:75px;height:58px;object-fit:cover;border-radius:8px;
+  cursor:pointer;border:2px solid transparent;flex-shrink:0;
+}
+.photo-thumb.selected{border-color:var(--purple)}
+
+/* ADVERT CONTENT */
+.content{padding:17px}
+.listing-type{
+  color:var(--purple);font-size:13px;font-weight:900;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.title{
+  font-size:24px;line-height:1.3;color:var(--text);
+  font-weight:900;margin-bottom:7px;overflow-wrap:anywhere;
 }
 .price{
-  color:var(--purple);font-size:clamp(24px,5vw,31px);
-  font-weight:800;margin:0 0 18px;overflow-wrap:anywhere;
+  color:var(--purple);font-size:25px;font-weight:900;margin:8px 0 12px;
 }
-.facts{
+.location{
+  color:#514b61;font-size:15px;font-weight:700;
+  margin-bottom:16px;overflow-wrap:anywhere;
+}
+
+/* ADVERT FEATURES */
+.features-box{
+  background:#f7f3fc;border:1px solid var(--border);
+  border-radius:14px;padding:14px;margin:12px 0 16px;
+}
+.features-box h3{
+  color:var(--purple);font-size:18px;font-weight:900;margin-bottom:10px;
+}
+.feature-list{display:flex;flex-direction:column;gap:0}
+.feature-row{
+  display:flex;flex-direction:row;align-items:baseline;
+  flex-wrap:wrap;gap:6px;padding:7px 0;
+  border-bottom:1px solid #e7e0f0;line-height:1.45;
+}
+.feature-row:last-child{border-bottom:0}
+.feature-label{color:var(--purple);font-size:13px;font-weight:900}
+.feature-value{
+  color:var(--text);font-size:14px;font-weight:700;overflow-wrap:anywhere;
+}
+
+/* DESCRIPTION */
+.description-box{
+  background:#f7f3fc;border:1px solid var(--border);
+  border-radius:12px;padding:13px;margin-bottom:15px;
+}
+.description-box h3{color:var(--purple);font-size:16px;margin-bottom:7px}
+.description{
+  color:#514b61;font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;
+}
+
+/* CONTACT BUTTONS */
+.contact-section{
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;margin:18px 0 22px;
+  gap:9px;margin-top:17px;
 }
-.fact{
-  min-width:0;padding:12px;border:1px solid var(--border);
-  border-radius:13px;background:#fcfaff;
-}
-.fact-label{color:var(--muted);font-size:12px;display:block;margin-bottom:3px}
-.fact-value{color:var(--navy);font-size:15px;font-weight:700;overflow-wrap:anywhere}
-.section{border-top:1px solid var(--border);padding-top:17px;margin-top:18px}
-.section h3{margin:0 0 8px;color:var(--navy);font-size:19px}
-.section p{margin:0;white-space:pre-line;overflow-wrap:anywhere}
-.contact-panel{
-  margin-top:24px;padding:16px;border-radius:16px;
-  background:var(--pink-lavender);border:1px solid var(--border);
-}
-.contact-panel h3{margin:0 0 5px;color:var(--navy);font-size:18px}
-.contact-panel p{margin:0 0 13px;color:var(--muted);font-size:14px}
-.contact-actions{display:grid;grid-template-columns:1fr;gap:10px}
 .contact-button{
-  min-height:49px;padding:13px 16px;border-radius:12px;display:flex;
-  align-items:center;justify-content:center;gap:9px;text-align:center;
-  color:white;font-size:15px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+  min-height:48px;padding:10px 7px;text-align:center;
+  text-decoration:none;border-radius:10px;font-weight:900;
+  font-size:13px;overflow-wrap:anywhere;
 }
-.whatsapp{background:var(--whatsapp)}
-.call{background:var(--purple)}
-.loading,.error-state{
-  padding:28px 18px;text-align:center;border-radius:14px;
-  background:white;color:var(--muted);
+.call-button{background:var(--purple);color:white}
+.whatsapp-button{background:#eee6fa;color:var(--dark)}
+.website-button{
+  grid-column:1/-1;background:#f1edf8;color:var(--purple);
+  border:1px solid var(--border);
 }
-.error-state strong{display:block;color:var(--navy);margin-bottom:5px}
-.footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 10px}
-@media(min-width:650px){
-  .container{margin-top:28px}
-  .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .contact-actions{grid-template-columns:1fr 1fr}
+
+/* FULLSCREEN PHOTO VIEWER */
+.photo-viewer{
+  position:fixed;inset:0;background:rgba(0,0,0,.95);
+  z-index:9999;display:none;align-items:center;justify-content:center;
+  touch-action:pan-y;
 }
-@media(max-width:390px){
-  .brand-icon{width:40px;height:40px;flex-basis:40px}
-  .brand-copy p{font-size:12px}
-  .gallery-frame{aspect-ratio:4/3}
-  .gallery-arrow{width:38px;height:38px}
+.photo-viewer.show{display:flex}
+.viewer-image{max-width:94vw;max-height:86vh;object-fit:contain;user-select:none}
+.viewer-close{
+  position:absolute;top:15px;right:17px;width:42px;height:42px;
+  border:0;border-radius:50%;background:rgba(255,255,255,.16);
+  color:white;font-size:25px;cursor:pointer;
+}
+.viewer-count{
+  position:absolute;top:20px;left:50%;transform:translateX(-50%);
+  color:white;background:rgba(0,0,0,.5);padding:5px 11px;
+  border-radius:20px;font-size:13px;font-weight:bold;
+}
+.viewer-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:42px;height:42px;border:0;border-radius:50%;
+  background:rgba(255,255,255,.17);color:white;font-size:26px;cursor:pointer;
+}
+.viewer-prev{left:12px}
+.viewer-next{right:12px}
+
+/* MESSAGES AND FOOTER */
+.message{
+  background:white;border-radius:15px;padding:35px 20px;
+  text-align:center;color:var(--muted);border:1px solid var(--border);
+}
+.message-icon{font-size:38px;margin-bottom:10px}
+.message h2{color:var(--text);margin-bottom:8px;font-size:20px}
+.message p{font-size:14px;overflow-wrap:anywhere}
+footer{text-align:center;padding:28px 15px;color:var(--muted);font-size:13px}
+
+@media(max-width:480px){
+  header{padding:13px}
+  header h1{font-size:21px}
+  .main-photo-wrapper{height:240px}
+  .content{padding:14px}
+  .title{font-size:21px}
+  .price{font-size:23px}
+  .features-box{padding:12px}
+  .features-box h3{font-size:17px}
+  .feature-row{gap:5px;padding:6px 0}
+  .feature-label{font-size:12px}
+  .feature-value{font-size:13px}
+  .contact-button{min-height:45px;font-size:12px}
 }
 </style>
 </head>
 
 <body>
 
-<header class="site-header">
-  <a class="back-link" href="find-property.html" aria-label="Back to properties">‹</a>
-  <div class="brand-icon" aria-hidden="true">⌂</div>
-  <div class="brand-copy">
-    <h1>OGARS PROPERTIES</h1>
-    <p>Property details · Find your place in Ghana</p>
-  </div>
+<header>
+  <h1>Advert Details</h1>
 </header>
 
-<main class="container">
-  <article class="property-card">
-    <div id="property-content" class="loading">Loading property details…</div>
-  </article>
-  <div class="footer">© 2026 OGARS Platform · Properties &amp; Rentals</div>
-</main>
+<div class="container">
+
+  <a href="find-property.html" class="back-button">
+    ← Back to Properties
+  </a>
+
+  <div id="content">
+    <div class="message">
+      <div class="message-icon">⏳</div>
+      <h2>Loading advert</h2>
+      <p>Please wait...</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 OGARS MARKET. Ghana's Online Marketplace.
+</footer>
+
+<!-- FULLSCREEN PHOTO VIEWER -->
+<div id="photo-viewer" class="photo-viewer">
+
+  <button type="button" class="viewer-close"
+    onclick="closePhotoViewer()">×</button>
+
+  <div id="viewer-count" class="viewer-count">1 / 1</div>
+
+  <button type="button" class="viewer-arrow viewer-prev"
+    onclick="previousPhoto()">‹</button>
+
+  <img id="viewer-image" class="viewer-image" src="" alt="Property photo">
+
+  <button type="button" class="viewer-arrow viewer-next"
+    onclick="nextPhoto()">›</button>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 "use strict";
@@ -163,97 +254,76 @@ const supabaseClient=window.supabase.createClient(
   SUPABASE_KEY
 );
 
+const content=document.getElementById("content");
 const params=new URLSearchParams(window.location.search);
-const propertyId=params.get("id");
-const content=document.getElementById("property-content");
+const listingId=params.get("id");
 
-/* SAFE HTML */
-function esc(value){
-  return String(value??"").replace(/[&<>"']/g,char=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  })[char]);
+let photos=[];
+let currentPhotoIndex=0;
+let touchStartX=0;
+let touchEndX=0;
+
+
+/* SECURITY HELPER */
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-/* PROPERTY METADATA */
-function parseDescription(description){
-  const details={};
-  const publicLines=[];
+
+/* PARSE PROPERTY INFORMATION */
+function parsePropertyDescription(description){
+  const features=[];
+  const remaining=[];
 
   const lines=String(description||"").split(/\r?\n/);
 
-  const knownFields=[
-    "property category",
-    "region",
-    "town / area",
-    "specific location",
-    "property condition",
-    "bedrooms",
-    "bathrooms",
-    "toilets",
-    "furnishing",
-    "parking spaces",
-    "advance payment / duration",
-    "availability",
-    "ownership / documentation",
-    "land size",
-    "land condition",
-    "land topography",
-    "road access",
-    "documentation",
-    "ownership",
-    "room type",
-    "number of rooms",
-    "bathroom arrangement",
-    "commercial property type",
-    "floor area / size",
-    "number of rooms / units",
-    "floor / storey",
-    "facilities",
-    "accommodation type",
-    "nightly rate (gh₵)",
-    "bedrooms / rooms",
-    "preferred bedrooms",
-    "property wanted",
-    "budget (gh₵)",
-    "preferred location",
-    "when do you need it?",
-    "rent amount (gh₵)",
-    "payment period",
-    "asking price (gh₵)"
-  ];
+  lines.forEach(line=>{
+    const trimmed=line.trim();
+    if(!trimmed)return;
 
-  for(const line of lines){
-    const text=line.trim();
-    if(!text)continue;
+    const match=trimmed.match(/^([^:]+):\s*(.*)$/);
 
-    const colon=text.indexOf(":");
-    const label=colon>0
-      ?text.slice(0,colon).trim().toLowerCase()
-      :"";
-
-    const value=colon>0
-      ?text.slice(colon+1).trim()
-      :"";
-
-    if(knownFields.includes(label)){
-      if(value)details[label]=value;
-      continue;
+    if(match&&match[1].trim()&&match[2].trim()){
+      features.push({
+        label:match[1].trim(),
+        value:match[2].trim()
+      });
+    }else{
+      remaining.push(trimmed);
     }
-
-    publicLines.push(text);
-  }
+  });
 
   return {
-    details,
-    publicDescription:publicLines.join("\n").trim()
+    features,
+    remaining:remaining.join("\n")
   };
 }
 
-/* PROPERTY CATEGORY AND PURPOSE */
+
+/* GET FEATURE VALUE */
+function getFeature(features,names){
+  const found=features.find(feature=>
+    names.some(name=>
+      feature.label.toLowerCase().trim()===name.toLowerCase().trim()
+    )
+  );
+
+  return found?found.value:"";
+}
+
+
+/* PROPERTY CATEGORY */
+function getCategory(features){
+  return getFeature(features,["Property category"])||"Property";
+}
+
+
+/* PROPERTY PURPOSE */
 function getPurpose(category){
   if(category==="Property Wanted")return "Wanted";
 
@@ -270,386 +340,567 @@ function getPurpose(category){
     "Land for Sale"
   ].includes(category))return "For Sale";
 
-  return "Property Advert";
+  return "";
 }
 
+
+/* LOCATION */
+function getLocation(listing,features){
+  const region=getFeature(features,["Region"]);
+  const town=getFeature(features,["Town / area","Town"]);
+  const specific=getFeature(features,[
+    "Specific location","Specific area"
+  ]);
+
+  if(region||town||specific){
+    let result=region||"";
+
+    if(town)result+=(result?", ":"")+town;
+    if(specific)result+=(result?" - ":"")+specific;
+
+    return result;
+  }
+
+  return String(listing.location||"").trim();
+}
+
+
 /* PRICE */
-function getPropertyPrice(details){
-  const fields=[
-    ["rent amount (gh₵)","Rent"],
-    ["asking price (gh₵)","Asking price"],
-    ["nightly rate (gh₵)","Nightly rate"],
-    ["budget (gh₵)","Budget"]
+function getPrice(features){
+  const priceFields=[
+    ["Rent amount (GH₵)","Rent"],
+    ["Asking price (GH₵)","Asking price"],
+    ["Nightly rate (GH₵)","Nightly rate"],
+    ["Budget (GH₵)","Budget"]
   ];
 
-  for(const [key,label] of fields){
-    const value=details[key];
+  for(const [label,type] of priceFields){
+    const value=getFeature(features,[label]);
+
     if(value){
-      const numeric=Number(
+      const number=Number(
         String(value).replace(/,/g,"").replace(/[^\d.]/g,"")
       );
 
-      return {
-        value,
-        label,
-        display:Number.isFinite(numeric)
-          ?"GH₵ "+numeric.toLocaleString("en-GH")
-          :"GH₵ "+value
-      };
+      const display=Number.isFinite(number)
+        ?"GH₵ "+number.toLocaleString("en-GH")
+        :"GH₵ "+value;
+
+      return {display,type};
     }
   }
 
-  return {
-    value:"",
-    label:"",
-    display:"Contact owner"
-  };
+  return {display:"",type:""};
 }
 
-/* PHONE NUMBERS */
-function cleanPhone(value){
-  let phone=String(value||"").replace(/[^\d+]/g,"");
 
-  if(phone.startsWith("+"))phone=phone.substring(1);
-  if(phone.startsWith("0"))phone="233"+phone.substring(1);
+/* PHOTO URLS */
+function getPropertyPhotos(listing){
+  if(!listing.photo_urls)return [];
 
-  return phone;
+  if(Array.isArray(listing.photo_urls)){
+    return listing.photo_urls
+      .map(url=>String(url).trim())
+      .filter(url=>/^https?:\/\//i.test(url));
+  }
+
+  const raw=String(listing.photo_urls).trim();
+
+  if(raw.startsWith("[")){
+    try{
+      const parsed=JSON.parse(raw);
+
+      if(Array.isArray(parsed)){
+        return parsed
+          .map(url=>String(url).trim())
+          .filter(url=>/^https?:\/\//i.test(url));
+      }
+    }catch(error){
+      console.warn("Photo list parsing:",error);
+    }
+  }
+
+  return raw.split(",")
+    .map(url=>url.trim())
+    .filter(url=>/^https?:\/\//i.test(url));
 }
 
-/* PROPERTY PHOTOS */
-function getPhotos(property){
-  return String(property.photo_urls||"")
-    .split(",")
-    .map(photo=>photo.trim())
-    .filter(photo=>/^https?:\/\//i.test(photo));
+
+/* FEATURES TO SHOW IN THE PANEL */
+function getVisibleFeatures(features){
+  const hidden=[
+    "property category",
+    "region",
+    "town / area",
+    "town",
+    "specific location",
+    "specific area",
+    "rent amount (gh₵)",
+    "asking price (gh₵)",
+    "nightly rate (gh₵)",
+    "budget (gh₵)"
+  ];
+
+  return features.filter(feature=>
+    !hidden.includes(feature.label.toLowerCase().trim())
+  );
 }
 
-/* FACT DISPLAY */
-function fact(label,value){
-  if(
-    value===null||
-    value===undefined||
-    String(value).trim()===""
-  )return "";
+
+/* PRICE PERIOD */
+function getPricePeriod(features,category,priceType){
+  if(priceType==="Nightly rate")return " / night";
+
+  const period=getFeature(features,[
+    "Payment period",
+    "Advance payment / duration"
+  ]);
+
+  return period?" / "+period:"";
+}
+
+
+/* FEATURE ROW */
+function featureRow(label,value){
+  if(!value)return "";
 
   return `
-    <div class="fact">
-      <span class="fact-label">${esc(label)}</span>
-      <span class="fact-value">${esc(value)}</span>
+    <div class="feature-row">
+      <span class="feature-label">${escapeHtml(label)}</span>
+      <span class="feature-value">${escapeHtml(value)}</span>
     </div>
   `;
 }
 
-/* PHOTO GALLERY */
-function renderGallery(photos,title){
-  if(!photos.length){
-    return `
-      <div class="gallery single">
-        <div class="gallery-frame">
-          <div style="height:100%;display:grid;place-items:center;color:#512A91;font-size:64px">⌂</div>
-        </div>
-      </div>
-    `;
-  }
 
-  const multiple=photos.length>1;
+/* LOAD ADVERT */
+async function loadAdvert(){
 
-  return `
-    <div class="gallery ${multiple?"":"single"}" id="property-gallery">
-      <div class="gallery-frame">
-        <img
-          id="gallery-image"
-          src="${esc(photos[0])}"
-          alt="${esc(title)} — photo 1 of ${photos.length}"
-          onerror="this.onerror=null;this.alt='This property photo could not be loaded';this.style.opacity='.25'"
-        >
-
-        ${multiple?`
-          <button class="gallery-arrow prev" type="button" id="gallery-prev" aria-label="Previous photo">‹</button>
-          <button class="gallery-arrow next" type="button" id="gallery-next" aria-label="Next photo">›</button>
-          <span class="gallery-count" id="gallery-count">1 / ${photos.length}</span>
-        `:""}
-      </div>
-
-      ${multiple?`
-        <div class="gallery-dots" id="gallery-dots">
-          ${photos.map((_,i)=>`
-            <button
-              class="gallery-dot ${i===0?"active":""}"
-              type="button"
-              data-photo-index="${i}"
-              aria-label="Show photo ${i+1}"
-            ></button>
-          `).join("")}
-        </div>
-      `:""}
-    </div>
-  `;
-}
-
-/* GALLERY CONTROLS */
-function setupGallery(photos,title){
-  if(photos.length<2)return;
-
-  const gallery=document.getElementById("property-gallery");
-  const image=document.getElementById("gallery-image");
-  const count=document.getElementById("gallery-count");
-
-  let index=0;
-  let startX=null;
-
-  function show(next){
-    index=(next+photos.length)%photos.length;
-
-    image.src=photos[index];
-    image.alt=`${title} — photo ${index+1} of ${photos.length}`;
-
-    count.textContent=`${index+1} / ${photos.length}`;
-
-    document.querySelectorAll(".gallery-dot").forEach((dot,i)=>{
-      dot.classList.toggle("active",i===index);
-    });
-  }
-
-  document.getElementById("gallery-prev")
-    .addEventListener("click",()=>show(index-1));
-
-  document.getElementById("gallery-next")
-    .addEventListener("click",()=>show(index+1));
-
-  document.getElementById("gallery-dots")
-    .addEventListener("click",event=>{
-      const dot=event.target.closest("[data-photo-index]");
-      if(dot)show(Number(dot.dataset.photoIndex));
-    });
-
-  gallery.addEventListener("touchstart",event=>{
-    startX=event.changedTouches[0].clientX;
-  },{passive:true});
-
-  gallery.addEventListener("touchend",event=>{
-    if(startX===null)return;
-
-    const distance=event.changedTouches[0].clientX-startX;
-
-    if(Math.abs(distance)>45){
-      show(index+(distance<0?1:-1));
-    }
-
-    startX=null;
-  },{passive:true});
-}
-
-/* DISPLAY ERROR */
-function showError(title,message){
-  content.className="error-state";
-  content.innerHTML=`
-    <strong>${esc(title)}</strong>
-    ${esc(message)}
-    <p style="margin-top:15px">
-      <a href="find-property.html" style="color:#512A91;font-weight:bold">
-        ← Back to Property Listings
-      </a>
-    </p>
-  `;
-}
-
-/* LOAD PROPERTY */
-async function loadProperty(){
-
-  if(!propertyId){
-    showError(
-      "Property not found",
-      "No property ID was supplied. Please return to the property listings and select a property."
+  if(!listingId){
+    showMessage(
+      "⚠️",
+      "Advert Not Found",
+      "No advert ID was provided. Please return to Property listings."
     );
     return;
   }
 
   try{
-
-    /* READ FROM THE SAME TABLE USED BY THE POSTING FORM */
-    const {data:property,error}=await supabaseClient
+    const {data:listing,error}=await supabaseClient
       .from("discover_listings")
       .select("*")
-      .eq("id",propertyId)
+      .eq("id",listingId)
       .eq("listing_type","Property")
-      .single();
+      .maybeSingle();
 
     if(error)throw error;
 
-    if(!property){
-      showError(
-        "Property not found",
+    if(!listing){
+      showMessage(
+        "🔎",
+        "Property Not Found",
         "This property may have been removed or is no longer available."
       );
       return;
     }
 
-    /* EXTRACT PROPERTY INFORMATION */
-    const parsed=parseDescription(property.description);
-    const details=parsed.details;
-
-    const category=details["property category"]||"Property Advert";
-    const purpose=getPurpose(category);
-    const price=getPropertyPrice(details);
-
-    const photos=getPhotos(property);
-    const title=property.title||"Property listing";
-
-    const phone=cleanPhone(property.phone);
-    const whatsappNumber=cleanPhone(property.whatsapp||property.phone);
-
-    const whatsappMessage=encodeURIComponent(
-      `Hello, I saw your property advert on OGARS MARKET: ${title}. I would like to know more about this property.`
-    );
-
-    const whatsappUrl=whatsappNumber
-      ?`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
-      :"";
-
-    const paymentPeriod=
-      details["payment period"]||
-      details["advance payment / duration"]||
-      "";
-
-    /* BUILD PROPERTY FACTS */
-    const factsHtml=[
-      fact("📍 Location",property.location),
-      fact("🏷️ Property category",category),
-      fact("📌 Listing purpose",purpose),
-      fact("🗺️ Region",details["region"]),
-      fact("📍 Town / area",details["town / area"]),
-      fact("📌 Specific location",details["specific location"]),
-      fact("🏠 Property condition",details["property condition"]),
-      fact("🛏️ Bedrooms",details["bedrooms"]),
-      fact("🚿 Bathrooms",details["bathrooms"]),
-      fact("🚽 Toilets",details["toilets"]),
-      fact("🛋️ Furnishing",details["furnishing"]),
-      fact("🚗 Parking spaces",details["parking spaces"]),
-      fact("📅 Payment period",paymentPeriod),
-      fact("📋 Availability",details["availability"]),
-      fact("📄 Ownership / documentation",details["ownership / documentation"]),
-      fact("🌍 Land size",details["land size"]),
-      fact("🌱 Land condition",details["land condition"]),
-      fact("⛰️ Land topography",details["land topography"]),
-      fact("🛣️ Road access",details["road access"]),
-      fact("📑 Documentation",details["documentation"]),
-      fact("👤 Ownership",details["ownership"]),
-      fact("🛏️ Room type",details["room type"]),
-      fact("🚿 Bathroom arrangement",details["bathroom arrangement"]),
-      fact("🏬 Commercial property type",details["commercial property type"]),
-      fact("📐 Floor area / size",details["floor area / size"]),
-      fact("🏢 Number of rooms / units",details["number of rooms / units"]),
-      fact("🏢 Floor / storey",details["floor / storey"]),
-      fact("✨ Facilities",details["facilities"]),
-      fact("🏨 Accommodation type",details["accommodation type"]),
-      fact("🛏️ Bedrooms / rooms",details["bedrooms / rooms"]),
-      fact("🔎 Preferred bedrooms",details["preferred bedrooms"]),
-      fact("🔎 Preferred location",details["preferred location"]),
-      fact("📅 When needed",details["when do you need it?"])
-    ].join("");
-
-    /* PRICE PERIOD */
-    let pricePeriod="";
-
-    if(category==="Short Stay / Guest House"&&price.label==="Nightly rate"){
-      pricePeriod=" / night";
-    }else if(paymentPeriod){
-      pricePeriod=" / "+paymentPeriod;
-    }
-
-    const facilities=details["facilities"]||"";
-    const description=parsed.publicDescription;
-
-    /* DISPLAY PROPERTY USING THE AGREED DESIGN */
-    content.className="";
-
-    content.innerHTML=`
-      ${renderGallery(photos,title)}
-
-      <section class="contact-panel">
-        <h3>Interested in this property?</h3>
-        <p>Contact the owner to ask questions or arrange a viewing.</p>
-
-        <div class="contact-actions">
-          ${
-            whatsappUrl
-            ?`<a class="contact-button whatsapp" href="${esc(whatsappUrl)}" target="_blank" rel="noopener noreferrer">
-                <span aria-hidden="true">◉</span> Chat on WhatsApp
-              </a>`
-            :`<span class="contact-button whatsapp" style="opacity:.65">WhatsApp number unavailable</span>`
-          }
-
-          ${
-            phone
-            ?`<a class="contact-button call" href="tel:${esc(phone)}">
-                <span aria-hidden="true">☎</span> Call Owner
-              </a>`
-            :`<span class="contact-button call" style="opacity:.65">Phone number unavailable</span>`
-          }
-        </div>
-
-        ${
-          !phone
-          ?`<p style="margin-top:10px;margin-bottom:0">
-              The advertiser has not provided a contact number for this listing.
-            </p>`
-          :""
-        }
-      </section>
-
-      <p class="eyebrow">${esc(category)}</p>
-
-      <h2 class="property-title">${esc(title)}</h2>
-
-      <p class="price">
-        ${esc(price.display)}
-        ${pricePeriod?`<span style="font-size:15px;font-weight:600">${esc(pricePeriod)}</span>`:""}
-      </p>
-
-      <div class="facts">
-        ${factsHtml}
-      </div>
-
-      ${
-        facilities
-        ?`<section class="section">
-            <h3>✨ Facilities</h3>
-            <p>${esc(facilities)}</p>
-          </section>`
-        :""
-      }
-
-      <section class="section">
-        <h3>📝 Description</h3>
-        <p>${description?esc(description):"No description provided."}</p>
-      </section>
-
-      ${
-        property.website
-        ?`<section class="section">
-            <h3>🌐 Website / Social link</h3>
-            <p><a href="${esc(property.website)}" target="_blank" rel="noopener noreferrer" style="color:#512A91;font-weight:bold">Visit link</a></p>
-          </section>`
-        :""
-      }
-    `;
-
-    setupGallery(photos,title);
+    renderAdvert(listing);
 
   }catch(error){
-
     console.error("OGARS Property Details Error:",error);
 
-    showError(
-      "Unable to load this property",
-      error.message||"Please go back to the property listings and try again."
+    showMessage(
+      "⚠️",
+      "Unable to Load Property",
+      error.message||"Please try again."
     );
-
   }
 }
 
-loadProperty();
+
+/* RENDER ADVERT */
+function renderAdvert(listing){
+
+  photos=getPropertyPhotos(listing);
+  currentPhotoIndex=0;
+
+  const parsed=parsePropertyDescription(listing.description);
+  const features=parsed.features;
+
+  const category=getCategory(features);
+  const purpose=getPurpose(category);
+  const location=getLocation(listing,features);
+  const price=getPrice(features);
+  const period=getPricePeriod(features,category,price.type);
+
+  const title=listing.title||"Property Advert";
+
+  /* PHOTO GALLERY */
+  let photoHtml="";
+
+  if(photos.length){
+    photoHtml=`
+      <div class="photo-area">
+
+        <div class="main-photo-wrapper" id="main-photo-wrapper">
+
+          <img
+            id="main-photo"
+            class="main-photo"
+            src="${escapeHtml(photos[0])}"
+            alt="${escapeHtml(title)}"
+            fetchpriority="high"
+            onclick="openPhotoViewer()"
+          >
+
+          ${photos.length>1?`
+            <div id="photo-count" class="photo-count">
+              1 / ${photos.length}
+            </div>
+
+            <button type="button"
+              class="photo-arrow photo-prev"
+              onclick="previousPhoto()"
+              aria-label="Previous photo">‹</button>
+
+            <button type="button"
+              class="photo-arrow photo-next"
+              onclick="nextPhoto()"
+              aria-label="Next photo">›</button>
+          `:""}
+
+        </div>
+
+        ${photos.length>1?`
+          <div class="photo-thumbnails">
+            ${photos.map((photo,index)=>`
+              <img
+                src="${escapeHtml(photo)}"
+                class="photo-thumb ${index===0?"selected":""}"
+                onclick="showPhoto(${index})"
+                alt="Property photo ${index+1}"
+                loading="lazy"
+              >
+            `).join("")}
+          </div>
+        `:""}
+
+      </div>
+    `;
+  }else{
+    photoHtml=`
+      <div class="photo-area">
+        <div class="no-photo">📷 No Photo Available</div>
+      </div>
+    `;
+  }
+
+
+  /* FEATURES */
+  const visibleFeatures=getVisibleFeatures(features);
+
+  const featuresHtml=visibleFeatures.length?`
+    <div class="features-box">
+      <h3>Advert Features &amp; Information</h3>
+
+      <div class="feature-list">
+        ${visibleFeatures.map(feature=>
+          featureRow(feature.label,feature.value)
+        ).join("")}
+
+        ${purpose?featureRow("Advert purpose",purpose):""}
+      </div>
+    </div>
+  `:"";
+
+
+  /* CONTACT */
+  let contactHtml="";
+
+  const phone=String(listing.phone||"").trim();
+
+  let whatsapp=String(
+    listing.whatsapp||listing.phone||""
+  ).replace(/\D/g,"");
+
+  if(whatsapp.startsWith("0")){
+    whatsapp="233"+whatsapp.substring(1);
+  }
+
+  if(phone){
+    contactHtml+=`
+      <a class="contact-button call-button"
+        href="tel:${escapeHtml(phone)}">
+        📞 Call
+      </a>
+    `;
+  }
+
+  if(whatsapp){
+    const message=
+      "Hello, I saw your property advert \""+
+      title+
+      "\" on OGARS MARKET. I would like to make an enquiry. Please can you give me more information?";
+
+    const url="https://wa.me/"+whatsapp+
+      "?text="+encodeURIComponent(message);
+
+    contactHtml+=`
+      <a class="contact-button whatsapp-button"
+        href="${escapeHtml(url)}"
+        target="_blank"
+        rel="noopener noreferrer">
+        💬 WhatsApp
+      </a>
+    `;
+  }
+
+
+  /* WEBSITE */
+  let websiteHtml="";
+
+  if(listing.website){
+    let website=String(listing.website).trim();
+
+    if(!/^https?:\/\//i.test(website)){
+      website="https://"+website;
+    }
+
+    websiteHtml=`
+      <a class="contact-button website-button"
+        href="${escapeHtml(website)}"
+        target="_blank"
+        rel="noopener noreferrer">
+        🌐 Visit Website
+      </a>
+    `;
+  }
+
+
+  /* DESCRIPTION */
+  const description=parsed.remaining;
+
+  const descriptionHtml=description?`
+    <div class="description-box">
+      <h3>📝 Description</h3>
+      <div class="description">${escapeHtml(description)}</div>
+    </div>
+  `:"";
+
+
+  /* FINAL PAGE */
+  content.innerHTML=`
+    <div class="advert-card">
+
+      ${photoHtml}
+
+      <div class="content">
+
+        <div class="listing-type">
+          ${escapeHtml(category)}
+        </div>
+
+        <h2 class="title">
+          ${escapeHtml(title)}
+        </h2>
+
+        ${price.display?`
+          <div class="price">
+            ${escapeHtml(price.display)}
+            ${period?`<span style="font-size:15px">${escapeHtml(period)}</span>`:""}
+          </div>
+        `:""}
+
+        ${location?`
+          <div class="location">
+            📍 ${escapeHtml(location)}
+          </div>
+        `:""}
+
+        ${featuresHtml}
+
+        ${descriptionHtml}
+
+        ${contactHtml||websiteHtml?`
+          <div class="contact-section">
+            ${contactHtml}
+            ${websiteHtml}
+          </div>
+        `:""}
+
+      </div>
+    </div>
+  `;
+
+  setupSwipe();
+  preloadNearbyPhotos();
+}
+
+
+/* PRELOAD PHOTOS */
+function preloadNearbyPhotos(){
+  if(photos.length<=1)return;
+
+  [currentPhotoIndex+1,currentPhotoIndex-1].forEach(index=>{
+    if(index>=0&&index<photos.length){
+      const image=new Image();
+      image.src=photos[index];
+    }
+  });
+}
+
+
+/* SHOW PHOTO */
+function showPhoto(index){
+  if(!photos.length)return;
+
+  if(index<0)index=photos.length-1;
+  if(index>=photos.length)index=0;
+
+  currentPhotoIndex=index;
+
+  const mainPhoto=document.getElementById("main-photo");
+
+  if(mainPhoto){
+    mainPhoto.src=photos[index];
+  }
+
+  const count=document.getElementById("photo-count");
+
+  if(count){
+    count.textContent=(index+1)+" / "+photos.length;
+  }
+
+  document.querySelectorAll(".photo-thumb").forEach((thumb,i)=>{
+    thumb.classList.toggle("selected",i===index);
+  });
+
+  const thumbnail=document.querySelectorAll(".photo-thumb")[index];
+
+  if(thumbnail){
+    thumbnail.scrollIntoView({
+      behavior:"smooth",
+      block:"nearest",
+      inline:"center"
+    });
+  }
+
+  const viewer=document.getElementById("photo-viewer");
+
+  if(viewer.classList.contains("show")){
+    updateViewer();
+  }
+
+  preloadNearbyPhotos();
+}
+
+function nextPhoto(){
+  if(photos.length>1)showPhoto(currentPhotoIndex+1);
+}
+
+function previousPhoto(){
+  if(photos.length>1)showPhoto(currentPhotoIndex-1);
+}
+
+
+/* FULLSCREEN VIEWER */
+function openPhotoViewer(){
+  if(!photos.length)return;
+
+  document.getElementById("photo-viewer").classList.add("show");
+  document.body.style.overflow="hidden";
+
+  updateViewer();
+}
+
+function closePhotoViewer(){
+  document.getElementById("photo-viewer").classList.remove("show");
+  document.body.style.overflow="";
+}
+
+function updateViewer(){
+  const image=document.getElementById("viewer-image");
+  const count=document.getElementById("viewer-count");
+
+  if(!image||!count||!photos.length)return;
+
+  image.src=photos[currentPhotoIndex];
+  count.textContent=(currentPhotoIndex+1)+" / "+photos.length;
+}
+
+
+/* SWIPE SUPPORT */
+function handleSwipe(){
+  const difference=touchStartX-touchEndX;
+
+  if(Math.abs(difference)<50)return;
+
+  if(difference>0)nextPhoto();
+  else previousPhoto();
+}
+
+function setupSwipe(){
+  const wrapper=document.getElementById("main-photo-wrapper");
+
+  if(!wrapper)return;
+
+  wrapper.addEventListener("touchstart",event=>{
+    touchStartX=event.changedTouches[0].screenX;
+  },{passive:true});
+
+  wrapper.addEventListener("touchend",event=>{
+    touchEndX=event.changedTouches[0].screenX;
+    handleSwipe();
+  },{passive:true});
+}
+
+
+/* VIEWER SWIPE */
+const viewer=document.getElementById("photo-viewer");
+
+viewer.addEventListener("touchstart",event=>{
+  touchStartX=event.changedTouches[0].screenX;
+},{passive:true});
+
+viewer.addEventListener("touchend",event=>{
+  touchEndX=event.changedTouches[0].screenX;
+  handleSwipe();
+},{passive:true});
+
+
+/* KEYBOARD CONTROLS */
+document.addEventListener("keydown",event=>{
+  const viewerElement=document.getElementById("photo-viewer");
+
+  if(!viewerElement.classList.contains("show"))return;
+
+  if(event.key==="ArrowRight")nextPhoto();
+  if(event.key==="ArrowLeft")previousPhoto();
+  if(event.key==="Escape")closePhotoViewer();
+});
+
+
+/* ERROR MESSAGE */
+function showMessage(icon,title,message){
+  content.innerHTML=`
+    <div class="message">
+      <div class="message-icon">${escapeHtml(icon)}</div>
+      <h2>${escapeHtml(title)}</h2>
+      <p>${escapeHtml(message)}</p>
+      <p style="margin-top:15px">
+        <a href="find-property.html"
+          style="color:#512A91;font-weight:bold">
+          ← Back to Properties
+        </a>
+      </p>
+    </div>
+  `;
+}
+
+
+/* START */
+loadAdvert();
+
 </script>
 
 </body>
