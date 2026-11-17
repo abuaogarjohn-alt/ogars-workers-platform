@@ -340,7 +340,7 @@ ${imageHtml}
 </div>
 <div class="product-content">
 <h2 class="product-name">${escapeHtml(advert.title||"Agriculture & Food advert")}</h2>
-<div class="price">${escapeHtml(priceText)}${getPriceLabel(advert.parsed)?` <small style="font-size:9px">${escapeHtml(getPriceLabel(advert))}</small>`:""}</div>
+<div class="price">${escapeHtml(priceText)}${getPriceLabel(advert)?` <small style="font-size:9px">${escapeHtml(getPriceLabel(advert))}</small>`:""}</div>
 <div class="purpose">${escapeHtml(purposeText)}</div>
 ${advert.parsed.publicDescription?`<div class="description">${escapeHtml(advert.parsed.publicDescription)}</div>`:""}
 ${extra.length?`<div class="description">${extra.map(escapeHtml).join(" · ")}</div>`:""}
