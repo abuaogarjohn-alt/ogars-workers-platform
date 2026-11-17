@@ -1,41 +1,537 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OGARS Agriculture & Food</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#512A91">
+<meta name="description" content="Find agricultural products, foodstuff, farm equipment and services on OGARS MARKET Ghana.">
+<title>Agriculture & Food | OGARS MARKET</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--p:#6500a8;--lav:#f2e8ff;--line:#e5d2ff;--ink:#17143d}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);padding-bottom:90px;background:#fff}.hero{background:linear-gradient(115deg,#7814c5,#4e087f);color:white;min-height:166px;padding:22px 16px;display:flex;align-items:center;gap:13px;position:relative;overflow:hidden}.back{color:white;text-decoration:none;font-size:38px}.logo{width:72px;height:72px;border:4px solid white;border-radius:23px;display:grid;place-items:center;font-size:42px;flex-shrink:0}.brand{font-size:clamp(19px,5vw,29px);font-weight:900;line-height:1.12;z-index:1}.brand small{display:block;font-size:14px;font-weight:500;margin-top:10px}.leaf{position:absolute;right:5px;top:14px;font-size:90px;color:#ffffff25}main{max-width:900px;margin:auto;padding:16px}.search{background:var(--lav);border-radius:32px;padding:14px;margin-bottom:24px}.search input,.search select{font-size:16px;background:white;border:1.5px solid var(--line);border-radius:28px;padding:0 16px;height:58px;min-width:0;width:100%;color:#292641}.search input{margin-bottom:12px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.search button{height:62px;width:100%;border:0;border-radius:26px;background:linear-gradient(110deg,#6800a9,#4f087f);color:#fff;font-weight:800;font-size:20px}.heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 2px 20px}.heading h2{font-size:clamp(17px,4.6vw,25px);color:#5c078f;margin:0;font-weight:900}.sort{display:flex;align-items:center;gap:5px;border:1.5px solid #c76af0;border-radius:28px;padding:8px;color:var(--p);flex-shrink:0}.sort b{font-size:20px}.sort select{border:0;background:transparent;color:var(--ink);font-weight:700;font-size:13px;max-width:115px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1.5px solid var(--line);border-radius:27px;padding:9px 7px 12px;background:white;box-shadow:0 4px 8px #4e087f12;display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--ink);min-width:0}.art{height:105px;width:100%;border-radius:19px;background:linear-gradient(140deg,#f8efff,#fff);display:grid;place-items:center;overflow:hidden;font-size:54px}.art img{width:100%;height:100%;object-fit:cover}.name{font-size:clamp(11px,3.3vw,16px);font-weight:900;line-height:1.16;margin-top:8px;overflow-wrap:anywhere}.empty{display:none;text-align:center;padding:24px;color:#656276}.nav{position:fixed;bottom:0;left:0;right:0;height:82px;background:#ffffffed;border-top:1px solid #eadcff;display:flex;justify-content:space-around;align-items:center;z-index:5}.nav a{color:#777486;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px}.nav a:first-child{color:var(--p);font-weight:800}.ico{font-size:26px;line-height:1}.sell{width:62px;height:62px;border-radius:50%;background:var(--p);color:white!important;display:grid;place-items:center;font-size:40px;margin-top:-25px;border:4px solid white}@media(min-width:600px){.art{height:150px}.name{font-size:18px}.hero{padding-left:max(20px,calc((100vw - 860px)/2))}}@media(max-width:360px){main{padding:10px}.grid{gap:7px}.card{padding:7px 4px 9px}.art{height:80px;font-size:43px}.name{font-size:10px}.heading{align-items:flex-start;flex-direction:column}.sort{align-self:flex-end;margin-top:-8px}}
-</style></head><body>
-<header class="hero"><a class="back" href="index.html" aria-label="Back">‹</a><div class="logo">♧</div><div class="brand">OGARS<br>AGRICULTURE &amp; FOOD<small>Find agriculture products and services</small></div><div class="leaf">♧</div></header>
-<main><form class="search" id="searchForm"><input id="query" type="search" placeholder="Search Agriculture & Food..." aria-label="Search categories"><div class="filters"><select id="location" aria-label="Choose region or location">
+:root{
+--purple:#512A91;--dark:#38166f;--light:#f3edfc;
+--bg:#fbfaff;--text:#211b36;--muted:#716b83;
+--border:#e6e0f0;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;padding-bottom:76px}
+.hero{display:flex;align-items:center;gap:9px;min-height:82px;padding:9px 12px;background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);color:#fff;position:relative;overflow:hidden}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon{width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;border-radius:12px;display:grid;place-items:center;font-size:25px;position:relative;z-index:1}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+.search-panel{background:#f1e8ff;border:1px solid #e9ddfb;border-radius:14px;padding:9px;margin:8px 0 12px}
+.search-row{display:grid;grid-template-columns:1fr auto;gap:6px}
+.search-panel input,.search-panel select{width:100%;min-width:0;min-height:38px;padding:8px 10px;border:1px solid #e7e0f0;border-radius:9px;background:#fff;color:var(--text);font-size:12px}
+.search-button{border:0;border-radius:9px;background:var(--dark);color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10px;color:var(--muted);margin-top:7px}
+.clear-button{background:#fff;border:1px solid var(--border);color:var(--dark);padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer}
+.category-intro{margin:0 0 7px}
+.category-intro h2{font-size:16px;margin:0 0 2px}
+.category-intro p{font-size:10px;color:var(--muted);margin:0}
+.category-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
+.shortcut{min-width:0;padding:5px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:center;font-size:10px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 2px 5px rgba(77,50,165,.04)}
+.shortcut-icon{width:100%;height:43px;border-radius:7px;background:linear-gradient(145deg,#eee4ff,#faf7ff);display:grid;place-items:center;font-size:24px}
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.category-note{font-size:10px;color:var(--muted);margin:7px 0}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{min-width:0;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)}
+.image-wrap{height:125px;background:#f2edff;position:relative}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
+.no-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#7b68b8}
+.category-badge{position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
+.description{color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:6px}
+.button{display:flex;justify-content:center;align-items:center;min-width:0;min-height:30px;padding:4px 2px;border-radius:6px;text-align:center;text-decoration:none;font-size:9px;font-weight:bold;border:0;cursor:pointer;white-space:nowrap}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+.details-button{display:flex;justify-content:center;align-items:center;width:100%;min-height:30px;margin-top:6px;padding:5px;border-radius:6px;background:var(--dark);color:#fff;text-decoration:none;text-align:center;font-size:10px;font-weight:bold}
+.message{grid-column:1/-1;background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 12px;text-align:center;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{background:var(--purple);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer}
+.back-area{text-align:center;margin-top:16px}
+.back{display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold}
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:5px 5px calc(5px + env(safe-area-inset-bottom));background:rgba(255,255,255,.98);border-top:1px solid var(--border);box-shadow:0 -3px 12px rgba(35,24,70,.08)}
+.bottom-nav a,.bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer}
+.nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.sell-icon{width:33px;height:26px;display:grid;place-items:center;background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px}
+@media(min-width:851px){.image-wrap{height:160px}.product-content{padding:9px}}
+@media(max-width:600px){.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.image-wrap{height:110px}.product-content{padding:6px}.product-name{font-size:11px}.price{font-size:13px}.button-row{gap:3px}.button{font-size:8px;padding:4px 1px}.shortcut-icon{height:42px;font-size:23px}.shortcut{font-size:9px}.search-row{grid-template-columns:1fr}.search-button{min-height:35px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+<div class="hero-icon">🌾</div>
+<div class="hero-copy">
+<h1>Agriculture &amp; Food</h1>
+<p>Find farm produce, foodstuff, equipment and services</p>
+</div>
+</header>
+
+<main class="container">
+<section class="search-panel">
+<div class="search-row">
+<input type="search" id="search-input" placeholder="Search products, foodstuff, farms..." autocomplete="off">
+<button type="button" class="search-button" id="search-button">⌕ Search</button>
+</div>
+<div class="filters">
+<select id="region-filter" aria-label="Choose region">
 <option value="">📍 All Ghana</option>
-<optgroup label="Greater Accra Region"><option>Accra</option><option>Tema</option><option>Madina</option><option>Adenta</option><option>Achimota</option><option>Lapaz</option><option>Dansoman</option><option>Kasoa</option><option>Weija</option><option>Dodowa</option></optgroup>
-<optgroup label="Ashanti Region"><option>Kumasi</option><option>Obuasi</option><option>Ejisu</option><option>Mampong</option><option>Konongo</option><option>Bekwai</option><option>Offinso</option></optgroup>
-<optgroup label="Western Region"><option>Sekondi-Takoradi</option><option>Agona Nkwanta</option><option>Shama</option><option>Half Assini</option><option>Tarkwa</option></optgroup>
-<optgroup label="Western North Region"><option>Sefwi Wiawso</option><option>Enchi</option><option>Juaboso</option><option>Bibiani</option></optgroup>
-<optgroup label="Central Region"><option>Cape Coast</option><option>Kasoa</option><option>Winneba</option><option>Mankessim</option><option>Swedru</option><option>Assin Fosu</option></optgroup>
-<optgroup label="Eastern Region"><option>Koforidua</option><option>Nkawkaw</option><option>Mpraeso</option><option>Akosombo</option><option>Somanya</option><option>Nsawam</option><option>Akuapem</option></optgroup>
-<optgroup label="Volta Region"><option>Ho</option><option>Hohoe</option><option>Keta</option><option>Aflao</option><option>Tsito</option><option>Anloga</option></optgroup>
-<optgroup label="Oti Region"><option>Dambai</option><option>Jasikan</option><option>Kadjebi</option><option>Nkwanta</option><option>Worawora</option></optgroup>
-<optgroup label="Northern Region"><option>Tamale</option><option>Yendi</option><option>Savelugu</option><option>Walewale</option><option>Gushegu</option></optgroup>
-<optgroup label="Savannah Region"><option>Damongo</option><option>Bole</option><option>Salaga</option><option>Sawla</option></optgroup>
-<optgroup label="North East Region"><option>Nalerigu</option><option>Gambaga</option><option>Walewale</option><option>Chereponi</option></optgroup>
-<optgroup label="Upper East Region"><option>Bolgatanga</option><option>Bawku</option><option>Navrongo</option><option>Zebilla</option><option>Paga</option></optgroup>
-<optgroup label="Upper West Region"><option>Wa</option><option>Lawra</option><option>Jirapa</option><option>Tumu</option><option>Nandom</option></optgroup>
-<optgroup label="Bono Region"><option>Sunyani</option><option>Berekum</option><option>Wenchi</option><option>Drobo</option></optgroup>
-<optgroup label="Bono East Region"><option>Techiman</option><option>Ejura</option><option>Kintampo</option><option>Nkoranza</option><option>Atebubu</option></optgroup>
-<optgroup label="Ahafo Region"><option>Goaso</option><option>Kenyasi</option><option>Duayaw Nkwanta</option><option>Hwidiem</option></optgroup>
-</select><select id="category" aria-label="Category"><option value="">All Category</option><option>Farm Produce &amp; Vegetables</option><option>Grains &amp; Foodstuff</option><option>Farm Inputs &amp; Equipment</option><option>Poultry &amp; Eggs</option><option>Fish &amp; Seafood</option><option>Livestock &amp; Animal Products</option><option>Processed Foods &amp; Ingredients</option><option>Farms &amp; Agricultural Services</option></select></div><button type="submit">⌕ &nbsp; Search</button></form>
-<div class="heading"><h2>Agriculture &amp; Food Categories</h2><label class="sort"><b>↕</b><select id="sort" aria-label="Sort listings"><option value="latest">Sort: Latest</option><option value="oldest">Sort: Oldest</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></label></div>
-<section class="grid" id="grid" aria-label="Agriculture and Food categories">
-<a class="card" data-name="Farm Produce & Vegetables" href="find-products.html?category=Farm%20Produce%20%26%20Vegetables"><div class="art">🥬🍅🧅</div><div class="name">Farm Produce &amp; Vegetables</div></a>
-<a class="card" data-name="Grains & Foodstuff" href="find-products.html?category=Grains%20%26%20Foodstuff"><div class="art">🌽🫘🌾</div><div class="name">Grains &amp; Foodstuff</div></a>
-<a class="card" data-name="Farm Inputs & Equipment" href="find-products.html?category=Farm%20Inputs%20%26%20Equipment"><div class="art">🌱🧴🚿</div><div class="name">Farm Inputs &amp; Equipment</div></a>
-<a class="card" data-name="Poultry & Eggs" href="find-products.html?category=Poultry%20%26%20Eggs"><div class="art">🐔🥚🐣</div><div class="name">Poultry &amp; Eggs</div></a>
-<a class="card" data-name="Fish & Seafood" href="find-products.html?category=Fish%20%26%20Seafood"><div class="art">🐟🦐🦀</div><div class="name">Fish &amp; Seafood</div></a>
-<a class="card" data-name="Livestock & Animal Products" href="find-products.html?category=Livestock%20%26%20Animal%20Products"><div class="art">🐄🐐🐖</div><div class="name">Livestock &amp; Animal Products</div></a>
-<a class="card" data-name="Processed Foods & Ingredients" href="find-products.html?category=Processed%20Foods%20%26%20Ingredients"><div class="art">🫙🥫🌾</div><div class="name">Processed Foods &amp; Ingredients</div></a>
-<a class="card" data-name="Farms & Agricultural Services" href="find-products.html?category=Farms%20%26%20Agricultural%20Services"><div class="art">🚜🌱🏡</div><div class="name">Farms &amp; Agricultural Services</div></a></section><div class="empty" id="empty">No categories match your search.</div></main>
-<nav class="nav"><a href="index.html"><span class="ico">⌂</span>Home</a><a href="discover.html"><span class="ico">▦</span>Explore</a><a href="advertise.html"><span class="sell">+</span>Sell</a><a href="discover.html?mode=ai"><span class="ico">✧</span>AI Search</a><a href="account.html"><span class="ico">♙</span>Account</a></nav>
+<option>Ahafo</option><option>Ashanti</option><option>Bono</option>
+<option>Bono East</option><option>Central</option><option>Eastern</option>
+<option>Greater Accra</option><option>North East</option><option>Northern</option>
+<option>Oti</option><option>Savannah</option><option>Upper East</option>
+<option>Upper West</option><option>Volta</option><option>Western</option>
+<option>Western North</option>
+</select>
+<select id="sort-filter" aria-label="Sort adverts">
+<option value="newest">Latest / Newest</option>
+<option value="trusted">Trusted sellers first</option>
+<option value="low">Price: lowest first</option>
+<option value="high">Price: highest first</option>
+</select>
+</div>
+<div class="filters">
+<select id="purpose-filter" aria-label="Advert purpose">
+<option value="">All purposes</option>
+<option value="For sale">For sale</option>
+<option value="Wanted">Wanted</option>
+<option value="Service offered">Service offered</option>
+</select>
+<select id="price-filter" aria-label="Maximum price">
+<option value="">Any price</option>
+<option value="100">Up to GH₵100</option>
+<option value="500">Up to GH₵500</option>
+<option value="1000">Up to GH₵1,000</option>
+<option value="3000">Up to GH₵3,000</option>
+<option value="5000">Up to GH₵5,000</option>
+<option value="10000">Up to GH₵10,000</option>
+<option value="50000">Up to GH₵50,000</option>
+</select>
+</div>
+<div class="results-summary">
+<span id="results-count">Connecting to OGARS MARKET...</span>
+<button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
+</div>
+</section>
+
+<section class="category-intro">
+<h2>Agriculture &amp; Food Categories</h2>
+<p>Choose a category to see its adverts.</p>
+</section>
+
+<section class="category-shortcuts">
+<button class="shortcut" type="button" data-category="Farm Produce &amp; Vegetables"><span class="shortcut-icon">🥬</span><span>Farm Produce &amp; Vegetables</span></button>
+<button class="shortcut" type="button" data-category="Grains &amp; Foodstuff"><span class="shortcut-icon">🌽</span><span>Grains &amp; Foodstuff</span></button>
+<button class="shortcut" type="button" data-category="Farm Inputs &amp; Equipment"><span class="shortcut-icon">🚜</span><span>Farm Inputs &amp; Equipment</span></button>
+<button class="shortcut" type="button" data-category="Poultry &amp; Eggs"><span class="shortcut-icon">🐔</span><span>Poultry &amp; Eggs</span></button>
+<button class="shortcut" type="button" data-category="Fish &amp; Seafood"><span class="shortcut-icon">🐟</span><span>Fish &amp; Seafood</span></button>
+<button class="shortcut" type="button" data-category="Livestock &amp; Animal Products"><span class="shortcut-icon">🐄</span><span>Livestock &amp; Animal Products</span></button>
+<button class="shortcut" type="button" data-category="Processed Foods &amp; Ingredients"><span class="shortcut-icon">🥫</span><span>Processed Foods &amp; Ingredients</span></button>
+<button class="shortcut" type="button" data-category="Farms &amp; Agricultural Services"><span class="shortcut-icon">🌱</span><span>Farms &amp; Agricultural Services</span></button>
+</section>
+
+<p class="category-note" id="category-note">Showing all Agriculture &amp; Food adverts.</p>
+
+<section id="products" class="products" aria-live="polite">
+<div class="message"><strong>Loading adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+</section>
+
+<div class="back-area"><a href="index.html" class="back">← Back to OGARS MARKET</a></div>
+</main>
+
+<nav class="bottom-nav">
+<a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+<a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+<a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+<a href="ai-search.html"><span class="nav-icon">✦</span><span>AI Search</span></a>
+<a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+</nav>
+
+<footer>
+<nav class="footer-links">
+<a href="index.html">Home</a><a href="workers.html">Workers</a>
+<a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
+<a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
+<a href="discover.html">Discover</a>
+</nav>
+<div>© 2026 OGARS MARKET</div>
+<div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
+</footer>
+
 <script>
-const cards=[...document.querySelectorAll('.card')],q=document.getElementById('query'),cat=document.getElementById('category'),empty=document.getElementById('empty');
-function filter(){let count=0;cards.forEach(c=>{let ok=c.dataset.name.toLowerCase().includes(q.value.trim().toLowerCase())&&(!cat.value||c.dataset.name===cat.value);c.style.display=ok?'flex':'none';if(ok)count++});empty.style.display=count?'none':'block'}
-document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();filter()});q.addEventListener('input',filter);cat.addEventListener('change',filter);
-</script></body></html>
+"use strict";
+
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+
+const categories=[
+"Farm Produce & Vegetables",
+"Grains & Foodstuff",
+"Farm Inputs & Equipment",
+"Poultry & Eggs",
+"Fish & Seafood",
+"Livestock & Animal Products",
+"Processed Foods & Ingredients",
+"Farms & Agricultural Services"
+];
+
+let allAdverts=[];
+let sellerMap={};
+let selectedCategory="";
+
+function escapeHtml(value){
+return String(value??"").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+})[c]);
+}
+
+/* PARSE POSTING FORM DETAILS */
+function parseAdvert(advert){
+const details={};
+const publicLines=[];
+const lines=String(advert.description||"").split(/\r?\n/);
+
+const knownFields=[
+"agriculture & food category","advert purpose","region","town / area",
+"specific location","product / service type","product name",
+"price (gh₵)","maximum budget (gh₵)","service rate (gh₵)",
+"service name","service coverage","unit / package",
+"quantity available","freshness / product state",
+"brand / equipment details","harvest / expiry date"
+];
+
+for(const line of lines){
+const text=line.trim();
+if(!text)continue;
+const colon=text.indexOf(":");
+if(colon>0){
+const label=text.slice(0,colon).trim().toLowerCase();
+const value=text.slice(colon+1).trim();
+if(value)details[label]=value;
+}
+const label=colon>0?text.slice(0,colon).trim().toLowerCase():"";
+if(knownFields.includes(label))continue;
+publicLines.push(text);
+}
+
+const category=details["agriculture & food category"]||"";
+const purpose=details["advert purpose"]||"";
+
+let priceValue="";
+let priceKey="";
+const priceFields=["price (gh₵)","maximum budget (gh₵)","service rate (gh₵)"];
+for(const key of priceFields){
+if(details[key]){
+priceValue=details[key];
+priceKey=key;
+break;
+}
+}
+
+const numericPrice=priceValue
+?Number(priceValue.replace(/,/g,"").replace(/[^\d.]/g,""))
+:null;
+
+return{
+details,category,purpose,priceValue,priceKey,
+price:Number.isFinite(numericPrice)?numericPrice:null,
+publicDescription:publicLines.join("\n").trim()
+};
+}
+
+function getPhotos(advert){
+return String(advert.photo_urls||"").split(",")
+.map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
+
+function cleanPhone(phone){
+let value=String(phone||"").replace(/[^\d+]/g,"");
+if(value.startsWith("+"))value=value.substring(1);
+if(value.startsWith("0"))value="233"+value.substring(1);
+return value;
+}
+
+function isActive(advert){
+if(advert.available===false)return false;
+if(advert.is_active===false||advert.active===false)return false;
+const status=String(advert.status||"").toLowerCase();
+if(["inactive","expired","deactivated","removed","closed"].includes(status))return false;
+if(advert.expires_at){
+const expiry=new Date(advert.expires_at).getTime();
+if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+}
+return true;
+}
+
+function getPriceLabel(advert){
+if(advert.parsed.priceKey==="maximum budget (gh₵)")return "Budget";
+if(advert.parsed.priceKey==="service rate (gh₵)")return "Service rate";
+if(advert.parsed.priceKey==="price (gh₵)")return "Price";
+return "";
+}
+
+function createAdvertCard(advert){
+const card=document.createElement("article");
+card.className="product-card";
+
+const photos=getPhotos(advert);
+const photo=photos[0]||"";
+const details=advert.parsed.details;
+const phone=advert.phone||"";
+const whatsapp=advert.whatsapp||phone;
+const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+let priceText=advert.parsed.priceValue
+?"GH₵ "+advert.parsed.priceValue
+:"Contact advertiser";
+
+let purposeText=advert.parsed.purpose||"";
+
+let imageHtml='<div class="no-image">🌾</div>';
+if(photo){
+imageHtml=`<img class="product-image" src="${escapeHtml(photo)}" alt="${escapeHtml(advert.title||"Agriculture advert")}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>🌾</div>'>`;
+}
+
+const advertUrl=new URL("discover-details.html",location.href);
+advertUrl.searchParams.set("id",advert.id);
+
+let extra=[];
+if(details["product / service type"])extra.push(details["product / service type"]);
+if(details["product name"])extra.push(details["product name"]);
+if(details["unit / package"])extra.push(details["unit / package"]);
+if(details["quantity available"])extra.push("Quantity: "+details["quantity available"]);
+if(details["freshness / product state"])extra.push(details["freshness / product state"]);
+
+let buttons="";
+const number=cleanPhone(whatsapp);
+if(number){
+const msg=encodeURIComponent("Hello, I saw your Agriculture & Food advert on OGARS MARKET: "+(advert.title||"Agriculture & Food listing")+". Is it still available?");
+buttons+=`<a class="button whatsapp" href="https://wa.me/${escapeHtml(number)}?text=${msg}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+}
+if(phone){
+buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+}
+buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+card.innerHTML=`
+<div class="image-wrap">
+${imageHtml}
+<div class="category-badge">${escapeHtml(advert.parsed.category)}</div>
+</div>
+<div class="product-content">
+<h2 class="product-name">${escapeHtml(advert.title||"Agriculture & Food advert")}</h2>
+<div class="price">${escapeHtml(priceText)}${getPriceLabel(advert.parsed)?` <small style="font-size:9px">${escapeHtml(getPriceLabel(advert))}</small>`:""}</div>
+<div class="purpose">${escapeHtml(purposeText)}</div>
+${advert.parsed.publicDescription?`<div class="description">${escapeHtml(advert.parsed.publicDescription)}</div>`:""}
+${extra.length?`<div class="description">${extra.map(escapeHtml).join(" · ")}</div>`:""}
+<div class="business">
+${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+📍 ${escapeHtml(advert.location||"Ghana")}
+</div>
+<div class="delivery">📷 ${photos.length} photo(s)</div>
+<a class="details-button" href="${escapeHtml(advertUrl.href)}">View Advert</a>
+${buttons?`<div class="button-row">${buttons}</div>`:""}
+</div>`;
+
+card.querySelector(".share-button").addEventListener("click",()=>shareAdvert(advert.title,advertUrl.href));
+return card;
+}
+
+async function shareAdvert(title,url){
+const data={title:"OGARS Agriculture & Food Advert",text:"Have a look at this advert on OGARS MARKET:",url};
+try{
+if(navigator.share)await navigator.share(data);
+else if(navigator.clipboard){
+await navigator.clipboard.writeText(url);
+alert("Advert link copied. You can now share it.");
+}else{
+window.prompt("Copy this advert link:",url);
+}
+}catch(error){
+if(error.name!=="AbortError")console.error("Share failed:",error);
+}
+}
+
+function getFilteredAdverts(){
+const query=$("search-input").value.trim().toLowerCase();
+const region=$("region-filter").value;
+const purpose=$("purpose-filter").value;
+const maxPrice=$("price-filter").value?Number($("price-filter").value):null;
+const sort=$("sort-filter").value;
+
+return allAdverts.filter(advert=>{
+const parsed=advert.parsed;
+const searchable=[
+advert.title,advert.location,advert.description,
+parsed.category,parsed.purpose,parsed.publicDescription,
+parsed.details["product name"],
+parsed.details["product / service type"],
+parsed.details["specific location"]
+].join(" ").toLowerCase();
+
+if(query&&!searchable.includes(query))return false;
+if(selectedCategory&&parsed.category!==selectedCategory)return false;
+if(region&&!String(parsed.details.region||advert.location||"").toLowerCase().includes(region.toLowerCase()))return false;
+if(purpose&&parsed.purpose!==purpose)return false;
+if(maxPrice!==null&&(parsed.price===null||parsed.price>maxPrice))return false;
+return true;
+}).sort((a,b)=>{
+const pa=a.parsed.price,pb=b.parsed.price;
+const va=pa!==null,vb=pb!==null;
+const da=new Date(a.created_at||0).getTime();
+const dbb=new Date(b.created_at||0).getTime();
+const ta=sellerMap[String(a.user_id)]?.is_trusted===true;
+const tb=sellerMap[String(b.user_id)]?.is_trusted===true;
+
+if(sort==="low"){
+if(va&&vb)return pa-pb;
+if(va)return -1;
+if(vb)return 1;
+return dbb-da;
+}
+if(sort==="high"){
+if(va&&vb)return pb-pa;
+if(va)return -1;
+if(vb)return 1;
+return dbb-da;
+}
+if(sort==="trusted"&&ta!==tb)return ta?-1:1;
+if(sort==="oldest")return da-dbb;
+return dbb-da;
+});
+}
+
+function displayAdverts(adverts){
+$("results-count").textContent=adverts.length+(adverts.length===1?" advert found":" adverts found");
+if(!adverts.length){
+$("products").innerHTML=`<div class="message"><strong>🔍 No Agriculture &amp; Food adverts found</strong>Try another category or clear your filters.</div>`;
+return;
+}
+const fragment=document.createDocumentFragment();
+adverts.forEach(advert=>fragment.appendChild(createAdvertCard(advert)));
+$("products").replaceChildren(fragment);
+}
+
+function filterAdverts(){displayAdverts(getFilteredAdverts());}
+
+function showError(title,detail){
+$("results-count").textContent="Unable to load adverts";
+$("products").innerHTML=`<div class="message"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div><button class="retry-button" type="button" onclick="loadAdverts()">Try Again</button></div>`;
+}
+
+/* LOAD FROM THE SAME TABLE USED BY THE POSTING FORM */
+async function loadAdverts(){
+$("results-count").textContent="Connecting to OGARS MARKET...";
+$("products").innerHTML='<div class="message"><strong>Loading adverts...</strong>Please wait while we connect to OGARS MARKET.</div>';
+
+try{
+const {data,error}=await db.from("discover_listings")
+.select("*")
+.eq("listing_type","Agriculture & Food")
+.order("created_at",{ascending:false})
+.limit(500);
+
+if(error)throw error;
+
+allAdverts=(data||[])
+.filter(isActive)
+.map(advert=>({...advert,parsed:parseAdvert(advert)}))
+.filter(advert=>categories.includes(advert.parsed.category));
+
+const ids=[...new Set(allAdverts.map(a=>a.user_id).filter(Boolean))];
+sellerMap={};
+
+if(ids.length){
+const {data:profiles,error:profileError}=await db.from("user_profiles")
+.select("id,is_trusted").in("id",ids);
+
+if(!profileError&&profiles){
+profiles.forEach(profile=>sellerMap[String(profile.id)]=profile);
+}
+}
+filterAdverts();
+
+}catch(error){
+console.error("OGARS Agriculture & Food error:",error);
+showError("Unable to load Agriculture & Food adverts",error.message||"Please try again.");
+}
+}
+
+/* CATEGORY SHORTCUTS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+button.addEventListener("click",()=>{
+const value=button.dataset.category;
+selectedCategory=selectedCategory===value?"":value;
+document.querySelectorAll(".shortcut").forEach(item=>{
+item.classList.toggle("active",item.dataset.category===selectedCategory);
+});
+$("category-note").textContent=selectedCategory
+?"Showing "+selectedCategory+" adverts."
+:"Showing all Agriculture & Food adverts.";
+filterAdverts();
+$("products").scrollIntoView({behavior:"smooth",block:"start"});
+});
+});
+
+/* CLEAR FILTERS */
+function clearFilters(){
+$("search-input").value="";
+$("region-filter").value="";
+$("sort-filter").value="newest";
+$("purpose-filter").value="";
+$("price-filter").value="";
+selectedCategory="";
+document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
+$("category-note").textContent="Showing all Agriculture & Food adverts.";
+filterAdverts();
+}
+
+/* EVENTS */
+$("search-input").addEventListener("input",filterAdverts);
+$("region-filter").addEventListener("change",filterAdverts);
+$("sort-filter").addEventListener("change",filterAdverts);
+$("purpose-filter").addEventListener("change",filterAdverts);
+$("price-filter").addEventListener("change",filterAdverts);
+$("search-button").addEventListener("click",filterAdverts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+/* SUPPORT CATEGORY LINKS FROM THE OLD PAGE */
+const params=new URLSearchParams(location.search);
+const oldCategory=params.get("category");
+if(oldCategory){
+const decoded=decodeURIComponent(oldCategory.replace(/\+/g," "));
+if(categories.includes(decoded)){
+selectedCategory=decoded;
+const button=[...document.querySelectorAll(".shortcut")].find(item=>item.dataset.category===decoded);
+if(button)button.classList.add("active");
+$("category-note").textContent="Showing "+decoded+" adverts.";
+}
+}
+if(params.get("q"))$("search-input").value=params.get("q");
+if(params.get("region"))$("region-filter").value=params.get("region");
+if(params.get("purpose"))$("purpose-filter").value=params.get("purpose");
+
+loadAdverts();
+</script>
+</body>
+</html>
