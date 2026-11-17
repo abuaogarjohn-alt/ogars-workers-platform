@@ -309,8 +309,6 @@ header h1 {
   border: 1px solid var(--border);
 }
 
-/* OPTIONAL FREE DESCRIPTION */
-
 .extra-description {
   margin-top: 15px;
 }
@@ -479,7 +477,7 @@ footer {
 
 <div class="container">
 
-  <a href="my-adverts.html" class="back-button">
+  <a href="my-adverts.html" class="back-button" id="back-button">
     ← Back to My Adverts
   </a>
 
@@ -536,6 +534,37 @@ const supabaseClient = supabase.createClient(
 const content = document.getElementById("content");
 const params = new URLSearchParams(window.location.search);
 const listingId = params.get("id");
+
+/* RETURN NAVIGATION */
+
+const backButton = document.getElementById("back-button");
+
+const allowedReturnPages = [
+  "agriculture-food.html",
+  "home-living.html",
+  "fashion-beauty.html",
+  "phones-tablets.html",
+  "find-property.html",
+  "discover.html",
+  "find-products.html",
+  "vehicles.html",
+  "business.html",
+  "jobs.html",
+  "workers.html"
+];
+
+const returnPage = params.get("from");
+
+if (
+  returnPage &&
+  allowedReturnPages.includes(returnPage)
+) {
+  backButton.href = returnPage;
+  backButton.textContent = "← Back to Adverts";
+} else {
+  backButton.href = "my-adverts.html";
+  backButton.textContent = "← Back to My Adverts";
+}
 
 let photos = [];
 let currentPhotoIndex = 0;
