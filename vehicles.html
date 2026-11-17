@@ -19,7 +19,7 @@
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
 a{color:inherit}
 
-/* HERO */
+/* HEADER — HOME & LIVING STYLE */
 .hero{
   display:flex;align-items:center;gap:9px;min-height:82px;
   padding:9px 12px;
@@ -39,10 +39,9 @@ a{color:inherit}
 .hero-copy{position:relative;z-index:1}
 .hero h1{margin:0;font-size:19px;line-height:1.15}
 .hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
-
 .container{max-width:1150px;margin:auto;padding:8px 11px 95px}
 
-/* SEARCH */
+/* COMPACT SEARCH */
 .search-panel{
   background:#f1e8ff;border:1px solid #e9ddfb;
   border-radius:14px;padding:9px;margin:8px 0 12px
@@ -57,7 +56,13 @@ a{color:inherit}
   border:0;border-radius:9px;background:var(--dark);
   color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
 }
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.filters{
+  display:none;
+  grid-template-columns:1fr 1fr;
+  gap:7px;margin-top:9px;padding-top:9px;
+  border-top:1px solid #e1d5f4
+}
+.search-panel.filters-open .filters{display:grid}
 .filter-field{min-width:0}
 .filter-field label{
   display:block;font-size:9px;color:var(--muted);
@@ -66,6 +71,15 @@ a{color:inherit}
 .filter-field input,.filter-field select{
   min-height:36px;font-size:11px;padding:6px 8px
 }
+.filter-toggle{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-top:8px;padding:8px 10px;
+  border:1px solid #ded3f1;border-radius:8px;
+  background:#fff;color:var(--dark);font-size:11px;font-weight:bold;
+  cursor:pointer
+}
+.filter-toggle .arrow{transition:transform .2s}
+.search-panel.filters-open .filter-toggle .arrow{transform:rotate(180deg)}
 .results-summary{
   display:flex;align-items:center;justify-content:space-between;
   gap:6px;font-size:10px;color:var(--muted);margin-top:7px
@@ -98,7 +112,7 @@ a{color:inherit}
 .shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
 .electronics-note{font-size:10px;color:var(--muted);margin:7px 0}
 
-/* VEHICLE ADVERT CARDS — HOME & LIVING STYLE */
+/* ADVERT CARDS — HOME & LIVING STYLE */
 .products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
 .product-card{
   min-width:0;background:#fff;border:1px solid var(--border);
@@ -126,12 +140,7 @@ a{color:inherit}
 }
 .business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
 .delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
-
-/* CONTACT AND SHARE BUTTONS */
-.button-row{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:4px;margin-top:6px
-}
+.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:6px}
 .button{
   display:flex;justify-content:center;align-items:center;min-width:0;
   min-height:30px;padding:4px 2px;border-radius:6px;
@@ -221,7 +230,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 <main class="container">
 
-<section class="search-panel">
+<section class="search-panel" id="searchPanel">
   <div class="search-button-row">
     <input type="search" id="keyword" placeholder="Search Toyota, Corolla, Honda..." autocomplete="off">
     <button type="button" class="search-button" id="search-button">⌕ Search</button>
@@ -259,17 +268,14 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
       <label for="town">Town / area</label>
       <input id="town" type="search" placeholder="e.g. Lapaz">
     </div>
-
     <div class="filter-field">
       <label for="make">Make</label>
       <select id="make"><option value="">All makes</option></select>
     </div>
-
     <div class="filter-field">
       <label for="model">Model</label>
       <input id="model" type="search" placeholder="Any model">
     </div>
-
     <div class="filter-field">
       <label for="vehicleType">Vehicle type</label>
       <select id="vehicleType">
@@ -278,27 +284,22 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
         <option>Bus</option><option>Truck</option><option>Motorbike</option><option>Other</option>
       </select>
     </div>
-
     <div class="filter-field">
       <label for="minPrice">Minimum price (GH₵)</label>
       <input id="minPrice" type="number" min="0" placeholder="No minimum">
     </div>
-
     <div class="filter-field">
       <label for="maxPrice">Maximum price (GH₵)</label>
       <input id="maxPrice" type="number" min="0" placeholder="No maximum">
     </div>
-
     <div class="filter-field">
       <label for="yearFrom">Year from</label>
       <input id="yearFrom" type="number" min="1900" max="2100" placeholder="e.g. 2010">
     </div>
-
     <div class="filter-field">
       <label for="yearTo">Year to</label>
       <input id="yearTo" type="number" min="1900" max="2100" placeholder="e.g. 2025">
     </div>
-
     <div class="filter-field">
       <label for="condition">Condition</label>
       <select id="condition">
@@ -307,7 +308,6 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
         <option>Ghana used</option><option>Used</option>
       </select>
     </div>
-
     <div class="filter-field">
       <label for="transmission">Transmission</label>
       <select id="transmission">
@@ -315,7 +315,6 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
         <option>Automatic</option><option>Manual</option><option>Tiptronic</option>
       </select>
     </div>
-
     <div class="filter-field">
       <label for="fuel">Fuel type</label>
       <select id="fuel">
@@ -324,17 +323,19 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
         <option>Electric</option><option>LPG</option>
       </select>
     </div>
-
     <div class="filter-field">
       <label for="maxMileage">Maximum mileage (km)</label>
       <input id="maxMileage" type="number" min="0" placeholder="Any mileage">
     </div>
-
     <div class="filter-field">
       <label for="colour">Colour</label>
       <input id="colour" type="search" placeholder="Any colour">
     </div>
   </div>
+
+  <button class="filter-toggle" type="button" id="filterToggle" aria-expanded="false">
+    <span>⚙ More vehicle filters</span><span class="arrow">⌄</span>
+  </button>
 
   <div class="results-summary">
     <span id="results-count">Connecting to OGARS MARKET...</span>
@@ -381,12 +382,9 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 <footer>
   <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="workers.html">Workers</a>
-    <a href="jobs.html">Jobs</a>
-    <a href="find-property.html">Properties</a>
-    <a href="vehicles.html">Vehicles</a>
-    <a href="business.html">Businesses</a>
+    <a href="index.html">Home</a><a href="workers.html">Workers</a>
+    <a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
+    <a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
     <a href="discover.html">Discover</a>
   </nav>
   <div>© 2026 OGARS MARKET</div>
@@ -402,29 +400,21 @@ const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 
 const categoryNames={
-  car:"Cars",
-  motorbike:"Motorcycles & Scooters",
-  bus:"Buses & Microbuses",
-  truck:"Trucks & Trailers",
+  car:"Cars",motorbike:"Motorcycles & Scooters",
+  bus:"Buses & Microbuses",truck:"Trucks & Trailers",
   machinery:"Construction & Heavy Machinery",
-  parts:"Vehicle Parts & Accessories",
-  boat:"Watercraft & Boats",
-  mobility:"Personal Mobility",
-  services:"Car Services",
-  rental:"Vehicle Rental",
-  all:"All Vehicles"
+  parts:"Vehicle Parts & Accessories",boat:"Watercraft & Boats",
+  mobility:"Personal Mobility",services:"Car Services",
+  rental:"Vehicle Rental",all:"All Vehicles"
 };
 
 let allVehicles=[];
 let sellerMap={};
-let loadingFailed=false;
 
 const params=new URLSearchParams(location.search);
 let activeCategory=params.get("category")||"all";
 
-function clean(value){
-  return String(value??"").trim();
-}
+function clean(value){return String(value??"").trim()}
 
 function escapeHtml(value){
   return clean(value).replace(/[&<>"']/g,ch=>({
@@ -461,12 +451,10 @@ function extractPrice(details,row){
     "rental price (gh₵)","price","asking price (gh₵)",
     "starting price (gh₵)"
   ]);
-
   if(fromDetails){
     const match=fromDetails.match(/[\d,]+(?:\.\d+)?/);
     if(match)return numericValue(match[0]);
   }
-
   const text=`${clean(row.title)}\n${clean(row.description)}`;
   const matches=[...text.matchAll(/(?:GH₵|GHS|GH¢)\s*([\d,]+(?:\.\d+)?)/gi)];
   return matches.length?numericValue(matches[matches.length-1][1]):null;
@@ -476,12 +464,10 @@ function extractImages(value){
   if(Array.isArray(value))return value.map(clean).filter(Boolean);
   const raw=clean(value);
   if(!raw)return [];
-
   try{
     const parsed=JSON.parse(raw);
     if(Array.isArray(parsed))return parsed.map(clean).filter(Boolean);
   }catch(_){}
-
   return raw.split(/\s*,\s*/).map(clean).filter(Boolean);
 }
 
@@ -494,7 +480,7 @@ function cleanPhoneNumber(phone){
 }
 
 function inferCategory(row,details){
-  const sub=findDetail(details,["subcategory"]).toLowerCase();
+  const sub=findDetail(details,["subcategory","vehicle category","category"]).toLowerCase();
   const type=findDetail(details,["vehicle type","type of vehicle"]).toLowerCase();
   const title=clean(row.title).toLowerCase();
   const text=`${sub} ${type} ${title}`;
@@ -509,13 +495,11 @@ function inferCategory(row,details){
   if(/mobility|wheelchair|electric bike/.test(text))return "mobility";
   if(/car service|mechanic|tyre|tire|car wash|vehicle repair/.test(text))return "services";
   if(/car|suv|sedan|hatchback|coupe|wagon/.test(text))return "car";
-
   return "other";
 }
 
 function normalizeRow(row){
   const details=parseDetails(row.description);
-
   const make=findDetail(details,["make","vehicle make"]);
   const model=findDetail(details,["model","vehicle model"]);
   const year=numericValue(findDetail(details,["year of manufacture","year","manufacture year"]));
@@ -528,10 +512,10 @@ function normalizeRow(row){
   const vehicleType=findDetail(details,["vehicle type","type of vehicle"]);
   const region=findDetail(details,["region"]);
   const town=findDetail(details,["town / area","town","area"])||clean(row.location).split(",")[0];
-  const subcategory=findDetail(details,["subcategory"]);
+  const subcategory=findDetail(details,["subcategory","vehicle category","category"]);
   const purpose=findDetail(details,["advert purpose","purpose"]);
 
-  const automaticFields=[
+  const hiddenLabels=[
     "subcategory","advert purpose","purpose","region","town / area","town",
     "specific location","make","vehicle make","model","vehicle model",
     "year of manufacture","year","manufacture year","mileage (km)","mileage",
@@ -539,7 +523,7 @@ function normalizeRow(row){
     "price (gh₵ per month)","rental price (gh₵)","price","asking price (gh₵)",
     "starting price (gh₵)","condition","vehicle condition","transmission",
     "gear type","fuel type","fuel","colour","color","vehicle type",
-    "type of vehicle"
+    "type of vehicle","vehicle category","category"
   ];
 
   const publicLines=[];
@@ -547,53 +531,41 @@ function normalizeRow(row){
     const text=line.trim();
     if(!text)return;
     const colon=text.indexOf(":");
-    if(colon>0){
-      const label=text.slice(0,colon).trim().toLowerCase();
-      if(automaticFields.includes(label))return;
-    }
+    if(colon>0&&hiddenLabels.includes(text.slice(0,colon).trim().toLowerCase()))return;
     publicLines.push(text);
   });
 
   const specs=[
-    year?String(year):"",
-    condition,
-    transmission,
-    fuel,
+    year?String(year):"",condition,transmission,fuel,
     mileage!==null?new Intl.NumberFormat("en-GH").format(mileage)+" km":""
   ].filter(Boolean);
 
-  const description=[...specs,...publicLines].join(" · ");
-
   return{
-    raw:row,
-    details,
-    id:row.id,
+    raw:row,details,id:row.id,
     title:clean(row.title)||[make,model,year].filter(Boolean).join(" ")||"Vehicle advert",
     make,model,year,mileage,price,condition,transmission,fuel,colour,vehicleType,
-    region,town,
-    location:clean(row.location)||[town,region].filter(Boolean).join(", "),
-    subcategory,purpose,
-    category:inferCategory(row,details),
+    region,town,location:clean(row.location)||[town,region].filter(Boolean).join(", "),
+    subcategory,purpose,category:inferCategory(row,details),
     created:Date.parse(row.created_at||"")||0,
     images:extractImages(row.photo_urls),
-    phone:clean(row.phone),
-    whatsapp:clean(row.whatsapp),
-    description,
+    phone:clean(row.phone),whatsapp:clean(row.whatsapp),
+    description:[...specs,...publicLines].join(" · "),
     available:row.available,
     expires:row.expires_at?Date.parse(row.expires_at):null
   };
 }
 
+/* Keep all active listings in the vehicle/driver listing type.
+   Do not require particular words in the title or description:
+   genuine adverts may not contain words such as "car" or "vehicle". */
 function isVehicleListing(v){
-  const major=clean(v.raw.listing_type).toLowerCase();
-  const detailsText=`${v.description}\n${v.title}\n${clean(v.raw.description)}`.toLowerCase();
-
-  const looksVehicle=/vehicle|car for sale|motorbike|motorcycle|scooter|vehicle rental|vehicle parts|driver looking for a vehicle|company looking for a driver/.test(detailsText);
-  const isVehicleCategory=major.includes("vehicle")||major.includes("driver");
+  const type=clean(v.raw.listing_type).toLowerCase();
+  const isVehicleCategory=type.includes("vehicle")||type.includes("driver");
   const notExpired=!v.expires||v.expires>Date.now();
   const available=v.available!==false;
-
-  return isVehicleCategory&&looksVehicle&&notExpired&&available;
+  const status=clean(v.raw.status).toLowerCase();
+  const notClosed=!["inactive","expired","deactivated","removed","sold","closed"].includes(status);
+  return isVehicleCategory&&notExpired&&available&&notClosed;
 }
 
 function formatMoney(value){
@@ -602,7 +574,26 @@ function formatMoney(value){
   });
 }
 
-/* ADVERT CARD — MATCHES HOME & LIVING */
+/* SHARE */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Vehicle advert on OGARS MARKET",
+    text:"Have a look at this vehicle advert on OGARS MARKET:",
+    url
+  };
+  try{
+    if(navigator.share)await navigator.share(shareData);
+    else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else window.prompt("Copy this advert link to share:",url);
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
+    window.prompt("Copy this advert link to share:",url);
+  }
+}
+
+/* HOME & LIVING STYLE ADVERT CARD */
 function createVehicleCard(v){
   const card=document.createElement("article");
   card.className="product-card";
@@ -613,14 +604,11 @@ function createVehicleCard(v){
   const whatsapp=v.whatsapp||phone;
 
   let imageHtml='<div class="no-image">🚘</div>';
-
   if(photo){
     imageHtml=`
-      <img class="product-image"
-        src="${escapeHtml(photo)}"
-        alt="${escapeHtml(v.title)}"
-        loading="lazy"
-        onerror="this.outerHTML='&lt;div class=&quot;no-image&quot;&gt;🚘&lt;/div&gt;'">
+      <img class="product-image" src="${escapeHtml(photo)}"
+        alt="${escapeHtml(v.title)}" loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>🚘</div>'">
     `;
   }
 
@@ -629,95 +617,49 @@ function createVehicleCard(v){
   const shareUrl=detailsUrl.href;
 
   let buttons="";
-
   if(whatsapp){
     const number=cleanPhoneNumber(whatsapp);
     if(number){
       const message=encodeURIComponent(
-        'Hello, I saw your "'+v.title+
-        '" on OGARS MARKET. Is it still available?'
+        'Hello, I saw your "'+v.title+'" on OGARS MARKET. Is it still available?'
       );
-      buttons+=`
-        <a class="button whatsapp"
-          href="https://wa.me/${escapeHtml(number)}?text=${message}"
-          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+      buttons+=`<a class="button whatsapp" href="https://wa.me/${escapeHtml(number)}?text=${message}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
     }
   }
-
-  if(phone){
-    buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
-  }
-
+  if(phone)buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
   buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
-
-  const purpose=v.purpose||"For sale";
 
   card.innerHTML=`
     <div class="image-wrap">
       ${imageHtml}
       <div class="category-badge">${escapeHtml(v.subcategory||categoryNames[v.category]||"Vehicle advert")}</div>
     </div>
-
     <div class="product-content">
       <h2 class="product-name">${escapeHtml(v.title)}</h2>
       <div class="price">${escapeHtml(formatMoney(v.price))}</div>
-      <div class="purpose">${escapeHtml(purpose)}</div>
-
-      ${v.description
-        ?`<div class="description">${escapeHtml(v.description)}</div>`:""}
-
+      <div class="purpose">${escapeHtml(v.purpose||"For sale")}</div>
+      ${v.description?`<div class="description">${escapeHtml(v.description)}</div>`:""}
       <div class="business">
         ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
         📍 ${escapeHtml(v.location||"Ghana")}
       </div>
-
       <div class="delivery">
         ${v.images.length?"📷 "+v.images.length+" photo(s)":"📷 No photo uploaded"}
       </div>
-
       <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
-
-      ${buttons?`<div class="button-row">${buttons}</div>`:""}
+      <div class="button-row">${buttons}</div>
     </div>
   `;
 
-  card.querySelector(".share-button").addEventListener("click",()=>{
-    shareAdvert(v.title,shareUrl);
-  });
-
+  card.querySelector(".share-button").addEventListener("click",()=>shareAdvert(v.title,shareUrl));
   return card;
 }
 
-/* SHARE */
-async function shareAdvert(title,url){
-  const shareData={
-    title:title||"Vehicle advert on OGARS MARKET",
-    text:"Have a look at this vehicle advert on OGARS MARKET:",
-    url
-  };
-
-  try{
-    if(navigator.share){
-      await navigator.share(shareData);
-    }else if(navigator.clipboard&&navigator.clipboard.writeText){
-      await navigator.clipboard.writeText(url);
-      alert("Advert link copied. You can now paste and share it.");
-    }else{
-      window.prompt("Copy this advert link to share:",url);
-    }
-  }catch(error){
-    if(error&&error.name==="AbortError")return;
-    window.prompt("Copy this advert link to share:",url);
-  }
-}
-
-/* REGION MATCHING */
+/* REGION FILTER */
 function matchesRegion(locationText,region){
   if(!region)return true;
-
   const text=String(locationText||"").toLowerCase();
   const selected=region.toLowerCase();
-
   const aliases={
     "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
     "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
@@ -736,7 +678,6 @@ function matchesRegion(locationText,region){
     "savannah":["savannah","damongo","bole","salaga"],
     "north east":["north east","nalerigu","walewale"]
   };
-
   return(aliases[selected]||[selected]).some(term=>text.includes(term));
 }
 
@@ -760,7 +701,6 @@ function getFilteredVehicles(){
 
   const filtered=allVehicles.filter(v=>{
     const searchable=`${v.title} ${v.make} ${v.model} ${v.description} ${v.subcategory} ${v.raw.description}`.toLowerCase();
-
     if(keyword&&!searchable.includes(keyword))return false;
     if(region&&!matchesRegion(v.region||v.location,region))return false;
     if(town&&!`${v.town} ${v.location}`.toLowerCase().includes(town))return false;
@@ -777,12 +717,10 @@ function getFilteredVehicles(){
     if(colour&&!v.colour.toLowerCase().includes(colour))return false;
     if(vehicleType&&!v.vehicleType.toLowerCase().includes(vehicleType))return false;
     if(activeCategory!=="all"&&v.category!==activeCategory)return false;
-
     return true;
   });
 
   const sort=$("sortBy").value;
-
   const numSort=(key,direction)=>(a,b)=>{
     const av=a[key],bv=b[key];
     if(av===null||av===undefined)return 1;
@@ -804,9 +742,7 @@ function getFilteredVehicles(){
       if(trustedA!==trustedB)return trustedA?-1:1;
       return b.created-a.created;
     });
-  }else{
-    filtered.sort((a,b)=>b.created-a.created);
-  }
+  }else filtered.sort((a,b)=>b.created-a.created);
 
   return filtered;
 }
@@ -823,9 +759,7 @@ function showMessage(title,detail,isError=false){
 }
 
 function displayVehicles(vehicles){
-  $("results-count").textContent=
-    vehicles.length+(vehicles.length===1?" advert found":" adverts found");
-
+  $("results-count").textContent=vehicles.length+(vehicles.length===1?" advert found":" adverts found");
   if(!vehicles.length){
     $("products").innerHTML=`
       <div class="message">
@@ -834,7 +768,6 @@ function displayVehicles(vehicles){
       </div>`;
     return;
   }
-
   const fragment=document.createDocumentFragment();
   vehicles.forEach(vehicle=>fragment.appendChild(createVehicleCard(vehicle)));
   $("products").replaceChildren(fragment);
@@ -842,7 +775,6 @@ function displayVehicles(vehicles){
 
 function filterVehicles(){
   displayVehicles(getFilteredVehicles());
-
   $("electronics-note").textContent=activeCategory==="all"
     ?"Showing all vehicle adverts."
     :"Showing adverts in "+(categoryNames[activeCategory]||"Vehicles")+".";
@@ -850,7 +782,6 @@ function filterVehicles(){
 
 /* LOAD VEHICLES */
 async function loadVehicles(){
-  loadingFailed=false;
   $("products").innerHTML=`
     <div class="message">
       <strong>🚘 Loading vehicle adverts...</strong>
@@ -866,9 +797,7 @@ async function loadVehicles(){
 
     if(error)throw error;
 
-    allVehicles=(data||[])
-      .map(normalizeRow)
-      .filter(isVehicleListing);
+    allVehicles=(data||[]).map(normalizeRow).filter(isVehicleListing);
 
     const makes=[...new Set(allVehicles.map(v=>v.make).filter(Boolean))]
       .sort((a,b)=>a.localeCompare(b));
@@ -881,85 +810,63 @@ async function loadVehicles(){
 
   }catch(error){
     console.error("OGARS vehicle listings:",error);
-    loadingFailed=true;
     allVehicles=[];
-    showMessage(
-      "Unable to load vehicle adverts",
-      error.message||"Please check your internet connection and try again.",
-      true
-    );
+    showMessage("Unable to load vehicle adverts",error.message||"Please check your internet connection and try again.",true);
   }
 }
 
-/* TRUSTED SELLER INFORMATION */
+/* TRUSTED SELLERS */
 async function loadSellerInformation(){
   const ids=[...new Set(allVehicles.map(item=>item.raw.user_id).filter(Boolean))];
   if(!ids.length)return;
-
   try{
-    const {data,error}=await db.from("user_profiles")
-      .select("id,is_trusted")
-      .in("id",ids);
-
+    const {data,error}=await db.from("user_profiles").select("id,is_trusted").in("id",ids);
     if(error)throw error;
-
     sellerMap={};
-    (data||[]).forEach(seller=>{
-      sellerMap[String(seller.id)]=seller;
-    });
-
+    (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
     filterVehicles();
-
   }catch(error){
     console.warn("Seller verification lookup unavailable:",error.message);
   }
 }
 
-/* CATEGORY BUTTONS */
+/* CATEGORY SHORTCUTS */
 document.querySelectorAll(".shortcut").forEach(button=>{
   button.addEventListener("click",()=>{
     const category=button.dataset.category;
     activeCategory=activeCategory===category?"all":category;
-
     document.querySelectorAll(".shortcut").forEach(item=>{
       item.classList.toggle("active",item.dataset.category===activeCategory);
     });
-
-    history.replaceState(
-      null,
-      "",
-      activeCategory==="all"?"vehicles.html":"vehicles.html?category="+encodeURIComponent(activeCategory)
-    );
-
+    history.replaceState(null,"",activeCategory==="all"
+      ?"vehicles.html":"vehicles.html?category="+encodeURIComponent(activeCategory));
     filterVehicles();
     $("products").scrollIntoView({behavior:"smooth",block:"start"});
   });
 });
 
+/* EXPAND / COLLAPSE ADVANCED FILTERS */
+$("filterToggle").addEventListener("click",()=>{
+  const panel=$("searchPanel");
+  const open=panel.classList.toggle("filters-open");
+  $("filterToggle").setAttribute("aria-expanded",String(open));
+  $("filterToggle").querySelector("span:first-child").textContent=
+    open?"⚙ Hide vehicle filters":"⚙ More vehicle filters";
+});
+
 /* CLEAR FILTERS */
 function clearFilters(){
-  [
-    "keyword","town","minPrice","maxPrice","model",
-    "yearFrom","yearTo","maxMileage","colour"
-  ].forEach(id=>$(id).value="");
-
-  [
-    "region","make","condition","transmission","fuel","vehicleType"
-  ].forEach(id=>$(id).value="");
-
+  ["keyword","town","minPrice","maxPrice","model","yearFrom","yearTo","maxMileage","colour"]
+    .forEach(id=>$(id).value="");
+  ["region","make","condition","transmission","fuel","vehicleType"]
+    .forEach(id=>$(id).value="");
   $("sortBy").value="newest";
   activeCategory="all";
-
-  document.querySelectorAll(".shortcut").forEach(button=>{
-    button.classList.remove("active");
-  });
-
+  document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
   history.replaceState(null,"","vehicles.html");
-  $("electronics-note").textContent="Showing all vehicle adverts.";
   filterVehicles();
 }
 
-/* EVENT LISTENERS */
 $("keyword").addEventListener("input",filterVehicles);
 $("region").addEventListener("change",filterVehicles);
 $("sortBy").addEventListener("change",filterVehicles);
@@ -985,9 +892,6 @@ if(activeCategory!=="all"&&categoryNames[activeCategory]){
   document.querySelectorAll(".shortcut").forEach(button=>{
     button.classList.toggle("active",button.dataset.category===activeCategory);
   });
-
-  $("electronics-note").textContent=
-    "Showing adverts in "+categoryNames[activeCategory]+".";
 }else{
   activeCategory="all";
 }
