@@ -1,269 +1,655 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Property Details - OGARS</title>
-
-  <style>
-    :root {
-      --purple: #512A91;
-      --purple-dark: #3e1d78;
-      --lavender: #eee5ff;
-      --pink-lavender: #f7efff;
-      --navy: #171638;
-      --muted: #706b8c;
-      --border: #e5dcf7;
-      --white: #fff;
-      --whatsapp: #168a45;
-      --shadow: 0 8px 28px rgba(52, 30, 95, .10);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background: #faf9fd; color: var(--navy);
-      font-family: Arial, Helvetica, sans-serif; line-height: 1.55;
-    }
-    a { text-decoration: none; }
-    .site-header {
-      display: flex; align-items: center; gap: 13px;
-      padding: 19px max(16px, calc((100% - 980px)/2));
-      color: white; background: linear-gradient(115deg, #6d28d9, var(--purple) 58%, var(--purple-dark));
-      box-shadow: 0 3px 12px rgba(40,20,74,.12);
-    }
-    .back-link { color: white; font-size: 31px; line-height: 1; padding: 0 4px; }
-    .brand-icon {
-      width: 47px; height: 47px; flex: 0 0 47px; display: grid; place-items: center;
-      border: 2px solid rgba(255,255,255,.85); border-radius: 13px; font-size: 28px;
-    }
-    .brand-copy h1 { margin: 0; font-size: clamp(22px, 5vw, 29px); line-height: 1.1; }
-    .brand-copy p { margin: 5px 0 0; color: #f0e8ff; font-size: 14px; }
-    .container { width: min(100%, 980px); margin: 22px auto 40px; padding: 0 14px; }
-    .property-card {
-      overflow: hidden; background: var(--white); border: 1px solid var(--border);
-      border-radius: 22px; box-shadow: var(--shadow); padding: clamp(14px, 3vw, 26px);
-    }
-    .gallery { position: relative; margin: 0 0 22px; }
-    .gallery-frame {
-      position: relative; width: 100%; aspect-ratio: 16 / 10; max-height: 520px;
-      overflow: hidden; border-radius: 17px; background: linear-gradient(135deg, var(--lavender), white);
-    }
-    .gallery-frame img { width: 100%; height: 100%; display: block; object-fit: cover; }
-    .gallery-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
-      width: 43px; height: 43px; border: 0; border-radius: 50%;
-      display: grid; place-items: center; background: rgba(23,22,56,.78);
-      color: white; font-size: 28px; cursor: pointer; box-shadow: 0 2px 8px #0003;
-    }
-    .gallery-arrow:focus-visible, .contact-button:focus-visible, .back-link:focus-visible {
-      outline: 3px solid #8ec5ff; outline-offset: 3px;
-    }
-    .gallery-arrow.prev { left: 12px; }
-    .gallery-arrow.next { right: 12px; }
-    .gallery-count {
-      position: absolute; right: 12px; bottom: 12px; z-index: 2;
-      padding: 6px 11px; border-radius: 999px; color: white;
-      background: rgba(23,22,56,.82); font-size: 13px; font-weight: 700;
-    }
-    .gallery-dots { display: flex; justify-content: center; gap: 7px; margin-top: 11px; }
-    .gallery-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: #cbbbe8; cursor: pointer; }
-    .gallery-dot.active { width: 22px; border-radius: 8px; background: var(--purple); }
-    .gallery.single .gallery-arrow, .gallery.single .gallery-count, .gallery.single .gallery-dots { display: none; }
-    .eyebrow { margin: 0 0 5px; color: var(--purple); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-    .property-title { margin: 0 0 12px; font-size: clamp(24px, 5vw, 34px); line-height: 1.2; overflow-wrap: anywhere; }
-    .price { color: var(--purple); font-size: clamp(24px, 5vw, 31px); font-weight: 800; margin: 0 0 18px; overflow-wrap: anywhere; }
-    .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0 22px; }
-    .fact { min-width: 0; padding: 12px; border: 1px solid var(--border); border-radius: 13px; background: #fcfaff; }
-    .fact-label { color: var(--muted); font-size: 12px; display: block; margin-bottom: 3px; }
-    .fact-value { color: var(--navy); font-size: 15px; font-weight: 700; overflow-wrap: anywhere; }
-    .section { border-top: 1px solid var(--border); padding-top: 17px; margin-top: 18px; }
-    .section h3 { margin: 0 0 8px; color: var(--navy); font-size: 19px; }
-    .section p { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
-    .contact-panel { margin-top: 24px; padding: 16px; border-radius: 16px; background: var(--pink-lavender); border: 1px solid var(--border); }
-    .contact-panel h3 { margin: 0 0 5px; color: var(--navy); font-size: 18px; }
-    .contact-panel p { margin: 0 0 13px; color: var(--muted); font-size: 14px; }
-    .contact-actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    .contact-button {
-      min-height: 49px; padding: 13px 16px; border-radius: 12px; display: flex;
-      align-items: center; justify-content: center; gap: 9px; text-align: center;
-      color: white; font-size: 15px; font-weight: 800;
-    }
-    .whatsapp { background: var(--whatsapp); }
-    .call { background: var(--purple); }
-    .contact-note { display: none; color: #a32929; font-size: 13px; margin-top: 10px; }
-    .loading, .error-state { padding: 28px 18px; text-align: center; border-radius: 14px; background: white; color: var(--muted); }
-    .error-state strong { display: block; color: var(--navy); margin-bottom: 5px; }
-    .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 20px 10px; }
-    @media (min-width: 650px) {
-      .container { margin-top: 28px; }
-      .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .contact-actions { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 390px) {
-      .brand-icon { width: 40px; height: 40px; flex-basis: 40px; }
-      .brand-copy p { font-size: 12px; }
-      .gallery-frame { aspect-ratio: 4 / 3; }
-      .gallery-arrow { width: 38px; height: 38px; }
-    }
-  </style>
-</head>
-
-<body>
-  <header class="site-header">
-    <a class="back-link" href="properties.html" aria-label="Back to properties">‹</a>
-    <div class="brand-icon" aria-hidden="true">⌂</div>
-    <div class="brand-copy">
-      <h1>OGARS PROPERTIES</h1>
-      <p>Property details · Find your place in Ghana</p>
-    </div>
-  </header>
-
-  <main class="container">
-    <article class="property-card">
-      <div id="property-content" class="loading">Loading property details…</div>
-    </article>
-    <div class="footer">© 2026 OGARS Platform · Properties &amp; Rentals</div>
-  </main>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#512A91">
+<title>Property Details - OGARS</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<style>
+:root {
+  --purple:#512A91;
+  --purple-dark:#3e1d78;
+  --lavender:#eee5ff;
+  --pink-lavender:#f7efff;
+  --navy:#171638;
+  --muted:#706b8c;
+  --border:#e5dcf7;
+  --white:#fff;
+  --whatsapp:#168a45;
+  --shadow:0 8px 28px rgba(52,30,95,.10);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:#faf9fd;color:var(--navy);
+  font-family:Arial,Helvetica,sans-serif;line-height:1.55;
+}
+a{text-decoration:none}
+.site-header{
+  display:flex;align-items:center;gap:13px;
+  padding:19px max(16px,calc((100% - 980px)/2));
+  color:white;background:linear-gradient(115deg,#6d28d9,var(--purple) 58%,var(--purple-dark));
+  box-shadow:0 3px 12px rgba(40,20,74,.12);
+}
+.back-link{color:white;font-size:31px;line-height:1;padding:0 4px}
+.brand-icon{
+  width:47px;height:47px;flex:0 0 47px;display:grid;place-items:center;
+  border:2px solid rgba(255,255,255,.85);border-radius:13px;font-size:28px;
+}
+.brand-copy h1{margin:0;font-size:clamp(22px,5vw,29px);line-height:1.1}
+.brand-copy p{margin:5px 0 0;color:#f0e8ff;font-size:14px}
+.container{width:min(100%,980px);margin:22px auto 40px;padding:0 14px}
+.property-card{
+  overflow:hidden;background:var(--white);border:1px solid var(--border);
+  border-radius:22px;box-shadow:var(--shadow);padding:clamp(14px,3vw,26px);
+}
+.gallery{position:relative;margin:0 0 22px}
+.gallery-frame{
+  position:relative;width:100%;aspect-ratio:16/10;max-height:520px;
+  overflow:hidden;border-radius:17px;background:linear-gradient(135deg,var(--lavender),white);
+}
+.gallery-frame img{width:100%;height:100%;display:block;object-fit:cover}
+.gallery-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+  width:43px;height:43px;border:0;border-radius:50%;
+  display:grid;place-items:center;background:rgba(23,22,56,.78);
+  color:white;font-size:28px;cursor:pointer;box-shadow:0 2px 8px #0003;
+}
+.gallery-arrow:focus-visible,.contact-button:focus-visible,.back-link:focus-visible{
+  outline:3px solid #8ec5ff;outline-offset:3px;
+}
+.gallery-arrow.prev{left:12px}
+.gallery-arrow.next{right:12px}
+.gallery-count{
+  position:absolute;right:12px;bottom:12px;z-index:2;
+  padding:6px 11px;border-radius:999px;color:white;
+  background:rgba(23,22,56,.82);font-size:13px;font-weight:700;
+}
+.gallery-dots{display:flex;justify-content:center;gap:7px;margin-top:11px}
+.gallery-dot{
+  width:8px;height:8px;padding:0;border:0;border-radius:50%;
+  background:#cbbbe8;cursor:pointer;
+}
+.gallery-dot.active{width:22px;border-radius:8px;background:var(--purple)}
+.gallery.single .gallery-arrow,.gallery.single .gallery-count,.gallery.single .gallery-dots{display:none}
+.eyebrow{
+  margin:0 0 5px;color:var(--purple);font-size:12px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.08em;
+}
+.property-title{
+  margin:0 0 12px;font-size:clamp(24px,5vw,34px);
+  line-height:1.2;overflow-wrap:anywhere;
+}
+.price{
+  color:var(--purple);font-size:clamp(24px,5vw,31px);
+  font-weight:800;margin:0 0 18px;overflow-wrap:anywhere;
+}
+.facts{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;margin:18px 0 22px;
+}
+.fact{
+  min-width:0;padding:12px;border:1px solid var(--border);
+  border-radius:13px;background:#fcfaff;
+}
+.fact-label{color:var(--muted);font-size:12px;display:block;margin-bottom:3px}
+.fact-value{color:var(--navy);font-size:15px;font-weight:700;overflow-wrap:anywhere}
+.section{border-top:1px solid var(--border);padding-top:17px;margin-top:18px}
+.section h3{margin:0 0 8px;color:var(--navy);font-size:19px}
+.section p{margin:0;white-space:pre-line;overflow-wrap:anywhere}
+.contact-panel{
+  margin-top:24px;padding:16px;border-radius:16px;
+  background:var(--pink-lavender);border:1px solid var(--border);
+}
+.contact-panel h3{margin:0 0 5px;color:var(--navy);font-size:18px}
+.contact-panel p{margin:0 0 13px;color:var(--muted);font-size:14px}
+.contact-actions{display:grid;grid-template-columns:1fr;gap:10px}
+.contact-button{
+  min-height:49px;padding:13px 16px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;gap:9px;text-align:center;
+  color:white;font-size:15px;font-weight:800;
+}
+.whatsapp{background:var(--whatsapp)}
+.call{background:var(--purple)}
+.loading,.error-state{
+  padding:28px 18px;text-align:center;border-radius:14px;
+  background:white;color:var(--muted);
+}
+.error-state strong{display:block;color:var(--navy);margin-bottom:5px}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 10px}
+@media(min-width:650px){
+  .container{margin-top:28px}
+  .facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .contact-actions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:390px){
+  .brand-icon{width:40px;height:40px;flex-basis:40px}
+  .brand-copy p{font-size:12px}
+  .gallery-frame{aspect-ratio:4/3}
+  .gallery-arrow{width:38px;height:38px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <a class="back-link" href="find-property.html" aria-label="Back to properties">‹</a>
+  <div class="brand-icon" aria-hidden="true">⌂</div>
+  <div class="brand-copy">
+    <h1>OGARS PROPERTIES</h1>
+    <p>Property details · Find your place in Ghana</p>
+  </div>
+</header>
+
+<main class="container">
+  <article class="property-card">
+    <div id="property-content" class="loading">Loading property details…</div>
+  </article>
+  <div class="footer">© 2026 OGARS Platform · Properties &amp; Rentals</div>
+</main>
+
 <script>
-  const SUPABASE_URL = "https://pawqsmcswoypuiihfbrr.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  const params = new URLSearchParams(window.location.search);
-  const propertyId = params.get("id");
-  const content = document.getElementById("property-content");
+"use strict";
 
-  function esc(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-    })[char]);
-  }
-  function money(value) {
-    if (value === null || value === undefined || String(value).trim() === "") return "Contact owner";
-    const amount = Number(value);
-    return Number.isFinite(amount) ? "GH₵ " + amount.toLocaleString("en-GH") : esc(value);
-  }
-  function cleanPhone(value) {
-    return String(value || "").replace(/[^\d+]/g, "");
-  }
-  function fact(label, value) {
-    if (value === null || value === undefined || String(value).trim() === "") return "";
-    return `<div class="fact"><span class="fact-label">${label}</span><span class="fact-value">${esc(value)}</span></div>`;
-  }
-  function renderGallery(photos, title) {
-    if (!photos.length) {
-      return `<div class="gallery single"><div class="gallery-frame"><div style="height:100%;display:grid;place-items:center;color:#512A91;font-size:64px">⌂</div></div></div>`;
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
+const supabaseClient=window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const params=new URLSearchParams(window.location.search);
+const propertyId=params.get("id");
+const content=document.getElementById("property-content");
+
+/* SAFE HTML */
+function esc(value){
+  return String(value??"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+/* PROPERTY METADATA */
+function parseDescription(description){
+  const details={};
+  const publicLines=[];
+
+  const lines=String(description||"").split(/\r?\n/);
+
+  const knownFields=[
+    "property category",
+    "region",
+    "town / area",
+    "specific location",
+    "property condition",
+    "bedrooms",
+    "bathrooms",
+    "toilets",
+    "furnishing",
+    "parking spaces",
+    "advance payment / duration",
+    "availability",
+    "ownership / documentation",
+    "land size",
+    "land condition",
+    "land topography",
+    "road access",
+    "documentation",
+    "ownership",
+    "room type",
+    "number of rooms",
+    "bathroom arrangement",
+    "commercial property type",
+    "floor area / size",
+    "number of rooms / units",
+    "floor / storey",
+    "facilities",
+    "accommodation type",
+    "nightly rate (gh₵)",
+    "bedrooms / rooms",
+    "preferred bedrooms",
+    "property wanted",
+    "budget (gh₵)",
+    "preferred location",
+    "when do you need it?",
+    "rent amount (gh₵)",
+    "payment period",
+    "asking price (gh₵)"
+  ];
+
+  for(const line of lines){
+    const text=line.trim();
+    if(!text)continue;
+
+    const colon=text.indexOf(":");
+    const label=colon>0
+      ?text.slice(0,colon).trim().toLowerCase()
+      :"";
+
+    const value=colon>0
+      ?text.slice(colon+1).trim()
+      :"";
+
+    if(knownFields.includes(label)){
+      if(value)details[label]=value;
+      continue;
     }
-    const multiple = photos.length > 1;
-    return `<div class="gallery ${multiple ? "" : "single"}" id="property-gallery" data-index="0">
-      <div class="gallery-frame">
-        <img id="gallery-image" src="${esc(photos[0])}" alt="${esc(title)} — photo 1 of ${photos.length}" onerror="this.onerror=null;this.alt='This property photo could not be loaded';this.style.opacity='.25'">
-        ${multiple ? `<button class="gallery-arrow prev" type="button" id="gallery-prev" aria-label="Previous photo">‹</button>
-        <button class="gallery-arrow next" type="button" id="gallery-next" aria-label="Next photo">›</button>
-        <span class="gallery-count" id="gallery-count">1 / ${photos.length}</span>` : ""}
+
+    publicLines.push(text);
+  }
+
+  return {
+    details,
+    publicDescription:publicLines.join("\n").trim()
+  };
+}
+
+/* PROPERTY CATEGORY AND PURPOSE */
+function getPurpose(category){
+  if(category==="Property Wanted")return "Wanted";
+
+  if([
+    "Houses for Rent",
+    "Apartments for Rent",
+    "Rooms for Rent",
+    "Commercial Property",
+    "Short Stay / Guest House"
+  ].includes(category))return "For Rent";
+
+  if([
+    "Houses for Sale",
+    "Land for Sale"
+  ].includes(category))return "For Sale";
+
+  return "Property Advert";
+}
+
+/* PRICE */
+function getPropertyPrice(details){
+  const fields=[
+    ["rent amount (gh₵)","Rent"],
+    ["asking price (gh₵)","Asking price"],
+    ["nightly rate (gh₵)","Nightly rate"],
+    ["budget (gh₵)","Budget"]
+  ];
+
+  for(const [key,label] of fields){
+    const value=details[key];
+    if(value){
+      const numeric=Number(
+        String(value).replace(/,/g,"").replace(/[^\d.]/g,"")
+      );
+
+      return {
+        value,
+        label,
+        display:Number.isFinite(numeric)
+          ?"GH₵ "+numeric.toLocaleString("en-GH")
+          :"GH₵ "+value
+      };
+    }
+  }
+
+  return {
+    value:"",
+    label:"",
+    display:"Contact owner"
+  };
+}
+
+/* PHONE NUMBERS */
+function cleanPhone(value){
+  let phone=String(value||"").replace(/[^\d+]/g,"");
+
+  if(phone.startsWith("+"))phone=phone.substring(1);
+  if(phone.startsWith("0"))phone="233"+phone.substring(1);
+
+  return phone;
+}
+
+/* PROPERTY PHOTOS */
+function getPhotos(property){
+  return String(property.photo_urls||"")
+    .split(",")
+    .map(photo=>photo.trim())
+    .filter(photo=>/^https?:\/\//i.test(photo));
+}
+
+/* FACT DISPLAY */
+function fact(label,value){
+  if(
+    value===null||
+    value===undefined||
+    String(value).trim()===""
+  )return "";
+
+  return `
+    <div class="fact">
+      <span class="fact-label">${esc(label)}</span>
+      <span class="fact-value">${esc(value)}</span>
+    </div>
+  `;
+}
+
+/* PHOTO GALLERY */
+function renderGallery(photos,title){
+  if(!photos.length){
+    return `
+      <div class="gallery single">
+        <div class="gallery-frame">
+          <div style="height:100%;display:grid;place-items:center;color:#512A91;font-size:64px">⌂</div>
+        </div>
       </div>
-      ${multiple ? `<div class="gallery-dots" id="gallery-dots">${photos.map((_, i) => `<button class="gallery-dot ${i === 0 ? "active" : ""}" type="button" data-photo-index="${i}" aria-label="Show photo ${i + 1}"></button>`).join("")}</div>` : ""}
-    </div>`;
+    `;
   }
-  function setupGallery(photos, title) {
-    if (photos.length < 2) return;
-    const gallery = document.getElementById("property-gallery");
-    const image = document.getElementById("gallery-image");
-    const count = document.getElementById("gallery-count");
-    let index = 0, startX = null;
-    function show(next) {
-      index = (next + photos.length) % photos.length;
-      image.src = photos[index];
-      image.alt = `${title} — photo ${index + 1} of ${photos.length}`;
-      count.textContent = `${index + 1} / ${photos.length}`;
-      document.querySelectorAll(".gallery-dot").forEach((dot, i) => dot.classList.toggle("active", i === index));
-      gallery.dataset.index = String(index);
-    }
-    document.getElementById("gallery-prev").addEventListener("click", () => show(index - 1));
-    document.getElementById("gallery-next").addEventListener("click", () => show(index + 1));
-    document.getElementById("gallery-dots").addEventListener("click", event => {
-      const dot = event.target.closest("[data-photo-index]");
-      if (dot) show(Number(dot.dataset.photoIndex));
+
+  const multiple=photos.length>1;
+
+  return `
+    <div class="gallery ${multiple?"":"single"}" id="property-gallery">
+      <div class="gallery-frame">
+        <img
+          id="gallery-image"
+          src="${esc(photos[0])}"
+          alt="${esc(title)} — photo 1 of ${photos.length}"
+          onerror="this.onerror=null;this.alt='This property photo could not be loaded';this.style.opacity='.25'"
+        >
+
+        ${multiple?`
+          <button class="gallery-arrow prev" type="button" id="gallery-prev" aria-label="Previous photo">‹</button>
+          <button class="gallery-arrow next" type="button" id="gallery-next" aria-label="Next photo">›</button>
+          <span class="gallery-count" id="gallery-count">1 / ${photos.length}</span>
+        `:""}
+      </div>
+
+      ${multiple?`
+        <div class="gallery-dots" id="gallery-dots">
+          ${photos.map((_,i)=>`
+            <button
+              class="gallery-dot ${i===0?"active":""}"
+              type="button"
+              data-photo-index="${i}"
+              aria-label="Show photo ${i+1}"
+            ></button>
+          `).join("")}
+        </div>
+      `:""}
+    </div>
+  `;
+}
+
+/* GALLERY CONTROLS */
+function setupGallery(photos,title){
+  if(photos.length<2)return;
+
+  const gallery=document.getElementById("property-gallery");
+  const image=document.getElementById("gallery-image");
+  const count=document.getElementById("gallery-count");
+
+  let index=0;
+  let startX=null;
+
+  function show(next){
+    index=(next+photos.length)%photos.length;
+
+    image.src=photos[index];
+    image.alt=`${title} — photo ${index+1} of ${photos.length}`;
+
+    count.textContent=`${index+1} / ${photos.length}`;
+
+    document.querySelectorAll(".gallery-dot").forEach((dot,i)=>{
+      dot.classList.toggle("active",i===index);
     });
-    gallery.addEventListener("touchstart", event => { startX = event.changedTouches[0].clientX; }, { passive: true });
-    gallery.addEventListener("touchend", event => {
-      if (startX === null) return;
-      const distance = event.changedTouches[0].clientX - startX;
-      if (Math.abs(distance) > 45) show(index + (distance < 0 ? 1 : -1));
-      startX = null;
-    }, { passive: true });
   }
 
-  async function loadProperty() {
-    if (!propertyId) {
-      content.className = "error-state";
-      content.innerHTML = "<strong>Property not found</strong>Please return to the property listings and select a property.";
+  document.getElementById("gallery-prev")
+    .addEventListener("click",()=>show(index-1));
+
+  document.getElementById("gallery-next")
+    .addEventListener("click",()=>show(index+1));
+
+  document.getElementById("gallery-dots")
+    .addEventListener("click",event=>{
+      const dot=event.target.closest("[data-photo-index]");
+      if(dot)show(Number(dot.dataset.photoIndex));
+    });
+
+  gallery.addEventListener("touchstart",event=>{
+    startX=event.changedTouches[0].clientX;
+  },{passive:true});
+
+  gallery.addEventListener("touchend",event=>{
+    if(startX===null)return;
+
+    const distance=event.changedTouches[0].clientX-startX;
+
+    if(Math.abs(distance)>45){
+      show(index+(distance<0?1:-1));
+    }
+
+    startX=null;
+  },{passive:true});
+}
+
+/* DISPLAY ERROR */
+function showError(title,message){
+  content.className="error-state";
+  content.innerHTML=`
+    <strong>${esc(title)}</strong>
+    ${esc(message)}
+    <p style="margin-top:15px">
+      <a href="find-property.html" style="color:#512A91;font-weight:bold">
+        ← Back to Property Listings
+      </a>
+    </p>
+  `;
+}
+
+/* LOAD PROPERTY */
+async function loadProperty(){
+
+  if(!propertyId){
+    showError(
+      "Property not found",
+      "No property ID was supplied. Please return to the property listings and select a property."
+    );
+    return;
+  }
+
+  try{
+
+    /* READ FROM THE SAME TABLE USED BY THE POSTING FORM */
+    const {data:property,error}=await supabaseClient
+      .from("discover_listings")
+      .select("*")
+      .eq("id",propertyId)
+      .eq("listing_type","Property")
+      .single();
+
+    if(error)throw error;
+
+    if(!property){
+      showError(
+        "Property not found",
+        "This property may have been removed or is no longer available."
+      );
       return;
     }
-    const { data: property, error } = await supabaseClient
-      .from("properties").select("*").eq("id", propertyId).single();
 
-    if (error || !property) {
-      console.error("Unable to load property:", error);
-      content.className = "error-state";
-      content.innerHTML = "<strong>Unable to load this property</strong>Please go back to the property listings and try again.";
-      return;
+    /* EXTRACT PROPERTY INFORMATION */
+    const parsed=parseDescription(property.description);
+    const details=parsed.details;
+
+    const category=details["property category"]||"Property Advert";
+    const purpose=getPurpose(category);
+    const price=getPropertyPrice(details);
+
+    const photos=getPhotos(property);
+    const title=property.title||"Property listing";
+
+    const phone=cleanPhone(property.phone);
+    const whatsappNumber=cleanPhone(property.whatsapp||property.phone);
+
+    const whatsappMessage=encodeURIComponent(
+      `Hello, I saw your property advert on OGARS MARKET: ${title}. I would like to know more about this property.`
+    );
+
+    const whatsappUrl=whatsappNumber
+      ?`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
+      :"";
+
+    const paymentPeriod=
+      details["payment period"]||
+      details["advance payment / duration"]||
+      "";
+
+    /* BUILD PROPERTY FACTS */
+    const factsHtml=[
+      fact("📍 Location",property.location),
+      fact("🏷️ Property category",category),
+      fact("📌 Listing purpose",purpose),
+      fact("🗺️ Region",details["region"]),
+      fact("📍 Town / area",details["town / area"]),
+      fact("📌 Specific location",details["specific location"]),
+      fact("🏠 Property condition",details["property condition"]),
+      fact("🛏️ Bedrooms",details["bedrooms"]),
+      fact("🚿 Bathrooms",details["bathrooms"]),
+      fact("🚽 Toilets",details["toilets"]),
+      fact("🛋️ Furnishing",details["furnishing"]),
+      fact("🚗 Parking spaces",details["parking spaces"]),
+      fact("📅 Payment period",paymentPeriod),
+      fact("📋 Availability",details["availability"]),
+      fact("📄 Ownership / documentation",details["ownership / documentation"]),
+      fact("🌍 Land size",details["land size"]),
+      fact("🌱 Land condition",details["land condition"]),
+      fact("⛰️ Land topography",details["land topography"]),
+      fact("🛣️ Road access",details["road access"]),
+      fact("📑 Documentation",details["documentation"]),
+      fact("👤 Ownership",details["ownership"]),
+      fact("🛏️ Room type",details["room type"]),
+      fact("🚿 Bathroom arrangement",details["bathroom arrangement"]),
+      fact("🏬 Commercial property type",details["commercial property type"]),
+      fact("📐 Floor area / size",details["floor area / size"]),
+      fact("🏢 Number of rooms / units",details["number of rooms / units"]),
+      fact("🏢 Floor / storey",details["floor / storey"]),
+      fact("✨ Facilities",details["facilities"]),
+      fact("🏨 Accommodation type",details["accommodation type"]),
+      fact("🛏️ Bedrooms / rooms",details["bedrooms / rooms"]),
+      fact("🔎 Preferred bedrooms",details["preferred bedrooms"]),
+      fact("🔎 Preferred location",details["preferred location"]),
+      fact("📅 When needed",details["when do you need it?"])
+    ].join("");
+
+    /* PRICE PERIOD */
+    let pricePeriod="";
+
+    if(category==="Short Stay / Guest House"&&price.label==="Nightly rate"){
+      pricePeriod=" / night";
+    }else if(paymentPeriod){
+      pricePeriod=" / "+paymentPeriod;
     }
 
-    const photos = String(property.photo_url || "").split(",").map(photo => photo.trim()).filter(Boolean);
-    const title = property.title || "Property listing";
-    const phone = cleanPhone(property.contact_phone);
-    const whatsappNumber = phone.replace(/\D/g, "");
-    const whatsappMessage = encodeURIComponent(`Hello, I saw your property advert on OGARS Platform: ${title}. I would like to know more about this property.`);
-    const whatsappUrl = whatsappNumber
-      ? `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
-      : "";
-    const description = String(property.description || "").trim();
-    const facilities = String(property.facilities || "").trim();
-    const priceText = money(property.price);
-    const period = property.price_period ? ` / ${esc(property.price_period)}` : "";
+    const facilities=details["facilities"]||"";
+    const description=parsed.publicDescription;
 
-    content.className = "";
-    content.innerHTML = `
-      ${renderGallery(photos, title)}
+    /* DISPLAY PROPERTY USING THE AGREED DESIGN */
+    content.className="";
+
+    content.innerHTML=`
+      ${renderGallery(photos,title)}
+
       <section class="contact-panel">
         <h3>Interested in this property?</h3>
         <p>Contact the owner to ask questions or arrange a viewing.</p>
+
         <div class="contact-actions">
-          ${whatsappUrl ? `<a class="contact-button whatsapp" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">◉</span> Chat on WhatsApp</a>` : `<span class="contact-button whatsapp" style="opacity:.65">WhatsApp number unavailable</span>`}
-          ${phone ? `<a class="contact-button call" href="tel:${esc(phone)}"><span aria-hidden="true">☎</span> Call Owner</a>` : `<span class="contact-button call" style="opacity:.65">Phone number unavailable</span>`}
+          ${
+            whatsappUrl
+            ?`<a class="contact-button whatsapp" href="${esc(whatsappUrl)}" target="_blank" rel="noopener noreferrer">
+                <span aria-hidden="true">◉</span> Chat on WhatsApp
+              </a>`
+            :`<span class="contact-button whatsapp" style="opacity:.65">WhatsApp number unavailable</span>`
+          }
+
+          ${
+            phone
+            ?`<a class="contact-button call" href="tel:${esc(phone)}">
+                <span aria-hidden="true">☎</span> Call Owner
+              </a>`
+            :`<span class="contact-button call" style="opacity:.65">Phone number unavailable</span>`
+          }
         </div>
-        ${!phone ? `<p style="margin-top:10px;margin-bottom:0">The advertiser has not provided a contact number for this listing.</p>` : ""}
+
+        ${
+          !phone
+          ?`<p style="margin-top:10px;margin-bottom:0">
+              The advertiser has not provided a contact number for this listing.
+            </p>`
+          :""
+        }
       </section>
-      <p class="eyebrow">${esc(property.listing_type || "Property advert")}</p>
+
+      <p class="eyebrow">${esc(category)}</p>
+
       <h2 class="property-title">${esc(title)}</h2>
-      <p class="price">${priceText}${period}</p>
+
+      <p class="price">
+        ${esc(price.display)}
+        ${pricePeriod?`<span style="font-size:15px;font-weight:600">${esc(pricePeriod)}</span>`:""}
+      </p>
 
       <div class="facts">
-        ${fact("📍 Location", property.location)}
-        ${fact("🏷️ Property type", property.property_type)}
-        ${fact("📌 Listing", property.listing_type)}
-        ${fact("🛏️ Bedrooms", property.bedrooms)}
-        ${fact("🚿 Bathrooms", property.bathrooms)}
-        ${fact("🛋️ Furnished", property.furnished)}
-        ${fact("🛏️ Room type", property.room_type)}
-        ${fact("🎓 Distance to school", property.distance_to_school)}
-        ${fact("🌍 Land size", property.land_size)}
-        ${fact("📄 Documentation", property.documentation)}
-        ${fact("🛣️ Road access", property.road_access)}
-        ${fact("📐 Floor size", property.floor_size)}
-        ${fact("🏪 Suitable business use", property.business_use)}
+        ${factsHtml}
       </div>
 
-      ${facilities ? `<section class="section"><h3>✨ Facilities</h3><p>${esc(facilities)}</p></section>` : ""}
-      <section class="section"><h3>📝 Description</h3><p>${description ? esc(description) : "No description provided."}</p></section>
+      ${
+        facilities
+        ?`<section class="section">
+            <h3>✨ Facilities</h3>
+            <p>${esc(facilities)}</p>
+          </section>`
+        :""
+      }
 
+      <section class="section">
+        <h3>📝 Description</h3>
+        <p>${description?esc(description):"No description provided."}</p>
+      </section>
 
+      ${
+        property.website
+        ?`<section class="section">
+            <h3>🌐 Website / Social link</h3>
+            <p><a href="${esc(property.website)}" target="_blank" rel="noopener noreferrer" style="color:#512A91;font-weight:bold">Visit link</a></p>
+          </section>`
+        :""
+      }
     `;
-    setupGallery(photos, title);
+
+    setupGallery(photos,title);
+
+  }catch(error){
+
+    console.error("OGARS Property Details Error:",error);
+
+    showError(
+      "Unable to load this property",
+      error.message||"Please go back to the property listings and try again."
+    );
+
   }
-  loadProperty();
+}
+
+loadProperty();
 </script>
 
 </body>
