@@ -8,72 +8,575 @@
 <meta name="description" content="Find agricultural products, foodstuff, farm equipment and services on OGARS MARKET Ghana.">
 <title>Agriculture & Food | OGARS MARKET</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{
---purple:#512A91;--dark:#38166f;--light:#f3edfc;
---bg:#fbfaff;--text:#211b36;--muted:#716b83;
+--purple:#512A91;
+--dark:#38166f;
+--light:#f3edfc;
+--bg:#fbfaff;
+--text:#211b36;
+--muted:#716b83;
 --border:#e6e0f0;
 }
+
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45;padding-bottom:76px}
-.hero{display:flex;align-items:center;gap:9px;min-height:82px;padding:9px 12px;background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);color:#fff;position:relative;overflow:hidden}
-.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
-.hero-icon{width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;border-radius:12px;display:grid;place-items:center;font-size:25px;position:relative;z-index:1}
-.hero-copy{position:relative;z-index:1}
-.hero h1{margin:0;font-size:19px;line-height:1.15}
-.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
-.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
-.search-panel{background:#f1e8ff;border:1px solid #e9ddfb;border-radius:14px;padding:9px;margin:8px 0 12px}
-.search-row{display:grid;grid-template-columns:1fr auto;gap:6px}
-.search-panel input,.search-panel select{width:100%;min-width:0;min-height:38px;padding:8px 10px;border:1px solid #e7e0f0;border-radius:9px;background:#fff;color:var(--text);font-size:12px}
-.search-button{border:0;border-radius:9px;background:var(--dark);color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
-.results-summary{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10px;color:var(--muted);margin-top:7px}
-.clear-button{background:#fff;border:1px solid var(--border);color:var(--dark);padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer}
-.category-intro{margin:0 0 7px}
-.category-intro h2{font-size:16px;margin:0 0 2px}
-.category-intro p{font-size:10px;color:var(--muted);margin:0}
-.category-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0}
-.shortcut{min-width:0;padding:5px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text);text-align:center;font-size:10px;font-weight:bold;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 2px 5px rgba(77,50,165,.04)}
-.shortcut-icon{width:100%;height:43px;border-radius:7px;background:linear-gradient(145deg,#eee4ff,#faf7ff);display:grid;place-items:center;font-size:24px}
-.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
-.category-note{font-size:10px;color:var(--muted);margin:7px 0}
-.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
-.product-card{min-width:0;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)}
-.image-wrap{height:125px;background:#f2edff;position:relative}
-.product-image{width:100%;height:100%;object-fit:cover;display:block}
-.no-image{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#7b68b8}
-.category-badge{position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.45;
+padding-bottom:85px;
+}
+
+/* HEADER */
+.hero{
+display:flex;
+align-items:center;
+gap:10px;
+min-height:82px;
+padding:12px;
+background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+color:#fff;
+}
+
+.hero-back{
+color:#fff;
+text-decoration:none;
+font-size:25px;
+}
+
+.hero-icon{
+width:48px;
+height:48px;
+flex:0 0 48px;
+border:2px solid #fff;
+border-radius:12px;
+display:grid;
+place-items:center;
+font-size:25px;
+}
+
+.hero h1{
+margin:0;
+font-size:19px;
+line-height:1.2;
+}
+
+.hero p{
+margin:4px 0 0;
+font-size:11px;
+color:#f0e8ff;
+}
+
+.container{
+max-width:1150px;
+margin:auto;
+padding:12px 11px 95px;
+}
+
+/* SEARCH */
+.search-panel{
+background:#f1e8ff;
+border:1px solid #e9ddfb;
+border-radius:16px;
+padding:12px;
+margin:8px 0 18px;
+}
+
+.search-row{
+display:grid;
+grid-template-columns:1fr auto;
+gap:7px;
+}
+
+.search-panel input,
+.search-panel select{
+width:100%;
+min-width:0;
+min-height:43px;
+padding:10px;
+border:1px solid #e7e0f0;
+border-radius:10px;
+background:#fff;
+color:var(--text);
+font-size:13px;
+}
+
+.search-button{
+border:0;
+border-radius:10px;
+background:var(--dark);
+color:#fff;
+font-weight:bold;
+font-size:12px;
+padding:0 14px;
+cursor:pointer;
+}
+
+.filters{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px;
+margin-top:8px;
+}
+
+.results-summary{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+font-size:12px;
+color:var(--muted);
+margin-top:9px;
+}
+
+.clear-button{
+background:#fff;
+border:1px solid var(--border);
+color:var(--dark);
+padding:7px 10px;
+border-radius:8px;
+font-size:11px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* CATEGORY SHORTCUTS */
+.category-intro{
+margin:0 0 9px;
+}
+
+.category-intro h2{
+font-size:18px;
+margin:0 0 3px;
+}
+
+.category-intro p{
+font-size:12px;
+color:var(--muted);
+margin:0;
+}
+
+.category-shortcuts{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:8px;
+margin:10px 0;
+}
+
+.shortcut{
+min-width:0;
+padding:7px;
+border:1px solid var(--border);
+border-radius:12px;
+background:#fff;
+color:var(--text);
+text-align:center;
+font-size:11px;
+font-weight:bold;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:5px;
+box-shadow:0 2px 6px rgba(77,50,165,.05);
+}
+
+.shortcut-icon{
+width:100%;
+height:55px;
+border-radius:9px;
+background:linear-gradient(145deg,#eee4ff,#faf7ff);
+display:grid;
+place-items:center;
+font-size:29px;
+}
+
+.shortcut.active{
+border:2px solid var(--purple);
+background:#f3edff;
+color:var(--dark);
+padding:6px;
+}
+
+.category-note{
+font-size:12px;
+color:var(--muted);
+margin:12px 0;
+}
+
+/* ADVERT GRID */
+.products{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:12px;
+align-items:start;
+}
+
+.product-card{
+min-width:0;
+width:100%;
+background:#fff;
+border:1px solid var(--border);
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 9px rgba(0,0,0,.06);
+display:flex;
+flex-direction:column;
+}
+
+/* IMAGE */
+.image-wrap{
+width:100%;
+height:170px;
+background:#f2edff;
+overflow:hidden;
+}
+
+.product-image{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+}
+
+.no-image{
+width:100%;
+height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+color:#7b68b8;
+}
+
+/* CARD INFORMATION */
+.product-content{
+display:flex;
+flex-direction:column;
+align-items:stretch;
+width:100%;
+min-width:0;
+padding:11px;
+}
+
+.product-content .category-badge{
+position:static;
+display:inline-block;
+align-self:flex-start;
+max-width:100%;
+background:#f1e8ff;
+color:var(--dark);
+padding:5px 8px;
+border-radius:6px;
+font-size:10px;
+font-weight:bold;
+line-height:1.35;
+white-space:normal;
+overflow-wrap:anywhere;
+margin:0 0 8px;
+}
+
+.product-content .product-name{
+display:block;
+position:static;
+width:100%;
+margin:0 0 8px;
+padding:0;
+font-size:15px;
+font-weight:700;
+line-height:1.35;
+color:var(--text);
+overflow-wrap:anywhere;
+}
+
+.product-content .price{
+display:block;
+position:static;
+width:100%;
+margin:0 0 5px;
+padding:0;
+color:var(--purple);
+font-weight:900;
+font-size:16px;
+line-height:1.4;
+overflow-wrap:anywhere;
+}
+
+.product-content .purpose{
+display:block;
+position:static;
+width:100%;
+margin:0 0 8px;
+padding:0;
+font-size:11px;
+color:var(--dark);
+font-weight:bold;
+line-height:1.4;
+}
+
+.description{
+display:block;
+width:100%;
+color:var(--muted);
+font-size:11px;
+margin:0 0 8px;
+line-height:1.5;
+overflow-wrap:anywhere;
+white-space:pre-line;
+}
+
+.business{
+border-top:1px solid var(--border);
+margin-top:4px;
+padding-top:8px;
+font-size:11px;
+line-height:1.5;
+overflow-wrap:anywhere;
+}
+
+.delivery{
+margin-top:7px;
+padding:8px;
+border-radius:7px;
+background:#f6f2ff;
+color:#55427f;
+font-size:11px;
+}
+
+/* BUTTONS */
+.details-button{
+display:flex;
+justify-content:center;
+align-items:center;
+width:100%;
+min-height:42px;
+margin-top:9px;
+padding:8px;
+border-radius:8px;
+background:var(--dark);
+color:#fff;
+text-decoration:none;
+text-align:center;
+font-size:12px;
+font-weight:bold;
+}
+
+.button-row{
+display:grid;
+grid-template-columns:repeat(3,minmax(0,1fr));
+gap:5px;
+margin-top:8px;
+}
+
+.button{
+display:flex;
+justify-content:center;
+align-items:center;
+min-width:0;
+min-height:38px;
+padding:5px 3px;
+border-radius:7px;
+text-align:center;
+text-decoration:none;
+font-size:10px;
+font-weight:bold;
+border:0;
+cursor:pointer;
+overflow-wrap:anywhere;
+}
+
+.whatsapp{
+background:var(--purple);
+color:#fff;
+}
+
+.call{
+background:var(--light);
+color:var(--dark);
+}
+
+.share-button{
+background:#eee9fb;
+color:var(--dark);
+}
+
+/* MESSAGES */
+.message{
+grid-column:1/-1;
+background:#fff;
+border:1px solid var(--border);
+border-radius:12px;
+padding:25px 14px;
+text-align:center;
+color:var(--muted);
+font-size:13px;
+overflow-wrap:anywhere;
+}
+
+.message strong{
+display:block;
+color:var(--text);
+margin-bottom:7px;
+font-size:15px;
+}
+
+.retry-button{
+background:var(--purple);
+color:#fff;
+border:0;
+border-radius:8px;
+padding:10px 15px;
+font-weight:bold;
+margin-top:12px;
+cursor:pointer;
+}
+
+.back-area{
+text-align:center;
+margin-top:20px;
+}
+
+.back{
+display:inline-block;
+padding:10px 14px;
+background:#fff;
+border:1px solid var(--border);
+color:var(--dark);
+border-radius:9px;
+text-decoration:none;
+font-size:12px;
+font-weight:bold;
+}
+
+/* FOOTER */
+footer{
+background:#211b36;
+color:#e1dced;
+text-align:center;
+padding:18px 10px;
+font-size:11px;
+}
+
+.footer-links{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:9px 14px;
+margin-bottom:10px;
+}
+
+.footer-links a{
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav{
+position:fixed;
+left:0;
+right:0;
+bottom:0;
+z-index:50;
+display:grid;
+grid-template-columns:repeat(5,minmax(0,1fr));
+padding:7px 5px calc(7px + env(safe-area-inset-bottom));
+background:rgba(255,255,255,.98);
+border-top:1px solid var(--border);
+box-shadow:0 -3px 12px rgba(35,24,70,.08);
+}
+
+.bottom-nav a,
+.bottom-nav button{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:3px;
+min-width:0;
+color:#777187;
+text-decoration:none;
+background:none;
+border:0;
+font:inherit;
+font-size:10px;
+font-weight:700;
+padding:3px 0;
+cursor:pointer;
+}
+
+.nav-icon{
+font-size:20px;
+line-height:1.2;
+}
+
+.bottom-nav .active{
+color:var(--dark);
+}
+
+.sell-icon{
+width:35px;
+height:29px;
+display:grid;
+place-items:center;
+background:var(--dark);
+color:#fff;
+border-radius:9px;
+font-size:22px;
+margin-top:-9px;
+}
+
+/* TABLET */
+@media(min-width:601px) and (max-width:850px){
+.products{
+grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.image-wrap{height:180px}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+.container{padding:10px 11px 95px}
+
+.products{
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px;
+}
+
+.image-wrap{height:125px}
+
+.product-content{padding:9px}
+
+.product-content .product-name{font-size:13px}
+.product-content .price{font-size:14px}
+.product-content .purpose{font-size:10px}
+
+.description{font-size:10px}
+
+.button-row{gap:4px}
+.button{font-size:9px;padding:5px 2px}
+
+.shortcut-icon{height:48px;font-size:26px}
+.shortcut{font-size:10px;padding:6px 4px}
+
+.search-row{grid-template-columns:1fr}
+.search-button{min-height:39px}
+}
+
+@media(max-width:360px){
+.products{gap:6px}
 .product-content{padding:7px}
-.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
-.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
-.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
-.description{color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
-.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
-.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
-.button-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:6px}
-.button{display:flex;justify-content:center;align-items:center;min-width:0;min-height:30px;padding:4px 2px;border-radius:6px;text-align:center;text-decoration:none;font-size:9px;font-weight:bold;border:0;cursor:pointer;white-space:nowrap}
-.whatsapp{background:var(--purple);color:#fff}
-.call{background:var(--light);color:var(--dark)}
-.share-button{background:#eee9fb;color:var(--dark)}
-.details-button{display:flex;justify-content:center;align-items:center;width:100%;min-height:30px;margin-top:6px;padding:5px;border-radius:6px;background:var(--dark);color:#fff;text-decoration:none;text-align:center;font-size:10px;font-weight:bold}
-.message{grid-column:1/-1;background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 12px;text-align:center;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
-.message strong{display:block;color:var(--text);margin-bottom:5px}
-.retry-button{background:var(--purple);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer}
-.back-area{text-align:center;margin-top:16px}
-.back{display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold}
-footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
-.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
-.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:5px 5px calc(5px + env(safe-area-inset-bottom));background:rgba(255,255,255,.98);border-top:1px solid var(--border);box-shadow:0 -3px 12px rgba(35,24,70,.08)}
-.bottom-nav a,.bottom-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer}
-.nav-icon{font-size:18px;line-height:1.2}
-.bottom-nav .active{color:var(--dark)}
-.sell-icon{width:33px;height:26px;display:grid;place-items:center;background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px}
-@media(min-width:851px){.image-wrap{height:160px}.product-content{padding:9px}}
-@media(max-width:600px){.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.image-wrap{height:110px}.product-content{padding:6px}.product-name{font-size:11px}.price{font-size:13px}.button-row{gap:3px}.button{font-size:8px;padding:4px 1px}.shortcut-icon{height:42px;font-size:23px}.shortcut{font-size:9px}.search-row{grid-template-columns:1fr}.search-button{min-height:35px}}
+.image-wrap{height:105px}
+.product-content .product-name{font-size:12px}
+.button{font-size:8px}
+}
 </style>
 </head>
+
 <body>
 
 <header class="hero">
@@ -86,21 +589,34 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 </header>
 
 <main class="container">
+
 <section class="search-panel">
 <div class="search-row">
 <input type="search" id="search-input" placeholder="Search products, foodstuff, farms..." autocomplete="off">
 <button type="button" class="search-button" id="search-button">⌕ Search</button>
 </div>
+
 <div class="filters">
 <select id="region-filter" aria-label="Choose region">
 <option value="">📍 All Ghana</option>
-<option>Ahafo</option><option>Ashanti</option><option>Bono</option>
-<option>Bono East</option><option>Central</option><option>Eastern</option>
-<option>Greater Accra</option><option>North East</option><option>Northern</option>
-<option>Oti</option><option>Savannah</option><option>Upper East</option>
-<option>Upper West</option><option>Volta</option><option>Western</option>
+<option>Ahafo</option>
+<option>Ashanti</option>
+<option>Bono</option>
+<option>Bono East</option>
+<option>Central</option>
+<option>Eastern</option>
+<option>Greater Accra</option>
+<option>North East</option>
+<option>Northern</option>
+<option>Oti</option>
+<option>Savannah</option>
+<option>Upper East</option>
+<option>Upper West</option>
+<option>Volta</option>
+<option>Western</option>
 <option>Western North</option>
 </select>
+
 <select id="sort-filter" aria-label="Sort adverts">
 <option value="newest">Latest / Newest</option>
 <option value="trusted">Trusted sellers first</option>
@@ -108,6 +624,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 <option value="high">Price: highest first</option>
 </select>
 </div>
+
 <div class="filters">
 <select id="purpose-filter" aria-label="Advert purpose">
 <option value="">All purposes</option>
@@ -115,6 +632,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 <option value="Wanted">Wanted</option>
 <option value="Service offered">Service offered</option>
 </select>
+
 <select id="price-filter" aria-label="Maximum price">
 <option value="">Any price</option>
 <option value="100">Up to GH₵100</option>
@@ -126,6 +644,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 <option value="50000">Up to GH₵50,000</option>
 </select>
 </div>
+
 <div class="results-summary">
 <span id="results-count">Connecting to OGARS MARKET...</span>
 <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
@@ -138,38 +657,99 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 </section>
 
 <section class="category-shortcuts">
-<button class="shortcut" type="button" data-category="Farm Produce &amp; Vegetables"><span class="shortcut-icon">🥬</span><span>Farm Produce &amp; Vegetables</span></button>
-<button class="shortcut" type="button" data-category="Grains &amp; Foodstuff"><span class="shortcut-icon">🌽</span><span>Grains &amp; Foodstuff</span></button>
-<button class="shortcut" type="button" data-category="Farm Inputs &amp; Equipment"><span class="shortcut-icon">🚜</span><span>Farm Inputs &amp; Equipment</span></button>
-<button class="shortcut" type="button" data-category="Poultry &amp; Eggs"><span class="shortcut-icon">🐔</span><span>Poultry &amp; Eggs</span></button>
-<button class="shortcut" type="button" data-category="Fish &amp; Seafood"><span class="shortcut-icon">🐟</span><span>Fish &amp; Seafood</span></button>
-<button class="shortcut" type="button" data-category="Livestock &amp; Animal Products"><span class="shortcut-icon">🐄</span><span>Livestock &amp; Animal Products</span></button>
-<button class="shortcut" type="button" data-category="Processed Foods &amp; Ingredients"><span class="shortcut-icon">🥫</span><span>Processed Foods &amp; Ingredients</span></button>
-<button class="shortcut" type="button" data-category="Farms &amp; Agricultural Services"><span class="shortcut-icon">🌱</span><span>Farms &amp; Agricultural Services</span></button>
+
+<button class="shortcut" type="button" data-category="Farm Produce &amp; Vegetables">
+<span class="shortcut-icon">🥬</span>
+<span>Farm Produce &amp; Vegetables</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Grains &amp; Foodstuff">
+<span class="shortcut-icon">🌽</span>
+<span>Grains &amp; Foodstuff</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Farm Inputs &amp; Equipment">
+<span class="shortcut-icon">🚜</span>
+<span>Farm Inputs &amp; Equipment</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Poultry &amp; Eggs">
+<span class="shortcut-icon">🐔</span>
+<span>Poultry &amp; Eggs</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Fish &amp; Seafood">
+<span class="shortcut-icon">🐟</span>
+<span>Fish &amp; Seafood</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Livestock &amp; Animal Products">
+<span class="shortcut-icon">🐄</span>
+<span>Livestock &amp; Animal Products</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Processed Foods &amp; Ingredients">
+<span class="shortcut-icon">🥫</span>
+<span>Processed Foods &amp; Ingredients</span>
+</button>
+
+<button class="shortcut" type="button" data-category="Farms &amp; Agricultural Services">
+<span class="shortcut-icon">🌱</span>
+<span>Farms &amp; Agricultural Services</span>
+</button>
+
 </section>
 
 <p class="category-note" id="category-note">Showing all Agriculture &amp; Food adverts.</p>
 
 <section id="products" class="products" aria-live="polite">
-<div class="message"><strong>Loading adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+<div class="message">
+<strong>Loading adverts...</strong>
+Please wait while we connect to OGARS MARKET.
+</div>
 </section>
 
-<div class="back-area"><a href="index.html" class="back">← Back to OGARS MARKET</a></div>
+<div class="back-area">
+<a href="index.html" class="back">← Back to OGARS MARKET</a>
+</div>
+
 </main>
 
 <nav class="bottom-nav">
-<a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
-<a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
-<a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
-<a href="ai-search.html"><span class="nav-icon">✦</span><span>AI Search</span></a>
-<a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+<a href="index.html">
+<span class="nav-icon">⌂</span>
+<span>Home</span>
+</a>
+
+<a href="discover.html" class="active">
+<span class="nav-icon">▦</span>
+<span>Explore</span>
+</a>
+
+<a href="advertise.html">
+<span class="sell-icon">＋</span>
+<span>Sell</span>
+</a>
+
+<a href="ai-search.html">
+<span class="nav-icon">✦</span>
+<span>AI Search</span>
+</a>
+
+<a href="account.html">
+<span class="nav-icon">♙</span>
+<span>Account</span>
+</a>
 </nav>
 
 <footer>
 <nav class="footer-links">
-<a href="index.html">Home</a><a href="workers.html">Workers</a>
-<a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a>
-<a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a>
+<a href="index.html">Home</a>
+<a href="workers.html">Workers</a>
+<a href="jobs.html">Jobs</a>
+<a href="find-property.html">Properties</a>
+<a href="vehicles.html">Vehicles</a>
+<a href="business.html">Businesses</a>
 <a href="discover.html">Discover</a>
 </nav>
 <div>© 2026 OGARS MARKET</div>
@@ -181,6 +761,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 
@@ -201,36 +782,61 @@ let selectedCategory="";
 
 function escapeHtml(value){
 return String(value??"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
 })[c]);
 }
 
-/* PARSE POSTING FORM DETAILS */
+/* READ THE AGRICULTURE POSTING FORM DETAILS */
 function parseAdvert(advert){
+
 const details={};
 const publicLines=[];
 const lines=String(advert.description||"").split(/\r?\n/);
 
 const knownFields=[
-"agriculture & food category","advert purpose","region","town / area",
-"specific location","product / service type","product name",
-"price (gh₵)","maximum budget (gh₵)","service rate (gh₵)",
-"service name","service coverage","unit / package",
-"quantity available","freshness / product state",
-"brand / equipment details","harvest / expiry date"
+"agriculture & food category",
+"advert purpose",
+"region",
+"town / area",
+"specific location",
+"product / service type",
+"product name",
+"price (gh₵)",
+"maximum budget (gh₵)",
+"service rate (gh₵)",
+"service name",
+"service coverage",
+"unit / package",
+"quantity available",
+"freshness / product state",
+"brand / equipment details",
+"harvest / expiry date"
 ];
 
 for(const line of lines){
+
 const text=line.trim();
 if(!text)continue;
+
 const colon=text.indexOf(":");
+
 if(colon>0){
 const label=text.slice(0,colon).trim().toLowerCase();
 const value=text.slice(colon+1).trim();
+
 if(value)details[label]=value;
 }
-const label=colon>0?text.slice(0,colon).trim().toLowerCase():"";
+
+const label=colon>0
+?text.slice(0,colon).trim().toLowerCase()
+:"";
+
 if(knownFields.includes(label))continue;
+
 publicLines.push(text);
 }
 
@@ -239,7 +845,13 @@ const purpose=details["advert purpose"]||"";
 
 let priceValue="";
 let priceKey="";
-const priceFields=["price (gh₵)","maximum budget (gh₵)","service rate (gh₵)"];
+
+const priceFields=[
+"price (gh₵)",
+"maximum budget (gh₵)",
+"service rate (gh₵)"
+];
+
 for(const key of priceFields){
 if(details[key]){
 priceValue=details[key];
@@ -253,153 +865,314 @@ const numericPrice=priceValue
 :null;
 
 return{
-details,category,purpose,priceValue,priceKey,
+details,
+category,
+purpose,
+priceValue,
+priceKey,
 price:Number.isFinite(numericPrice)?numericPrice:null,
 publicDescription:publicLines.join("\n").trim()
 };
 }
 
 function getPhotos(advert){
-return String(advert.photo_urls||"").split(",")
-.map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+return String(advert.photo_urls||"")
+.split(",")
+.map(url=>url.trim())
+.filter(url=>/^https?:\/\//i.test(url));
 }
 
 function cleanPhone(phone){
 let value=String(phone||"").replace(/[^\d+]/g,"");
+
 if(value.startsWith("+"))value=value.substring(1);
 if(value.startsWith("0"))value="233"+value.substring(1);
+
 return value;
 }
 
 function isActive(advert){
+
 if(advert.available===false)return false;
 if(advert.is_active===false||advert.active===false)return false;
+
 const status=String(advert.status||"").toLowerCase();
-if(["inactive","expired","deactivated","removed","closed"].includes(status))return false;
+
+if([
+"inactive",
+"expired",
+"deactivated",
+"removed",
+"closed"
+].includes(status))return false;
+
 if(advert.expires_at){
 const expiry=new Date(advert.expires_at).getTime();
 if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
 }
+
 return true;
 }
 
 function getPriceLabel(advert){
+
 if(advert.parsed.priceKey==="maximum budget (gh₵)")return "Budget";
 if(advert.parsed.priceKey==="service rate (gh₵)")return "Service rate";
 if(advert.parsed.priceKey==="price (gh₵)")return "Price";
+
 return "";
 }
 
+/* CREATE EACH ADVERT CARD */
 function createAdvertCard(advert){
+
 const card=document.createElement("article");
 card.className="product-card";
 
 const photos=getPhotos(advert);
 const photo=photos[0]||"";
 const details=advert.parsed.details;
+
 const phone=advert.phone||"";
 const whatsapp=advert.whatsapp||phone;
-const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
 
-let priceText=advert.parsed.priceValue
+const trusted=
+sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+const priceText=advert.parsed.priceValue
 ?"GH₵ "+advert.parsed.priceValue
 :"Contact advertiser";
 
-let purposeText=advert.parsed.purpose||"";
+const purposeText=advert.parsed.purpose||"";
 
 let imageHtml='<div class="no-image">🌾</div>';
+
 if(photo){
-imageHtml=`<img class="product-image" src="${escapeHtml(photo)}" alt="${escapeHtml(advert.title||"Agriculture advert")}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>🌾</div>'>`;
+imageHtml=`
+<img
+class="product-image"
+src="${escapeHtml(photo)}"
+alt="${escapeHtml(advert.title||"Agriculture advert")}"
+loading="lazy"
+onerror="this.outerHTML='<div class=&quot;no-image&quot;>🌾</div>'"
+>`;
 }
 
 const advertUrl=new URL("discover-details.html",location.href);
 advertUrl.searchParams.set("id",advert.id);
 
+/* SAVE THE CATEGORY PAGE AS THE RETURN DESTINATION */
+advertUrl.searchParams.set("from","agriculture-food.html");
+
 let extra=[];
-if(details["product / service type"])extra.push(details["product / service type"]);
-if(details["product name"])extra.push(details["product name"]);
-if(details["unit / package"])extra.push(details["unit / package"]);
-if(details["quantity available"])extra.push("Quantity: "+details["quantity available"]);
-if(details["freshness / product state"])extra.push(details["freshness / product state"]);
+
+if(details["product / service type"])
+extra.push(details["product / service type"]);
+
+if(details["product name"])
+extra.push(details["product name"]);
+
+if(details["unit / package"])
+extra.push(details["unit / package"]);
+
+if(details["quantity available"])
+extra.push("Quantity: "+details["quantity available"]);
+
+if(details["freshness / product state"])
+extra.push(details["freshness / product state"]);
 
 let buttons="";
+
 const number=cleanPhone(whatsapp);
+
 if(number){
-const msg=encodeURIComponent("Hello, I saw your Agriculture & Food advert on OGARS MARKET: "+(advert.title||"Agriculture & Food listing")+". Is it still available?");
-buttons+=`<a class="button whatsapp" href="https://wa.me/${escapeHtml(number)}?text=${msg}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+
+const msg=encodeURIComponent(
+"Hello, I saw your Agriculture & Food advert on OGARS MARKET: "+
+(advert.title||"Agriculture & Food listing")+
+". Is it still available?"
+);
+
+buttons+=`
+<a class="button whatsapp"
+href="https://wa.me/${escapeHtml(number)}?text=${msg}"
+target="_blank"
+rel="noopener noreferrer">
+💬 WhatsApp
+</a>`;
 }
+
 if(phone){
-buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+
+buttons+=`
+<a class="button call"
+href="tel:${escapeHtml(phone)}">
+📞 Call
+</a>`;
 }
-buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+buttons+=`
+<button class="button share-button" type="button">
+↗ Share
+</button>`;
 
 card.innerHTML=`
+
 <div class="image-wrap">
 ${imageHtml}
-<div class="category-badge">${escapeHtml(advert.parsed.category)}</div>
 </div>
-<div class="product-content">
-<h2 class="product-name">${escapeHtml(advert.title||"Agriculture & Food advert")}</h2>
-<div class="price">${escapeHtml(priceText)}${getPriceLabel(advert)?` <small style="font-size:9px">${escapeHtml(getPriceLabel(advert))}</small>`:""}</div>
-<div class="purpose">${escapeHtml(purposeText)}</div>
-${advert.parsed.publicDescription?`<div class="description">${escapeHtml(advert.parsed.publicDescription)}</div>`:""}
-${extra.length?`<div class="description">${extra.map(escapeHtml).join(" · ")}</div>`:""}
-<div class="business">
-${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
-📍 ${escapeHtml(advert.location||"Ghana")}
-</div>
-<div class="delivery">📷 ${photos.length} photo(s)</div>
-<a class="details-button" href="${escapeHtml(advertUrl.href)}">View Advert</a>
-${buttons?`<div class="button-row">${buttons}</div>`:""}
-</div>`;
 
-card.querySelector(".share-button").addEventListener("click",()=>shareAdvert(advert.title,advertUrl.href));
+<div class="product-content">
+
+<div class="category-badge">
+${escapeHtml(advert.parsed.category)}
+</div>
+
+<h2 class="product-name">
+${escapeHtml(advert.title||"Agriculture & Food advert")}
+</h2>
+
+<div class="price">
+${escapeHtml(priceText)}
+${getPriceLabel(advert)
+?` <small style="font-size:10px">${escapeHtml(getPriceLabel(advert))}</small>`
+:""}
+</div>
+
+<div class="purpose">
+${escapeHtml(purposeText)}
+</div>
+
+${advert.parsed.publicDescription
+?`<div class="description">${escapeHtml(advert.parsed.publicDescription)}</div>`
+:""}
+
+${extra.length
+?`<div class="description">${extra.map(escapeHtml).join(" · ")}</div>`
+:""}
+
+<div class="business">
+
+${trusted
+?'<strong style="color:#16834b">✓ Trusted seller</strong><br>'
+:""}
+
+📍 ${escapeHtml(advert.location||"Ghana")}
+
+</div>
+
+<div class="delivery">
+📷 ${photos.length} photo(s)
+</div>
+
+<a class="details-button" href="${escapeHtml(advertUrl.href)}">
+View Advert
+</a>
+
+${buttons
+?`<div class="button-row">${buttons}</div>`
+:""}
+
+</div>
+`;
+
+card.querySelector(".share-button")
+.addEventListener("click",()=>{
+shareAdvert(advert.title,advertUrl.href);
+});
+
 return card;
 }
 
+/* SHARE ADVERT */
 async function shareAdvert(title,url){
-const data={title:"OGARS Agriculture & Food Advert",text:"Have a look at this advert on OGARS MARKET:",url};
+
+const data={
+title:"OGARS Agriculture & Food Advert",
+text:"Have a look at this advert on OGARS MARKET:",
+url
+};
+
 try{
-if(navigator.share)await navigator.share(data);
+
+if(navigator.share){
+await navigator.share(data);
+}
 else if(navigator.clipboard){
 await navigator.clipboard.writeText(url);
 alert("Advert link copied. You can now share it.");
-}else{
+}
+else{
 window.prompt("Copy this advert link:",url);
 }
+
 }catch(error){
-if(error.name!=="AbortError")console.error("Share failed:",error);
+
+if(error.name!=="AbortError"){
+console.error("Share failed:",error);
+}
+
 }
 }
 
+/* FILTER ADVERTS */
 function getFilteredAdverts(){
+
 const query=$("search-input").value.trim().toLowerCase();
 const region=$("region-filter").value;
 const purpose=$("purpose-filter").value;
-const maxPrice=$("price-filter").value?Number($("price-filter").value):null;
+
+const maxPrice=$("price-filter").value
+?Number($("price-filter").value)
+:null;
+
 const sort=$("sort-filter").value;
 
 return allAdverts.filter(advert=>{
+
 const parsed=advert.parsed;
+
 const searchable=[
-advert.title,advert.location,advert.description,
-parsed.category,parsed.purpose,parsed.publicDescription,
+advert.title,
+advert.location,
+advert.description,
+parsed.category,
+parsed.purpose,
+parsed.publicDescription,
 parsed.details["product name"],
 parsed.details["product / service type"],
 parsed.details["specific location"]
 ].join(" ").toLowerCase();
 
 if(query&&!searchable.includes(query))return false;
-if(selectedCategory&&parsed.category!==selectedCategory)return false;
-if(region&&!String(parsed.details.region||advert.location||"").toLowerCase().includes(region.toLowerCase()))return false;
+
+if(selectedCategory&&parsed.category!==selectedCategory)
+return false;
+
+if(region&&
+!String(parsed.details.region||advert.location||"")
+.toLowerCase().includes(region.toLowerCase()))
+return false;
+
 if(purpose&&parsed.purpose!==purpose)return false;
-if(maxPrice!==null&&(parsed.price===null||parsed.price>maxPrice))return false;
+
+if(maxPrice!==null&&
+(parsed.price===null||parsed.price>maxPrice))
+return false;
+
 return true;
+
 }).sort((a,b)=>{
-const pa=a.parsed.price,pb=b.parsed.price;
-const va=pa!==null,vb=pb!==null;
+
+const pa=a.parsed.price;
+const pb=b.parsed.price;
+
+const va=pa!==null;
+const vb=pb!==null;
+
 const da=new Date(a.created_at||0).getTime();
 const dbb=new Date(b.created_at||0).getTime();
+
 const ta=sellerMap[String(a.user_id)]?.is_trusted===true;
 const tb=sellerMap[String(b.user_id)]?.is_trusted===true;
 
@@ -409,43 +1182,84 @@ if(va)return -1;
 if(vb)return 1;
 return dbb-da;
 }
+
 if(sort==="high"){
 if(va&&vb)return pb-pa;
 if(va)return -1;
 if(vb)return 1;
 return dbb-da;
 }
+
 if(sort==="trusted"&&ta!==tb)return ta?-1:1;
-if(sort==="oldest")return da-dbb;
+
 return dbb-da;
+
 });
 }
 
+/* DISPLAY ADVERTS */
 function displayAdverts(adverts){
-$("results-count").textContent=adverts.length+(adverts.length===1?" advert found":" adverts found");
+
+$("results-count").textContent=
+adverts.length+
+(adverts.length===1?" advert found":" adverts found");
+
 if(!adverts.length){
-$("products").innerHTML=`<div class="message"><strong>🔍 No Agriculture &amp; Food adverts found</strong>Try another category or clear your filters.</div>`;
+
+$("products").innerHTML=`
+<div class="message">
+<strong>🔍 No Agriculture &amp; Food adverts found</strong>
+Try another category or clear your filters.
+</div>`;
+
 return;
 }
+
 const fragment=document.createDocumentFragment();
-adverts.forEach(advert=>fragment.appendChild(createAdvertCard(advert)));
+
+adverts.forEach(advert=>{
+fragment.appendChild(createAdvertCard(advert));
+});
+
 $("products").replaceChildren(fragment);
 }
 
-function filterAdverts(){displayAdverts(getFilteredAdverts());}
-
-function showError(title,detail){
-$("results-count").textContent="Unable to load adverts";
-$("products").innerHTML=`<div class="message"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div><button class="retry-button" type="button" onclick="loadAdverts()">Try Again</button></div>`;
+function filterAdverts(){
+displayAdverts(getFilteredAdverts());
 }
 
-/* LOAD FROM THE SAME TABLE USED BY THE POSTING FORM */
+/* ERROR MESSAGE */
+function showError(title,detail){
+
+$("results-count").textContent="Unable to load adverts";
+
+$("products").innerHTML=`
+<div class="message">
+<strong>${escapeHtml(title)}</strong>
+<div>${escapeHtml(detail)}</div>
+<button class="retry-button" type="button" id="retry-button">
+Try Again
+</button>
+</div>`;
+
+$("retry-button").addEventListener("click",loadAdverts);
+}
+
+/* LOAD FROM SUPABASE */
 async function loadAdverts(){
+
 $("results-count").textContent="Connecting to OGARS MARKET...";
-$("products").innerHTML='<div class="message"><strong>Loading adverts...</strong>Please wait while we connect to OGARS MARKET.</div>';
+
+$("products").innerHTML=`
+<div class="message">
+<strong>Loading adverts...</strong>
+Please wait while we connect to OGARS MARKET.
+</div>`;
 
 try{
-const {data,error}=await db.from("discover_listings")
+
+const {data,error}=await db
+.from("discover_listings")
 .select("*")
 .eq("listing_type","Agriculture & Food")
 .order("created_at",{ascending:false})
@@ -455,58 +1269,107 @@ if(error)throw error;
 
 allAdverts=(data||[])
 .filter(isActive)
-.map(advert=>({...advert,parsed:parseAdvert(advert)}))
+.map(advert=>({
+...advert,
+parsed:parseAdvert(advert)
+}))
 .filter(advert=>categories.includes(advert.parsed.category));
 
-const ids=[...new Set(allAdverts.map(a=>a.user_id).filter(Boolean))];
+const ids=[
+...new Set(
+allAdverts.map(a=>a.user_id).filter(Boolean)
+)
+];
+
 sellerMap={};
 
 if(ids.length){
-const {data:profiles,error:profileError}=await db.from("user_profiles")
-.select("id,is_trusted").in("id",ids);
+
+const {data:profiles,error:profileError}=await db
+.from("user_profiles")
+.select("id,is_trusted")
+.in("id",ids);
 
 if(!profileError&&profiles){
-profiles.forEach(profile=>sellerMap[String(profile.id)]=profile);
+
+profiles.forEach(profile=>{
+sellerMap[String(profile.id)]=profile;
+});
+
 }
+
 }
+
 filterAdverts();
 
 }catch(error){
+
 console.error("OGARS Agriculture & Food error:",error);
-showError("Unable to load Agriculture & Food adverts",error.message||"Please try again.");
+
+showError(
+"Unable to load Agriculture & Food adverts",
+error.message||"Please try again."
+);
+
 }
 }
 
 /* CATEGORY SHORTCUTS */
 document.querySelectorAll(".shortcut").forEach(button=>{
+
 button.addEventListener("click",()=>{
+
 const value=button.dataset.category;
-selectedCategory=selectedCategory===value?"":value;
+
+selectedCategory=
+selectedCategory===value?"":value;
+
 document.querySelectorAll(".shortcut").forEach(item=>{
-item.classList.toggle("active",item.dataset.category===selectedCategory);
+
+item.classList.toggle(
+"active",
+item.dataset.category===selectedCategory
+);
+
 });
+
 $("category-note").textContent=selectedCategory
 ?"Showing "+selectedCategory+" adverts."
 :"Showing all Agriculture & Food adverts.";
+
 filterAdverts();
-$("products").scrollIntoView({behavior:"smooth",block:"start"});
+
+$("products").scrollIntoView({
+behavior:"smooth",
+block:"start"
 });
+
+});
+
 });
 
 /* CLEAR FILTERS */
 function clearFilters(){
+
 $("search-input").value="";
 $("region-filter").value="";
 $("sort-filter").value="newest";
 $("purpose-filter").value="";
 $("price-filter").value="";
+
 selectedCategory="";
-document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
-$("category-note").textContent="Showing all Agriculture & Food adverts.";
+
+document.querySelectorAll(".shortcut").forEach(button=>{
+button.classList.remove("active");
+});
+
+$("category-note").textContent=
+"Showing all Agriculture & Food adverts.";
+
 filterAdverts();
 }
 
-/* EVENTS */
+/* FILTER EVENTS */
 $("search-input").addEventListener("input",filterAdverts);
 $("region-filter").addEventListener("change",filterAdverts);
 $("sort-filter").addEventListener("change",filterAdverts);
@@ -515,23 +1378,46 @@ $("price-filter").addEventListener("change",filterAdverts);
 $("search-button").addEventListener("click",filterAdverts);
 $("clear-filters").addEventListener("click",clearFilters);
 
-/* SUPPORT CATEGORY LINKS FROM THE OLD PAGE */
+/* SUPPORT CATEGORY LINKS FROM OLDER PAGE LINKS */
 const params=new URLSearchParams(location.search);
 const oldCategory=params.get("category");
-if(oldCategory){
-const decoded=decodeURIComponent(oldCategory.replace(/\+/g," "));
-if(categories.includes(decoded)){
-selectedCategory=decoded;
-const button=[...document.querySelectorAll(".shortcut")].find(item=>item.dataset.category===decoded);
-if(button)button.classList.add("active");
-$("category-note").textContent="Showing "+decoded+" adverts.";
-}
-}
-if(params.get("q"))$("search-input").value=params.get("q");
-if(params.get("region"))$("region-filter").value=params.get("region");
-if(params.get("purpose"))$("purpose-filter").value=params.get("purpose");
 
+if(oldCategory){
+
+const decoded=oldCategory;
+
+if(categories.includes(decoded)){
+
+selectedCategory=decoded;
+
+const button=[
+...document.querySelectorAll(".shortcut")
+].find(item=>item.dataset.category===decoded);
+
+if(button)button.classList.add("active");
+
+$("category-note").textContent=
+"Showing "+decoded+" adverts.";
+
+}
+
+}
+
+if(params.get("q")){
+$("search-input").value=params.get("q");
+}
+
+if(params.get("region")){
+$("region-filter").value=params.get("region");
+}
+
+if(params.get("purpose")){
+$("purpose-filter").value=params.get("purpose");
+}
+
+/* START */
 loadAdverts();
+
 </script>
 </body>
 </html>
