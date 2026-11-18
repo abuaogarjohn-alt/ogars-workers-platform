@@ -1,48 +1,384 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OGARS Businesses</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6545c5">
+<meta name="description" content="Discover businesses, shops and services across Ghana on OGARS MARKET.">
+<title>Businesses | OGARS MARKET</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--p:#6500a8;--lav:#f2e8ff;--line:#e5d2ff;--ink:#17143d}*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:var(--ink);padding-bottom:90px;background:#fff}.hero{background:linear-gradient(115deg,#7814c5,#4e087f);color:white;min-height:166px;padding:22px 16px;display:flex;align-items:center;gap:13px;position:relative;overflow:hidden}.back{color:white;text-decoration:none;font-size:38px}.logo{width:72px;height:72px;border:4px solid white;border-radius:23px;display:grid;place-items:center;font-size:42px;flex-shrink:0}.brand{font-size:clamp(19px,5vw,29px);font-weight:900;line-height:1.12;z-index:1}.brand small{display:block;font-size:14px;font-weight:500;margin-top:10px}.leaf{position:absolute;right:5px;top:14px;font-size:90px;color:#ffffff25}main{max-width:900px;margin:auto;padding:16px}.search{background:var(--lav);border-radius:32px;padding:14px;margin-bottom:24px}.search input,.search select{font-size:16px;background:white;border:1.5px solid var(--line);border-radius:28px;padding:0 16px;height:58px;min-width:0;width:100%;color:#292641}.search input{margin-bottom:12px}.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.search button{height:62px;width:100%;border:0;border-radius:26px;background:linear-gradient(110deg,#6800a9,#4f087f);color:#fff;font-weight:800;font-size:20px}.heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:8px 2px 20px}.heading h2{font-size:clamp(17px,4.6vw,25px);color:#5c078f;margin:0;font-weight:900}.sort{display:flex;align-items:center;gap:5px;border:1.5px solid #c76af0;border-radius:28px;padding:8px;color:var(--p);flex-shrink:0}.sort b{font-size:20px}.sort select{border:0;background:transparent;color:var(--ink);font-weight:700;font-size:13px;max-width:115px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1.5px solid var(--line);border-radius:27px;padding:9px 7px 12px;background:white;box-shadow:0 4px 8px #4e087f12;display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:var(--ink);min-width:0}.art{height:105px;width:100%;border-radius:19px;background:linear-gradient(140deg,#f8efff,#fff);display:grid;place-items:center;overflow:hidden;font-size:54px}.name{font-size:clamp(11px,3.3vw,16px);font-weight:900;line-height:1.16;margin-top:8px;overflow-wrap:anywhere}.empty{display:none;text-align:center;padding:24px;color:#656276}.nav{position:fixed;bottom:0;left:0;right:0;height:82px;background:#ffffffed;border-top:1px solid #eadcff;display:flex;justify-content:space-around;align-items:center;z-index:5}.nav a{color:#777486;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px}.nav a:first-child{color:var(--p);font-weight:800}.ico{font-size:26px;line-height:1}.sell{width:62px;height:62px;border-radius:50%;background:var(--p);color:white!important;display:grid;place-items:center;font-size:40px;margin-top:-25px;border:4px solid white}@media(min-width:600px){.art{height:150px}.name{font-size:18px}.hero{padding-left:max(20px,calc((100vw - 860px)/2))}}@media(max-width:360px){main{padding:10px}.grid{gap:7px}.card{padding:7px 4px 9px}.art{height:80px;font-size:43px}.name{font-size:10px}.heading{align-items:flex-start;flex-direction:column}.sort{align-self:flex-end;margin-top:-8px}}
-</style></head><body>
-<header class="hero"><a class="back" href="index.html" aria-label="Back">‹</a><div class="logo">▦</div><div class="brand">OGARS<br>BUSINESSES<small>Discover businesses and shops near you</small></div><div class="leaf">▦</div></header>
-<main><form class="search" id="searchForm"><input id="query" type="search" placeholder="Search Businesses..." aria-label="Search businesses"><div class="filters"><select id="location" aria-label="Location"><option value="">📍 All Ghana</option>
-<optgroup label="Ahafo Region"><option>Goaso</option><option>Kenyasi</option><option>Bechem</option></optgroup>
-<optgroup label="Ashanti Region"><option>Kumasi</option><option>Obuasi</option><option>Ejisu</option><option>Mampong</option><option>Konongo</option></optgroup>
-<optgroup label="Bono Region"><option>Sunyani</option><option>Berekum</option><option>Wenchi</option><option>Drobo</option></optgroup>
-<optgroup label="Bono East Region"><option>Techiman</option><option>Kintampo</option><option>Nkoranza</option><option>Atebubu</option></optgroup>
-<optgroup label="Central Region"><option>Cape Coast</option><option>Kasoa</option><option>Winneba</option><option>Mankessim</option><option>Swedru</option></optgroup>
-<optgroup label="Eastern Region"><option>Koforidua</option><option>Nkawkaw</option><option>Nsawam</option><option>Akuapem</option><option>Somanya</option></optgroup>
-<optgroup label="Greater Accra Region"><option>Accra</option><option>Tema</option><option>Madina</option><option>Adenta</option><option>Achimota</option><option>Lapaz</option><option>Dansoman</option><option>Kasoa</option><option>Chantan</option><option>Spintex</option><option>East Legon</option></optgroup>
-<optgroup label="North East Region"><option>Nalerigu</option><option>Walewale</option><option>Gambaga</option></optgroup>
-<optgroup label="Northern Region"><option>Tamale</option><option>Yendi</option><option>Savelugu</option><option>Gushegu</option></optgroup>
-<optgroup label="Oti Region"><option>Dambai</option><option>Jasikan</option><option>Chinderi</option><option>Kadjebi</option></optgroup>
-<optgroup label="Savannah Region"><option>Damongo</option><option>Salaga</option><option>Bole</option><option>Larabanga</option></optgroup>
-<optgroup label="Upper East Region"><option>Bolgatanga</option><option>Bawku</option><option>Navrongo</option><option>Zebilla</option></optgroup>
-<optgroup label="Upper West Region"><option>Wa</option><option>Lawra</option><option>Jirapa</option><option>Tumu</option></optgroup>
-<optgroup label="Volta Region"><option>Ho</option><option>Hohoe</option><option>Keta</option><option>Anloga</option><option>Kpando</option></optgroup>
-<optgroup label="Western Region"><option>Sekondi-Takoradi</option><option>Tarkwa</option><option>Prestea</option><option>Agona Nkwanta</option></optgroup>
-<optgroup label="Western North Region"><option>Sefwi Wiawso</option><option>Enchi</option><option>Bibiani</option><option>Juaboso</option></optgroup></select>
-<select id="category" aria-label="Business category"><option value="">All Businesses</option><option>Shops &amp; Retail</option><option>Food &amp; Restaurants</option><option>Supermarkets &amp; Grocery Stores</option><option>Beauty &amp; Wellness Businesses</option><option>Construction &amp; Hardware</option><option>Transport &amp; Logistics</option><option>Technology &amp; Electronics</option><option>Professional Services</option><option>Manufacturing &amp; Wholesale</option><option>Agriculture &amp; Food Businesses</option><option>Hotels &amp; Guest Houses</option><option>Education &amp; Training</option><option>Automotive Businesses</option><option>Real Estate Businesses</option><option>Other Businesses</option></select></div><button type="submit">⌕ &nbsp; Search</button></form>
-<div class="heading"><h2>Business Categories</h2><label class="sort"><b>↕</b><select id="sort" aria-label="Sort listings"><option value="latest">Sort: Latest</option><option value="oldest">Sort: Oldest</option><option value="low">Price: Low to High</option><option value="high">Price: High to Low</option></select></label></div>
-<section class="grid" id="grid" aria-label="Business categories">
-<a class="card" data-name="Shops & Retail" href="business.html?category=Retail"><div class="art">🛍️🏪🛒</div><div class="name">Shops &amp; Retail</div></a>
-<a class="card" data-name="Food & Restaurants" href="business.html?category=Food"><div class="art">🍽️🍲🥤</div><div class="name">Food &amp; Restaurants</div></a>
-<a class="card" data-name="Supermarkets & Grocery Stores" href="business.html?category=Groceries"><div class="art">🛒🥬🥫</div><div class="name">Supermarkets &amp; Grocery Stores</div></a>
-<a class="card" data-name="Beauty & Wellness Businesses" href="business.html?category=Beauty"><div class="art">💇🏽‍♀️💅🧴</div><div class="name">Beauty &amp; Wellness Businesses</div></a>
-<a class="card" data-name="Construction & Hardware" href="business.html?category=Hardware"><div class="art">🧱🛠️🏗️</div><div class="name">Construction &amp; Hardware</div></a>
-<a class="card" data-name="Transport & Logistics" href="business.html?category=Transport"><div class="art">🚚🚕📦</div><div class="name">Transport &amp; Logistics</div></a>
-<a class="card" data-name="Technology & Electronics" href="business.html?category=Technology"><div class="art">💻📱🔌</div><div class="name">Technology &amp; Electronics</div></a>
-<a class="card" data-name="Professional Services" href="business.html?category=Professional"><div class="art">💼📊🧾</div><div class="name">Professional Services</div></a>
-<a class="card" data-name="Manufacturing & Wholesale" href="business.html?category=Wholesale"><div class="art">🏭📦🚛</div><div class="name">Manufacturing &amp; Wholesale</div></a>
-<a class="card" data-name="Agriculture & Food Businesses" href="business.html?category=Agriculture"><div class="art">🌾🐟🍗</div><div class="name">Agriculture &amp; Food Businesses</div></a>
-<a class="card" data-name="Hotels & Guest Houses" href="business.html?category=Hospitality"><div class="art">🏨🛏️🧳</div><div class="name">Hotels &amp; Guest Houses</div></a>
-<a class="card" data-name="Education & Training" href="business.html?category=Education"><div class="art">🏫📚🎓</div><div class="name">Education &amp; Training</div></a>
-<a class="card" data-name="Automotive Businesses" href="business.html?category=Automotive"><div class="art">🚗🔧🛞</div><div class="name">Automotive Businesses</div></a>
-<a class="card" data-name="Real Estate Businesses" href="business.html?category=RealEstate"><div class="art">🏢🏘️🔑</div><div class="name">Real Estate Businesses</div></a>
-<a class="card" data-name="Other Businesses" href="business.html?category=Other"><div class="art">🏢🤝✨</div><div class="name">Other Businesses</div></a>
-</section><div class="empty" id="empty">No businesses match your search.</div></main>
-<nav class="nav"><a href="index.html"><span class="ico">⌂</span>Home</a><a href="discover.html"><span class="ico">▦</span>Explore</a><a href="advertise.html"><span class="sell">+</span>Sell</a><a href="discover.html?mode=ai"><span class="ico">✧</span>AI Search</a><a href="account.html"><span class="ico">♙</span>Account</a></nav>
+:root{
+  --purple:#6545c5;--dark:#4d32a5;--light:#f0ebff;
+  --bg:#fbfaff;--text:#211b36;--muted:#716b83;
+  --border:#e6e0f5;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+
+/* HOME & LIVING HERO — TOP HEADER REMOVED */
+.hero{
+  display:flex;align-items:center;gap:9px;min-height:82px;
+  padding:9px 12px;
+  background:linear-gradient(110deg,#6423d4,#4d278c 58%,#38206d);
+  color:#fff;position:relative;overflow:hidden
+}
+.hero::after{
+  content:"⌂";position:absolute;right:10px;top:-35px;
+  font-size:120px;color:rgba(255,255,255,.07);pointer-events:none
+}
+.hero-back{color:#fff;text-decoration:none;font-size:24px;position:relative;z-index:1}
+.hero-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border:2px solid #fff;
+  border-radius:12px;display:grid;place-items:center;
+  font-size:25px;position:relative;z-index:1
+}
+.hero-copy{position:relative;z-index:1}
+.hero h1{margin:0;font-size:19px;line-height:1.15}
+.hero p{margin:4px 0 0;font-size:10px;color:#f0e8ff}
+
+.container{max-width:1150px;margin:auto;padding:8px 11px 95px}
+
+/* SEARCH */
+.search-panel{
+  background:#f1e8ff;border:1px solid #e9ddfb;
+  border-radius:14px;padding:9px;margin:8px 0 12px
+}
+.search-button-row{display:grid;grid-template-columns:1fr auto;gap:6px}
+.search-panel input,.search-panel select{
+  width:100%;min-width:0;min-height:38px;padding:8px 10px;
+  border:1px solid #e7e0f0;border-radius:9px;background:#fff;
+  color:var(--text);font-size:12px
+}
+.search-button{
+  border:0;border-radius:9px;background:var(--dark);
+  color:#fff;font-weight:bold;font-size:11px;padding:0 11px;cursor:pointer
+}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:7px}
+.results-summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;font-size:10px;color:var(--muted);margin-top:7px
+}
+.clear-button{
+  background:#fff;border:1px solid var(--border);color:var(--dark);
+  padding:5px 8px;border-radius:6px;font-size:10px;font-weight:bold;cursor:pointer
+}
+
+/* CATEGORY CARDS */
+.electronics-intro{margin:0 0 7px}
+.electronics-intro h2{font-size:16px;margin:0 0 2px}
+.electronics-intro p{font-size:10px;color:var(--muted);margin:0}
+.electronics-shortcuts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;margin:8px 0
+}
+.shortcut{
+  min-width:0;min-height:0;padding:5px;border:1px solid var(--border);
+  border-radius:10px;background:#fff;color:var(--text);
+  text-align:center;font-size:10px;font-weight:bold;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  box-shadow:0 2px 5px rgba(77,50,165,.04)
+}
+.shortcut-icon{
+  width:100%;height:43px;border-radius:7px;
+  background:linear-gradient(145deg,#eee4ff,#faf7ff);
+  display:grid;place-items:center;font-size:24px
+}
+.shortcut.active{border:2px solid var(--purple);background:#f3edff;color:var(--dark);padding:4px}
+.electronics-note{font-size:10px;color:var(--muted);margin:7px 0}
+
+/* ADVERT CARDS */
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.product-card{
+  min-width:0;background:#fff;border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.05)
+}
+.image-wrap{height:125px;background:#f2edff;position:relative}
+.product-image{width:100%;height:100%;object-fit:cover;display:block}
+.no-image{
+  width:100%;height:100%;display:flex;align-items:center;
+  justify-content:center;font-size:34px;color:#7b68b8
+}
+.category-badge{
+  position:absolute;bottom:5px;left:5px;background:#fff;color:var(--dark);
+  padding:3px 6px;border-radius:10px;font-size:8px;font-weight:bold;
+  max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.product-content{padding:7px}
+.product-name{margin:0;font-size:12px;line-height:1.3;overflow-wrap:anywhere}
+.price{color:var(--purple);font-weight:900;font-size:14px;margin-top:4px}
+.purpose{font-size:9px;color:var(--dark);font-weight:bold;margin-top:3px}
+.description{
+  color:var(--muted);font-size:10px;margin-top:5px;line-height:1.4;
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;white-space:pre-line
+}
+.business{border-top:1px solid var(--border);margin-top:6px;padding-top:5px;font-size:9px;overflow-wrap:anywhere}
+.delivery{margin-top:5px;padding:5px;border-radius:5px;background:#f6f2ff;color:#55427f;font-size:9px}
+
+/* CONTACT AND SHARE BUTTONS */
+.button-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:4px;margin-top:6px
+}
+.button{
+  display:flex;justify-content:center;align-items:center;min-width:0;
+  min-height:30px;padding:4px 2px;border-radius:6px;
+  text-align:center;text-decoration:none;font-size:9px;font-weight:bold;
+  border:0;cursor:pointer;white-space:nowrap
+}
+.whatsapp{background:var(--purple);color:#fff}
+.call{background:var(--light);color:var(--dark)}
+.share-button{background:#eee9fb;color:var(--dark)}
+.details-button{
+  display:flex;justify-content:center;align-items:center;width:100%;
+  min-height:30px;margin-top:6px;padding:5px;border-radius:6px;
+  background:var(--dark);color:#fff;text-decoration:none;
+  text-align:center;font-size:10px;font-weight:bold
+}
+.message{
+  grid-column:1/-1;background:#fff;border:1px solid var(--border);
+  border-radius:10px;padding:20px 12px;text-align:center;
+  color:var(--muted);font-size:12px;overflow-wrap:anywhere
+}
+.message strong{display:block;color:var(--text);margin-bottom:5px}
+.retry-button{
+  background:var(--purple);color:#fff;border:0;border-radius:7px;
+  padding:8px 12px;font-weight:bold;margin-top:9px;cursor:pointer
+}
+.back-area{text-align:center;margin-top:16px}
+.back{
+  display:inline-block;padding:8px 12px;background:#fff;border:1px solid var(--border);
+  color:var(--dark);border-radius:8px;text-decoration:none;font-size:11px;font-weight:bold
+}
+
+/* FOOTER */
+footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font-size:10px}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 12px;margin-bottom:9px}
+.footer-links a{color:#fff;text-decoration:none;font-weight:bold}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  padding:5px 5px calc(5px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.98);border-top:1px solid var(--border);
+  box-shadow:0 -3px 12px rgba(35,24,70,.08)
+}
+.bottom-nav a,.bottom-nav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;min-width:0;color:#777187;text-decoration:none;background:none;
+  border:0;font:inherit;font-size:9px;font-weight:700;padding:3px 0;cursor:pointer
+}
+.bottom-nav .nav-icon{font-size:18px;line-height:1.2}
+.bottom-nav .active{color:var(--dark)}
+.bottom-nav .sell-icon{
+  width:33px;height:26px;display:grid;place-items:center;
+  background:var(--dark);color:#fff;border-radius:8px;font-size:20px;margin-top:-8px
+}
+
+@media(min-width:851px){
+  .image-wrap{height:160px}
+  .product-content{padding:9px}
+}
+@media(max-width:600px){
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .image-wrap{height:110px}
+  .product-content{padding:6px}
+  .product-name{font-size:11px}
+  .price{font-size:13px}
+  .button-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
+  .button{font-size:8px;padding:4px 1px}
+  .shortcut-icon{height:42px;font-size:23px}
+  .shortcut{font-size:9px}
+  .search-button-row{grid-template-columns:1fr}
+  .search-button{min-height:35px}
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <a href="index.html" class="hero-back" aria-label="Back to home">‹</a>
+  <div class="hero-icon-box">▦</div>
+  <div class="hero-copy"><h1>Businesses</h1><p>Discover businesses and services across Ghana</p></div>
+</section>
+<main class="container">
+  <section class="search-panel">
+    <div class="search-button-row">
+      <input type="search" id="business-search" placeholder="Search business name, service or product..." autocomplete="off">
+      <button type="button" class="search-button" id="search-button">⌕ Search</button>
+    </div>
+    <div class="filters">
+      <select id="location-filter" aria-label="Choose region"><option value="">📍 All Ghana</option>
+      <option value="Ahafo">Ahafo Region</option><option value="Ashanti">Ashanti Region</option><option value="Bono">Bono Region</option><option value="Bono East">Bono East Region</option><option value="Central">Central Region</option><option value="Eastern">Eastern Region</option><option value="Greater Accra">Greater Accra Region</option><option value="North East">North East Region</option><option value="Northern">Northern Region</option><option value="Oti">Oti Region</option><option value="Savannah">Savannah Region</option><option value="Upper East">Upper East Region</option><option value="Upper West">Upper West Region</option><option value="Volta">Volta Region</option><option value="Western">Western Region</option><option value="Western North">Western North Region</option></select>
+      <select id="sort-filter" aria-label="Sort businesses">
+        <option value="newest">Latest / Newest</option>
+        <option value="verified">Verified businesses first</option>
+        <option value="price-low">Price: lowest first</option>
+        <option value="price-high">Price: highest first</option>
+      </select>
+    </div>
+    <div class="results-summary"><span id="results-count">Connecting to OGARS MARKET...</span><button type="button" class="clear-button" id="clear-filters">Clear Filters</button></div>
+  </section>
+  <section class="electronics-intro"><h2>Business Categories</h2><p>Tap a category to see its businesses.</p></section>
+  <section class="electronics-shortcuts" aria-label="Business categories">  <button class="shortcut" type="button" data-subcategory="Shops & Retail"><span class="shortcut-icon">🛍️</span><span>Shops &amp; Retail</span></button>
+  <button class="shortcut" type="button" data-subcategory="Food & Restaurants"><span class="shortcut-icon">🍽️</span><span>Food &amp; Restaurants</span></button>
+  <button class="shortcut" type="button" data-subcategory="Supermarkets & Grocery Stores"><span class="shortcut-icon">🛒</span><span>Supermarkets &amp; Grocery Stores</span></button>
+  <button class="shortcut" type="button" data-subcategory="Beauty & Wellness Businesses"><span class="shortcut-icon">💇🏽‍♀️</span><span>Beauty &amp; Wellness Businesses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Construction & Hardware"><span class="shortcut-icon">🧱</span><span>Construction &amp; Hardware</span></button>
+  <button class="shortcut" type="button" data-subcategory="Transport & Logistics"><span class="shortcut-icon">🚚</span><span>Transport &amp; Logistics</span></button>
+  <button class="shortcut" type="button" data-subcategory="Technology & Electronics"><span class="shortcut-icon">💻</span><span>Technology &amp; Electronics</span></button>
+  <button class="shortcut" type="button" data-subcategory="Professional Services"><span class="shortcut-icon">💼</span><span>Professional Services</span></button>
+  <button class="shortcut" type="button" data-subcategory="Manufacturing & Wholesale"><span class="shortcut-icon">🏭</span><span>Manufacturing &amp; Wholesale</span></button>
+  <button class="shortcut" type="button" data-subcategory="Agriculture & Food Businesses"><span class="shortcut-icon">🌾</span><span>Agriculture &amp; Food Businesses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Hotels & Guest Houses"><span class="shortcut-icon">🏨</span><span>Hotels &amp; Guest Houses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Education & Training"><span class="shortcut-icon">🎓</span><span>Education &amp; Training</span></button>
+  <button class="shortcut" type="button" data-subcategory="Automotive Businesses"><span class="shortcut-icon">🚗</span><span>Automotive Businesses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Real Estate Businesses"><span class="shortcut-icon">🏢</span><span>Real Estate Businesses</span></button>
+  <button class="shortcut" type="button" data-subcategory="Other Businesses"><span class="shortcut-icon">🤝</span><span>Other Businesses</span></button>
+  </section>
+  <p class="electronics-note" id="business-note">Showing all business adverts.</p>
+  <section id="products" class="products" aria-live="polite"><div class="message"><strong>Loading business adverts...</strong>Please wait while we connect to OGARS MARKET.</div></section>
+  <div class="back-area"><a href="index.html" class="back">← Back to OGARS MARKET</a></div>
+</main>
+<nav class="bottom-nav" aria-label="Main navigation">
+  <a href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
+  <a href="discover.html" class="active"><span class="nav-icon">▦</span><span>Explore</span></a>
+  <a href="advertise.html"><span class="sell-icon">＋</span><span>Sell</span></a>
+  <button type="button" id="ai-search-nav"><span class="nav-icon">✦</span><span>AI Search</span></button>
+  <a href="account.html"><span class="nav-icon">♙</span><span>Account</span></a>
+</nav>
+<footer>
+  <nav class="footer-links"><a href="index.html">Home</a><a href="workers.html">Workers</a><a href="jobs.html">Jobs</a><a href="find-property.html">Properties</a><a href="vehicles.html">Vehicles</a><a href="business.html">Businesses</a><a href="discover.html">Discover</a></nav>
+  <div>© 2026 OGARS MARKET</div><div style="margin-top:5px;color:#c5bddb">Trusted people. Real opportunities.</div>
+</footer>
 <script>
-const cards=[...document.querySelectorAll('.card')],q=document.getElementById('query'),cat=document.getElementById('category'),empty=document.getElementById('empty');
-function filter(){let count=0;cards.forEach(c=>{let ok=c.dataset.name.toLowerCase().includes(q.value.trim().toLowerCase())&&(!cat.value||c.dataset.name===cat.value);c.style.display=ok?'flex':'none';if(ok)count++});empty.style.display=count?'none':'block'}
-document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();filter()});q.addEventListener('input',filter);cat.addEventListener('change',filter);
-</script></body></html>
+"use strict";
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const categories=[('Shops & Retail', '🛍️'), ('Food & Restaurants', '🍽️'), ('Supermarkets & Grocery Stores', '🛒'), ('Beauty & Wellness Businesses', '💇🏽\u200d♀️'), ('Construction & Hardware', '🧱'), ('Transport & Logistics', '🚚'), ('Technology & Electronics', '💻'), ('Professional Services', '💼'), ('Manufacturing & Wholesale', '🏭'), ('Agriculture & Food Businesses', '🌾'), ('Hotels & Guest Houses', '🏨'), ('Education & Training', '🎓'), ('Automotive Businesses', '🚗'), ('Real Estate Businesses', '🏢'), ('Other Businesses', '🤝')];
+const categoryAliases={Retail:"Shops & Retail",Food:"Food & Restaurants",Groceries:"Supermarkets & Grocery Stores",Beauty:"Beauty & Wellness Businesses",Hardware:"Construction & Hardware",Transport:"Transport & Logistics",Technology:"Technology & Electronics",Professional:"Professional Services",Wholesale:"Manufacturing & Wholesale",Agriculture:"Agriculture & Food Businesses",Hospitality:"Hotels & Guest Houses",Education:"Education & Training",Automotive:"Automotive Businesses",RealEstate:"Real Estate Businesses",Other:"Other Businesses"};
+let allBusinesses=[];let sellerMap={};
+const params=new URLSearchParams(location.search);
+let selectedSubcategory=params.get("subcategory")||categoryAliases[params.get("category")]||params.get("category")||"";
+if(!categories.includes(selectedSubcategory))selectedSubcategory="";
+function escapeHtml(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function cleanPhoneNumber(phone){let value=String(phone||"").replace(/[^\d+]/g,"");if(value.startsWith("+"))value=value.slice(1);if(value.startsWith("0"))value="233"+value.slice(1);return value}
+function parseBusiness(advert){
+  const details={},publicLines=[];
+  const excluded=["business category","businesses category","advert purpose","region","town / area","specific location","price (gh₵)","price (ghc)","price"];
+  const visibleLabels=["business description","description","products / services","products and services","services offered","business type","opening hours","delivery available","payment methods","years in operation"];
+  for(const rawLine of String(advert.description||"").split(/\r?\n/)){
+    const line=rawLine.trim();if(!line)continue;
+    const colon=line.indexOf(":");
+    if(colon>0){
+      const label=line.slice(0,colon).trim().toLowerCase();
+      const value=line.slice(colon+1).trim();
+      if(value)details[label]=value;
+      if(excluded.includes(label))continue;
+      if(visibleLabels.includes(label)){if(value)publicLines.push(value);continue}
+      if(/^(business name|company name|contact person|phone|whatsapp|email|website|location)$/i.test(line.slice(0,colon)))continue;
+    }
+    publicLines.push(line);
+  }
+  const category=details["business category"]||details["businesses category"]||"";
+  const priceValue=details["price (gh₵)"]||details["price (ghc)"]||details["price"]||"";
+  const numeric=Number(String(priceValue).replace(/[^0-9.]/g,""));
+  return {category,purpose:details["advert purpose"]||"",price:priceValue&&Number.isFinite(numeric)?numeric:null,publicDescription:publicLines.join(" ").trim()};
+}
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","closed"].includes(status))return false;
+  if(advert.expires_at){const expiry=new Date(advert.expires_at).getTime();if(Number.isFinite(expiry)&&expiry<=Date.now())return false}
+  return true;
+}
+function getPhotos(advert){
+  if(Array.isArray(advert.photo_urls))return advert.photo_urls.map(url=>String(url).trim()).filter(url=>/^https?:\/\//i.test(url));
+  return String(advert.photo_urls||"").split(",").map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
+async function loadBusinesses(){
+  $("products").innerHTML='<div class="message"><strong>Loading business adverts...</strong>Connecting to OGARS MARKET.</div>';
+  $("results-count").textContent="Connecting to OGARS MARKET...";
+  try{
+    const {data,error}=await db.from("discover_listings").select("*").eq("listing_type","Businesses").order("created_at",{ascending:false}).limit(500);
+    if(error)throw error;
+    allBusinesses=(data||[]).filter(isAdvertActive).map(advert=>{const parsed=parseBusiness(advert);return{...advert,parsed,category:parsed.category,price:parsed.price}}).filter(advert=>categories.includes(advert.category));
+    displayBusinesses(getFilteredBusinesses());loadSellerInformation();
+  }catch(error){console.error("OGARS Businesses error:",error);showMessage("Unable to load business adverts",error.message||"Please try again.",true)}
+}
+async function loadSellerInformation(){
+  const ids=[...new Set(allBusinesses.map(item=>item.user_id).filter(Boolean))];if(!ids.length)return;
+  try{const {data,error}=await db.from("user_profiles").select("id,is_trusted").in("id",ids);if(error)throw error;sellerMap={};(data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);filterBusinesses()}
+  catch(error){console.warn("Seller verification lookup unavailable:",error.message)}
+}
+function showMessage(title,detail,isError=false){
+  $("products").innerHTML=`<div class="message"><strong>${escapeHtml(title)}</strong><div>${escapeHtml(detail)}</div><button class="retry-button" type="button" onclick="loadBusinesses()">Try Again</button></div>`;
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
+}
+async function shareAdvert(title,url){
+  const shareData={title:title||"Business on OGARS MARKET",text:"Have a look at this business on OGARS MARKET:",url};
+  try{if(navigator.share)await navigator.share(shareData);else if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);alert("Business link copied. You can now paste and share it.")}else window.prompt("Copy this business link to share:",url)}
+  catch(error){if(error&&error.name==="AbortError")return;try{if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);alert("Business link copied. You can now paste and share it.")}else window.prompt("Copy this business link to share:",url)}catch(copyError){window.prompt("Copy this business link to share:",url)}}
+}
+function createBusinessCard(advert){
+  const card=document.createElement("article");card.className="product-card";
+  const parsed=advert.parsed,photos=getPhotos(advert),photo=photos[0]||"",phone=advert.phone||"",whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+  let imageHtml='<div class="no-image">▦</div>';
+  if(photo)imageHtml=`<img class="product-image" src="${escapeHtml(photo)}" alt="${escapeHtml(advert.title||"Business advert")}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-image&quot;>▦</div>'">`;
+  const detailsUrl=new URL("discover-details.html",location.href);detailsUrl.searchParams.set("id",advert.id);detailsUrl.searchParams.set("from","business.html");
+  const shareUrl=detailsUrl.href;
+  let buttons="";
+  if(whatsapp){const number=cleanPhoneNumber(whatsapp);if(number){const message=encodeURIComponent('Hello, I saw your "'+(advert.title||"business")+'" on OGARS MARKET. Please can I get more information?');buttons+=`<a class="button whatsapp" href="https://wa.me/${escapeHtml(number)}?text=${message}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`}}
+  if(phone)buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+  const priceText=parsed.price!==null?"GH₵"+parsed.price.toLocaleString("en-GH",{minimumFractionDigits:2,maximumFractionDigits:2}):"";
+  card.innerHTML=`<div class="image-wrap">${imageHtml}<div class="category-badge">${escapeHtml(parsed.category)}</div></div>
+    <div class="product-content"><h2 class="product-name">${escapeHtml(advert.title||"Business advert")}</h2>
+    ${priceText?`<div class="price">${escapeHtml(priceText)}</div>`:""}
+    ${parsed.purpose?`<div class="purpose">${escapeHtml(parsed.purpose)}</div>`:""}
+    ${parsed.publicDescription?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
+    <div class="business">${trusted?'<strong style="color:#16834b">✓ Verified business</strong><br>':""}📍 ${escapeHtml(advert.location||"Ghana")}</div>
+    <div class="delivery">${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}</div>
+    <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>${buttons?`<div class="button-row">${buttons}</div>`:""}</div>`;
+  card.querySelector(".share-button").addEventListener("click",()=>shareAdvert(advert.title,shareUrl));
+  return card;
+}
+function displayBusinesses(businesses){
+  $("results-count").textContent=businesses.length+(businesses.length===1?" business found":" businesses found");
+  if(!businesses.length){$("products").innerHTML='<div class="message"><strong>🔍 No businesses found</strong>Try another category or clear your filters.</div>';return}
+  const fragment=document.createDocumentFragment();businesses.forEach(advert=>fragment.appendChild(createBusinessCard(advert)));$("products").replaceChildren(fragment);
+}
+function matchesRegion(locationText,region){
+  if(!region)return true;const text=String(locationText||"").toLowerCase(),selected=region.toLowerCase();
+  const aliases={"greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman","chantan","spintex","east legon"],"ashanti":["ashanti","kumasi","obuasi","ejisu","mampong","konongo"],"central":["central","cape coast","winneba","mankessim","swedru","kasoa"],"eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],"western":["western","takoradi","sekondi","tarkwa","axim"],"western north":["western north","sefwi","bibiani","enchi"],"volta":["volta","ho","hohoe","keta","aflao"],"northern":["northern","tamale","yendi","savelugu"],"upper east":["upper east","bolgatanga","bawku","navrongo"],"upper west":["upper west","wa","lawra","tumu"],"bono":["bono","sunnyani","berekum","dormaa"],"bono east":["bono east","techiman","kintampo","nkoranza"],"ahafo":["ahafo","goaso","kenyasi","bechem"],"oti":["oti","dambai","jasikan","nkwanta"],"savannah":["savannah","damongo","bole","salaga"],"north east":["north east","nalerigu","walewale"]};
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
+}
+function getFilteredBusinesses(){
+  const search=$("business-search").value.toLowerCase().trim(),region=$("location-filter").value,sort=$("sort-filter").value;
+  return allBusinesses.filter(advert=>{const text=[advert.title,advert.location,advert.description,advert.category].filter(Boolean).join(" ").toLowerCase();return(!search||text.includes(search))&&(!selectedSubcategory||advert.category===selectedSubcategory)&&matchesRegion(advert.location,region)}).sort((a,b)=>{
+    const pa=a.price,pb=b.price,va=pa!==null&&Number.isFinite(pa),vb=pb!==null&&Number.isFinite(pb),da=new Date(a.created_at||0).getTime(),dbb=new Date(b.created_at||0).getTime(),ta=sellerMap[String(a.user_id)]?.is_trusted===true,tb=sellerMap[String(b.user_id)]?.is_trusted===true;
+    if(sort==="price-low"){if(va&&vb)return pa-pb;if(va)return-1;if(vb)return 1;return dbb-da}
+    if(sort==="price-high"){if(va&&vb)return pb-pa;if(va)return-1;if(vb)return 1;return dbb-da}
+    if(sort==="verified"&&ta!==tb)return ta?-1:1;
+    return sort==="oldest"?da-dbb:dbb-da;
+  });
+}
+function filterBusinesses(){displayBusinesses(getFilteredBusinesses())}
+document.querySelectorAll(".shortcut").forEach(button=>button.addEventListener("click",()=>{
+  const category=button.dataset.subcategory;selectedSubcategory=selectedSubcategory===category?"":category;
+  document.querySelectorAll(".shortcut").forEach(item=>item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory));
+  $("business-note").textContent=selectedSubcategory?"Showing businesses in "+selectedSubcategory+".":"Showing all business adverts.";
+  filterBusinesses();$("products").scrollIntoView({behavior:"smooth",block:"start"});
+}));
+function clearFilters(){$("business-search").value="";$("location-filter").value="";$("sort-filter").value="newest";selectedSubcategory="";document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));$("business-note").textContent="Showing all business adverts.";filterBusinesses()}
+$("business-search").addEventListener("input",filterBusinesses);$("location-filter").addEventListener("change",filterBusinesses);$("sort-filter").addEventListener("change",filterBusinesses);$("search-button").addEventListener("click",filterBusinesses);$("clear-filters").addEventListener("click",clearFilters);
+$("ai-search-nav").addEventListener("click",()=>alert("OGARS MARKET AI Search is coming soon."));
+if(selectedSubcategory){document.querySelectorAll(".shortcut").forEach(button=>button.classList.toggle("active",button.dataset.subcategory===selectedSubcategory));$("business-note").textContent="Showing businesses in "+selectedSubcategory+"."}
+loadBusinesses();
+</script>
+</body>
+</html>
