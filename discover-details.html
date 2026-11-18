@@ -555,12 +555,23 @@ const allowedReturnPages = [
 
 const returnPage = params.get("from");
 
-if (
-  returnPage &&
-  allowedReturnPages.includes(returnPage)
-) {
+const returnPageLabels = {
+  "agriculture-food.html": "← Back to Agriculture & Food",
+  "home-living.html": "← Back to Home & Living",
+  "fashion-beauty.html": "← Back to Fashion & Beauty",
+  "phones-tablets.html": "← Back to Phones & Tablets",
+  "find-property.html": "← Back to Properties",
+  "discover.html": "← Back to Discover",
+  "find-products.html": "← Back to Products",
+  "vehicles.html": "← Back to Vehicles",
+  "business.html": "← Back to Businesses",
+  "jobs.html": "← Back to Jobs & Employment",
+  "workers.html": "← Back to Workers"
+};
+
+if (returnPage && allowedReturnPages.includes(returnPage)) {
   backButton.href = returnPage;
-  backButton.textContent = "← Back to Adverts";
+  backButton.textContent = returnPageLabels[returnPage] || "← Back to Adverts";
 } else {
   backButton.href = "my-adverts.html";
   backButton.textContent = "← Back to My Adverts";
