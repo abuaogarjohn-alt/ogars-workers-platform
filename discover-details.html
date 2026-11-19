@@ -553,24 +553,6 @@ const allowedReturnPages = [
   "workers.html"
 ];
 
-const returnTo = params.get("returnTo");
-const returnLabel = params.get("returnLabel");
-
-if (returnTo) {
-  try {
-    const safeReturnUrl = new URL(returnTo, window.location.origin);
-    if (
-      safeReturnUrl.origin === window.location.origin &&
-      safeReturnUrl.pathname !== window.location.pathname
-    ) {
-      backButton.href = safeReturnUrl.pathname + safeReturnUrl.search + safeReturnUrl.hash;
-      backButton.textContent = "← Back to " + (returnLabel || "Adverts");
-    }
-  } catch (error) {
-    console.warn("Invalid advert return destination:", error);
-  }
-}
-
 const returnPage = params.get("from");
 
 const returnPageLabels = {
@@ -587,14 +569,18 @@ const returnPageLabels = {
   "workers.html": "← Back to Workers"
 };
 
-if (!returnTo || backButton.href === window.location.href) {
-  if (returnPage && allowedReturnPages.includes(returnPage)) {
-    backButton.href = returnPage;
-    backButton.textContent = returnPageLabels[returnPage] || "← Back to Adverts";
-  } else {
-    backButton.href = "my-adverts.html";
-    backButton.textContent = "← Back to My Adverts";
-  }
+function setReturnDestination(page) {
+  if (!allowedReturnPages.includes(page)) return false;
+  backButton.href = page;
+  backButton.textContent = returnPageLabels[page] || "← Back to Adverts";
+  return true;
+}
+
+const hasExplicitReturnDestination = setReturnDestination(returnPage);
+
+if (!hasExplicitReturnDestination) {
+  backButton.href = "my-adverts.html";
+  backButton.textContent = "← Back to My Adverts";
 }
 
 let photos = [];
@@ -799,6 +785,23 @@ async function loadAdvert() {
 /* RENDER ADVERT */
 
 function renderAdvert(listing) {
+
+  // If the advert was opened without an explicit return page, route it
+  // back to its own marketplace category instead of the legacy green dashboard.
+  if (!hasExplicitReturnDestination) {
+    const listingType = String(listing.listing_type || "").trim().toLowerCase();
+    let inferredReturnPage = "";
+
+    if (listingType === "businesses" || listingType === "business") {
+      inferredReturnPage = "business.html";
+    } else if (listingType === "jobs & employment" || listingType === "jobs") {
+      inferredReturnPage = "jobs.html";
+    } else if (listingType === "home & living") {
+      inferredReturnPage = "home-living.html";
+    }
+
+    if (inferredReturnPage) setReturnDestination(inferredReturnPage);
+  }
 
   /* PHOTOS */
 
