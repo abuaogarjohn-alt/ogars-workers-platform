@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#6545c5">
 <meta name="description" content="Find skilled workers and professional services across Ghana on OGARS MARKET.">
-<title>Skilled Workers &amp; Services | OGARS MARKET</title>
+<title>Home & Living | OGARS MARKET</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -206,7 +206,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
   <div class="hero-icon-box">🧰</div>
   <div class="hero-copy">
     <h1>Skilled Workers &amp; Services</h1>
-    <p>Find skilled professionals and service providers across Ghana</p>
+    <p>Find skilled professionals and reliable services across Ghana</p>
   </div>
 </section>
 
@@ -214,7 +214,7 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 <section class="search-panel">
   <div class="search-button-row">
-    <input type="search" id="product-search" placeholder="Search plumbers, electricians, cleaning, beauty services..." autocomplete="off">
+    <input type="search" id="product-search" placeholder="Search plumbers, electricians, cleaning, beauty..." autocomplete="off">
     <button type="button" class="search-button" id="search-button">⌕ Search</button>
   </div>
 
@@ -241,40 +241,43 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
     <select id="sort-filter" aria-label="Sort adverts">
       <option value="newest">Latest / Newest</option>
-      <option value="az">Category: A to Z</option>
-      <option value="za">Category: Z to A</option>
+      <option value="verified">Trusted sellers first</option>
+      <option value="price-low">Price: lowest first</option>
+      <option value="price-high">Price: highest first</option>
     </select>
   </div>
 
   <div class="results-summary">
-    <span id="results-count">12 service categories available</span>
+    <span id="results-count">Connecting to OGARS MARKET...</span>
     <button type="button" class="clear-button" id="clear-filters">Clear Filters</button>
   </div>
 </section>
 
 <section class="electronics-intro">
   <h2>Skilled Workers &amp; Services Categories</h2>
-  <p>Choose a category to explore the skills and services you need.</p>
+  <p>Choose a category to explore available skills and services.</p>
 </section>
 
 <section class="electronics-shortcuts" aria-label="Skilled Workers and Services categories">
-  <a class="shortcut" data-category="Building, Construction &amp; Repairs" href="discover.html?category=building-construction-repairs"><span class="shortcut-icon">🧱🔧</span><span>Building, Construction &amp; Repairs</span></a>
-  <a class="shortcut" data-category="Cleaning &amp; Domestic Services" href="discover.html?category=cleaning-domestic-services"><span class="shortcut-icon">🧹🧺</span><span>Cleaning &amp; Domestic Services</span></a>
-  <a class="shortcut" data-category="Automotive Services" href="discover.html?category=automotive-services"><span class="shortcut-icon">🚗🛠️</span><span>Automotive Services</span></a>
-  <a class="shortcut" data-category="Beauty, Fashion &amp; Personal Care" href="discover.html?category=beauty-fashion-personal-care"><span class="shortcut-icon">💇💄</span><span>Beauty, Fashion &amp; Personal Care</span></a>
-  <a class="shortcut" data-category="IT &amp; Computer Services" href="discover.html?category=it-computer-services"><span class="shortcut-icon">💻🌐</span><span>IT &amp; Computer Services</span></a>
-  <a class="shortcut" data-category="Education &amp; Training" href="discover.html?category=education-training"><span class="shortcut-icon">📚🎓</span><span>Education &amp; Training</span></a>
-  <a class="shortcut" data-category="Events, Catering &amp; Entertainment" href="discover.html?category=events-catering-entertainment"><span class="shortcut-icon">🎪🍽️</span><span>Events, Catering &amp; Entertainment</span></a>
-  <a class="shortcut" data-category="Logistics &amp; Transport Services" href="discover.html?category=logistics-transport-services"><span class="shortcut-icon">🚚📦</span><span>Logistics &amp; Transport Services</span></a>
-  <a class="shortcut" data-category="Financial &amp; Legal Services" href="discover.html?category=financial-legal-services"><span class="shortcut-icon">⚖️💰</span><span>Financial &amp; Legal Services</span></a>
-  <a class="shortcut" data-category="Health &amp; Wellness Services" href="discover.html?category=health-wellness-services"><span class="shortcut-icon">💪🌿</span><span>Health &amp; Wellness Services</span></a>
-  <a class="shortcut" data-category="Printing &amp; Design Services" href="discover.html?category=printing-design-services"><span class="shortcut-icon">🖨️🎨</span><span>Printing &amp; Design Services</span></a>
-  <a class="shortcut" data-category="Other Services" href="discover.html?category=other-services"><span class="shortcut-icon">🧰🤝</span><span>Other Services</span></a>
+<button class="shortcut" type="button" data-subcategory="Building, Construction & Repairs"><span class="shortcut-icon">🧱🔧</span><span>Building, Construction & Repairs</span></button>
+<button class="shortcut" type="button" data-subcategory="Cleaning & Domestic Services"><span class="shortcut-icon">🧹🧺</span><span>Cleaning & Domestic Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Automotive Services"><span class="shortcut-icon">🚗🛠️</span><span>Automotive Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Beauty, Fashion & Personal Care"><span class="shortcut-icon">💇💄</span><span>Beauty, Fashion & Personal Care</span></button>
+<button class="shortcut" type="button" data-subcategory="IT & Computer Services"><span class="shortcut-icon">💻🌐</span><span>IT & Computer Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Education & Training"><span class="shortcut-icon">📚🎓</span><span>Education & Training</span></button>
+<button class="shortcut" type="button" data-subcategory="Events, Catering & Entertainment"><span class="shortcut-icon">🎪🍽️</span><span>Events, Catering & Entertainment</span></button>
+<button class="shortcut" type="button" data-subcategory="Logistics & Transport Services"><span class="shortcut-icon">🚚📦</span><span>Logistics & Transport Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Financial & Legal Services"><span class="shortcut-icon">⚖️💰</span><span>Financial & Legal Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Health & Wellness Services"><span class="shortcut-icon">💪🌿</span><span>Health & Wellness Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Printing & Design Services"><span class="shortcut-icon">🖨️🎨</span><span>Printing & Design Services</span></button>
+<button class="shortcut" type="button" data-subcategory="Other Services"><span class="shortcut-icon">🧰🤝</span><span>Other Services</span></button>
 </section>
 
-<p class="electronics-note" id="electronics-note">Showing all 12 Skilled Workers &amp; Services categories.</p>
+<p class="electronics-note" id="electronics-note">Showing all Skilled Workers &amp; Services adverts.</p>
 
-
+<section id="products" class="products" aria-live="polite">
+  <div class="message"><strong>Loading Skilled Workers &amp; Services adverts...</strong>Please wait while we connect to OGARS MARKET.</div>
+</section>
 
 <div class="back-area">
   <a href="discover.html" class="back">← Back to Explore</a>
@@ -302,48 +305,465 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 <script>
 "use strict";
-const $=id=>document.getElementById(id);
-const categoryCards=[...document.querySelectorAll(".shortcut")];
-const searchInput=$("product-search");
-const locationFilter=$("location-filter");
-const sortFilter=$("sort-filter");
-const resultsCount=$("results-count");
-const note=$("electronics-note");
 
-function filterCategories(){
-  const term=searchInput.value.trim().toLowerCase();
-  let visible=0;
-  categoryCards.forEach(card=>{
-    const name=card.dataset.category||"";
-    const matches=name.toLowerCase().includes(term);
-    card.style.display=matches?"flex":"none";
-    if(matches)visible++;
-  });
-  resultsCount.textContent=visible+" categor"+(visible===1?"y":"ies")+" available";
-  note.textContent=term
-    ? "Showing categories matching your search."
-    : "Showing all Skilled Workers & Services categories.";
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
+const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+
+const categories=[
+  "Building, Construction & Repairs","Cleaning & Domestic Services",
+  "Automotive Services","Beauty, Fashion & Personal Care",
+  "IT & Computer Services","Education & Training",
+  "Events, Catering & Entertainment","Logistics & Transport Services",
+  "Financial & Legal Services","Health & Wellness Services",
+  "Printing & Design Services","Other Services"
+];
+let allProducts=[];
+let sellerMap={};
+const params=new URLSearchParams(location.search);
+const slugMap={
+ "building-construction-repairs":"Building, Construction & Repairs",
+ "cleaning-domestic-services":"Cleaning & Domestic Services",
+ "automotive-services":"Automotive Services",
+ "beauty-fashion-personal-care":"Beauty, Fashion & Personal Care",
+ "it-computer-services":"IT & Computer Services",
+ "education-training":"Education & Training",
+ "events-catering-entertainment":"Events, Catering & Entertainment",
+ "logistics-transport-services":"Logistics & Transport Services",
+ "financial-legal-services":"Financial & Legal Services",
+ "health-wellness-services":"Health & Wellness Services",
+ "printing-design-services":"Printing & Design Services",
+ "other-services":"Other Services"
+};
+let selectedSubcategory=slugMap[params.get("category")]||params.get("subcategory")||"";
+
+function normalizeCategory(value){
+ const raw=String(value||"").trim().toLowerCase();
+ const exact=categories.find(c=>c.toLowerCase()===raw);
+ if(exact)return exact;
+ const map={
+  "plumber":"Building, Construction & Repairs","plumbing":"Building, Construction & Repairs",
+  "electrician":"Building, Construction & Repairs","mason":"Building, Construction & Repairs",
+  "carpenter":"Building, Construction & Repairs","painter":"Building, Construction & Repairs",
+  "welder":"Building, Construction & Repairs","tiler":"Building, Construction & Repairs",
+  "roofer":"Building, Construction & Repairs","builder":"Building, Construction & Repairs",
+  "cleaner":"Cleaning & Domestic Services","cleaning":"Cleaning & Domestic Services",
+  "housekeeper":"Cleaning & Domestic Services","mechanic":"Automotive Services",
+  "auto mechanic":"Automotive Services","vulcanizer":"Automotive Services",
+  "car wash":"Automotive Services","barber":"Beauty, Fashion & Personal Care",
+  "hairdresser":"Beauty, Fashion & Personal Care","makeup artist":"Beauty, Fashion & Personal Care",
+  "fashion designer":"Beauty, Fashion & Personal Care","tailor":"Beauty, Fashion & Personal Care",
+  "computer repair":"IT & Computer Services","web designer":"IT & Computer Services",
+  "graphic designer":"Printing & Design Services","photographer":"Events, Catering & Entertainment",
+  "caterer":"Events, Catering & Entertainment","dj":"Events, Catering & Entertainment",
+  "event planner":"Events, Catering & Entertainment","driver":"Logistics & Transport Services",
+  "delivery":"Logistics & Transport Services","tutor":"Education & Training","teacher":"Education & Training"
+ };
+ return map[raw]||"Other Services";
 }
-$("search-button").addEventListener("click",filterCategories);
-searchInput.addEventListener("input",filterCategories);
-$("clear-filters").addEventListener("click",()=>{
-  searchInput.value="";
-  locationFilter.value="";
-  sortFilter.value="newest";
-  filterCategories();
-});
-$("ai-search-nav").addEventListener("click",()=>{
-  window.location.href="discover.html?mode=ai";
-});
-sortFilter.addEventListener("change",()=>{
-  const grid=document.querySelector(".electronics-shortcuts");
-  const sorted=[...categoryCards].sort((a,b)=>{
-    const cmp=(a.dataset.category||"").localeCompare(b.dataset.category||"");
-    return sortFilter.value==="za"?-cmp:cmp;
+function parseAdvert(advert){
+ const lines=String(advert.description||"").split(/\r?\n/);
+ const details={},publicLines=[];
+ const hidden=[
+  "Skilled Workers category","Services category","Skilled Workers & Services category",
+  "OGARS main category","Advert purpose","Region","Town / area","Town/area",
+  "Specific location","Service offered","Service type","Skill","Experience",
+  "Availability","Price (GH₵)","Price (GHC)","Price (GHS)",
+  "Maximum budget (GH₵)","Minimum charge (GH₵)","Rate","Service coverage","Working hours"
+ ];
+ for(const line of lines){
+  const t=line.trim(); if(!t)continue;
+  const i=t.indexOf(":");
+  if(i>0){const k=t.slice(0,i).trim().toLowerCase(),v=t.slice(i+1).trim();if(v)details[k]=v;}
+  if(hidden.some(label=>t.toLowerCase().startsWith(label.toLowerCase()+":")))continue;
+  publicLines.push(t);
+ }
+ const price=details["price (gh₵)"]||details["price (ghc)"]||details["price (ghs)"]||
+  details["minimum charge (gh₵)"]||details["maximum budget (gh₵)"]||"";
+ const n=Number(String(price).replace(/[^\d.]/g,""));
+ const category=details["skilled workers & services category"]||
+  details["skilled workers category"]||details["services category"]||"";
+ return {
+  category:normalizeCategory(category),
+  purpose:details["advert purpose"]||"",
+  price:price&&Number.isFinite(n)?n:null,
+  publicDescription:publicLines.join("\n").trim()
+ };
+}
+
+/* ADVERT STATUS */
+function isAdvertActive(advert){
+  if(advert.available===false||advert.is_active===false||advert.active===false)return false;
+
+  const status=String(advert.status||"").toLowerCase();
+  if(["inactive","expired","deactivated","removed","sold","closed"].includes(status))return false;
+
+  if(advert.expires_at){
+    const expiry=new Date(advert.expires_at).getTime();
+    if(Number.isFinite(expiry)&&expiry<=Date.now())return false;
+  }
+  return true;
+}
+
+/* SAFE HTML */
+function escapeHtml(value){
+  return String(value??"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+/* PHONE NUMBER */
+function cleanPhoneNumber(phone){
+  let value=String(phone||"").replace(/[^\d+]/g,"");
+  if(value.startsWith("+"))value=value.substring(1);
+  if(value.startsWith("0"))value="233"+value.substring(1);
+  return value;
+}
+
+/* LOAD ADVERTS */
+async function loadProducts(){
+  $("products").innerHTML=`<div class="message"><strong>🛋️ Loading Skilled Workers & Services adverts...</strong>Connecting to OGARS MARKET.</div>`;
+  $("results-count").textContent="Connecting to OGARS MARKET...";
+
+  try{
+    const {data,error}=await db.from("discover_listings")
+      .select("*")
+      .in("listing_type",["Skilled Workers","Services"])
+      .order("created_at",{ascending:false})
+      .limit(500);
+
+    if(error)throw error;
+
+    allProducts=(data||[])
+      .filter(isAdvertActive)
+      .map(advert=>{
+        const parsed=parseAdvert(advert);
+        return{...advert,parsed,category:parsed.category,purpose:parsed.purpose,price:parsed.price};
+      })
+      .filter(advert=>categories.includes(advert.category));
+
+    displayProducts(getFilteredProducts());
+    loadSellerInformation();
+  }catch(error){
+    console.error("OGARS Skilled Workers & Services error:",error);
+    showMessage("Unable to load adverts",error.message||"Please try again.",true);
+  }
+}
+
+/* SELLER TRUST INFORMATION */
+async function loadSellerInformation(){
+  const ids=[...new Set(allProducts.map(item=>item.user_id).filter(Boolean))];
+  if(!ids.length)return;
+
+  try{
+    const {data,error}=await db.from("user_profiles")
+      .select("id,is_trusted").in("id",ids);
+
+    if(error)throw error;
+
+    sellerMap={};
+    (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
+    filterProducts();
+  }catch(error){
+    console.warn("Seller verification lookup unavailable:",error.message);
+  }
+}
+
+/* ERROR AND EMPTY MESSAGES */
+function showMessage(title,detail,isError=false){
+  $("products").innerHTML=`
+    <div class="message">
+      <strong>${escapeHtml(title)}</strong>
+      <div>${escapeHtml(detail)}</div>
+      <button class="retry-button" type="button" onclick="loadProducts()">Try Again</button>
+    </div>`;
+  $("results-count").textContent=isError?"Could not load adverts":"0 adverts found";
+}
+
+/* PHOTOS */
+function getPhotos(advert){
+  return String(advert.photo_urls||"").split(",")
+    .map(url=>url.trim()).filter(url=>/^https?:\/\//i.test(url));
+}
+
+/* SHARE ADVERT */
+async function shareAdvert(title,url){
+  const shareData={
+    title:title||"Skilled Workers & Services advert on OGARS MARKET",
+    text:"Have a look at this advert on OGARS MARKET:",
+    url:url
+  };
+
+  try{
+    if(navigator.share){
+      await navigator.share(shareData);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(url);
+      alert("Advert link copied. You can now paste and share it.");
+    }else{
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }catch(error){
+    if(error&&error.name==="AbortError")return;
+
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(url);
+        alert("Advert link copied. You can now paste and share it.");
+      }else{
+        window.prompt("Copy this advert link to share:",url);
+      }
+    }catch(copyError){
+      window.prompt("Copy this advert link to share:",url);
+    }
+  }
+}
+
+/* ADVERT CARD */
+function createProductCard(advert){
+  const card=document.createElement("article");
+  card.className="product-card";
+
+  const parsed=advert.parsed;
+  const photos=getPhotos(advert);
+  const photo=photos[0]||"";
+  const phone=advert.phone||"";
+  const whatsapp=advert.whatsapp||phone;
+  const trusted=sellerMap[String(advert.user_id)]?.is_trusted===true;
+
+  let priceText="Rate on request";
+  if(parsed.price!==null){
+    priceText="GH₵"+parsed.price.toLocaleString("en-GH",{
+      minimumFractionDigits:2,maximumFractionDigits:2
+    });
+  }
+
+  let imageHtml='<div class="no-image">🛋️</div>';
+  if(photo){
+    imageHtml=`
+      <img class="product-image"
+        src="${escapeHtml(photo)}"
+        alt="${escapeHtml(advert.title||"Skilled Workers & Services advert")}"
+        loading="lazy"
+        onerror="this.outerHTML='<div class=&quot;no-image&quot;>🛋️</div>'">
+    `;
+  }
+
+  const detailsUrl=new URL("discover-details.html",location.href);
+  detailsUrl.searchParams.set("id",advert.id);
+  const shareUrl=detailsUrl.href;
+
+  let buttons="";
+
+  if(whatsapp){
+    const number=cleanPhoneNumber(whatsapp);
+    if(number){
+      const message=encodeURIComponent(
+        'Hello, I saw your "'+(advert.title||"Skilled Workers & Services advert")+
+        '" on OGARS MARKET. Is it still available?'
+      );
+      buttons+=`
+        <a class="button whatsapp"
+          href="https://wa.me/${escapeHtml(number)}?text=${message}"
+          target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`;
+    }
+  }
+
+  if(phone){
+    buttons+=`<a class="button call" href="tel:${escapeHtml(phone)}">📞 Call</a>`;
+  }
+
+  buttons+=`<button class="button share-button" type="button">↗ Share</button>`;
+
+  card.innerHTML=`
+    <div class="image-wrap">
+      ${imageHtml}
+      <div class="category-badge">${escapeHtml(parsed.category)}</div>
+    </div>
+
+    <div class="product-content">
+      <h2 class="product-name">${escapeHtml(advert.title||"Skilled Workers & Services advert")}</h2>
+      <div class="price">${escapeHtml(priceText)}</div>
+      <div class="purpose">${escapeHtml(parsed.purpose||"Service advert")}</div>
+
+      ${parsed.publicDescription
+        ?`<div class="description">${escapeHtml(parsed.publicDescription)}</div>`:""}
+
+      <div class="business">
+        ${trusted?'<strong style="color:#16834b">✓ Trusted seller</strong><br>':""}
+        📍 ${escapeHtml(advert.location||"Ghana")}
+      </div>
+
+      <div class="delivery">
+        ${photos.length?"📷 "+photos.length+" photo(s)":"📷 No photo uploaded"}
+      </div>
+
+      <a class="details-button" href="${escapeHtml(detailsUrl.href)}">View Advert</a>
+
+      ${buttons?`<div class="button-row">${buttons}</div>`:""}
+    </div>
+  `;
+
+  const shareButton=card.querySelector(".share-button");
+  shareButton.addEventListener("click",()=>{
+    shareAdvert(advert.title,shareUrl);
   });
-  sorted.forEach(card=>grid.appendChild(card));
+
+  return card;
+}
+
+/* DISPLAY ADVERTS */
+function displayProducts(products){
+  $("results-count").textContent=products.length+(products.length===1?" advert found":" adverts found");
+
+  if(!products.length){
+    $("products").innerHTML=`
+      <div class="message">
+        <strong>🔍 No service adverts found in this category</strong>
+        Try another category or clear your filters.
+      </div>`;
+    return;
+  }
+
+  const fragment=document.createDocumentFragment();
+  products.forEach(advert=>fragment.appendChild(createProductCard(advert)));
+  $("products").replaceChildren(fragment);
+}
+
+/* REGION FILTER */
+function matchesRegion(locationText,region){
+  if(!region)return true;
+
+  const text=String(locationText||"").toLowerCase();
+  const selected=region.toLowerCase();
+
+  const aliases={
+    "greater accra":["greater accra","accra","tema","madina","lapaz","achimota","dansoman","kasoa","adenta","ashaiman"],
+    "ashanti":["ashanti","kumasi","obuasi","ejisu","mampong"],
+    "central":["central","cape coast","winneba","mankessim","swedru"],
+    "eastern":["eastern","koforidua","nsawam","suhum","nkawkaw"],
+    "western":["western","takoradi","sekondi","tarkwa","axim"],
+    "western north":["western north","sefwi","bibiani","enchi"],
+    "volta":["volta","ho","hohoe","keta","aflao"],
+    "northern":["northern","tamale","yendi","savelugu"],
+    "upper east":["upper east","bolgatanga","bawku","navrongo"],
+    "upper west":["upper west","wa","lawra","tumu"],
+    "bono":["bono","sunnyani","berekum","dormaa"],
+    "bono east":["bono east","techiman","kintampo","nkoranza"],
+    "ahafo":["ahafo","goaso","kenyasi","bechem"],
+    "oti":["oti","dambai","jasikan","nkwanta"],
+    "savannah":["savannah","damongo","bole","salaga"],
+    "north east":["north east","nalerigu","walewale"]
+  };
+
+  return(aliases[selected]||[selected]).some(term=>text.includes(term));
+}
+
+/* SEARCH, CATEGORY AND SORTING */
+function getFilteredProducts(){
+  const search=$("product-search").value.toLowerCase().trim();
+  const region=$("location-filter").value;
+  const sort=$("sort-filter").value;
+
+  return allProducts.filter(advert=>{
+    const text=[
+      advert.title,advert.location,advert.description,
+      advert.category,advert.purpose
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const matchesSearch=!search||text.includes(search);
+    const matchesCategory=!selectedSubcategory||advert.category===selectedSubcategory;
+    const matchesLocation=matchesRegion(advert.location,region);
+
+    return matchesSearch&&matchesCategory&&matchesLocation;
+  }).sort((a,b)=>{
+    const priceA=a.price,priceB=b.price;
+    const validA=priceA!==null&&Number.isFinite(priceA);
+    const validB=priceB!==null&&Number.isFinite(priceB);
+    const dateA=new Date(a.created_at||0).getTime();
+    const dateB=new Date(b.created_at||0).getTime();
+    const trustedA=sellerMap[String(a.user_id)]?.is_trusted===true;
+    const trustedB=sellerMap[String(b.user_id)]?.is_trusted===true;
+
+    if(sort==="price-low"){
+      if(validA&&validB)return priceA-priceB;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="price-high"){
+      if(validA&&validB)return priceB-priceA;
+      if(validA)return-1;
+      if(validB)return 1;
+      return dateB-dateA;
+    }
+    if(sort==="verified"){
+      if(trustedA!==trustedB)return trustedA?-1:1;
+      return dateB-dateA;
+    }
+    return dateB-dateA;
+  });
+}
+
+function filterProducts(){
+  displayProducts(getFilteredProducts());
+}
+
+/* CATEGORY BUTTONS */
+document.querySelectorAll(".shortcut").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const category=button.dataset.subcategory;
+    selectedSubcategory=selectedSubcategory===category?"":category;
+
+    document.querySelectorAll(".shortcut").forEach(item=>{
+      item.classList.toggle("active",item.dataset.subcategory===selectedSubcategory);
+    });
+
+    $("electronics-note").textContent=selectedSubcategory
+      ?"Showing service adverts in "+selectedSubcategory+"."
+      :"Showing all Skilled Workers & Services adverts.";
+
+    filterProducts();
+    $("products").scrollIntoView({behavior:"smooth",block:"start"});
+  });
 });
-filterCategories();
+
+/* CLEAR FILTERS */
+function clearFilters(){
+  $("product-search").value="";
+  $("location-filter").value="";
+  $("sort-filter").value="newest";
+  selectedSubcategory="";
+
+  document.querySelectorAll(".shortcut").forEach(button=>button.classList.remove("active"));
+
+  $("electronics-note").textContent="Showing all Skilled Workers & Services adverts.";
+  filterProducts();
+}
+
+/* EVENT LISTENERS */
+$("product-search").addEventListener("input",filterProducts);
+$("location-filter").addEventListener("change",filterProducts);
+$("sort-filter").addEventListener("change",filterProducts);
+$("search-button").addEventListener("click",filterProducts);
+$("clear-filters").addEventListener("click",clearFilters);
+
+$("ai-search-nav").addEventListener("click",()=>{
+  alert("OGARS MARKET AI Search is coming soon.");
+});
+
+/* CATEGORY FROM URL */
+if(selectedSubcategory){
+  document.querySelectorAll(".shortcut").forEach(button=>{
+    button.classList.toggle("active",button.dataset.subcategory===selectedSubcategory);
+  });
+  $("electronics-note").textContent="Showing service adverts in "+selectedSubcategory+".";
+}
+
+/* START */
+loadProducts();
 </script>
 </body>
 </html>
