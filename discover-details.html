@@ -551,7 +551,8 @@ const allowedReturnPages = [
   "business.html",
   "jobs.html",
   "workers.html",
-  "skilled-workers-exact-design.html"
+  "skilled-workers-exact-design.html",
+  "electronics.html"
 ];
 
 const returnPage = params.get("from");
@@ -568,7 +569,8 @@ const returnPageLabels = {
   "business.html": "← Back to Businesses",
   "jobs.html": "← Back to Jobs & Employment",
   "workers.html": "← Back to Workers",
-  "skilled-workers-exact-design.html": "← Back to Skilled Workers & Services"
+  "skilled-workers-exact-design.html": "← Back to Skilled Workers & Services",
+  "electronics.html": "← Back to Electronics"
 };
 
 function setReturnDestination(page) {
@@ -800,6 +802,14 @@ function renderAdvert(listing) {
       inferredReturnPage = "jobs.html";
     } else if (listingType === "home & living") {
       inferredReturnPage = "home-living.html";
+    } else if (listingType === "phones & tablets" || listingType === "phones and tablets") {
+      inferredReturnPage = "phones-tablets.html";
+    } else if (listingType === "vehicles & drivers" || listingType === "vehicles") {
+      inferredReturnPage = "vehicles.html";
+    } else if (listingType === "products & goods" || listingType === "products" || listingType === "goods") {
+      inferredReturnPage = "find-products.html";
+    } else if (listingType === "electronics") {
+      inferredReturnPage = "electronics.html";
     } else if (listingType === "skilled workers" || listingType === "services" ||
                listingType === "skilled workers & services") {
       inferredReturnPage = "skilled-workers-exact-design.html";
