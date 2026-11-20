@@ -7,7 +7,6 @@
 <meta name="theme-color" content="#6545c5">
 <meta name="description" content="Discover electronics, laptops, televisions, gaming devices and appliances on OGARS MARKET Ghana.">
 <title>Electronics | OGARS MARKET</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
@@ -298,8 +297,33 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
+
+/* Direct Supabase REST connection: avoids relying on an external SDK CDN. */
+async function supabaseRest(table,query){
+  const url=SUPABASE_URL+"/rest/v1/"+table+"?"+query;
+  const response=await fetch(url,{
+    method:"GET",
+    headers:{
+      "apikey":SUPABASE_KEY,
+      "Authorization":"Bearer "+SUPABASE_KEY,
+      "Accept":"application/json"
+    },
+    cache:"no-store"
+  });
+  const body=await response.text();
+  let data=null;
+  try{data=body?JSON.parse(body):null;}
+  catch(_){
+    throw new Error("The database returned an unreadable response. Please refresh and try again.");
+  }
+  if(!response.ok){
+    const message=data&&(data.message||data.msg||data.error_description||data.hint||data.error);
+    throw new Error(message||("Supabase request failed ("+response.status+")."));
+  }
+  if(!Array.isArray(data))throw new Error("The database returned an unexpected advert format.");
+  return data;
+}
 
 const categories=[
   "Laptops & Computers","TVs & Projectors","Gaming Devices",
@@ -404,13 +428,13 @@ async function loadProducts(){
   $("results-count").textContent="Connecting to OGARS MARKET...";
 
   try{
-    const {data,error}=await db.from("discover_listings")
-      .select("*")
-      .eq("listing_type","Electronics")
-      .order("created_at",{ascending:false})
-      .limit(500);
+    const advertQuery=new URLSearchParams();
+    advertQuery.set("select","*");
+    advertQuery.set("listing_type","eq.Electronics");
+    advertQuery.set("order","created_at.desc");
+    advertQuery.set("limit","500");
 
-    if(error)throw error;
+    const data=await supabaseRest("discover_listings",advertQuery.toString());
 
     allProducts=(data||[])
       .filter(isAdvertActive)
@@ -434,10 +458,10 @@ async function loadSellerInformation(){
   if(!ids.length)return;
 
   try{
-    const {data,error}=await db.from("user_profiles")
-      .select("id,is_trusted").in("id",ids);
-
-    if(error)throw error;
+    const sellerQuery=new URLSearchParams();
+    sellerQuery.set("select","id,is_trusted");
+    sellerQuery.set("id","in.("+ids.map(id=>'"'+String(id).replace(/"/g,"")+'"').join(",")+")");
+    const data=await supabaseRest("user_profiles",sellerQuery.toString());
 
     sellerMap={};
     (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
@@ -603,7 +627,13 @@ function displayProducts(products){
 
   const fragment=document.createDocumentFragment();
   products.forEach(advert=>fragment.appendChild(createProductCard(advert)));
-  $("products").replaceChildren(fragment);
+  const productsContainer=$("products");
+  if(typeof productsContainer.replaceChildren==="function"){
+    productsContainer.replaceChildren(fragment);
+  }else{
+    productsContainer.innerHTML="";
+    productsContainer.appendChild(fragment);
+  }
 }
 
 /* REGION FILTER */
