@@ -550,7 +550,8 @@ const allowedReturnPages = [
   "vehicles.html",
   "business.html",
   "jobs.html",
-  "workers.html"
+  "workers.html",
+  "skilled-workers-services.html"
 ];
 
 const returnPage = params.get("from");
@@ -566,7 +567,8 @@ const returnPageLabels = {
   "vehicles.html": "← Back to Vehicles",
   "business.html": "← Back to Businesses",
   "jobs.html": "← Back to Jobs & Employment",
-  "workers.html": "← Back to Workers"
+  "workers.html": "← Back to Workers",
+  "skilled-workers-services.html": "← Back to Skilled Workers & Services"
 };
 
 function setReturnDestination(page) {
@@ -798,6 +800,9 @@ function renderAdvert(listing) {
       inferredReturnPage = "jobs.html";
     } else if (listingType === "home & living") {
       inferredReturnPage = "home-living.html";
+    } else if (listingType === "skilled workers" || listingType === "services" ||
+               listingType === "skilled workers & services") {
+      inferredReturnPage = "skilled-workers-services.html";
     }
 
     if (inferredReturnPage) setReturnDestination(inferredReturnPage);
