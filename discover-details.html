@@ -552,7 +552,7 @@ const allowedReturnPages = [
   "jobs.html",
   "workers.html",
   "skilled-workers-exact-design.html",
-  "electronics.html"
+  "find-products.html?category=Electronics"
 ];
 
 const returnPage = params.get("from");
@@ -570,7 +570,7 @@ const returnPageLabels = {
   "jobs.html": "← Back to Jobs & Employment",
   "workers.html": "← Back to Workers",
   "skilled-workers-exact-design.html": "← Back to Skilled Workers & Services",
-  "electronics.html": "← Back to Electronics"
+  "find-products.html?category=Electronics": "← Back to Electronics"
 };
 
 function setReturnDestination(page) {
@@ -809,7 +809,7 @@ function renderAdvert(listing) {
     } else if (listingType === "products & goods" || listingType === "products" || listingType === "goods") {
       inferredReturnPage = "find-products.html";
     } else if (listingType === "electronics") {
-      inferredReturnPage = "electronics.html";
+      inferredReturnPage = "find-products.html?category=Electronics";
     } else if (listingType === "skilled workers" || listingType === "services" ||
                listingType === "skilled workers & services") {
       inferredReturnPage = "skilled-workers-exact-design.html";
