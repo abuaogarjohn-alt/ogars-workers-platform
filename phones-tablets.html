@@ -7,7 +7,6 @@
 <meta name="theme-color" content="#512A91">
 <meta name="description" content="Buy and sell phones, tablets and accessories on OGARS MARKET Ghana.">
 <title>Phones & Tablets | OGARS MARKET</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
@@ -318,9 +317,17 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 /* SUPABASE CONNECTION — PRESERVED */
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 const $=id=>document.getElementById(id);
+
+function replaceElementContents(element,content){
+  if(typeof element.replaceChildren==="function"){
+    element.replaceChildren(content);
+  }else{
+    while(element.firstChild)element.removeChild(element.firstChild);
+    element.appendChild(content);
+  }
+}
 
 const categories=[
   "Mobile phones",
@@ -614,7 +621,7 @@ function displayProducts(products){
     fragment.appendChild(createProductCard(advert));
   });
 
-  $("products").replaceChildren(fragment);
+  replaceElementContents($("products"),fragment);
 }
 
 /* SEARCH, FILTER AND SORT */
@@ -679,15 +686,37 @@ async function loadProducts(){
   $("results-count").textContent="Connecting to OGARS MARKET...";
 
   try{
-    const {data,error}=await db.from("discover_listings")
-      .select("*")
-      .eq("listing_type","Products & Goods")
-      .order("created_at",{ascending:false})
-      .limit(500);
+    // Query Supabase REST directly so the page does not depend on a third-party SDK CDN.
+    const endpoint=new URL(SUPABASE_URL+"/rest/v1/discover_listings");
+    endpoint.searchParams.set("select","*");
+    endpoint.searchParams.set("listing_type","eq.Products & Goods");
+    endpoint.searchParams.set("order","created_at.desc");
+    endpoint.searchParams.set("limit","500");
 
-    if(error)throw error;
+    const response=await fetch(endpoint.toString(),{
+      method:"GET",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+SUPABASE_KEY,
+        "Accept":"application/json"
+      },
+      cache:"no-store"
+    });
 
-    allProducts=(data||[])
+    const responseText=await response.text();
+    let data;
+    try{data=responseText?JSON.parse(responseText):[];}
+    catch(parseError){
+      throw new Error("The database returned an unreadable response. Please refresh and try again.");
+    }
+
+    if(!response.ok){
+      const serverMessage=data&&(data.message||data.msg||data.error_description||data.error);
+      throw new Error(serverMessage||("Database request failed (HTTP "+response.status+")."));
+    }
+    if(!Array.isArray(data))throw new Error("The database returned an unexpected advert format.");
+
+    allProducts=data
       .filter(isAdvertActive)
       .filter(isPhoneAdvert);
 
