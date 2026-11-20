@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#6545c5">
 <meta name="description" content="Find cars, motorcycles, trucks and other vehicles on OGARS MARKET Ghana.">
 <title>Vehicles | OGARS MARKET</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <style>
 :root{
@@ -396,8 +396,30 @@ footer{background:#211b36;color:#e1dced;text-align:center;padding:17px 10px;font
 
 const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co";
 const SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
+
+/* Direct Supabase REST requests avoid relying on an external JS CDN.
+   This is more reliable across Chrome, Kiwi and Opera. */
+async function supabaseRest(table,query){
+  const url=SUPABASE_URL+"/rest/v1/"+table+"?"+query;
+  const response=await fetch(url,{
+    method:"GET",
+    headers:{
+      "apikey":SUPABASE_KEY,
+      "Authorization":"Bearer "+SUPABASE_KEY,
+      "Accept":"application/json"
+    },
+    cache:"no-store"
+  });
+  const body=await response.text();
+  let data=null;
+  try{data=body?JSON.parse(body):null;}catch(_){data=null;}
+  if(!response.ok){
+    const message=data&&(data.message||data.error_description||data.hint);
+    throw new Error(message||("Supabase request failed ("+response.status+")"));
+  }
+  return data;
+}
 
 const categoryNames={
   car:"Cars",motorbike:"Motorcycles & Scooters",
@@ -763,7 +785,12 @@ function displayVehicles(vehicles){
   }
   const fragment=document.createDocumentFragment();
   vehicles.forEach(vehicle=>fragment.appendChild(createVehicleCard(vehicle)));
-  $("products").replaceChildren(fragment);
+  if(typeof $("products").replaceChildren==="function"){
+    $("products").replaceChildren(fragment);
+  }else{
+    $("products").innerHTML="";
+    $("products").appendChild(fragment);
+  }
 }
 
 function filterVehicles(){
@@ -783,12 +810,11 @@ async function loadVehicles(){
   $("results-count").textContent="Connecting to OGARS MARKET...";
 
   try{
-    const {data,error}=await db.from("discover_listings")
-      .select("*")
-      .order("created_at",{ascending:false})
-      .limit(1000);
-
-    if(error)throw error;
+    const listingsQuery=new URLSearchParams();
+    listingsQuery.set("select","*");
+    listingsQuery.set("order","created_at.desc");
+    listingsQuery.set("limit","1000");
+    const data=await supabaseRest("discover_listings",listingsQuery.toString());
 
     allVehicles=(data||[]).map(normalizeRow).filter(isVehicleListing);
 
@@ -813,8 +839,10 @@ async function loadSellerInformation(){
   const ids=[...new Set(allVehicles.map(item=>item.raw.user_id).filter(Boolean))];
   if(!ids.length)return;
   try{
-    const {data,error}=await db.from("user_profiles").select("id,is_trusted").in("id",ids);
-    if(error)throw error;
+    const sellerQuery=new URLSearchParams();
+    sellerQuery.set("select","id,is_trusted");
+    sellerQuery.set("id","in.("+ids.map(id=>'"'+String(id).replace(/"/g,'')+'"').join(",")+")");
+    const data=await supabaseRest("user_profiles",sellerQuery.toString());
     sellerMap={};
     (data||[]).forEach(seller=>sellerMap[String(seller.id)]=seller);
     filterVehicles();
