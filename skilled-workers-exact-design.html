@@ -553,6 +553,7 @@ function createProductCard(advert){
 
   const detailsUrl=new URL("discover-details.html",location.href);
   detailsUrl.searchParams.set("id",advert.id);
+  detailsUrl.searchParams.set("from","skilled-workers-services.html");
   const shareUrl=detailsUrl.href;
 
   let buttons="";
