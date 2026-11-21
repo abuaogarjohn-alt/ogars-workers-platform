@@ -56,11 +56,21 @@ h2{font-size:17px}.small{font-size:12px;color:var(--muted);line-height:1.5}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 @media(min-width:650px){
  .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
- .tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
  .filter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
  .staff-form{grid-template-columns:2fr 1fr auto;align-items:center}
  .permission-grid{grid-template-columns:1fr 1fr}
 }
+
+.trust-summary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.trust-stat{border:1px solid var(--line);border-radius:11px;padding:12px;background:#fff}
+.trust-stat strong{display:block;font-size:23px;color:var(--purple);margin-top:5px}
+.trust-form{display:grid;gap:9px;margin:13px 0}
+.trust-form input,.trust-form select,.trust-form textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:13px;background:white;color:var(--ink)}
+.trust-form textarea{min-height:85px;resize:vertical}
+.trust-grid{display:grid;grid-template-columns:1fr;gap:9px}
+@media(min-width:650px){.trust-summary{grid-template-columns:repeat(4,minmax(0,1fr))}.trust-grid{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -95,6 +105,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   <button class="tab" data-tab="trending">🔥 Trending</button>
   <button class="tab" data-tab="vip">🎬 VIP Videos</button>
   <button class="tab" data-tab="staff">👥 Staff</button>
+   <button class="tab" data-tab="trust">⭐ Seller Trust</button>
  </div>
 
  <section class="panel active section" id="panel-adverts">
@@ -210,6 +221,54 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   </div>
  </section>
 
+
+ <section class="panel section" id="panel-trust">
+  <div class="section-head">
+   <h2>Seller Trust &amp; Performance</h2>
+   <button class="btn secondary" id="refresh-trust">Refresh</button>
+  </div>
+  <div class="notice">
+   OGARS policy: three substantiated negative transaction complaints within a rolling 60-day period trigger a mandatory administrator investigation. This is not an automatic account ban. Serious suspected fraud may require urgent review.
+  </div>
+  <div class="trust-summary">
+   <div class="trust-stat"><span class="small">Complaints awaiting review</span><strong id="trust-pending">—</strong></div>
+   <div class="trust-stat"><span class="small">Verified complaints (60 days)</span><strong id="trust-verified">—</strong></div>
+   <div class="trust-stat"><span class="small">Sellers at investigation threshold</span><strong id="trust-triggered">—</strong></div>
+   <div class="trust-stat"><span class="small">Complaint records in register</span><strong id="trust-investigations">—</strong></div>
+  </div>
+  <div class="section-head"><h2>Record a buyer complaint</h2></div>
+  <p class="small">Register complaints received by OGARS. Only complaints substantiated by an administrator count toward the 60-day threshold.</p>
+  <form id="trust-complaint-form" class="trust-form">
+   <div class="trust-grid">
+    <input id="trust-seller-id" placeholder="Seller user ID (UUID)" required>
+    <input id="trust-buyer-id" placeholder="Buyer user ID (UUID, optional)">
+    <input id="trust-listing-id" placeholder="Advert / listing ID (optional)">
+    <input id="trust-review-id" placeholder="Existing review ID (optional)">
+    <select id="trust-category" required>
+     <option value="">Select complaint category</option>
+     <option value="misrepresented_product">Product differs from advert</option>
+     <option value="defective_product">Defective or damaged product</option>
+     <option value="counterfeit_or_fake">Suspected counterfeit / fake goods</option>
+     <option value="missing_items">Missing items or accessories</option>
+     <option value="seller_misconduct">Seller misconduct</option>
+     <option value="other">Other</option>
+    </select>
+    <input id="trust-evidence-url" type="url" placeholder="Evidence link (optional)">
+   </div>
+   <textarea id="trust-description" placeholder="Describe the complaint and what happened" required></textarea>
+   <button class="btn" type="submit">Record complaint</button>
+  </form>
+  <div class="section-head" style="margin-top:22px"><h2>Complaint register</h2></div>
+  <p class="small">Substantiate a complaint only when transaction details and evidence support it. Dismiss unsubstantiated or duplicate complaints with an explanation.</p>
+  <select class="filter" id="trust-status-filter" style="margin:12px 0">
+   <option value="">All complaints</option>
+   <option value="pending">Awaiting review</option>
+   <option value="verified">Substantiated</option>
+   <option value="dismissed">Dismissed</option>
+  </select>
+  <div id="trust-complaint-list" class="loading">Loading seller complaints...</div>
+ </section>
+
  <section class="section">
   <h2 style="margin-bottom:10px">Administrator Controls</h2>
   <p class="small">Administrator access is checked against the OGARS database. Ordinary customer accounts cannot enter this dashboard.</p>
@@ -264,6 +323,7 @@ function tab(name){
  if(name==="sellers")loadSellers();
  if(name==="trending")loadTrending();
  if(name==="staff"){loadStaff();loadStaffActivity();}
+  if(name==="trust")loadTrustComplaints();
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
 
@@ -597,6 +657,114 @@ async function loadStaffActivity(){
   list.innerHTML='<div class="empty">Could not load staff activity: '+safe(e.message)+'</div>';
  }
 }
+
+
+/* SELLER TRUST & PERFORMANCE — requires the SQL setup supplied with this dashboard */
+const TRUST_WINDOW_DAYS=60;
+function trustCategoryLabel(v){
+ const labels={misrepresented_product:"Product differs from advert",defective_product:"Defective or damaged product",counterfeit_or_fake:"Suspected counterfeit / fake goods",missing_items:"Missing items or accessories",seller_misconduct:"Seller misconduct",other:"Other"};
+ return labels[v]||v||"Unspecified";
+}
+function trustStatusLabel(v){
+ return v==="verified"?"Substantiated":v==="dismissed"?"Dismissed":"Awaiting review";
+}
+async function loadTrustComplaints(){
+ const list=$("trust-complaint-list");
+ list.innerHTML='<div class="loading">Loading seller complaints...</div>';
+ try{
+  const [complaints,summaryResult]=await Promise.all([
+   db.from("ogars_seller_complaints")
+    .select("id,seller_user_id,buyer_user_id,listing_id,source_review_id,category,description,evidence_url,status,created_at,reviewed_at,reviewed_by,admin_notes")
+    .order("created_at",{ascending:false}).limit(300),
+   db.rpc("ogars_seller_trust_summary")
+  ]);
+  if(complaints.error)throw complaints.error;
+  if(summaryResult.error)throw summaryResult.error;
+  const rows=complaints.data||[];
+  const summary=summaryResult.data||[];
+  const counts={};
+  summary.forEach(r=>counts[r.seller_user_id]=Number(r.verified_complaints_60d)||0);
+  const triggered=summary.filter(r=>r.investigation_required===true);
+  $("trust-pending").textContent=rows.filter(r=>r.status==="pending").length;
+  $("trust-verified").textContent=summary.reduce((n,r)=>n+(Number(r.verified_complaints_60d)||0),0);
+  $("trust-triggered").textContent=triggered.length;
+  $("trust-investigations").textContent=rows.length;
+  const filter=$("trust-status-filter").value;
+  const filtered=filter?rows.filter(r=>r.status===filter):rows;
+  if(!filtered.length){list.innerHTML='<div class="empty">No complaints match this filter.</div>';return}
+  list.innerHTML=filtered.map(r=>{
+   const count=counts[r.seller_user_id]||0;
+   const threshold=count>=3;
+   return `<article class="item">
+    <h3>${safe(trustCategoryLabel(r.category))}</h3>
+    <div class="meta">Seller ID: ${safe(r.seller_user_id)}</div>
+    <div class="meta">Buyer ID: ${safe(r.buyer_user_id||"Not supplied")}</div>
+    <div class="meta">Advert ID: ${safe(r.listing_id||"Not supplied")} · Review ID: ${safe(r.source_review_id||"Not supplied")}</div>
+    <div class="meta">Received: ${safe(formatDate(r.created_at))}</div>
+    <div class="meta">Complaint: ${safe(r.description)}</div>
+    ${r.evidence_url?`<div class="meta">Evidence: <a href="${safe(r.evidence_url)}" target="_blank" rel="noopener">Open evidence</a></div>`:""}
+    <span class="status ${r.status==="verified"?"good":r.status==="dismissed"?"off":""}">${safe(trustStatusLabel(r.status))}</span>
+    <span class="status ${threshold?"off":""}">${count}/3 substantiated complaints in 60 days</span>
+    ${r.admin_notes?`<div class="meta">Admin notes: ${safe(r.admin_notes)}</div>`:""}
+    ${r.reviewed_at?`<div class="meta">Reviewed: ${safe(formatDate(r.reviewed_at))}</div>`:""}
+    ${r.status==="pending"?`<div class="actions">
+      <button class="btn" onclick="reviewTrustComplaint('${safe(r.id)}','verified')">Substantiate complaint</button>
+      <button class="btn danger" onclick="reviewTrustComplaint('${safe(r.id)}','dismissed')">Dismiss complaint</button>
+     </div>`:""}
+    ${threshold?'<div class="notice" style="margin-top:10px">Investigation threshold reached. Review the seller’s full record before deciding on any penalty. No automatic ban has been applied.</div>':""}
+   </article>`;
+  }).join("");
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load complaints: '+safe(e.message)+'</div>';
+  showError("Seller Trust & Performance error: "+e.message);
+ }
+}
+$("trust-complaint-form").addEventListener("submit",async e=>{
+ e.preventDefault();clearError();
+ const sellerId=$("trust-seller-id").value.trim();
+ const buyerId=$("trust-buyer-id").value.trim();
+ if(!uuidValid(sellerId)){showError("Enter a valid seller user ID (UUID).");return}
+ if(buyerId&&!uuidValid(buyerId)){showError("Buyer user ID must be a valid UUID, or leave it blank.");return}
+ const payload={
+  seller_user_id:sellerId,
+  buyer_user_id:buyerId||null,
+  listing_id:$("trust-listing-id").value.trim()||null,
+  source_review_id:$("trust-review-id").value.trim()||null,
+  category:$("trust-category").value,
+  description:$("trust-description").value.trim(),
+  evidence_url:$("trust-evidence-url").value.trim()||null,
+  status:"pending",
+  created_by:currentUser.id
+ };
+ if(!payload.category||!payload.description){showError("Select a complaint category and enter a description.");return}
+ const button=e.currentTarget.querySelector('button[type="submit"]');
+ button.disabled=true;button.textContent="Saving...";
+ try{
+  const {error}=await db.from("ogars_seller_complaints").insert(payload);
+  if(error)throw error;
+  e.currentTarget.reset();
+  alert("Complaint recorded. It will not count toward the 60-day threshold until an administrator substantiates it.");
+  await loadTrustComplaints();
+ }catch(err){showError("Could not record complaint: "+err.message)}
+ finally{button.disabled=false;button.textContent="Record complaint"}
+});
+async function reviewTrustComplaint(id,status){
+ const label=status==="verified"?"substantiate":"dismiss";
+ const notes=prompt("Add administrator notes explaining why you "+label+" this complaint:");
+ if(notes===null)return;
+ if(!notes.trim()){alert("Administrator notes are required for an auditable decision.");return}
+ if(!confirm("Confirm that you want to "+label+" this complaint?"))return;
+ try{
+  const {error}=await db.from("ogars_seller_complaints").update({
+   status,admin_notes:notes.trim(),reviewed_at:new Date().toISOString(),reviewed_by:currentUser.id
+  }).eq("id",id).eq("status","pending");
+  if(error)throw error;
+  await loadTrustComplaints();
+ }catch(e){showError("Could not review complaint: "+e.message)}
+}
+$("trust-status-filter").addEventListener("change",loadTrustComplaints);
+$("refresh-trust").addEventListener("click",loadTrustComplaints);
+
 
 /* SEARCH AND PAGINATION */
 $("advert-search").addEventListener("input",()=>{
