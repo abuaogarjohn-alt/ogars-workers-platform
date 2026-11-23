@@ -71,6 +71,10 @@ button{cursor:pointer}
 .auth-button.secondary{background:white;color:var(--purple-dark);border:1px solid #d9cff8}
 .auth-button:disabled{opacity:.6}
 .auth-prompt{text-align:center;font-size:13px;color:var(--muted);margin-top:15px}
+.legal-consent{display:flex;align-items:flex-start;gap:9px;margin-top:15px;padding:12px;background:#f8f6ff;border:1px solid #e5def8;border-radius:11px;font-size:12px;line-height:1.55;color:#514575}
+.legal-consent input{width:17px;height:17px;flex:none;margin-top:1px;accent-color:var(--purple)}
+.legal-consent a,.legal-footer a{color:var(--purple-dark);font-weight:800;text-decoration:underline}
+.legal-footer{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;margin-top:7px;font-size:11px}
 .message{display:none;margin-top:13px;padding:12px;border-radius:10px;font-size:13px;overflow-wrap:anywhere}
 .success{background:#eaf8ef;color:#176b38}
 .error{background:#fff0f0;color:#a51d2d}
@@ -118,6 +122,11 @@ footer{text-align:center;color:#89859a;font-size:11px;padding:15px}
 
 <label class="field-label" for="whatsapp-number">WhatsApp number</label>
 <input class="field" type="tel" id="whatsapp-number">
+
+<label class="legal-consent" for="legal-agreement">
+<input type="checkbox" id="legal-agreement">
+<span>I have read and agree to the <a href="terms-and-conditions.html" target="_blank" rel="noopener">Terms &amp; Conditions</a> and acknowledge the <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+</label>
 </div>
 
 <label class="field-label" for="email">Email address</label>
@@ -272,7 +281,7 @@ Welcome to OGARS Market. Manage your adverts and account from one convenient pla
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<footer id="footer">© 2026 OGARS Market</footer>
+<footer id="footer">© 2026 OGARS Market<div class="legal-footer"><a href="terms-and-conditions.html">Terms &amp; Conditions</a><a href="privacy-policy.html">Privacy Policy</a></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -369,6 +378,8 @@ function setAuthMode(signupMode){
   $("phone-number").required=signupMode;
   $("whatsapp-number").required=signupMode;
   $("confirm-password").required=signupMode;
+  $("legal-agreement").required=signupMode;
+  $("legal-agreement").checked=false;
 
   $("signup-button").classList.toggle("hidden",!signupMode);
   $("login-button").classList.toggle("hidden",signupMode);
@@ -478,6 +489,12 @@ $("signup-button").addEventListener("click",async()=>{
 
   if(password!==confirmPassword){
     showMessage(authMessage,"Your passwords do not match.","error");
+    return;
+  }
+
+  if(!$("legal-agreement").checked){
+    showMessage(authMessage,"Please agree to the Terms & Conditions and acknowledge the Privacy Policy before creating your account.","error");
+    $("legal-agreement").focus();
     return;
   }
 
