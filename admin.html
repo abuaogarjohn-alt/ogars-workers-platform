@@ -321,6 +321,62 @@ function showError(message){
  const box=$("error-box");box.textContent=message;box.style.display="block";
 }
 function clearError(){$("error-box").style.display="none"}
+
+/* MANUAL MTN MOMO PAYMENT REVIEW */
+function momoStatusLabel(status){
+ return status==="approved"?"Approved":status==="rejected"?"Rejected":"Awaiting verification";
+}
+async function loadMomoPayments(){
+ const list=$("momo-payment-list");
+ list.innerHTML='<div class="loading">Loading MoMo submissions...</div>';
+ try{
+  let query=db.from("ogars_momo_submissions")
+   .select("id,user_id,payment_purpose,plan_code,service_code,duration_type,listing_id,listing_category,campaign_title,amount,currency,transaction_reference,status,customer_note,admin_notes,created_at")
+   .order("created_at",{ascending:false}).limit(100);
+  const filter=$("momo-status-filter").value;
+  if(filter)query=query.eq("status",filter);
+  const {data,error}=await query;
+  if(error)throw error;
+  const rows=data||[];
+  if(!rows.length){list.innerHTML='<div class="empty">No payment submissions in this filter.</div>';return}
+  list.innerHTML=rows.map(r=>{
+   const purpose=String(r.payment_purpose||"").replaceAll("_"," ");
+   const details=r.plan_code?"Plan: "+r.plan_code:r.campaign_title?"Campaign: "+r.campaign_title:"Service: "+(r.service_code||purpose);
+   return `<article class="item">
+    <h3>${safe(purpose)} · GH₵${Number(r.amount).toFixed(2)}</h3>
+    <div class="meta">${safe(details)} ${r.duration_type?"· "+safe(r.duration_type):""}</div>
+    <div class="meta">MoMo reference: <strong>${safe(r.transaction_reference)}</strong></div>
+    <div class="meta">Customer user ID: ${safe(r.user_id)}</div>
+    ${r.listing_id?`<div class="meta">Advert ID: ${safe(r.listing_id)} · Category: ${safe(r.listing_category||"")}</div>`:""}
+    <div class="meta">Submitted: ${safe(formatDate(r.created_at))}</div>
+    ${r.customer_note?`<div class="meta">Customer note: ${safe(r.customer_note)}</div>`:""}
+    ${r.admin_notes?`<div class="meta">Admin notes: ${safe(r.admin_notes)}</div>`:""}
+    <span class="status ${r.status==="approved"?"good":r.status==="rejected"?"off":""}">${safe(momoStatusLabel(r.status))}</span>
+    ${r.status==="pending"?`<div class="actions"><button class="btn" onclick="reviewMomoPayment('${safe(r.id)}','approved')">Approve after wallet verification</button><button class="btn danger" onclick="reviewMomoPayment('${safe(r.id)}','rejected')">Reject</button></div>`:""}
+   </article>`;
+  }).join("");
+ }catch(e){
+  list.innerHTML='<div class="empty">Could not load payment submissions: '+safe(e.message)+'</div>';
+  showError("MoMo payment review failed: "+e.message);
+ }
+}
+async function reviewMomoPayment(id,decision){
+ const approved=decision==="approved";
+ if(approved&&!confirm("Have you checked the actual OGARS MTN MoMo wallet and confirmed the exact amount and transaction reference? Only approve after verifying the real transaction."))return;
+ if(!approved&&!confirm("Reject this MoMo payment submission?"))return;
+ const notes=prompt(approved?"Optional administrator note:":"Reason for rejecting this submission:");
+ if(notes===null)return;
+ try{
+  const {data,error}=await db.rpc("ogars_admin_review_momo_payment",{
+   p_submission_id:id,p_decision:decision,p_admin_notes:notes.trim()||null
+  });
+  if(error)throw error;
+  alert(approved?"Payment approved and the related service workflow has been updated.":"Payment submission rejected.");
+  await loadMomoPayments();
+ }catch(e){
+  showError("Could not "+decision+" payment: "+e.message);
+ }
+}
 function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function active(a){return a.available!==false&&(!a.expires_at||new Date(a.expires_at).getTime()>=Date.now())}
 function formatDate(v){return v?new Date(v).toLocaleString():"Unknown"}
@@ -336,6 +392,8 @@ function tab(name){
  if(name==="payments")loadMomoPayments();
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
+$("momo-status-filter").addEventListener("change",loadMomoPayments);
+$("refresh-momo").addEventListener("click",loadMomoPayments);
 
 async function checkAdmin(){
  try{
