@@ -105,7 +105,8 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
   <button class="tab" data-tab="trending">🔥 Trending</button>
   <button class="tab" data-tab="vip">🎬 VIP Videos</button>
   <button class="tab" data-tab="staff">👥 Staff</button>
-   <button class="tab" data-tab="trust">⭐ Seller Trust</button>
+  <button class="tab" data-tab="payments">💳 Payments</button>
+  <button class="tab" data-tab="trust">⭐ Seller Trust</button>
  </div>
 
  <section class="panel active section" id="panel-adverts">
@@ -222,6 +223,14 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
  </section>
 
 
+ <section class="panel section" id="panel-payments">
+  <div class="section-head"><h2>MTN MoMo Payment Review</h2><button class="btn secondary" id="refresh-momo">Refresh</button></div>
+  <div class="notice">Review the transaction in the actual OGARS MTN MoMo wallet or transaction history before approving. A customer screenshot alone is not proof. Approval records the payment and activates the selected subscription or creates the promotion/campaign request.</div>
+  <p class="small" style="margin:12px 0">OGARS payment number: <strong>+233 54 335 8188</strong></p>
+  <select class="filter" id="momo-status-filter" style="margin:10px 0"><option value="pending">Awaiting verification</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="">All submissions</option></select>
+  <div id="momo-payment-list" class="loading">Loading MoMo submissions...</div>
+ </section>
+
  <section class="panel section" id="panel-trust">
   <div class="section-head">
    <h2>Seller Trust &amp; Performance</h2>
@@ -324,6 +333,7 @@ function tab(name){
  if(name==="trending")loadTrending();
  if(name==="staff"){loadStaff();loadStaffActivity();}
   if(name==="trust")loadTrustComplaints();
+ if(name==="payments")loadMomoPayments();
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
 
