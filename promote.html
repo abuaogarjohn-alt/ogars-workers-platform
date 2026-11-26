@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7655d9"><title>Promote & Upgrade | OGARS Market</title>
+<style>
+:root{--p:#7655d9;--d:#5634b0;--ink:#252342;--muted:#77748b;--line:#ece7f7;--pale:#f4efff}
+*{box-sizing:border-box}body{margin:0;background:#faf9ff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+.top{background:linear-gradient(110deg,var(--p),var(--d));color:#fff;padding:14px max(16px,calc((100% - 1080px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.5px}.mark{width:40px;height:40px;border-radius:13px;background:#fff;color:var(--d);display:grid;place-items:center;font-size:23px}.brand small{display:block;font-size:9px;letter-spacing:2px}.back{border:1px solid #ffffff70;padding:8px 12px;border-radius:9px;font-size:12px;font-weight:700}
+.wrap{max-width:1080px;margin:auto;padding:22px 15px 45px}.hero{background:linear-gradient(120deg,#eee7ff,#fff 75%);border:1px solid #e3d8ff;border-radius:20px;padding:24px 20px;margin-bottom:22px}.eyebrow{font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:var(--d)}h1{font-size:clamp(25px,5vw,36px);line-height:1.15;margin:7px 0 9px;color:#30245f}.hero p{max-width:720px;margin:0;color:#625b7c;font-size:14px}
+.section-head{margin:25px 2px 12px}.section-head h2{font-size:20px;margin:0 0 4px}.section-head p{font-size:13px;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.category{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-align:left;display:flex;gap:12px;align-items:center;min-height:91px;box-shadow:0 4px 14px #30245f0a;color:var(--ink);width:100%}.category:hover,.category.active{border-color:#aa94ed;box-shadow:0 0 0 3px #7655d915}.cat-icon{width:46px;height:46px;display:grid;place-items:center;background:var(--pale);border-radius:14px;font-size:23px;flex:none}.category strong{display:block;font-size:14px}.category small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.chev{margin-left:auto;color:#8c7bb8;font-size:22px}
+.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:19px;margin-top:17px;box-shadow:0 7px 22px #30245f0a}.panel.open{display:block}.panel h2{font-size:20px;margin:0 0 5px}.panel-intro{color:var(--muted);font-size:13px;margin:0 0 15px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}.choice h3{margin:0 0 6px;font-size:16px}.choice p{font-size:12px;color:var(--muted);margin:0 0 12px}.choice button,.primary{border:0;background:var(--p);color:white;border-radius:9px;padding:11px 14px;font-weight:800;font-size:12px}.choice.secondary-choice{background:#fbf9ff}
+.plans{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:13px}.plan{border:1px solid var(--line);border-radius:13px;padding:13px 11px;background:#fff}.plan h3{font-size:14px;margin:0 0 4px}.price{font-size:19px;font-weight:900;color:var(--d);white-space:nowrap}.period{font-size:10px;color:var(--muted)}.plan p{font-size:11px;color:var(--muted);min-height:33px}.plan button{width:100%;border:0;background:var(--pale);color:var(--d);border-radius:8px;padding:9px 5px;font-weight:800;font-size:11px}
+.promo-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.promo{border:1px solid var(--line);border-radius:13px;padding:15px}.promo strong{display:block;font-size:14px}.promo .price{margin:5px 0}.promo p{font-size:11px;color:var(--muted);margin:0 0 10px}.promo button{border:0;border-radius:8px;background:#fff1e9;color:#a83b08;padding:9px 12px;font-weight:800;font-size:11px}
+.limits{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px}.limits th,.limits td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left}.limits th{color:#55418c;background:#f7f3ff}.limits td:not(:first-child),.limits th:not(:first-child){text-align:center}
+.note{background:#f7f3ff;border:1px solid #e6ddfa;border-radius:11px;padding:12px;font-size:12px;color:#55418c;margin-top:14px}.warning{background:#fff8ed;border-color:#f4dfbd;color:#76501b}
+.status{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#f1f7ff;color:#31547c;font-size:12px}
+.auth{max-width:460px;margin:35px auto;background:#fff;border:1px solid var(--line);padding:20px;border-radius:16px}.auth h2{margin:0 0 8px}.auth p{font-size:13px;color:var(--muted)}.auth button{width:100%;padding:12px;border:0;border-radius:9px;background:var(--p);color:#fff;font-weight:800}
+footer{text-align:center;color:#8a859c;font-size:11px;padding:18px}
+@media(max-width:720px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.plans .plan:last-child{grid-column:1/-1}.grid{gap:9px}.category{padding:12px;min-height:84px}.cat-icon{width:39px;height:39px}}
+@media(max-width:480px){.grid,.choice-grid,.promo-row{grid-template-columns:1fr}.wrap{padding:15px 11px 35px}.hero{padding:19px 15px}.panel{padding:15px}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="index.html"><span class="mark">O</span><span>OGARS<small>MARKET</small></span></a><a class="back" href="dashboard.html">← My Account</a></header>
+<main class="wrap">
+<section class="hero"><div class="eyebrow">OGARS Promotion Centre</div><h1>Promote &amp; Upgrade</h1><p>Choose the category that matches your advert, upgrade your category package, or promote one specific advert. OGARS determines each advert's category from its listing data.</p></section>
+<div id="auth-box" class="auth" hidden><h2>Sign in to continue</h2><p>You need to be signed in to manage subscriptions and promotions.</p><button onclick="location.href='account.html'">Go to Login / Create Account</button></div>
+<div id="centre" hidden>
+<div class="section-head"><h2>Choose a category</h2><p>Select the type of OGARS listing you want to manage.</p></div>
+<section class="grid" aria-label="Promotion categories">
+<button class="category" data-category="Vehicles"><span class="cat-icon">🚗</span><span><strong>Vehicles</strong><small>Cars, motorbikes and other vehicles</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Properties"><span class="cat-icon">🏠</span><span><strong>Properties</strong><small>Property advertising or property search</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Jobs"><span class="cat-icon">💼</span><span><strong>Jobs</strong><small>Recruitment and job listings</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Skilled Workers"><span class="cat-icon">🧰</span><span><strong>Skilled Workers</strong><small>Professional and trade services</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Goods & Products"><span class="cat-icon">🛍️</span><span><strong>Goods &amp; Products</strong><small>Products and items for sale</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Businesses"><span class="cat-icon">🏢</span><span><strong>Businesses</strong><small>Business listings and services</small></span><span class="chev">›</span></button>
+<button class="category" data-category="Others"><span class="cat-icon">✨</span><span><strong>Others</strong><small>Other eligible OGARS categories</small></span><span class="chev">›</span></button>
+</section>
+<section class="panel" id="property-panel"><h2>Properties: choose your pathway</h2><p class="panel-intro">Property advertisers and property seekers have separate services and separate plans.</p>
+<div class="choice-grid">
+<article class="choice"><h3>🏡 Property Owners &amp; Advertisers</h3><p>For property sales, hotels/accommodation, commercial property and other eligible non-rental advertising. Rental listings are not placed into landlord-paid promotion packages under this model.</p><button type="button" id="owner-path">View advertiser packages</button></article>
+<article class="choice secondary-choice"><h3>🔎 Property Seekers &amp; Tenants</h3><p>Upgrade property-search access and unlock direct-landlord property access according to your seeker plan.</p><button type="button" id="seeker-path">View seeker plans</button></article>
+</div><div class="note warning">Property seeker subscriptions do not promote a landlord's advert. They give the tenant the search and access entitlements attached to the selected seeker plan.</div></section>
+<section class="panel" id="seller-panel"><h2 id="seller-title">Category subscription</h2><p class="panel-intro" id="seller-intro">Choose a monthly package for this category. A subscription applies only to eligible adverts OGARS classifies in that category.</p><div class="plans" id="seller-plans"></div><div class="note">One category subscription does not cover adverts in another category. OGARS assigns the category from listing data; customers cannot change it during checkout.</div></section>
+<section class="panel" id="seeker-panel"><h2>Property seeker plans</h2><p class="panel-intro">These plans are for tenants and people searching for property. Access limits below are the property seeker entitlements.</p><div class="plans" id="seeker-plans"></div>
+<table class="limits"><thead><tr><th>Plan</th><th>Agent properties</th><th>Direct-landlord properties</th></tr></thead><tbody><tr><td>Free</td><td>10</td><td>0</td></tr><tr><td>Bossu</td><td>30</td><td>10</td></tr><tr><td>Senior</td><td>60</td><td>30</td></tr><tr><td>Champion</td><td>Unlimited</td><td>60</td></tr><tr><td>Legend</td><td>Unlimited</td><td>Unlimited</td></tr></tbody></table></section>
+<section class="panel" id="individual-panel"><h2 id="individual-title">Promote one advert</h2><p class="panel-intro">Choose a specific advert for an individual promotion. This is separate from a category subscription.</p><div class="promo-row">
+<article class="promo"><strong>Advert Promotion</strong><div class="price">GH₵10 <span class="period">/ week</span></div><p>GH₵30 monthly</p><button type="button" data-promo="advert">Select Advert Promotion</button></article>
+<article class="promo"><strong>Top Recommended</strong><div class="price">GH₵20 <span class="period">/ week</span></div><p>GH₵60 monthly · clearly labelled as promoted</p><button type="button" data-promo="top">Select Top Recommended</button></article>
+</div><div class="note">You will select the exact advert in the next development step. OGARS will verify its category and eligibility before accepting a promotion request.</div></section>
+<div id="status" class="status" role="status"></div>
+</div></main><footer>© 2026 OGARS Market</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+const SUPABASE_URL="https://pawqsmcswoypuiihfbrr.supabase.co",SUPABASE_KEY="sb_publishable_skeGOdL2kqtHNQwXJjmSSg_exGApfnb";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const $=id=>document.getElementById(id);let selectedCategory="";
+const sellerPlans=[["Free","GH₵0","Starter access"],["Bossu","GH₵39.99","Monthly category package"],["Senior","GH₵69.99","Monthly category package"],["Champion","GH₵129.99","Monthly category package"],["Legend","GH₵199.99","Monthly category package"]];
+const seekerPlans=[["Free","GH₵0","10 agent · 0 direct"],["Bossu","GH₵39.99","30 agent · 10 direct"],["Senior","GH₵69.99","60 agent · 30 direct"],["Champion","GH₵129.99","Unlimited agent · 60 direct"],["Legend","GH₵199.99","Unlimited agent · unlimited direct"]];
+function showPanel(id){["property-panel","seller-panel","seeker-panel","individual-panel"].forEach(x=>$(x).classList.remove("open"));$(id).classList.add("open");$(id).scrollIntoView({behavior:"smooth",block:"start"});}
+function status(message){$("status").textContent=message;$("status").style.display="block";}
+function makePlans(target,plans,kind){$(target).innerHTML=plans.map(p=>`<article class="plan"><h3>${p[0]}</h3><div class="price">${p[1]}</div><div class="period">per month</div><p>${p[2]}</p><button type="button" data-plan="${p[0]}" data-kind="${kind}">Choose ${p[0]}</button></article>`).join("");}
+makePlans("seller-plans",sellerPlans,"category");makePlans("seeker-plans",seekerPlans,"seeker");
+document.querySelectorAll("[data-category]").forEach(b=>b.addEventListener("click",()=>{selectedCategory=b.dataset.category;document.querySelectorAll("[data-category]").forEach(x=>x.classList.toggle("active",x===b));$("seller-title").textContent=selectedCategory+" category subscription";$("seller-intro").textContent="Choose a monthly package for "+selectedCategory+". It applies only to eligible adverts OGARS classifies in this category.";if(selectedCategory==="Properties")showPanel("property-panel");else{showPanel("seller-panel");$("individual-panel").classList.add("open");}}));
+$("owner-path").addEventListener("click",()=>{selectedCategory="Properties";showPanel("seller-panel");$("seller-title").textContent="Property advertiser packages";$("seller-intro").textContent="For property sales, hotels/accommodation and commercial property advertising. Rental-listing promotion is excluded from this advertiser pathway.";});
+$("seeker-path").addEventListener("click",()=>showPanel("seeker-panel"));
+document.addEventListener("click",e=>{const p=e.target.closest("[data-plan]");if(p){status("You selected the "+p.dataset.plan+" "+(p.dataset.kind==="seeker"?"Property Seeker":"category")+" plan. Checkout and activation will be connected after the payment workflow is integrated.");return;}const promo=e.target.closest("[data-promo]");if(promo)status(promo.dataset.promo==="top"?"Top Recommended selected. Advert selection and duration will be connected next.":"Advert Promotion selected. Advert selection and duration will be connected next.");});
+async function init(){try{const {data,error}=await db.auth.getUser();if(error)throw error;if(!data.user){$("auth-box").hidden=false;return;}$("centre").hidden=false;}catch(e){console.error(e);$("auth-box").hidden=false;}}
+init();
+</script></body></html>
