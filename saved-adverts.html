@@ -15,4 +15,7 @@ async function logout(){const {error}=await db.auth.signOut();if(!error)location
 document.querySelectorAll('[data-signout]').forEach(b=>b.addEventListener('click',logout));
 </script><script>
 async function pageLoad(){const {data,error}=await db.from('ogars_saved_listings').select('*').eq('user_id',user.id).order('created_at',{ascending:false});if(error){$('saved').innerHTML='<div class="empty">Saved adverts could not be loaded. The saved-advert feature may not yet be connected to this account.</div>';return}if(!data?.length){$('saved').innerHTML='<div class="empty">You have not saved any adverts yet.</div>';return}const ids=data.map(x=>String(x.listing_id));const {data:props}=await db.from('discover_listings').select('id,title,listing_type,location,photo_urls,expires_at').in('id',ids);const map=new Map((props||[]).map(x=>[String(x.id),x]));$('saved').innerHTML=data.map(x=>{const a=map.get(String(x.listing_id));return `<article class="card"><b>${esc(a?.title||'Saved listing')}</b><div class="meta">${esc(a?.listing_type||x.listing_category)} · ${esc(a?.location||'Listing details unavailable')}</div></article>`}).join('')}
-</script></script></body></html>
+</script></script><script>
+// Start account authentication and page data loading after all page functions are defined.
+boot();
+</script></body></html>
