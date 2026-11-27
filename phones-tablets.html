@@ -390,7 +390,11 @@ function isPhoneAdvert(advert){
 
   const phoneKeywords=/phone|tablet|ipad|iphone|samsung|tecno|infinix|xiaomi|oppo|smartwatch|earbud|headphone|charger|power bank|mobile|screen repair|phone repair|accessor/i.test(text);
 
-  return listingType==="products & goods" &&
+  const isSupportedListingType =
+    listingType==="products & goods" ||
+    listingType==="phones & tablets";
+
+  return isSupportedListingType &&
     (hasPhoneCategory || hasOldPhoneMarker || phoneKeywords);
 }
 
@@ -689,7 +693,12 @@ async function loadProducts(){
     // Query Supabase REST directly so the page does not depend on a third-party SDK CDN.
     const endpoint=new URL(SUPABASE_URL+"/rest/v1/discover_listings");
     endpoint.searchParams.set("select","*");
-    endpoint.searchParams.set("listing_type","eq.Products & Goods");
+    // Include both listing types. Phone adverts have historically been
+    // saved under either value in discover_listings.
+    endpoint.searchParams.set(
+      "listing_type",
+      'in.("Products & Goods","Phones & Tablets")'
+    );
     endpoint.searchParams.set("order","created_at.desc");
     endpoint.searchParams.set("limit","500");
 
