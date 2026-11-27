@@ -56,7 +56,26 @@ button,a{font:inherit;-webkit-tap-highlight-color:transparent}button{cursor:poin
  <section class="panel" id="panel-help"><div class="panel-head"><h3>Help &amp; FAQ</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Help articles and answers to common questions will be added here as the platform develops.</p></section>
  <section class="panel" id="panel-settings"><div class="panel-head"><h3>Account Settings</h3><button class="close-panel" type="button">Close</button></div><p class="panel-note">Your account information is shown in My Account. Additional settings will be added here in a future update.</p><button class="logout-button" id="signout-panel" type="button">Sign Out of OGARS</button></section>
 </main>
-<div class="loading" id="loading-message">Checking your OGARS account…</div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="loading" id="loading-message">Checking your OGARS account…</div>
+<script>
+(function(){
+ window.addEventListener("error",function(event){
+  const box=document.getElementById("loading-message");
+  const page=document.getElementById("dashboard-content");
+  if(box && page && page.hidden){
+   box.textContent="The dashboard encountered a script error. Refresh the page and try again.";
+   console.error("OGARS dashboard script error:",event.message,event.filename,event.lineno);
+  }
+ });
+ setTimeout(function(){
+  const box=document.getElementById("loading-message");
+  const page=document.getElementById("dashboard-content");
+  if(box && page && page.hidden && box.textContent.indexOf("Checking your OGARS account")!==-1){
+   box.textContent="The dashboard did not finish starting. This may be a cached page or a script-loading problem. Please refresh and try again.";
+  }
+ },18000);
+})();
+</script><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <footer>© <span id="year"></span> OGARS Market</footer>
 <nav class="bottom-nav" aria-label="Dashboard navigation">
  <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span><span>Home</span></a>
@@ -93,7 +112,7 @@ $("year").textContent=new Date().getFullYear();
 function initials(name){return String(name||"O").trim().split(/\s+/).slice(0,2).map(x=>x.charAt(0)).join("").toUpperCase()||"O"}
 function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function statusOf(ad){if(ad.available===false)return{label:"Unavailable",css:"inactive"};if(ad.expires_at&&new Date(ad.expires_at).getTime()<Date.now())return{label:"Expired",css:"expired"};return{label:"Active",css:""}}
-function firstPhoto(value){return value?String(value).split(",").map(x=>x.trim()).find(Boolean)||""}
+function firstPhoto(value){return value ? (String(value).split(",").map(x=>x.trim()).find(Boolean)||"") : "";}
 function advertCard(ad){
  const status=statusOf(ad),photo=firstPhoto(ad.photo_urls);
  const image=photo?'<img class="advert-photo" src="'+escapeHTML(photo)+'" alt="Advert photo" loading="lazy" onerror="this.style.display=\'none\'">':'<div class="advert-photo advert-placeholder" aria-hidden="true">📢</div>';
@@ -123,20 +142,17 @@ function showDashboardError(message, showSignInLink=false){
  const actions=document.createElement("div");
  actions.style.cssText="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px";
  const retry=document.createElement("button");
- retry.type="button";
- retry.textContent="Try Again";
+ retry.type="button"; retry.textContent="Try Again";
  retry.style.cssText="border:0;border-radius:9px;padding:11px 16px;background:#7655d9;color:#fff;font-weight:700";
  retry.addEventListener("click",()=>window.location.reload());
  actions.appendChild(retry);
  if(showSignInLink){
   const signIn=document.createElement("a");
-  signIn.href="account.html";
-  signIn.textContent="Go to Sign In";
+  signIn.href="account.html"; signIn.textContent="Go to Sign In";
   signIn.style.cssText="border:1px solid #7655d9;border-radius:9px;padding:11px 16px;color:#5634b0;font-weight:700";
   actions.appendChild(signIn);
  }
- loading.appendChild(actions);
- loading.hidden=false;
+ loading.appendChild(actions); loading.hidden=false;
 }
 function withTimeout(promise,milliseconds,label){
  let timer;
@@ -153,28 +169,18 @@ async function checkAdminAccess(){
   if(error)throw error;
   if(data===true)adminButton.style.display="flex";
   return data===true;
- }catch(error){
-  console.warn("OGARS administrator check did not complete:",error);
-  return false;
- }
+ }catch(error){console.warn("OGARS administrator check did not complete:",error);return false}
 }
 async function loadCustomerDashboard(){
  const loading=$("loading-message");
- loading.textContent="Checking your OGARS account…";
- loading.hidden=false;
+ loading.textContent="Checking your OGARS account…"; loading.hidden=false;
  try{
-  const result=await withTimeout(supabaseClient.auth.getUser(),12000,"Account verification");
-  const {data,error}=result;
-  if(error){
-   console.error("OGARS account verification:",error);
-   showDashboardError("We couldn't verify your sign-in session. Please try again.",true);
-   return;
-  }
-  if(!data||!data.user){
-   window.location.replace("account.html");
-   return;
-  }
-  const user=data.user,meta=user.user_metadata||{};
+  // Read the existing session from browser storage first; don't wait for Auth network verification.
+  const result=await withTimeout(supabaseClient.auth.getSession(),8000,"Local sign-in session");
+  const session=result && result.data ? result.data.session : null;
+  if(!session || !session.user){window.location.replace("account.html");return}
+
+  const user=session.user,meta=user.user_metadata||{};
   currentUserId=user.id;
   const name=meta.full_name||meta.name||(user.email?user.email.split("@")[0]:"OGARS Customer");
   $("profile-name").textContent=name;
@@ -185,20 +191,21 @@ async function loadCustomerDashboard(){
   $("detail-whatsapp").textContent="WhatsApp: "+(meta.whatsapp_number||"Not added");
   const avatarUrl=meta.avatar_url||meta.picture||"";
   if(avatarUrl){
-   const img=document.createElement("img");
-   img.src=avatarUrl;
-   img.alt="Customer profile picture";
+   const img=document.createElement("img"); img.src=avatarUrl; img.alt="Customer profile picture";
    img.onerror=()=>{img.remove();$("profile-avatar").textContent=initials(name)};
    $("profile-avatar").replaceChildren(img);
-  }else{
-   $("profile-avatar").textContent=initials(name);
-  }
+  }else{$("profile-avatar").textContent=initials(name)}
+
+  // Show the customer dashboard before optional network checks.
   loading.hidden=true;
   $("dashboard-content").hidden=false;
-  // Admin status is optional and must never hold the customer dashboard behind it.
   checkAdminAccess();
+  supabaseClient.auth.getUser().then(({data,error})=>{
+   if(error)console.warn("Background OGARS session verification:",error);
+   else if(!data || !data.user)console.warn("No server-verified user returned for the local session.");
+  }).catch(error=>console.warn("Background OGARS session verification:",error));
  }catch(error){
-  console.error("OGARS dashboard authentication:",error);
+  console.error("OGARS dashboard startup:",error);
   showDashboardError(error.message||"We couldn't load your OGARS account. Please try again.",true);
  }
 }
