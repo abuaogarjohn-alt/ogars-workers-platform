@@ -74,7 +74,12 @@ const authStorage={
  setItem(key,value){if(window.localStorage.getItem(AUTH_STORAGE_KEY)){window.localStorage.setItem(key,value);window.sessionStorage.removeItem(key)}else{window.sessionStorage.setItem(key,value);window.localStorage.removeItem(key)}},
  removeItem(key){window.localStorage.removeItem(key);window.sessionStorage.removeItem(key)}
 };
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:authStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+if(!window.supabase||typeof window.supabase.createClient!=="function"){
+ const loading=document.getElementById("loading-message");
+ loading.textContent="OGARS sign-in service could not load. Check your internet connection and reload this page.";
+ throw new Error("Supabase JavaScript library did not load.");
+}
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:authStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id);
 let currentUserId=null;
 function toast(message){$("toast").textContent=message;$("toast").style.display="block";clearTimeout(window.ogarsToastTimer);window.ogarsToastTimer=setTimeout(()=>$("toast").style.display="none",2800)}
@@ -109,25 +114,93 @@ async function loadMyAdverts(){
  }catch(error){console.error("OGARS My Adverts:",error);list.innerHTML='<div class="empty-state">We could not load your adverts. '+escapeHTML(error.message||"Please try again.")+'<br>Check your connection and try Refresh.</div>'}
 }
 $("refresh-adverts").addEventListener("click",loadMyAdverts);
+function showDashboardError(message, showSignInLink=false){
+ const loading=$("loading-message");
+ loading.innerHTML="";
+ const heading=document.createElement("p");
+ heading.textContent=message;
+ loading.appendChild(heading);
+ const actions=document.createElement("div");
+ actions.style.cssText="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px";
+ const retry=document.createElement("button");
+ retry.type="button";
+ retry.textContent="Try Again";
+ retry.style.cssText="border:0;border-radius:9px;padding:11px 16px;background:#7655d9;color:#fff;font-weight:700";
+ retry.addEventListener("click",()=>window.location.reload());
+ actions.appendChild(retry);
+ if(showSignInLink){
+  const signIn=document.createElement("a");
+  signIn.href="account.html";
+  signIn.textContent="Go to Sign In";
+  signIn.style.cssText="border:1px solid #7655d9;border-radius:9px;padding:11px 16px;color:#5634b0;font-weight:700";
+  actions.appendChild(signIn);
+ }
+ loading.appendChild(actions);
+ loading.hidden=false;
+}
+function withTimeout(promise,milliseconds,label){
+ let timer;
+ const timeout=new Promise((_,reject)=>{
+  timer=setTimeout(()=>reject(new Error(label+" timed out. Please check your connection and try again.")),milliseconds);
+ });
+ return Promise.race([promise,timeout]).finally(()=>clearTimeout(timer));
+}
 async function checkAdminAccess(){
- const adminButton=$("ogars-admin-button");adminButton.style.display="none";
- try{const {data,error}=await supabaseClient.rpc("is_ogars_admin");if(error){console.error("OGARS administrator check:",error);return false}if(data===true){adminButton.style.display="flex";return true}return false}
- catch(error){console.error("OGARS administrator check:",error);return false}
+ const adminButton=$("ogars-admin-button");
+ adminButton.style.display="none";
+ try{
+  const {data,error}=await withTimeout(supabaseClient.rpc("is_ogars_admin"),8000,"Administrator access check");
+  if(error)throw error;
+  if(data===true)adminButton.style.display="flex";
+  return data===true;
+ }catch(error){
+  console.warn("OGARS administrator check did not complete:",error);
+  return false;
+ }
 }
 async function loadCustomerDashboard(){
+ const loading=$("loading-message");
+ loading.textContent="Checking your OGARS account…";
+ loading.hidden=false;
  try{
-  const {data,error}=await supabaseClient.auth.getUser();
-  if(error||!data.user){window.location.replace("account.html");return}
-  const user=data.user,meta=user.user_metadata||{};currentUserId=user.id;
-  await checkAdminAccess();
+  const result=await withTimeout(supabaseClient.auth.getUser(),12000,"Account verification");
+  const {data,error}=result;
+  if(error){
+   console.error("OGARS account verification:",error);
+   showDashboardError("We couldn't verify your sign-in session. Please try again.",true);
+   return;
+  }
+  if(!data||!data.user){
+   window.location.replace("account.html");
+   return;
+  }
+  const user=data.user,meta=user.user_metadata||{};
+  currentUserId=user.id;
   const name=meta.full_name||meta.name||(user.email?user.email.split("@")[0]:"OGARS Customer");
-  $("profile-name").textContent=name;$("profile-subtitle").textContent=meta.location||"OGARS Customer Account";
-  $("detail-name").textContent="Name: "+name;$("detail-email").textContent="Email: "+(user.email||"Not provided");$("detail-phone").textContent="Phone: "+(meta.phone_number||"Not added");$("detail-whatsapp").textContent="WhatsApp: "+(meta.whatsapp_number||"Not added");
+  $("profile-name").textContent=name;
+  $("profile-subtitle").textContent=meta.location||"OGARS Customer Account";
+  $("detail-name").textContent="Name: "+name;
+  $("detail-email").textContent="Email: "+(user.email||"Not provided");
+  $("detail-phone").textContent="Phone: "+(meta.phone_number||"Not added");
+  $("detail-whatsapp").textContent="WhatsApp: "+(meta.whatsapp_number||"Not added");
   const avatarUrl=meta.avatar_url||meta.picture||"";
-  if(avatarUrl){const img=document.createElement("img");img.src=avatarUrl;img.alt="Customer profile picture";img.onerror=()=>{img.remove();$("profile-avatar").textContent=initials(name)};$("profile-avatar").replaceChildren(img)}
-  else{$("profile-avatar").textContent=initials(name)}
-  $("loading-message").hidden=true;$("dashboard-content").hidden=false;
- }catch(error){console.error("OGARS dashboard authentication:",error);$("loading-message").textContent="We couldn't verify your account. Please sign in again.";setTimeout(()=>window.location.replace("account.html"),1800)}
+  if(avatarUrl){
+   const img=document.createElement("img");
+   img.src=avatarUrl;
+   img.alt="Customer profile picture";
+   img.onerror=()=>{img.remove();$("profile-avatar").textContent=initials(name)};
+   $("profile-avatar").replaceChildren(img);
+  }else{
+   $("profile-avatar").textContent=initials(name);
+  }
+  loading.hidden=true;
+  $("dashboard-content").hidden=false;
+  // Admin status is optional and must never hold the customer dashboard behind it.
+  checkAdminAccess();
+ }catch(error){
+  console.error("OGARS dashboard authentication:",error);
+  showDashboardError(error.message||"We couldn't load your OGARS account. Please try again.",true);
+ }
 }
 async function signOut(){try{const {error}=await supabaseClient.auth.signOut();if(error)throw error;window.location.replace("account.html")}catch(error){toast(error.message||"Sign out failed. Please try again.")}}
 $("signout-top").addEventListener("click",signOut);$("signout-panel").addEventListener("click",signOut);
