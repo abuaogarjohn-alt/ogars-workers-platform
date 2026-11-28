@@ -13,4 +13,7 @@ function status(a){const vals=['moderation_status','approval_status','review_sta
 async function boot(){try{const {data,error}=await db.auth.getSession();if(error)throw error;user=data.session?.user;if(!user){location.replace('account.html');return}document.querySelectorAll('[data-customer-name]').forEach(x=>x.textContent=user.user_metadata?.full_name||user.user_metadata?.name||user.email?.split('@')[0]||'OGARS Customer');document.querySelectorAll('[data-customer-email]').forEach(x=>x.textContent=user.email||'');if(typeof pageLoad==='function')await pageLoad();$('loading').hidden=true;$('content').hidden=false}catch(e){$('loading')&&($('loading').textContent='Unable to load your account. Please refresh or sign in again.')}}
 async function logout(){const {error}=await db.auth.signOut();if(!error)location.href='account.html';else alert(error.message)}
 document.querySelectorAll('[data-signout]').forEach(b=>b.addEventListener('click',logout));
-</script></script></body></html>
+</script></script><script>
+// Start account authentication and page data loading after all page functions are defined.
+boot();
+</script></body></html>
