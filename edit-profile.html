@@ -16,4 +16,7 @@ document.querySelectorAll('[data-signout]').forEach(b=>b.addEventListener('click
 </script><script>
 async function pageLoad(){const m=user.user_metadata||{};let p={};const {data}=await db.from('user_profiles').select('full_name,phone_number,whatsapp_number').eq('id',user.id).maybeSingle();p=data||{};$('full-name').value=p.full_name||m.full_name||m.name||'';$('phone').value=p.phone_number||m.phone_number||'';$('whatsapp').value=p.whatsapp_number||m.whatsapp_number||'';$('location').value=m.location||'';$('email').value=user.email||''}
 $('profile-form').addEventListener('submit',async e=>{e.preventDefault();$('result').textContent='Saving…';const full_name=$('full-name').value.trim(),phone_number=$('phone').value.trim(),whatsapp_number=$('whatsapp').value.trim(),location=$('location').value.trim();try{const {error}=await db.from('user_profiles').upsert({id:user.id,full_name,phone_number,whatsapp_number},{onConflict:'id'});if(error)throw error;const {error:authError}=await db.auth.updateUser({data:{full_name,phone_number,whatsapp_number,location}});if(authError)throw authError;$('result').textContent='Your profile has been updated.'}catch(err){$('result').textContent='Could not save profile: '+err.message+' Please check the user_profiles table permissions.'}})
-</script></script></body></html>
+</script></script><script>
+// Start account authentication and page data loading after all page functions are defined.
+boot();
+</script></body></html>
